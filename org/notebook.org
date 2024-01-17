@@ -1,0 +1,45 @@
+#+TITLE: Notebook - Database Theory and Applications
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: CSC 330, Lyon College, Spring 2024
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+* Week 1 - Overview & introduction to RDBMS
+#+attr_html: :width 400px
+[[../img/cover.png]]
+
+** Announcement: Journal club!
+
+Data science enthusiasts: there will be a "journal club" on Wednesday
+12-12:45 pm in Derby room 209. We'll put the papers in a GDrive.
+
+For the first journal club on Januar 31, I'd like to submit my last
+non-technical paper, "The role of AI coding assistants: revisiting the
+need for literate programming in computer and data science education."
+([[https://drive.google.com/file/d/1OonJ1pesK2iRP3JDf4MoBRgg4NKk91yU/view?usp=sharing][Link]]) This paper will be presented at INTED'24, the 18th annual
+International Technology, Education and Development Conference in
+Valencia (Spain), March 4-6.
+
+You can get some background on this topic from the wall poster in
+front of my office, about the paper that I wrote before this one.
+#+ATTR_HTML: :WIDTH 400px:
+[[../img/MDPI_2023_BIRKENKRAHE_poster.pptx.png]]
+
+*Caveat:* in a journal club, you discuss other people's papers and not
+your own - I will try to simulate that by discussing my paper as if
+someone else had written it, and also using AI to deliver a critique.
+
+* Week 2 - 
+* Week 3 - 
+* Week 4 - 
+* Week 5 - 
+* Week 6 - 
+* Week 7 - 
+* Week 8 - 
+* Week 9 - 
+* Week 10 - 
+* Week 11 - 
+* Week 12 - 
+* Week 13 - 
+* Week 14 - 
+* Week 15 - 
+* Week 16 - 
