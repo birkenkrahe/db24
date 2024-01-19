@@ -7,7 +7,14 @@
 #+attr_html: :width 400px
 [[../img/cover.png]]
 
-** Announcement: Journal club!
+- [X] See [[https://lyon.instructure.com/courses/2254/assignments/syllabus][Syllabus]] (see also [[https://lyon.instructure.com/courses/2254/pages/course-links][course links]]) in Canvas.
+- [X] Whiteboard/screenshots on GDrive
+- [X] All other materials [[https://github.com/birkenkrahe/db24][in GitHub]] (Git? Hello world exercise?)
+- [X] Your entry into a "Data Engineering" [[https://app.datacamp.com/learn/career-tracks][career track]]!
+- [ ] Today: Emacs tutorial (because I'm tired of lecturing)
+- [ ] Starting SQLite in Emacs and checking out replit.com
+  
+** TODO Announcement: Journal club!
 
 Data science enthusiasts: there will be a "journal club" on Wednesday
 12-12:45 pm in Derby room 209. We'll put the papers in a GDrive.
@@ -28,7 +35,7 @@ front of my office, about the paper that I wrote before this one.
 your own - I will try to simulate that by discussing my paper as if
 someone else had written it, and also using AI to deliver a critique.
 
-* Week 2 - 
+* Week 2 - Introduction to SQL 
 * Week 3 - 
 * Week 4 - 
 * Week 5 - 
