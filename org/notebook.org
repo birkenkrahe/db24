@@ -11,8 +11,16 @@
 - [X] Whiteboard/screenshots on GDrive
 - [X] All other materials [[https://github.com/birkenkrahe/db24][in GitHub]] (Git? Hello world exercise?)
 - [X] Your entry into a "Data Engineering" [[https://app.datacamp.com/learn/career-tracks][career track]]!
-- [ ] Today: Emacs tutorial (because I'm tired of lecturing)
+- [X] Today: Emacs tutorial (because I'm tired of lecturing)
+  
+* Week 2 - Introduction to SQL - Querying
+
+- [ ] Install Emacs+SQLite3 on your laptop! I'll help you after class.
 - [ ] Starting SQLite in Emacs and checking out replit.com
+- [ ] DataCamp review: Introduction to SQL
+
+- [ ] Let's talk about your term projects
+
   
 ** TODO Announcement: Journal club!
 
@@ -35,7 +43,12 @@ front of my office, about the paper that I wrote before this one.
 your own - I will try to simulate that by discussing my paper as if
 someone else had written it, and also using AI to deliver a critique.
 
-* Week 2 - Introduction to SQL 
+
+** TODO Announcement: UAMS College of Public Health student session
+
+Monday, 29 January 12-12:45 PM via Zoom: http://tinyurl.com/UAMSCPUH
+Passcode: 941969
+
 * Week 3 - 
 * Week 4 - 
 * Week 5 - 

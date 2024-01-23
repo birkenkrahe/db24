@@ -1,0 +1,20 @@
+#+TITLE: SQLite file
+#+AUTHOR: Marcus Birkenkrahe
+
+* Running SQLite code block inside Emacs
+
+  The following SQLite file does not do much. It only starts SQLite and
+  prints the ~PATH~ to the persistent database used by the program.
+
+  In the code block, we use ~sqlite.db~ as a header argument. This
+  leads to SQLite creating a persistent database file. However,
+  without any other commands, the file ~sqlite.db~ is empty.
+
+  #+name: check db
+  #+begin_src sqlite :db sqlite.db
+    .database
+  #+end_src
+
+  #+RESULTS: check db
+  : main: c:\Users\birkenkrahe\Documents\GitHub\db330\assignments\sqlite.db r/w
+  
