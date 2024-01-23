@@ -1,0 +1,5 @@
+#+TITLE:History of Databases 
+#+AUTHOR:Marcus Birkenkrahe
+#+SUBTITLE:Database Theory & Applications CSC 330 Spring 2024
+#+STARTUP:overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil

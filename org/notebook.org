@@ -12,16 +12,20 @@
 - [X] All other materials [[https://github.com/birkenkrahe/db24][in GitHub]] (Git? Hello world exercise?)
 - [X] Your entry into a "Data Engineering" [[https://app.datacamp.com/learn/career-tracks][career track]]!
 - [X] Today: Emacs tutorial (because I'm tired of lecturing)
-  
+
 * Week 2 - Introduction to SQL - Querying
+#+ATTR_HTML: :WIDTH 400px:
+[[../img/sqlite_install.png]]
 
-- [ ] Install Emacs+SQLite3 on your laptop! I'll help you after class.
-- [ ] Starting SQLite in Emacs and checking out replit.com
-- [ ] DataCamp review: Introduction to SQL
+- [ ] Assignment: Complete Emacs tutorial (upload to Canvas by Friday)
+- [ ] Install Emacs + SQLite3! I'll help you after class (see [[https://chat.google.com/room/AAAAEZSJ81g/gCgKDYojP8k/gCgKDYojP8k?cls=10][chat]])
 
-- [ ] Let's talk about your term projects
+- [ ] Starting with SQLite in Emacs and checking out replit.com
+- [ ] DataCamp review: Introduction to SQL - Q&A and practice
 
-  
+- [ ] Lecture: history of databases ([[https://youtu.be/KG-mqHoXOXY?si=RgQAO5caWyRfxWwh][video]] & Beaulieu, 2021)
+- [ ] Let's talk about your term projects (Thu)
+
 ** TODO Announcement: Journal club!
 
 Data science enthusiasts: there will be a "journal club" on Wednesday
@@ -43,23 +47,83 @@ front of my office, about the paper that I wrote before this one.
 your own - I will try to simulate that by discussing my paper as if
 someone else had written it, and also using AI to deliver a critique.
 
-
 ** TODO Announcement: UAMS College of Public Health student session
 
 Monday, 29 January 12-12:45 PM via Zoom: http://tinyurl.com/UAMSCPUH
 Passcode: 941969
+#+ATTR_HTML: :WIDTH 400px:
+[[../img/UAMS_student_session.png]]
 
-* Week 3 - 
-* Week 4 - 
-* Week 5 - 
-* Week 6 - 
-* Week 7 - 
-* Week 8 - 
-* Week 9 - 
-* Week 10 - 
-* Week 11 - 
-* Week 12 - 
-* Week 13 - 
-* Week 14 - 
-* Week 15 - 
-* Week 16 - 
+** TODO DataCamp review: Relational databases
+
+*** Corrections (nit-picking)
+
+- SQL is NOT an acronym for anything, not even "Structured Query
+  Language" (that's just a mnemonic): when Codd proposed his
+  relational model, he also proposed a language called DSL/Alpha to
+  manipulate the data. A group at IBM built a simplified version of
+  that language and called it SQUARE, which eventually led to a
+  language called SEQUEL, which was finally shortened to SQL
+  (Beaulieu, 2021:23).
+
+- The number of fields (columns, features) is not set when the
+  database is created but when the table containing the columns is
+  created.
+
+** TODO [[file:1_history.org][History of databases]] (and their types)
+
+- Watch on [[https://youtu.be/KG-mqHoXOXY][YouTube]] (5:39 min) - Computer History Museum, 2019
+
+- #+attr_html: :width 400px
+  #+caption: Which of these founders has nothing to do with databases?
+  [[../img/founders.png]]
+
+- DB are an old human interest (information is always gathered)
+
+- DB development happened in close "combat" with companies and
+  operating systems (market and a hardware aspect to it)
+
+- Dominant language is SQL - in connection with relational DB
+
+- Codd's 12 rules = everything you need to know about relational
+  DB design (these rules scale extremely well)
+
+- There are MANY different types of DBMS (see e.g. "7 types of DB" by
+  fireship)
+
+- We'll be installing SQLite, too, for local SQL experimentation
+
+** TODO Fundamental concepts of database management (PDBM, 2018)
+
+- Slides [[https://docs.google.com/presentation/d/1URes41gtKK6MFUz8BHUZ3fQ1iUggpajR/edit?usp=sharing&ouid=102963037093118135110&rtpof=true&sd=true][chapter 1]]
+- Videos ([[https://www.youtube.com/playlist?list=PLdQddgMBv5zHcEN9RrhADq3CBColhY2hl][playlist]])
+- Source: Principles of DB Management ([[https://www.pdbmbook.com/][pdbmbook.com]]) - CUP 2018
+
+** TODO Types of database management systems (Beaulieu, 2012)
+
+- Hierarchical
+- Network
+- Relational
+
+* Week 3 -
+* Week 4 -
+* Week 5 -
+* Week 6 -
+* Week 7 -
+* Week 8 -
+* Week 9 -
+* Week 10 -
+* Week 11 -
+* Week 12 -
+* Week 13 -
+* Week 14 -
+* Week 15 -
+* Week 16 -
+
+* References
+
+Lemahieu, Vanden Broucke, Baesens: Principles of Database Management:
+The Practical Guide to Storing, Managing and Analyzing Big and
+Small. Cambridge U Press 2018.
+
+Beaulieu: Learning SQL (2e). O'Reilly 2021.
