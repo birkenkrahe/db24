@@ -20,8 +20,8 @@
 - [ ] Assignment: Complete Emacs tutorial (upload to Canvas by Friday)
 - [ ] Install Emacs + SQLite3! I'll help you after class (see [[https://chat.google.com/room/AAAAEZSJ81g/gCgKDYojP8k/gCgKDYojP8k?cls=10][chat]])
 
-- [ ] Starting with SQLite in Emacs and checking out replit.com
 - [ ] DataCamp review: Introduction to SQL - Q&A and practice
+- [ ] Starting with SQLite in Emacs and checking out replit.com
 
 - [ ] Lecture: history of databases ([[https://youtu.be/KG-mqHoXOXY?si=RgQAO5caWyRfxWwh][video]] & Beaulieu, 2021)
 - [ ] Let's talk about your term projects (Thu)
@@ -65,33 +65,114 @@ Passcode: 941969
   that language and called it SQUARE, which eventually led to a
   language called SEQUEL, which was finally shortened to SQL
   (Beaulieu, 2021:23).
-
+  
 - The number of fields (columns, features) is not set when the
   database is created but when the table containing the columns is
   created.
+  
+*** Review questions and preview:
 
-** TODO [[file:1_history.org][History of databases]] (and their types)
+1. What's special about the fields ~card_num~ and ~id~?
+   #+ATTR_HTML: :WIDTH 400px: 
+   [[../img/librarydb.png]]
+
+2. What kind of questions can you answer using these data? Distinguish
+   between questions that do (do not) require different tables.
+   #+begin_notes
+   Doesn't require table relationships:
+   - What's James' library card number? [patrons]
+   - Who wrote "Where the Wild Things Are"? [books]
+   - When did the patron with ~card_num~ 54378 check out book ~638~? [checkouts]
+
+   Does require table relationships:
+   - Is Sendak's "Where the Wild Things Are" currently checked out?
+     [books, checkouts]
+   - Is Jasmin's account overdue? [patrons, checkouts]
+   - Did James ever check out Tara Westover's "Educated"?
+     [patrons,books,checkouts]
+   #+end_notes
+
+3. Tables are not spreadsheets (though they look like them). What's
+   the difference?
+   #+begin_notes
+   | Feature        | Spreadsheets                                                                                  | Relational Databases                                                                                 |
+   |----------------+-----------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------|
+   | Data Storage   | Cell-based, typically in rows and columns. Ideal for smaller, simple datasets.                | Structured in tables with rows and columns. Designed for large and complex data sets.                |
+   | Scalability    | Limited scalability. Performance issues with very large datasets.                             | Highly scalable. Can handle large amounts of data efficiently.                                       |
+   | Complexity     | User-friendly for basic operations. Limited functionality for complex data manipulation.      | Requires understanding of database languages (like SQL). More capable in handling complex queries.   |
+   | Data Integrity | Prone to human error. No built-in mechanisms for enforcing data integrity.                    | Strong data integrity with constraints, transactions, and rollback capabilities.                     |
+   | Data Analysis  | Basic analysis and visualization tools. PivotTables for data summarization.                   | Advanced querying, indexing, and data manipulation capabilities. Better suited for complex analyses. |
+   | Collaboration  | Simpler for single-user. Collaboration possible but prone to conflicts and versioning issues. | Designed for multi-user environments. Concurrency control and user access management.                |
+   | Examples       | Microsoft Excel, Google Sheets                                                                | MySQL, PostgreSQL, Oracle, SQL Server                                                                |
+   #+end_notes
+
+4. Describe the relationship of databases, tables and data.
+   #+begin_notes
+   - Data are stored in tables. They come in two types: numeric or
+     character. Numeric data can be floating point or
+     integer. (PostgreSQL: ~INT~, ~VARCHAR~, ~NUMERIC~. SQLite: ~INT~, ~REAL~,
+     ~TEXT~)
+   - Tables consist of rows (observations) and columns (fields,
+     features, or properties). Every table row must have a unique
+     identifier (~PRIMARY KEY~).
+   - Databases contain tables. They also contain meta data - e.g. a
+     dictionary with access permissions, and transactional
+     information.
+   - Database Management Systems (DBMS) is software to manage
+     databases.
+   - Database systems = DBMS + databases + IT infrastructure
+   #+end_notes
+
+5. What does =VARCHAR= mean?
+   #+begin_notes
+   A variable character data type whose exact size in database memory
+   is decided when the data are put into the database.
+   #+end_notes
+
+6. Databases can only be accessed securely by one person at a time.
+   #+begin_notes
+   FALSE. Modern databases allow multi-user access at all times.
+   #+end_notes
+
+7. How popular is SQL exactly? How would you find out?
+   #+begin_notes
+   Compare [[https://www.tiobe.com/tiobe-index/][TIOBE]] (01/24: #9 for search) and [[https://spectrum.ieee.org/the-top-programming-languages-2023][IEEE]] 08/23: #1 for jobs).
+   #+end_notes   
+
+8. What are sources of data redundancy in relational databases?
+   #+begin_notes
+   - The same column or feature occurs in different
+     tables. E.g. ~book_id~ in the ~books~ and in the ~check_out~ table.
+   - A field value contains different fields, e.g. ~address~ with the
+     value ~1014 E Main St Batesville AR~, or ~name~ as ~Marcus
+     Birkenkrahe~~.
+   #+end_notes 
+
+9. What's a database "schema"?
+   #+begin_notes
+   The blueprint of a database - a record of its structure. In SQL,
+   this takes the form of a list of all data table creation commands,
+   e.g. ~CREATE TABLE books (id INT PRIMARY KEY, title TEXT, author
+   TEXT, genre TEXT);~
+   #+end_notes
+
+10. Are tables limited in size? How can you find these things out?
+    #+begin_notes
+    Rows/records are only limited by available memory (to old the
+    table information). Fields/Columns are limited by the RDBM, e.g.
+    SQL Server is limited to 1024 columns per table at most.
+
+    RDBM are exquisitely documented. Example: [[https://dev.mysql.com/doc/refman/8.0/en/][MySQL Reference Manual]].
+    #+end_notes
+
+** WATCH [[file:1_history.org][History of databases]] (and their types)
 
 - Watch on [[https://youtu.be/KG-mqHoXOXY][YouTube]] (5:39 min) - Computer History Museum, 2019
 
-- #+attr_html: :width 400px
+- Which of these guys has got nothing to do with databases?
+  #+attr_html: :width 400px
   #+caption: Which of these founders has nothing to do with databases?
   [[../img/founders.png]]
-
-- DB are an old human interest (information is always gathered)
-
-- DB development happened in close "combat" with companies and
-  operating systems (market and a hardware aspect to it)
-
-- Dominant language is SQL - in connection with relational DB
-
-- Codd's 12 rules = everything you need to know about relational
-  DB design (these rules scale extremely well)
-
-- There are MANY different types of DBMS (see e.g. "7 types of DB" by
-  fireship)
-
-- We'll be installing SQLite, too, for local SQL experimentation
 
 ** TODO Fundamental concepts of database management (PDBM, 2018)
 
@@ -101,9 +182,24 @@ Passcode: 941969
 
 ** TODO Types of database management systems (Beaulieu, 2012)
 
+See [[file:1_fundamental.org]]:
+
 - Hierarchical
 - Network
 - Relational
+- Concurrency Control  
+
+** TODO Practice: First SQLite database
+
+Do this 1) on the console 2) in an Emacs Org-mode buffer:
+1. SQLite shell.
+2. Create a small table.
+3. Explore display options.
+4. Look at the database schema.
+5. Write table to SQL file.
+6. Look at the SQL file.
+7. Delete tables.
+8. Write and import CSV file.
 
 * Week 3 -
 * Week 4 -

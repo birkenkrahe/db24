@@ -1,0 +1,82 @@
+#+TITLE: Databases - Fundamental Concepts
+#+AUTHOR:Marcus Birkenkrahe
+#+SUBTITLE:Database Theory & Applications CSC 330 Spring 2024
+#+STARTUP:overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil
+* Elements of a database system
+
+- Hierarchical
+- Network
+- Relational
+- Concurrency Control  
+
+* Hierarchical databases
+#+ATTR_HTML: :WIDTH 400px:
+#+caption: Source: Beaulieu, Learning SQL (2012)
+[[../img/hierarchical.png]]
+
+- Customers have their own tree containing accounts and transactional
+  information.
+- The DB system provides tools for searching through and across trees.
+- Each tree node can have 0 or 1 parent, and 0, 1 or many children
+  (so-called single parent hierarchy).
+- This type of DB system is popular (again) e.g. for network directory
+  databases (Microsoft Active Directory).
+  
+* Network databases
+#+ATTR_HTML: :WIDTH 400px:
+#+caption: Source: Beaulieu, Learning SQL (2012)
+[[../img/network.png]]
+
+- To find the transactions posted to Sue's money market account
+  ~MoneyMkt~, you must:
+  1. Find the customer record for Sue Smith
+  2. Follow the link from Sue Smith's customer record to her list of
+     accounts.
+  3. Traverse the chain of accounts until you find the money market
+     account.
+  4. Follow the link from the money market record to its list of
+     transactions.
+- Notice that each ~product~ record points to a list of ~accounts~ records
+  that have that product type: account records can be accessed from
+  multiple places (customer and product records)
+- This is called a multiparent hierarchy.
+- Both types of hierarchical DB are alive and well in mainframe world.
+
+* Relational model
+#+ATTR_HTML: :WIDTH 400px:
+#+caption: Source: Beaulieu, Learning SQL (2012)
+[[../img/relational.png]]
+
+- Some redundant information is used to navigate to another table:
+  ~Account.cust_id~ contains the unique customer ID and the unique
+  ~Product.product_cd~ product ID (so-called /foreign keys/).
+- To find out more about a customer whose account you're looking at,
+  you'd have to /join/ the ~Account~ and the ~Customer~ table.
+- The process of resolving logical redundancies not used for
+  navigation is called /normalization/.
+
+* Some terminology
+
+| TERM         | DEFINITION                                                  |
+|--------------+-------------------------------------------------------------|
+| Entity       | Something of interest (e.g. Customer)                       |
+| Column/field | Piece of data stored in a table e.g. ~customer_id~            |
+| Row/record   | Set of columns that describe an entity                      |
+| Table        | Set of rows in memory (transient) or on storage (permanent) |
+| Result set   | Nonpersistent table (result of an SQL query)                |
+| Primary key  | Column(s) as unique identifier for each table row           |
+| Foreign key  | Column(s) used to identify single row in another table      |
+
+* ACID properties
+
+DBMS must support ACID (Atomicity, Consistency, Isolation, Durability)
+properties:
+- Atomicity requires that a transaction should either be executed in
+  its entirety or not all.
+- Consistency assures that a transaction brings the database from one
+  consistent state to another.
+- Isolation ensures that the effect of concurrent transactions should
+  be the same as if they would have been executed in isolation.
+- Durability ensures that the database changes made by a transaction
+  declared successful can be made permanent under all circumstances.
