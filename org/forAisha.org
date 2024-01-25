@@ -1,0 +1,129 @@
+* Create database and tables from scratch with Python
+
+- Create an SQLite db, define the tables, insert the data:
+  1) More information about the =sqlite3= library [[https://docs.python.org/3/library/sqlite3.html][here]].
+  2) =sqlite3.connect= establishes a connection to an SQLite3 db.
+  3) The connection is an object with methods:
+     - ~execute~ to create a table
+     - ~executemany~ to insert data into the table
+     - ~commit~ to write the data to the database
+     - ~close~ to end the connection.
+
+- Here's the code:
+  #+begin_src python :results output :session *Python* :exports both :noweb yes
+    import sqlite3
+
+    # Connect to SQLite database (or create it if it doesn't exist)
+    conn = sqlite3.connect('data/library.db')
+    cursor = conn.cursor()
+
+    # Create tables
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS patrons (
+            patron_id INTEGER PRIMARY KEY,
+            card_num TEXT,
+            name TEXT,
+            member_year INTEGER,
+            total_fine REAL
+    )
+    ''')
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS books (
+            id INTEGER PRIMARY KEY,
+            title TEXT,
+            author TEXT,
+            genre TEXT,
+            pub_year INTEGER
+    )
+    ''')
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS checkouts (
+            id INTEGER PRIMARY KEY,
+            start_date TEXT,
+            due_date TEXT,
+            card_num TEXT,
+            book_id INTEGER,
+            FOREIGN KEY(card_num) REFERENCES patrons(card_num),
+            FOREIGN KEY(book_id) REFERENCES books(id)
+    )
+    ''')
+
+    # Insert data into patrons table
+    patrons_data = [
+        ('54378', 'Izzy', 2012, 9.86),
+        ('94722', 'Maham', 2020, 0),
+        ('45783', 'Jasmin', 2022, 2.05),
+        ('90123', 'James', 1989, 0)
+    ]
+
+    cursor.executemany('''
+        INSERT INTO patrons (card_num, name, member_year, total_fine)
+        VALUES (?, ?, ?, ?)
+    ''', patrons_data)
+
+    # Insert data into books table
+    books_data = [
+        (638, 'Being Mortal', 'Atul Gawande', 'Non-Fiction', 2015),
+        (912, 'Educated', 'Tara Westover', 'Non-Fiction', 2018),
+        (322, 'Night', 'Elie Wiesel', 'Non-Fiction', 1956),
+        (156, 'Where the Wild Things Are', 'Maurice Sendak', 'Childrens', 1963)
+    ]
+
+    cursor.executemany('''
+        INSERT INTO books (id, title, author, genre, pub_year)
+        VALUES (?, ?, ?, ?, ?)
+    ''', books_data)
+
+    # Insert data into checkouts table
+    checkouts_data = [
+        ('2022-05-13', '2022-05-27', '54378', 638),
+        ('2022-06-10', '2022-06-24', '54378', 322),
+        ('2022-06-27', '2022-07-11', '45783', 156),
+        ('2022-08-14', '2022-08-28', '90123', 912)
+    ]
+
+    cursor.executemany('''
+        INSERT INTO checkouts (start_date, due_date, card_num, book_id)
+        VALUES (?, ?, ?, ?)
+    ''', checkouts_data)
+
+    # Commit the changes and close the connection
+    conn.commit()
+    conn.close()
+
+    print("Database and tables created, data inserted successfully.")
+  #+end_src
+
+  #+RESULTS:
+  : Database and tables created, data inserted successfully.
+
+- Check the database:
+  #+begin_src sqlite :db data/library.db
+    .header ON
+    .mode columns
+    SELECT * from patrons;
+    SELECT * from books;
+    SELECT * from checkouts;
+  #+end_src
+
+  #+RESULTS:
+  | patron_id  card_num  name    member_year  total_fine                  |
+  | ---------  --------  ------  -----------  ----------                  |
+  | 1          54378     Izzy    2012         9.86                        |
+  | 2          94722     Maham   2020         0.0                         |
+  | 3          45783     Jasmin  2022         2.05                        |
+  | 4          90123     James   1989         0.0                         |
+  | id   title                      author          genre        pub_year |
+  | ---  -------------------------  --------------  -----------  -------- |
+  | 156  Where the Wild Things Are  Maurice Sendak  Childrens    1963     |
+  | 322  Night                      Elie Wiesel     Non-Fiction  1956     |
+  | 638  Being Mortal               Atul Gawande    Non-Fiction  2015     |
+  | 912  Educated                   Tara Westover   Non-Fiction  2018     |
+  | id  start_date  due_date    card_num  book_id                         |
+  | --  ----------  ----------  --------  -------                         |
+  | 1   2022-05-13  2022-05-27  54378     638                             |
+  | 2   2022-06-10  2022-06-24  54378     322                             |
+  | 3   2022-06-27  2022-07-11  45783     156                             |
+  | 4   2022-08-14  2022-08-28  90123     912                             |

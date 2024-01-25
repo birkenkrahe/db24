@@ -1,0 +1,82 @@
+#+title: First Steps with SQLite
+#+author: [yourname]
+#+STARTUP: overview hideblocks indent :
+* README
+
+- Enter your name at the top followed by ~(pledged)~
+- When you're done, upload the finished file to Canvas.
+  
+* First steps with the SQLite shell in Emacs Org-mode
+
+The practice file is here: ~tinyurl.com/firstSQLite~
+
+To do this exercise, you have to have SQLite installed and in the
+PATH. You must further have the Emacs configuration file ~.emacs~ from
+~tinyurl.com/EmacsLyon~ installed in your Emacs home directory ~~/~.
+
+Start Emacs from the CMD shell and not with the desktop or taskbar
+shortcut - in this way you can use your Windows home directory as
+HOME. You may have to re-install ~.emacs~ to that location.
+
+
+1) Begin by checking your version of SQLite with the ~version~ system
+   command. Check also if your database is empty:
+   #+begin_src sqlite :db ./data/firstSQLite.db
+
+   #+end_src
+
+2) Create a small table for the books in a library. Remember naming
+   conventions. A book is identified by an ~id~, a ~title~, and an ~author~.
+   #+begin_src sqlite :db ./data/firstSQLite.db :results silent
+
+   #+end_src
+
+3) Use a system command to check that the table was indeed created.
+   #+begin_src sqlite :db ./data/firstSQLite.db
+
+   #+end_src
+
+4) Insert the data for three books:
+   | Book ID | Author  | Title         |
+   |---------+---------+---------------|
+   |     101 | Tolstoy | War and Peace |
+   |     933 | James   | The American  |
+   |     219 | Fontane | Der Stechlin  |
+   #+begin_src sqlite :db ./data/firstSQLite.db :results silent
+
+   #+end_src
+
+5) Show your whole table.
+   #+begin_src sqlite :db ./data/firstSQLite.db :results output
+
+   #+end_src
+
+6) Display your display options.
+   #+begin_src sqlite :db ./data/firstSQLite.db :results output
+
+   #+end_src
+
+7) Change your display so that ~headers~ are shown and the ~output~ is
+   not ~csv~ but ~column~, and then print the table again.
+   #+begin_src sqlite :db ./data/firstSQLite.db :results output
+
+   #+end_src
+
+8) Look at the database schema.
+   #+begin_src sqlite :results output :db ./data/firstSQLite.db 
+
+   #+end_src
+
+9) Write table to SQL file ~firstSQLite.sql~.
+   #+begin_src sqlite :results silent :db ./data/firstSQLite.db 
+
+   #+end_src
+
+10) Look at the SQL file without leaving the SQLite shell.
+    #+begin_src sqlite :results output :db ./data/firstSQLite.db 
+
+    #+end_src
+
+You do not have to quit the shell - Emacs does that for you. You could
+also have run this entire session in an SQLite buffer (~M-x sql-sqlite~).
+
