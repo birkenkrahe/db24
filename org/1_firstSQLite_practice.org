@@ -18,7 +18,6 @@ Start Emacs from the CMD shell and not with the desktop or taskbar
 shortcut - in this way you can use your Windows home directory as
 HOME. You may have to re-install ~.emacs~ to that location.
 
-
 1) Begin by checking your version of SQLite with the ~version~ system
    command. Check also if your database is empty:
    #+begin_src sqlite :db ./data/firstSQLite.db

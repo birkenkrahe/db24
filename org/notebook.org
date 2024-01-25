@@ -228,7 +228,8 @@ Open the SQLite shell to a transient database:
 #+end_example
 
 Now, let's do it in Emacs! Download the practice file
-~tinyurl.com/firstSQLite~ and open it in Emacs.
+~tinyurl.com/firstSQLite~ and open it in Emacs. Instructions are in
+there. Upload completed file to Canvas by Friday night.
 
 ** TODO Types of database management systems (Beaulieu, 2012)
 
