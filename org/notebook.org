@@ -18,10 +18,10 @@
 [[../img/sqlite_install.png]]
 
 - [X] DataCamp review: Introduction to SQL - Q&A and practice
-- [ ] Starting with SQLite in Emacs and checking out replit.com
+- [X] Starting with SQLite in Emacs and checking out replit.com
 
-- [ ] (Bonus) assignment: Emacs tutorial (upload screenshot to Canvas)
-- [ ] PC install Emacs + SQLite3! I'll help you after class (see [[https://chat.google.com/room/AAAAEZSJ81g/gCgKDYojP8k/gCgKDYojP8k?cls=10][chat]])
+- [X] (Bonus) assignment: Emacs tutorial (upload screenshot to Canvas)
+- [X] PC install Emacs + SQLite3! I'll help you after class (see [[https://chat.google.com/room/AAAAEZSJ81g/gCgKDYojP8k/gCgKDYojP8k?cls=10][chat]])
 
 - [ ] Lecture: history of databases ([[https://youtu.be/KG-mqHoXOXY?si=RgQAO5caWyRfxWwh][video]] & Beaulieu, 2021)
 - [ ] Let's talk about your term projects (Thu)
