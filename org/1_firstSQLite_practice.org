@@ -20,18 +20,18 @@ HOME. You may have to re-install ~.emacs~ to that location.
 
 1) Begin by checking your version of SQLite with the ~version~ system
    command. Check also if your database is empty:
-   #+begin_src sqlite :db ./data/firstSQLite.db
+   #+begin_src sqlite :db ./firstSQLite.db
 
    #+end_src
 
 2) Create a small table for the books in a library. Remember naming
    conventions. A book is identified by an ~id~, a ~title~, and an ~author~.
-   #+begin_src sqlite :db ./data/firstSQLite.db :results silent
+   #+begin_src sqlite :db ./firstSQLite.db :results silent
 
    #+end_src
 
 3) Use a system command to check that the table was indeed created.
-   #+begin_src sqlite :db ./data/firstSQLite.db
+   #+begin_src sqlite :db ./firstSQLite.db
 
    #+end_src
 
@@ -41,38 +41,38 @@ HOME. You may have to re-install ~.emacs~ to that location.
    |     101 | Tolstoy | War and Peace |
    |     933 | James   | The American  |
    |     219 | Fontane | Der Stechlin  |
-   #+begin_src sqlite :db ./data/firstSQLite.db :results silent
+   #+begin_src sqlite :db ./firstSQLite.db :results silent
 
    #+end_src
 
 5) Show your whole table.
-   #+begin_src sqlite :db ./data/firstSQLite.db :results output
+   #+begin_src sqlite :db ./firstSQLite.db :results output
 
    #+end_src
 
 6) Display your display options.
-   #+begin_src sqlite :db ./data/firstSQLite.db :results output
+   #+begin_src sqlite :db ./firstSQLite.db :results output
 
    #+end_src
 
 7) Change your display so that ~headers~ are shown and the ~output~ is
    not ~csv~ but ~column~, and then print the table again.
-   #+begin_src sqlite :db ./data/firstSQLite.db :results output
+   #+begin_src sqlite :db ./firstSQLite.db :results output
 
    #+end_src
 
 8) Look at the database schema.
-   #+begin_src sqlite :results output :db ./data/firstSQLite.db 
+   #+begin_src sqlite :results output :db ./firstSQLite.db 
 
    #+end_src
 
 9) Write table to SQL file ~firstSQLite.sql~.
-   #+begin_src sqlite :results silent :db ./data/firstSQLite.db 
+   #+begin_src sqlite :results silent :db ./firstSQLite.db 
 
    #+end_src
 
 10) Look at the SQL file without leaving the SQLite shell.
-    #+begin_src sqlite :results output :db ./data/firstSQLite.db 
+    #+begin_src sqlite :results output :db ./firstSQLite.db 
 
     #+end_src
 
