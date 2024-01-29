@@ -13,7 +13,7 @@
 - [X] Your entry into a "Data Engineering" [[https://app.datacamp.com/learn/career-tracks][career track]]!
 - [X] Today: Emacs tutorial (because I'm tired of lecturing)
 
-* Week 2 - Introduction to SQL - Querying
+* DONE Week 2 - Introduction to SQL - SQLite first steps
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/sqlite_install.png]]
 
@@ -164,15 +164,6 @@ Passcode: 941969
     RDBM are exquisitely documented. Example: [[https://dev.mysql.com/doc/refman/8.0/en/][MySQL Reference Manual]].
     #+end_notes
 
-** [[file:1_history.org][History of databases]] (and their types)
-
-- Watch on [[https://youtu.be/KG-mqHoXOXY][YouTube]] (5:39 min) - Computer History Museum, 2019
-
-- Which of these guys has got nothing to do with databases?
-  #+attr_html: :width 400px
-  #+caption: Which of these founders has nothing to do with databases?
-  [[../img/founders.png]]
-
 ** Fundamental concepts of database management (PDBM, 2018)
 
 This is a great book - not something you'll read cover-to-cover but a
@@ -183,9 +174,16 @@ that. Also, Cambridge U Press is a great (scientific) publisher.
 - Videos ([[https://www.youtube.com/playlist?list=PLdQddgMBv5zHcEN9RrhADq3CBColhY2hl][playlist]])
 - Source: Principles of DB Management ([[https://www.pdbmbook.com/][pdbmbook.com]]) - CUP 2018
 
-** IN PROGRESS Practice: First literate SQLite database
+** [[file:1_history.org][History of databases]] (and their types)
 
-*** First steps with the SQLite shell (Tue 23-Jan)
+- Watch on [[https://youtu.be/KG-mqHoXOXY][YouTube]] (5:39 min) - Computer History Museum, 2019
+
+- Which of these guys has got nothing to do with databases?
+  #+attr_html: :width 400px
+  #+caption: Which of these founders has nothing to do with databases?
+  [[../img/founders.png]]
+
+** First steps with the SQLite shell (Tue 23-Jan)
 
 Open the SQLite shell to a transient database:
 1) create a table ~books~ with ~CREATE~
@@ -230,6 +228,9 @@ Open the SQLite shell to a transient database:
 Now, let's do it in Emacs! Download the practice file
 ~tinyurl.com/firstSQLite~ and open it in Emacs. Instructions are in
 there. Upload completed file to Canvas by Friday night.
+
+   
+* Week 3 - Database types - SQL queries
 
 ** TODO Types of database management systems (Beaulieu, 2012)
 
@@ -362,8 +363,7 @@ Your ideas:
 
 
 
-   
-* Week 3 -
+
 * Week 4 -
 * Week 5 -
 * Week 6 -
