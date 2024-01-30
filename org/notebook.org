@@ -254,6 +254,111 @@ See [[file:1_fundamental.org]]:
 - ACID rules
 
 ** TODO DataCamp review "Querying"
+
+- Large datasets for databases (how large?)
+  #+begin_notes
+  Excel Data Limits:
+  - Maximum rows: 1,048,576
+  - Maximum columns: 16,384 (Column XFD)
+  - Maximum cell limit: 17,179,869,184 cells
+  - For 8 byte per cell: max. 137 GB.
+
+  Google Sheets Data Limits:
+  - Maximum rows: 10,000,000
+  - Maximum columns: 18,278 (Column ZZZ)
+  - Maximum cells: 5 million cells across the entire spreadsheet,
+    including all sheets.
+  - For 8 byte per cell: max. 40 MB.
+  #+end_notes
+
+- Keywords: =SELECT=, =FROM=.
+
+- How do queries change the database?
+  #+begin_notes
+  Queries create temporary views that do not change the
+  database. Unless you define views, which become (permanent) virtual
+  tables but they are not stored as separate tables.
+  #+end_notes
+
+- Does the order of fields in a ~SELECT~ statement matter?
+  #+begin_notes
+  The actual order of the stored table is irrelevant to the query.
+  #+end_notes
+
+- Data scenarios:
+  1) SQL: Large amounts of data about many different but related areas
+     of a business are housed in a relational database.
+  2) Spreadsheet: All data needed to answer the business question is
+     presented in a spreadsheet, and no complicated relationships
+     exist between different data points.
+  3) Open: The data needed to answer the business question doesn't
+     exist yet.
+     #+begin_notes
+     1. Identify Data Requirements
+        - Understand the Business Question: Clearly define the
+          business question and understand what insights or answers
+          are needed.
+        - Determine Required Data: Identify what type of data is
+          needed to answer the question.
+
+     2. Data Collection and Generation
+        - Design Data Collection Methods: Depending on the required
+          data, this could involve setting up data capture on
+          websites/apps, conducting surveys, or using IoT devices for
+          real-time data collection.
+        - Develop Data Infrastructure: Implement databases or data
+          storage solutions.
+
+     3. Data Integration
+        - Integrate the new data with existing datasets if necessary,
+          which might involve ETL (Extract-Transform-Load) processes.
+
+     4. Data Processing and Management
+        - Clean and Prepare Data: Data cleaning and preprocessing.
+        - Data Governance: Implement data governance policies.
+
+     5. Analysis and Modeling
+        - Exploratory Data Analysis (EDA): Conduct initial analysis to
+          discover patterns.
+        - Statistical Modeling/Machine Learning: Apply appropriate
+          methods or models for analysis.
+
+     6. Visualization and Reporting
+        - Use data visualization tools for creating reports and dashboards.
+
+     7. Feedback Loop and Iteration
+        - Assess if the data collected is sufficient or if additional
+          data is needed.
+        - Continuously refine data collection and analysis processes
+          based on feedback.
+
+     8. Technology and Tools
+        - Utilize appropriate tools and technologies
+
+     #+end_notes
+
+     #+begin_src mermaid :results output :file ../img/dataengineering.png
+          flowchart TD
+          A(Identify Data Requirements) -->
+          |Understand data needs| B(Data Collection and Generation) -->
+          |Have data| C(Data Integration) -->
+          |Have consistent data| D(Data Processing and Management) -->
+          |Manage data consistently| E(Data Analysis and Modeling) -->
+          |Understand data| F(Visualization and Reporting) -->
+          |Use data| G(Feedback Loop and Iteration) -->
+              |Adapt data tools| H(Technology and Tools)
+     #+end_src
+
+     #+RESULTS:
+     [[file:../img/dataengineering.png]]
+
+
+Let's practice!
+
+- Books database: [[http://tinyurl.com/books-sql][tinyurl.com/books-sql]]
+
+- Practice file: [[http://tinyurl.com/querying-practice][tinyurl.com/querying-practice]]
+
 ** TODO Database Project Ideas for Introductory SQL and SQLite Class
 
 - All projects must include an interactive component!

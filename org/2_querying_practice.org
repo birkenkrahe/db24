@@ -1,0 +1,110 @@
+#+title: Querying practice with SQLite
+#+author: [yourname]
+#+STARTUP: overview hideblocks indent :
+* README
+
+- Enter your name at the top followed by ~(pledged)~
+- When you're done, upload the finished file to Canvas.
+- Download ~books.sql~ from ~tinyurl.com/books-sql~
+- Download this file from ~tinyurl.com/querying-practice~
+
+* Problems
+
+1) Correct the SQL command for style:
+   #+begin_example sql
+   select AUTHOR, TITLE from BOOKS
+   #+end_example
+   Better:
+   #+begin_example sql
+
+   #+end_example
+
+2) Read ~books.sql~ into ~books.sqlite~ database, then show the tables:
+   #+begin_src sqlite :db books.sqlite
+
+   #+end_src
+
+3) Check the data types and fields (columns) in the table:
+   #+begin_src sqlite :db books.sqlite :results output
+
+   #+end_src
+
+4) Select all titles from ~books~.
+   #+begin_src sqlite :db books.sqlite :results output
+
+   #+end_src
+
+5) Is SQLite case-sensitive? Use ~TITLE~ instead of ~title~ in the query.
+   #+begin_src sqlite :db books.sqlite :results output
+
+   #+end_src
+
+6) What about other SQL flavours?
+   #+begin_notes
+
+   #+end_notes
+
+7) Select all fields from the ~books~ table:
+   #+begin_src sqlite :db books.sqlite :results output
+
+   #+end_src
+
+8) Display only the first five author records as "Writer".
+   #+begin_src sqlite :db books.sqlite :results output
+
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+   "JJ Smith"
+   "Stephen King"
+   "Jordan B. Peterson"
+   "George Orwell"
+   "National Geographic Kids"
+   Writer
+   ------------------------
+   JJ Smith
+   Stephen King
+   Jordan B. Peterson
+   George Orwell
+   National Geographic Kids
+   #+end_example
+
+9) The =COUNT()= function counts the number of records for a field. 
+   #+begin_src sqlite :db books.sqlite :results output
+
+   #+end_src
+
+10) How can you find out how many unique authors there are?
+    #+begin_src sqlite :db books.sqlite :results output
+
+    #+end_src
+
+11) When using ~DISTINCT~ with multiple fields, do the fields that are not
+    labelled ~DISTINCT~ have repeat values or not? What about the records?
+    #+begin_notes
+
+    #+end_notes
+
+12) How many authors have written books in multiple genres?
+    #+begin_src sqlite :db books.sqlite :results output
+
+    #+end_src
+
+13) Create a view of unique authors, ~unique_authors~, then show the
+    tables.
+    #+begin_src sqlite :db books.sqlite :results output
+
+    #+end_src
+  
+14) Now display the first five records of ~unique_authors~ and name the
+    column `unique author`.
+    #+begin_src sqlite :db books.sqlite :results output
+
+    #+end_src
+
+15) Does ~unique_authors~ need a unique identifier? (Like an ~id~ column.)
+    #+begin_notes
+
+    #+end_notes
+
