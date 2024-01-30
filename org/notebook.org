@@ -231,8 +231,19 @@ there. Upload completed file to Canvas by Friday night.
 
    
 * Week 3 - Database types - SQL queries
+#+ATTR_HTML: :WIDTH 400px: 
+[[../img/sql_queries.png]]
 
-** TODO Types of database management systems (Beaulieu, 2012)
+- [ ] *Lecture*: Types of databases and ACID
+- [ ] *Review*: DataCamp lesson "Querying" and "SQL flavors"
+- [ ] *Discussion*: Project ideas
+
+- [ ] *Lecture*: The SQLite database management system
+- [ ] *Practice*: querying with SQLite
+
+- [ ] *Lecture*: SQL querying
+
+* TODO Types of database management systems (Beaulieu, 2012)
 
 See [[file:1_fundamental.org]]:
 
@@ -241,7 +252,7 @@ See [[file:1_fundamental.org]]:
 - Relational
 - Concurrency Control  
 
-** TODO Database Project Ideas for Introductory SQL and SQLite Class
+* TODO Database Project Ideas for Introductory SQL and SQLite Class
 
 - What type of data interest you?
 - Where could you get these data from?
@@ -250,114 +261,114 @@ See [[file:1_fundamental.org]]:
 Your ideas:
 1. ???
 
-*** Database theory and applications
-**** Project 1: database design
-**** Project 2: database optimization
-**** Project 3: differences of SQL dialects
-**** Project 4: database normalization
-**** Project 5: database security
-**** Project 6: SQL injection
-**** Project 7: NoSQL
-**** Project 7: database mathematics
-**** Project 8: databases and Python
-**** Project 9: Big Data
-**** Project 10: Data warehouses
-**** Project 11: Databases in biology 
-**** Project 12: Databases and web applications
-**** Project 13: Databases on tiny devices
-**** Project 14: Databases and space exploration
-**** Project 15: Databases and astronomy (solar eclipse)
-*** Simple projects: small applications
-**** Project 1: Personal Contact Book
+** Database theory and applications
+*** Project 1: database design
+*** Project 2: database optimization
+*** Project 3: differences of SQL dialects
+*** Project 4: database normalization
+*** Project 5: database security
+*** Project 6: SQL injection
+*** Project 7: NoSQL
+*** Project 7: database mathematics
+*** Project 8: databases and Python
+*** Project 9: Big Data
+*** Project 10: Data warehouses
+*** Project 11: Databases in biology 
+*** Project 12: Databases and web applications
+*** Project 13: Databases on tiny devices
+*** Project 14: Databases and space exploration
+*** Project 15: Databases and astronomy (solar eclipse)
+** Simple projects: small applications
+*** Project 1: Personal Contact Book
    - Create a database to store personal contacts with fields like
      name, phone number, email, and address.
-**** Project 2: Library Management System
+*** Project 2: Library Management System
    - Design a database to manage books in a library, including
      information like book titles, authors, and availability.
-**** Project 3: Student Record System
+*** Project 3: Student Record System
    - Develop a database to maintain student records, including student
      names, courses, grades, and enrollment dates.
-**** Project 4: Inventory Management
+*** Project 4: Inventory Management
    - Build a database for managing inventory in a small store,
      tracking products, prices, quantities, and suppliers.
-**** Project 5: Employee Attendance Tracker
+*** Project 5: Employee Attendance Tracker
    - Create a system to track employee attendance, including check-in
      and check-out times, and total hours worked.
-**** Project 6: Blogging Platform Database
+*** Project 6: Blogging Platform Database
    - Design a database for a blogging platform, storing posts,
      authors, comments, and categories.
-**** Project 7: Event Management System
+*** Project 7: Event Management System
    - Develop a database to manage events, including event details,
      participants, schedules, and venues.
-**** Project 8: Restaurant Reservation System
+*** Project 8: Restaurant Reservation System
    - Build a database for managing restaurant reservations, including
      customer details, table numbers, and reservation times.
-**** Project 9: Movie Rental Service
+*** Project 9: Movie Rental Service
    - Create a database for a movie rental service, tracking movies,
      customers, rental dates, and return dates.
-**** Project 10: Hospital Patient Records
+*** Project 10: Hospital Patient Records
    - Design a database for a hospital to manage patient records,
      including patient history, treatments, and medications.
-**** Project 11: Flight Booking System
+*** Project 11: Flight Booking System
    - Develop a database for a flight booking system, including flight
      details, passenger information, and booking dates.
-**** Project 12: Online Retail Store
+*** Project 12: Online Retail Store
    - Build a database for an online retail store, tracking products,
      customers, orders, and shipping details.
-**** Project 13: Hotel Booking System
+*** Project 13: Hotel Booking System
    - Create a database for a hotel booking system, including room
      details, customer information, and booking dates.
-**** Project 14: Car Rental Service
+*** Project 14: Car Rental Service
    - Design a database for a car rental service, tracking vehicles,
      customers, rental periods, and rates.
-**** Project 15: Sports Team Management
+*** Project 15: Sports Team Management
    - Develop a database to manage a sports team, including player
      information, game schedules, and scores.
 
-*** Advanced Database Projects: large applications
-**** Project 1: E-commerce Analytics System
+** Advanced Database Projects: large applications
+*** Project 1: E-commerce Analytics System
    - Develop a database to analyze e-commerce activities, tracking
      user behavior, sales trends, and product performance.
-**** Project 2: Real Estate Property Management
+*** Project 2: Real Estate Property Management
    - Create a database for managing real estate listings, including
      property details, agent information, and transaction history.
-**** Project 3: University Course Registration System
+*** Project 3: University Course Registration System
    - Design a complex system to handle course registrations,
      prerequisites, student schedules, and instructor assignments.
-**** Project 4: Public Transportation Network
+*** Project 4: Public Transportation Network
    - Build a database to manage a public transportation system,
      including routes, schedules, fares, and passenger data.
-**** Project 5: Human Resources Management System
+*** Project 5: Human Resources Management System
    - Develop a comprehensive database for HR activities, including
      employee profiles, performance reviews, and payroll.
-**** Project 6: Health Care Data Analysis
+*** Project 6: Health Care Data Analysis
    - Create a database for analyzing health care data, focusing on
      patient outcomes, treatment effectiveness, and medical research.
-**** Project 7: Banking Transaction System
+*** Project 7: Banking Transaction System
    - Design a secure database for banking transactions, including
      account management, transfers, and fraud detection.
-**** Project 8: Supply Chain Management
+*** Project 8: Supply Chain Management
    - Build a database to manage a supply chain, tracking inventory
      levels, supplier relationships, and logistics.
-**** Project 9: Customer Relationship Management (CRM)
+*** Project 9: Customer Relationship Management (CRM)
    - Develop a CRM database, tracking customer interactions, sales
      opportunities, and marketing campaigns.
-**** Project 10: Social Media Analytics
+*** Project 10: Social Media Analytics
    - Create a database to analyze social media data, focusing on user
      engagement, content popularity, and trend analysis.
-**** Project 11: Environmental Data Tracking
+*** Project 11: Environmental Data Tracking
    - Design a database for tracking environmental data, such as
      pollution levels, weather patterns, and wildlife populations.
-**** Project 12: Smart City Infrastructure Management
+*** Project 12: Smart City Infrastructure Management
    - Build a database to manage smart city infrastructure, including
      traffic systems, energy usage, and public services.
-**** Project 13: Insurance Claim Processing System
+*** Project 13: Insurance Claim Processing System
    - Develop a database for processing insurance claims, including
      policyholder information, claim details, and fraud detection.
-**** Project 14: Airline Fleet Maintenance Scheduler
+*** Project 14: Airline Fleet Maintenance Scheduler
    - Create a database for scheduling and tracking maintenance of an
      airline's fleet, including parts inventory and service records.
-**** Project 15: Multimedia Content Management
+*** Project 15: Multimedia Content Management
    - Design a database to manage multimedia content, including video,
      audio, images, and metadata for a digital media platform.
 
@@ -365,7 +376,11 @@ Your ideas:
 
 
 * Week 4 -
+#+ATTR_HTML: :WIDTH 400px:
+[[../img/databases.png]]
+
 * Week 5 -
+
 * Week 6 -
 * Week 7 -
 * Week 8 -
