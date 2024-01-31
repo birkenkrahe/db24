@@ -234,7 +234,7 @@ there. Upload completed file to Canvas by Friday night.
 #+ATTR_HTML: :WIDTH 400px: 
 [[../img/sql_queries.png]]
 
-- [ ] *Test 1*: General questions on relational databases and SQLite
+- [X] *Test 1*: General questions on relational databases and SQLite
   Remember that the tests are "open book" and take your time (45min)!
 - [ ] *Lecture*: Types of databases and ACID 
 - [ ] *Discussion*: Project ideas
@@ -271,9 +271,9 @@ See [[file:1_fundamental.org]]:
   - For 8 byte per cell: max. 40 MB.
   #+end_notes
 
-- Keywords: =SELECT=, =FROM=.
+- Keywords: =SELECT=, =FROM=, =DISTINCT=, =AS=, =VIEW=.
 
-- How do queries change the database?
+p- How do queries change the database?
   #+begin_notes
   Queries create temporary views that do not change the
   database. Unless you define views, which become (permanent) virtual
@@ -282,7 +282,8 @@ See [[file:1_fundamental.org]]:
 
 - Does the order of fields in a ~SELECT~ statement matter?
   #+begin_notes
-  The actual order of the stored table is irrelevant to the query.
+  The actual order of the stored table is irrelevant to the query,
+  however, not to the display.
   #+end_notes
 
 - Data scenarios:
@@ -358,6 +359,13 @@ Let's practice!
 - Books database: [[http://tinyurl.com/books-sql][tinyurl.com/books-sql]]
 
 - Practice file: [[http://tinyurl.com/querying-practice][tinyurl.com/querying-practice]]
+
+Procedure:
+- Download (~M-x eww~)
+- Write to file (~C-x C-w~)
+- Kill download buffer (~C-x k~)
+- Open file (~C-x C-f~)
+
 
 ** TODO Database Project Ideas for Introductory SQL and SQLite Class
 
