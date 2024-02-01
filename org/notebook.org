@@ -251,14 +251,19 @@ there. Upload completed file to Canvas by Friday night.
    #+end_notes
 2. How can you find out how many records a table has (in SQLite)?
    #+begin_example sqlite
-   SELECT COUNT() FROM table; -- What about the argument?
+   SELECT COUNT(id) FROM table; -- What about the argument?
    #+end_example
+3. Why does ~count~ not need an argument if I only want to know the
+   number of rows?
+   #+begin_notes
+   Because all columns have the same length in a rectangular table.
+   #+end_notes
 3. What's the effect of =DISTINCT= in the following statement:
    #+begin_example sqlite
    SELECT DISTINCT col1, col2 FROM table;
    #+end_example
    #+begin_notes
-   1) starting at the first row, go through all records
+   1) starting at the first row, go through all records/rows
    2) only select records with unique values of ~col1~
    3) display these records alongside the corresponding ~col2~ values in
       that row.
@@ -275,7 +280,7 @@ there. Upload completed file to Canvas by Friday night.
    #+end_notes
 6. How can you print a complete practice file? E.g. to study for a test?
    #+begin_notes
-   1. ~C-x C-e~ to enter the Org-mode dispatcher.
+   1. ~C-c C-e~ to enter the Org-mode dispatcher.
    2. Enter ~h~ ~o~ to open rendered file (HTML) in browser.
    3. Print browser as PDF.
    #+end_notes
