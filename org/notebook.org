@@ -236,24 +236,52 @@ there. Upload completed file to Canvas by Friday night.
 
 - [X] *Test 1*: General questions on relational databases and SQLite
   Remember that the tests are "open book" and take your time (45min)!
+- [X] *Practice*: querying with SQLite
 - [ ] *Lecture*: Types of databases and ACID 
 - [ ] *Discussion*: Project ideas
 - [ ] *Review*: DataCamp lesson "Querying" and "SQL flavors"
 - [ ] *Lecture*: The SQLite database management system
-- [ ] *Practice*: querying with SQLite
 - [ ] *Lecture*: SQL querying
 
-** TODO Types of database management systems (Beaulieu, 2012)
+** Review of the review
 
-See [[file:1_fundamental.org]]:
+1. Which SQL flavors do you already know?
+   #+begin_notes
+   PostgreSQL, T-SQL (Microsoft SQL server), MySQL (Oracle), SQLite
+   #+end_notes
+2. How can you find out how many records a table has (in SQLite)?
+   #+begin_example sqlite
+   SELECT COUNT() FROM table; -- What about the argument?
+   #+end_example
+3. What's the effect of =DISTINCT= in the following statement:
+   #+begin_example sqlite
+   SELECT DISTINCT col1, col2 FROM table;
+   #+end_example
+   #+begin_notes
+   1) starting at the first row, go through all records
+   2) only select records with unique values of ~col1~
+   3) display these records alongside the corresponding ~col2~ values in
+      that row.
+   #+end_notes
+4. How can I restrict my query output to 100 lines starting at line 10?
+   #+begin_example sqlite
+   SELECT col FROM table LIMIT 10,100; -- offset 10, print limit 100
+   #+end_example
+5. What do you need to do to continue the practice file right where
+   you left off?
+   #+begin_notes
+   1. delete ~books.sqlite~ (the database)
+   2. run all code blocks with ~M-x org-babel-execute-buffer~
+   #+end_notes
+6. How can you print a complete practice file? E.g. to study for a test?
+   #+begin_notes
+   1. ~C-x C-e~ to enter the Org-mode dispatcher.
+   2. Enter ~h~ ~o~ to open rendered file (HTML) in browser.
+   3. Print browser as PDF.
+   #+end_notes
 
-- Hierarchical
-- Network
-- Relational
-- Concurrency Control
-- ACID rules
 
-** TODO DataCamp review "Querying"
+** IN PROGRESS DataCamp review "Querying"
 
 - Large datasets for databases (how large?)
   #+begin_notes
@@ -273,7 +301,7 @@ See [[file:1_fundamental.org]]:
 
 - Keywords: =SELECT=, =FROM=, =DISTINCT=, =AS=, =VIEW=.
 
-p- How do queries change the database?
+- How do queries change the database?
   #+begin_notes
   Queries create temporary views that do not change the
   database. Unless you define views, which become (permanent) virtual
@@ -366,6 +394,15 @@ Procedure:
 - Kill download buffer (~C-x k~)
 - Open file (~C-x C-f~)
 
+** TODO Types of database management systems (Beaulieu, 2012)
+
+See [[file:1_fundamental.org]]:
+
+- Hierarchical
+- Network
+- Relational
+- Concurrency Control
+- ACID rules
 
 ** TODO Database Project Ideas for Introductory SQL and SQLite Class
 
@@ -499,6 +536,7 @@ Your ideas:
 **** Project 9: Database design tools
 (MySQL workbench, pgModeler, DBeaver, Apache Cassandra, SQuirreL SQL)
 **** Project 10: SQL modes in Emacs
+
 
 * Week 4 -
 #+ATTR_HTML: :WIDTH 400px:
