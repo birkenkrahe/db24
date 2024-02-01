@@ -229,8 +229,7 @@ Now, let's do it in Emacs! Download the practice file
 ~tinyurl.com/firstSQLite~ and open it in Emacs. Instructions are in
 there. Upload completed file to Canvas by Friday night.
 
-   
-* Week 3 - Database types - SQL queries
+* DONE Week 3 - Database types - SQL queries
 #+ATTR_HTML: :WIDTH 400px: 
 [[../img/sql_queries.png]]
 
@@ -243,7 +242,7 @@ there. Upload completed file to Canvas by Friday night.
 - [ ] *Lecture*: The SQLite database management system
 - [ ] *Lecture*: SQL querying
 
-** Review of the review
+** Review of the review of querying in SQLite
 
 1. Which SQL flavors do you already know?
    #+begin_notes
@@ -286,7 +285,7 @@ there. Upload completed file to Canvas by Friday night.
    #+end_notes
 
 
-** IN PROGRESS DataCamp review "Querying"
+** DataCamp review "Querying"
 
 - Large datasets for databases (how large?)
   #+begin_notes
@@ -398,6 +397,10 @@ Procedure:
 - Write to file (~C-x C-w~)
 - Kill download buffer (~C-x k~)
 - Open file (~C-x C-f~)
+
+* Week 4 - Database types, projects, and Selecting Data
+#+ATTR_HTML: :WIDTH 400px:
+[[../img/databases.png]]
 
 ** TODO Types of database management systems (Beaulieu, 2012)
 
@@ -542,10 +545,6 @@ Your ideas:
 (MySQL workbench, pgModeler, DBeaver, Apache Cassandra, SQuirreL SQL)
 **** Project 10: SQL modes in Emacs
 
-
-* Week 4 -
-#+ATTR_HTML: :WIDTH 400px:
-[[../img/databases.png]]
 
 * Week 5 -
 
