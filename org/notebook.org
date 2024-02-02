@@ -229,7 +229,7 @@ Now, let's do it in Emacs! Download the practice file
 ~tinyurl.com/firstSQLite~ and open it in Emacs. Instructions are in
 there. Upload completed file to Canvas by Friday night.
 
-* DONE Week 3 - Database types - SQL queries
+* DONE Week 3 - Relational databases and SQLlite queries
 #+ATTR_HTML: :WIDTH 400px: 
 [[../img/sql_queries.png]]
 
@@ -283,7 +283,6 @@ there. Upload completed file to Canvas by Friday night.
    2. Enter ~h~ ~o~ to open rendered file (HTML) in browser.
    3. Print browser as PDF.
    #+end_notes
-
 
 ** DataCamp review "Querying"
 
@@ -397,6 +396,7 @@ Procedure:
 - Write to file (~C-x C-w~)
 - Kill download buffer (~C-x k~)
 - Open file (~C-x C-f~)
+
 
 * Week 4 - Database types, projects, and Selecting Data
 #+ATTR_HTML: :WIDTH 400px:
@@ -548,7 +548,7 @@ Your ideas:
 
 * Week 5 -
 
-* Week 6 -
+* Week 6 - Sprint Review
 * Week 7 -
 * Week 8 -
 * Week 9 -
