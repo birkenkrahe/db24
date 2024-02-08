@@ -402,6 +402,14 @@ Procedure:
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/databases.png]]
 
+- [ ] Review: video "Fundamental concepts of DB management"
+- [ ] Lecture: Types of databases
+- [ ] Discussion: Term projects
+
+Next week:
+- [ ] Lab "Querying relational databases"
+- [ ] Lectures "SQLite" and "SELECT"
+
 ** TODO Types of database management systems (Beaulieu, 2012)
 
 See [[file:1_fundamental.org]]:
