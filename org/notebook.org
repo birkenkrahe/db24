@@ -412,6 +412,8 @@ Next week:
 
 ** 10 Review questions for "Fundamentals of DBMS" ([[https://youtu.be/o36Z_OqC2ac?si=z9eobmcn7bfeS_lp][video]])
 
+To review this content, [[https://youtu.be/o36Z_OqC2ac?si=pEkI_mlTZRe_NTH6][watch the video]] or [[https://docs.google.com/presentation/d/1Ln-EnXMmO3ZzjztTRZ5rzBPBsUo08uzN/edit?usp=sharing&ouid=102963037093118135110&rtpof=true&sd=true][look at the slides]].
+
 1. Name two specific database applications (what data, what purpose)!
    #+begin_notes
    - Storage and retrieval of traditional numeric and alphanumeric
