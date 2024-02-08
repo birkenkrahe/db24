@@ -404,21 +404,85 @@ Procedure:
 
 - [ ] Review: video "Fundamental concepts of DB management"
 - [ ] Lecture: Types of databases
-- [ ] Discussion: Term projects
+- [ ] Discussion: Term projects (sprint review - week 6, 19 Feb)
 
 Next week:
 - [ ] Lab "Querying relational databases"
 - [ ] Lectures "SQLite" and "SELECT"
 
+** 10 Review questions for "Fundamentals of DBMS" ([[https://youtu.be/o36Z_OqC2ac?si=z9eobmcn7bfeS_lp][video]])
+
+1. Name two specific database applications (what data, what purpose)!
+   #+begin_notes
+   - Storage and retrieval of traditional numeric and alphanumeric
+     data in an inventory application
+   - Multimedia applications (e.g., YouTube, Spotify) to support
+     streaming
+   - Biometric applications (e.g., store fingerprints, retina scans)
+   - Wearable applications (e.g., FitBit, Apple Watch) - store fitness
+     data
+   - Geographical Information Systems (GIS) applications (e.g., Google
+     Maps) - to store and serve geographical data
+   - Sensor applications (e.g., nuclear reactor, temperature/radiation
+     data)
+   - Big Data applications (e.g., Walmart) - stock, sales, customer data
+   - Internet of Things (IoT) applications (e.g. smart fridge, smart
+     house)
+   #+end_notes
+2. Define: database, database management system, database system.
+   #+begin_notes
+   - A *database* (DB) is a collection of related data items within a
+     specific process (= start/end/events/decisions).
+   - A *database management system* (DBMS) is a software package used to
+     define, create, use and maintain a database.
+   - A *database system* is the combination of DBMS and DB (includes
+     infrastructure).
+   #+end_notes 
+3. Explain the difference between the file vs. database approach to
+   managing data.
+   #+begin_notes
+   | File                       | Database                |
+   |----------------------------+-------------------------|
+   | Redundant data             | Data are managed        |
+   | Inconsistent data          | Data are consistent     |
+   | Strong app-data coupling   | Loose app-data coupling |
+   | Little concurrency control | Concurrency control     |
+   | Hard to integrate in ops   | Easy to integrate in ops |
+   #+ATTR_HTML: :WIDTH 400px:
+   #+caption: Source: PDBM book (Lemahieu et al., 2018)
+   [[../img/file_approach.png]]
+   #+ATTR_HTML: :WIDTH 400px:
+   #+caption: Source: PDBM book (Lemahieu et al., 2018)
+   [[../img/db_approach.png]]   
+      #+end_notes
+4. 
+   
 ** TODO Types of database management systems (Beaulieu, 2012)
 
-See [[file:1_fundamental.org]]:
+See [[file:1_fundamental.org]], see also [[https://youtu.be/j09EQ-xlh88?si=sGAUS_XDOoKKNgRH][video on YouTube]] (techTFQ, 2020),
+13 min (includes NoSQL and graph database examples).
 
 - Hierarchical
 - Network
 - Relational
 - Concurrency Control
 - ACID rules
+
+** NEXT  Opportunity: working directly with a [social] entrepreneurship project!
+#+ATTR_HTML: :WIDTH 400px: 
+[[../img/social.webp]]
+
+If you're interested in making the world a better place not just in a
+general, but in a specific way, starting right here in Batesville, and
+earn extra credit, you can use your project in connection with the
+"social entrepreneurship club (SEC). For databases, this is fairly
+straightforward because all businesses and projects need data and
+databases. To brainstorm ideas and see what is already cooking, get
+together with Dr. Peter Staples and me, and/or join the Google Space
+for SEC.
+
+Dr. Staples will also offer a project management course this summer.
+
 
 ** TODO Database Project Ideas for Introductory SQL and SQLite Class
 
