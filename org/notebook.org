@@ -402,7 +402,7 @@ Procedure:
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/databases.png]]
 
-- [ ] Review: video "Fundamental concepts of DB management"
+- [X] Review: video "Fundamental concepts of DB management"
 - [ ] Lecture: Types of databases
 - [ ] Discussion: Term projects (sprint review - week 6, 19 Feb)
 
@@ -410,83 +410,7 @@ Next week:
 - [ ] Lab "Querying relational databases"
 - [ ] Lectures "SQLite" and "SELECT"
 
-** 10 Review questions for "Fundamentals of DBMS" ([[https://youtu.be/o36Z_OqC2ac?si=z9eobmcn7bfeS_lp][video]])
-
-To review this content, [[https://youtu.be/o36Z_OqC2ac?si=pEkI_mlTZRe_NTH6][watch the video]] or [[https://docs.google.com/presentation/d/1Ln-EnXMmO3ZzjztTRZ5rzBPBsUo08uzN/edit?usp=sharing&ouid=102963037093118135110&rtpof=true&sd=true][look at the slides]].
-
-1. Name two specific database applications (what data, what purpose)!
-   #+begin_notes
-   - Storage and retrieval of traditional numeric and alphanumeric
-     data in an inventory application
-   - Multimedia applications (e.g., YouTube, Spotify) to support
-     streaming
-   - Biometric applications (e.g., store fingerprints, retina scans)
-   - Wearable applications (e.g., FitBit, Apple Watch) - store fitness
-     data
-   - Geographical Information Systems (GIS) applications (e.g., Google
-     Maps) - to store and serve geographical data
-   - Sensor applications (e.g., nuclear reactor, temperature/radiation
-     data)
-   - Big Data applications (e.g., Walmart) - stock, sales, customer data
-   - Internet of Things (IoT) applications (e.g. smart fridge, smart
-     house)
-   #+end_notes
-2. Define: database, database management system, database system.
-   #+begin_notes
-   - A *database* (DB) is a collection of related data items within a
-     specific process (= start/end/events/decisions).
-   - A *database management system* (DBMS) is a software package used to
-     define, create, use and maintain a database.
-   - A *database system* is the combination of DBMS and DB (includes
-     infrastructure).
-   #+end_notes 
-3. Explain the difference between the file vs. database approach to
-   managing data.
-   #+begin_notes
-   | File                       | Database                |
-   |----------------------------+-------------------------|
-   | Redundant data             | Data are managed        |
-   | Inconsistent data          | Data are consistent     |
-   | Strong app-data coupling   | Loose app-data coupling |
-   | Little concurrency control | Concurrency control     |
-   | Hard to integrate in ops   | Easy to integrate in ops |
-   #+ATTR_HTML: :WIDTH 400px:
-   #+caption: Source: PDBM book (Lemahieu et al., 2018)
-   [[../img/file_approach.png]]
-   #+ATTR_HTML: :WIDTH 400px:
-   #+caption: Source: PDBM book (Lemahieu et al., 2018)
-   [[../img/db_approach.png]]   
-      #+end_notes
-4. 
-   
-** TODO Types of database management systems (Beaulieu, 2012)
-
-See [[file:1_fundamental.org]], see also [[https://youtu.be/j09EQ-xlh88?si=sGAUS_XDOoKKNgRH][video on YouTube]] (techTFQ, 2020),
-13 min (includes NoSQL and graph database examples).
-
-- Hierarchical
-- Network
-- Relational
-- Concurrency Control
-- ACID rules
-
-** NEXT  Opportunity: working directly with a [social] entrepreneurship project!
-#+ATTR_HTML: :WIDTH 400px: 
-[[../img/social.webp]]
-
-If you're interested in making the world a better place not just in a
-general, but in a specific way, starting right here in Batesville, and
-earn extra credit, you can use your project in connection with the
-"social entrepreneurship club (SEC). For databases, this is fairly
-straightforward because all businesses and projects need data and
-databases. To brainstorm ideas and see what is already cooking, get
-together with Dr. Peter Staples and me, and/or join the Google Space
-for SEC.
-
-Dr. Staples will also offer a project management course this summer.
-
-
-** TODO Database Project Ideas for Introductory SQL and SQLite Class
+** Database Project Ideas for Introductory SQL and SQLite Class
 
 - All projects must include an interactive component!
 - What type of data interest you?
@@ -494,26 +418,34 @@ Dr. Staples will also offer a project management course this summer.
 - What kind of queries interest you?
   
 Your ideas:
-1. ???
+1. Hosting a web page - with a db driven map of player coordinates
+2. Internship or job interest: what are the top applications or questions,
+   - Storing and using factory data
+   - Sales data storage and use
+   - Game data, player data on the web
+3. Generous offer: analyse and use RDD2 data (Ryan)
 
-*** Database theory and applications
+There will be a Canvas assignment and a Google Drive for your proposal
+and all other future materials.
+
+*** Database theory and applications - concept projects
 **** Project 1: database design
 **** Project 2: database optimization
-**** Project 3: differences of SQL dialects
+**** Project 3: differences of SQL dialects ('flavours')
 **** Project 4: database normalization
 **** Project 5: database security
 **** Project 6: SQL injection
-**** Project 7: NoSQL
+**** Project 7: NoSQL (Not Only SQL)
 **** Project 7: database mathematics
-**** Project 8: databases and Python
+**** Project 8: databases and Python / R / Java...
 **** Project 9: Big Data
-**** Project 10: Data warehouses
-**** Project 11: Databases in biology 
+**** Project 10: Data warehouses / lake (business application)
+**** Project 11: Databases in biology / sports / engineering
 **** Project 12: Databases and web applications
 **** Project 13: Databases on tiny devices
-**** Project 14: Databases and space exploration
+**** Project 14: Databases and space exploration (with personal contact)
 **** Project 15: Databases and astronomy (solar eclipse)
-*** Simple projects: small applications
+*** Simple projects: small applications - build a database
 **** Project 1: Personal Contact Book
    - Create a database to store personal contacts with fields like
      name, phone number, email, and address.
@@ -560,7 +492,7 @@ Your ideas:
    - Develop a database to manage a sports team, including player
      information, game schedules, and scores.
 
-*** Advanced Database Projects: large applications
+*** Advanced Database Projects: large applications - build a big database
 **** Project 1: E-commerce Analytics System
    - Develop a database to analyze e-commerce activities, tracking
      user behavior, sales trends, and product performance.
@@ -606,18 +538,182 @@ Your ideas:
 **** Project 15: Multimedia Content Management
    - Design a database to manage multimedia content, including video,
      audio, images, and metadata for a digital media platform.
-*** Infrastructure projects
+*** Infrastructure projects - explore database systems
 **** Project 1: Using DataCamp workspace with SQL
 **** Project 2: Using Google Colaboratory with SQL
 **** Project 3: Setting up and understanding PostgreSQL
 **** Project 4: Setting up and understanding MySQL
 **** Project 5: Setting up and understanding Microsoft Access
-**** Project 6: etting up and understanding Docker
-**** Project 7: NoSQL database applications (MongoDB)
-**** Project 8: Setting up and understanding Kubernetes
+**** Project 6: Setting up and understanding Docker (or other virtualizations)
+**** Project 7: NoSQL database applications (MongoDB) (NoSQL db example)
+**** Project 8: Setting up and understanding Kubernetes 
 **** Project 9: Database design tools
 (MySQL workbench, pgModeler, DBeaver, Apache Cassandra, SQuirreL SQL)
-**** Project 10: SQL modes in Emacs
+**** Project 10: SQL modes in Emacs (requires Emacs Lisp)
+
+
+** TODO 11 Review questions for "Fundamentals of DBMS" ([[https://youtu.be/o36Z_OqC2ac?si=z9eobmcn7bfeS_lp][video]])
+
+To review this content, [[https://youtu.be/o36Z_OqC2ac?si=pEkI_mlTZRe_NTH6][watch the video]] or [[https://docs.google.com/presentation/d/1Ln-EnXMmO3ZzjztTRZ5rzBPBsUo08uzN/edit?usp=sharing&ouid=102963037093118135110&rtpof=true&sd=true][look at the slides]].
+
+1. Name two specific database applications (what data, what purpose)!
+   #+begin_notes
+   - Storage and retrieval of traditional numeric and alphanumeric
+     data in an inventory application
+   - Multimedia applications (e.g., YouTube, Spotify) to support
+     streaming
+   - Biometric applications (e.g., store fingerprints, retina scans)
+   - Wearable applications (e.g., FitBit, Apple Watch) - store fitness
+     data
+   - Geographical Information Systems (GIS) applications (e.g., Google
+     Maps) - to store and serve geographical data
+   - Sensor applications (e.g., nuclear reactor, temperature/radiation
+     data)
+   - Big Data applications (e.g., Walmart) - stock, sales, customer data
+   - Internet of Things (IoT) applications (e.g. smart fridge, smart
+     house)
+   #+end_notes
+2. Define: database, database management system, database system.
+   #+begin_notes
+   - A *database* (DB) is a collection of related data items within a
+     specific process (= start/end/events/decisions).
+   - A *database management system* (DBMS) is a software package used to
+     define, create, use and maintain a database.
+   - A *database system* is the combination of DBMS and DB (includes
+     infrastructure).
+   #+end_notes 
+3. Explain the difference between the file vs. database approach to
+   managing data.
+   #+begin_notes
+   | File                       | Database                |
+   |----------------------------+-------------------------|
+   | Redundant data             | Data are managed        |
+   | Inconsistent data          | Data are consistent     |
+   | Strong app-data coupling   | Loose app-data coupling |
+   | Little concurrency control | Concurrency control     |
+   | Hard to integrate in ops   | Easy to integrate in ops |
+   #+ATTR_HTML: :WIDTH 400px:
+   #+caption: Source: PDBM book (Lemahieu et al., 2018)
+   [[../img/file_approach.png]]
+   #+ATTR_HTML: :WIDTH 400px:
+   #+caption: Source: PDBM book (Lemahieu et al., 2018)
+   [[../img/db_approach.png]]
+   #+ATTR_HTML: :WIDTH 400px:
+   #+caption: Source: PDBM book (Lemahieu et al., 2018)
+   [[../img/file_vs_db.png]]
+
+   The last figure also illustrates the difference between an
+   imperative and a declarative language like SQL.
+      #+end_notes
+4. What's a database instance?
+   #+begin_notes
+   An instance is an implementation of a database model or database
+   schema. Once the architecture blueprint (the schema) is realized
+   (e.g. when you can look at it in SQLite), you're looking at an
+   instance. When you leave the SQLite console, the state is saved
+   (unless you work in a transient database) and the instance is
+   destroyed - only the model remains.
+   #+end_notes
+5. What's a *logical* data model?
+   #+begin_notes
+   A logical data model is a translation of the conceptual data model
+   to a specific implementation environment. For example:
+   - conceptual model: "A list of numbered names." 
+     #+ATTR_HTML: :WIDTH 200px:
+     [[../img/conceptual.png]]
+   - logical (relational) model or schema in an SQLite environment:
+     #+ATTR_HTML: :WIDTH 400px:
+     [[../img/logical.png]]
+   - A db model editor can create both views, e.g. [[https://editor.ponyorm.com/user/birkenkrahe/conceptual_db_model/designer][ponyorm.com]]
+   - The three layer architecture shows the whole picture:
+     #+ATTR_HTML: :WIDTH 400px:
+     #+caption: Source: PDBM book (Lemahieu et al., 2018)
+     [[../img/three_layer1.png]]
+   #+end_notes
+6. What's in the catalog of a DBMS?
+   #+begin_notes
+   The catalog contains data definitions (metadata) including schema,
+   views, and other model aspects (e.g. for transactions or storage),
+   and keeps them consistent with one another (i.e. it's not just a
+   document but rather a system application - like an OS kernel).
+   #+end_notes
+7. What's the difference between DDL and DML? Can you give an example?
+   #+begin_notes
+   -  DDL (data definition language) is used to epxress the external,
+     logical, and internal data models. Example: ~CREATE TABLE test
+     (name TEXT, number INT);~
+   - DML (data manipulation language) is used to retrieve, insert,
+     delete and modify data. Example: ~INSERT INTO test (name, number)
+     VALUES ('Database','101');~
+   - SQL is both a DDL and a DML (and a DQL and a DCL besides).
+   #+end_notes
+8. Name three advantages of database management (over not managing data):
+   #+begin_notes
+   1. Data Independence = applications are unaffected by
+      physical/logical changes
+   2. Database Modelling = conceptual / logical / internal
+   3. *Managing Structured, Semi-Structured and Unstructured Data*
+   4. Managing Data Redundancy = duplication of data
+   5. Specifying Integrity Rules = semantical rules (e.g. date format)
+   6. *Concurrency Control*
+   7. Backup and Recovery Facilities = incremental or full backup
+   8. Data Security = different users have different access permissions
+   9. *Performance Utilities*
+   10. Size advantage = virtually infinite storage capacity
+   #+end_notes
+9. Examples for structured, semi-structured and unstructured data?
+   #+begin_notes
+   - Structured data can be tested for duplication, contamination
+     etc. For example: number, name, address, email of a person.
+   - Unstructured data must be structured before it can be
+     processed. For example: document that contains personal details.
+   - Semi-structured data have an irregular or volatile structure. For
+     example: a person's X feed, or resume documents in an HR
+     database.
+   #+end_notes
+10. What is concurrency and how does a database control concurrency?
+    #+begin_notes
+    - Concurrency means parallel execution of database programs, or
+      synchronous transactions: DBMS reads/writes simultaneously.
+    - DBMS control concurrency if they have ACID (Atomicity,
+      Consistency, Isolation, Durability) properties.
+    #+end_notes
+ 11. What are three DBMS KPIs?
+     #+begin_notes
+     KPIs or Key Performance Indicators measure DB performance:
+     1) response time (DB request to termination)
+     2) throughput rate (transactions performed per unit of time)
+     3) space utilization (to store raw data and metadata)
+     #+end_notes
+
+** TODO Types of database management systems (Beaulieu, 2012)
+
+See [[file:1_fundamental.org]], see also [[https://youtu.be/j09EQ-xlh88?si=sGAUS_XDOoKKNgRH][video on YouTube]] (techTFQ, 2020),
+13 min (includes NoSQL and graph database examples). There is also a
+whole chapter on "Legacy databases" 
+
+- Hierarchical
+- Network
+- Relational
+- Concurrency Control
+- ACID rules
+
+
+** NEXT  Opportunity: working directly with a [social] entrepreneurship project!
+#+ATTR_HTML: :WIDTH 400px: 
+[[../img/social.webp]]
+
+If you're interested in making the world a better place not just in a
+general, but in a specific way, starting right here in Batesville, and
+earn extra credit, you can use your project in connection with the
+"social entrepreneurship club (SEC). For databases, this is fairly
+straightforward because all businesses and projects need data and
+databases. To brainstorm ideas and see what is already cooking, get
+together with Dr. Peter Staples and me, and/or join the Google Space
+for SEC.
+
+Dr. Staples will also offer a project management course this summer.
+
 
 
 * Week 5 -
