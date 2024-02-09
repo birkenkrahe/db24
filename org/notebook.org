@@ -585,12 +585,12 @@ To review this content, [[https://youtu.be/o36Z_OqC2ac?si=pEkI_mlTZRe_NTH6][watc
 3. Explain the difference between the file vs. database approach to
    managing data.
    #+begin_notes
-   | File                       | Database                |
-   |----------------------------+-------------------------|
-   | Redundant data             | Data are managed        |
-   | Inconsistent data          | Data are consistent     |
-   | Strong app-data coupling   | Loose app-data coupling |
-   | Little concurrency control | Concurrency control     |
+   | File                       | Database                 |
+   |----------------------------+--------------------------|
+   | Redundant data             | Data are managed         |
+   | Inconsistent data          | Data are consistent      |
+   | Strong app-data coupling   | Loose app-data coupling  |
+   | Little concurrency control | Concurrency control      |
    | Hard to integrate in ops   | Easy to integrate in ops |
    #+ATTR_HTML: :WIDTH 400px:
    #+caption: Source: PDBM book (Lemahieu et al., 2018)
@@ -618,7 +618,7 @@ To review this content, [[https://youtu.be/o36Z_OqC2ac?si=pEkI_mlTZRe_NTH6][watc
    #+begin_notes
    A logical data model is a translation of the conceptual data model
    to a specific implementation environment. For example:
-   - conceptual model: "A list of numbered names." 
+   - conceptual model: "A list of numbered names." (DB pseudocode)
      #+ATTR_HTML: :WIDTH 200px:
      [[../img/conceptual.png]]
    - logical (relational) model or schema in an SQLite environment:
@@ -632,16 +632,17 @@ To review this content, [[https://youtu.be/o36Z_OqC2ac?si=pEkI_mlTZRe_NTH6][watc
    #+end_notes
 6. What's in the catalog of a DBMS?
    #+begin_notes
-   The catalog contains data definitions (metadata) including schema,
-   views, and other model aspects (e.g. for transactions or storage),
-   and keeps them consistent with one another (i.e. it's not just a
-   document but rather a system application - like an OS kernel).
+   The catalog (aka data dictionary) contains data definitions
+   (metadata) including schema, views, and other model aspects
+   (e.g. for transactions or storage), and user permissions and keeps
+   them consistent with one another (i.e. it's not just a document but
+   rather a system application - like an OS kernel).
    #+end_notes
 7. What's the difference between DDL and DML? Can you give an example?
    #+begin_notes
    -  DDL (data definition language) is used to epxress the external,
      logical, and internal data models. Example: ~CREATE TABLE test
-     (name TEXT, number INT);~
+     (name TEXT, number INT);~ (which in SQLite you get with =.schema=)
    - DML (data manipulation language) is used to retrieve, insert,
      delete and modify data. Example: ~INSERT INTO test (name, number)
      VALUES ('Database','101');~
@@ -678,7 +679,7 @@ To review this content, [[https://youtu.be/o36Z_OqC2ac?si=pEkI_mlTZRe_NTH6][watc
     - DBMS control concurrency if they have ACID (Atomicity,
       Consistency, Isolation, Durability) properties.
     #+end_notes
- 11. What are three DBMS KPIs?
+11. What are three DBMS KPIs?
      #+begin_notes
      KPIs or Key Performance Indicators measure DB performance:
      1) response time (DB request to termination)
