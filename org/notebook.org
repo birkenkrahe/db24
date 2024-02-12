@@ -397,8 +397,7 @@ Procedure:
 - Kill download buffer (~C-x k~)
 - Open file (~C-x C-f~)
 
-
-* Week 4 - Database types, projects, and Selecting Data
+* DONE Week 4 - Fundamentals of DB, projects, and Selecting Data
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/databases.png]]
 
@@ -551,8 +550,7 @@ and all other future materials.
 (MySQL workbench, pgModeler, DBeaver, Apache Cassandra, SQuirreL SQL)
 **** Project 10: SQL modes in Emacs (requires Emacs Lisp)
 
-
-** TODO 11 Review questions for "Fundamentals of DBMS" ([[https://youtu.be/o36Z_OqC2ac?si=z9eobmcn7bfeS_lp][video]])
+** 11 Review questions for "Fundamentals of DBMS" ([[https://youtu.be/o36Z_OqC2ac?si=z9eobmcn7bfeS_lp][video]])
 
 To review this content, [[https://youtu.be/o36Z_OqC2ac?si=pEkI_mlTZRe_NTH6][watch the video]] or [[https://docs.google.com/presentation/d/1Ln-EnXMmO3ZzjztTRZ5rzBPBsUo08uzN/edit?usp=sharing&ouid=102963037093118135110&rtpof=true&sd=true][look at the slides]].
 
@@ -687,19 +685,6 @@ To review this content, [[https://youtu.be/o36Z_OqC2ac?si=pEkI_mlTZRe_NTH6][watc
      3) space utilization (to store raw data and metadata)
      #+end_notes
 
-** TODO Types of database management systems (Beaulieu, 2012)
-
-See [[file:1_fundamental.org]], see also [[https://youtu.be/j09EQ-xlh88?si=sGAUS_XDOoKKNgRH][video on YouTube]] (techTFQ, 2020),
-13 min (includes NoSQL and graph database examples). There is also a
-whole chapter on "Legacy databases" 
-
-- Hierarchical
-- Network
-- Relational
-- Concurrency Control
-- ACID rules
-
-
 ** NEXT  Opportunity: working directly with a [social] entrepreneurship project!
 #+ATTR_HTML: :WIDTH 400px: 
 [[../img/social.webp]]
@@ -717,7 +702,21 @@ Dr. Staples will also offer a project management course this summer.
 
 
 
-* Week 5 -
+* Week 5 - DBMS types - SQLite introduction
+
+
+** TODO Types of database management systems (Beaulieu, 2012)
+
+See [[file:1_fundamental.org]], see also [[https://youtu.be/j09EQ-xlh88?si=sGAUS_XDOoKKNgRH][video on YouTube]] (techTFQ, 2020),
+13 min (includes NoSQL and graph database examples). There is also a
+whole chapter on "Legacy databases" 
+
+- Hierarchical
+- Network
+- Relational
+- Concurrency Control
+- ACID rules
+
 
 * Week 6 - Sprint Review
 * Week 7 -
