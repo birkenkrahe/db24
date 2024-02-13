@@ -718,8 +718,8 @@ whole chapter on "Legacy databases".
 
 ** TODO SQLite overview
 
-
-  
+- SQLite architecture vs. traditional RDBMS client/server architecture
+- 
 
 * Week 6 - Sprint Review
 * Week 7 -

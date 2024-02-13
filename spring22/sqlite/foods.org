@@ -1,0 +1,36 @@
+#+Startup: overview hideblocks indent
+* Import the foods database
+
+- Import the foods database.
+
+- Check database and tables.
+  #+begin_src sqlite :db foods.sqlite
+  .database
+  .tables	  
+  #+end_src
+
+- Import database from the file ~foods.sql~ in the same directory.
+  #+begin_src sqlite :db foods.sqlite
+    .read foods.sql
+    .tables
+  #+end_src
+
+  #+RESULTS:
+  : episodes        food_types      foods           foods_episodes
+
+- Look at the tables: print the first 5 records for each table as a table with header in columns.
+  #+begin_src sqlite :db foods.sqlite
+    .header ON
+    .mode column
+    SELECT * FROM episodes LIMIT 5;
+  #+end_src
+
+  #+RESULTS:
+  | id  season  name               |
+  | --  ------  ------------------ |
+  | 0           Good News Bad News |
+  | 1   1       Male Unbonding     |
+  | 2   1       The Stake Out      |
+  | 3   1       The Robbery        |
+  | 4   1       The Stock Tip      |
+    

@@ -17,9 +17,12 @@
 
 - Customers have their own tree containing accounts and transactional
   information.
+  
 - The DB system provides tools for searching through and across trees.
+
 - Each tree node can have 0 or 1 parent, and 0, 1 or many children
   (so-called single parent hierarchy).
+
 - This type of DB system is popular (again) e.g. for network directory
   databases (Microsoft Active Directory).
   
@@ -51,10 +54,12 @@
 - Some redundant information is used to navigate to another table:
   ~Account.cust_id~ contains the unique customer ID and the unique
   ~Product.product_cd~ product ID (so-called /foreign keys/).
+
 - To find out more about a customer whose account you're looking at,
   you'd have to /join/ the ~Account~ and the ~Customer~ table.
+
 - The process of resolving logical redundancies not used for
-  navigation is called /normalization/.
+  navigation is called **normalization**.
 
 * Some terminology
 
@@ -72,11 +77,15 @@
 
 DBMS must support ACID (Atomicity, Consistency, Isolation, Durability)
 properties:
-- Atomicity requires that a transaction should either be executed in
+
+- *Atomicity* requires that a transaction should either be executed in
   its entirety or not all.
-- Consistency assures that a transaction brings the database from one
+
+- *Consistency* assures that a transaction brings the database from one
   consistent state to another.
-- Isolation ensures that the effect of concurrent transactions should
+
+- *Isolation* ensures that the effect of concurrent transactions should
   be the same as if they would have been executed in isolation.
-- Durability ensures that the database changes made by a transaction
+
+- *Durability* ensures that the database changes made by a transaction
   declared successful can be made permanent under all circumstances.
