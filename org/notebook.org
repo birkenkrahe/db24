@@ -229,7 +229,7 @@ Now, let's do it in Emacs! Download the practice file
 ~tinyurl.com/firstSQLite~ and open it in Emacs. Instructions are in
 there. Upload completed file to Canvas by Friday night.
 
-* DONE Week 3 - Relational databases and SQLlite queries
+* DONE Week 3 - Relational databases and SQLite queries
 #+ATTR_HTML: :WIDTH 400px: 
 [[../img/sql_queries.png]]
 
@@ -704,12 +704,11 @@ Dr. Staples will also offer a project management course this summer.
 
 * Week 5 - DBMS types - SQLite introduction
 
-
 ** TODO Types of database management systems (Beaulieu, 2012)
 
 See [[file:1_fundamental.org]], see also [[https://youtu.be/j09EQ-xlh88?si=sGAUS_XDOoKKNgRH][video on YouTube]] (techTFQ, 2020),
 13 min (includes NoSQL and graph database examples). There is also a
-whole chapter on "Legacy databases" 
+whole chapter on "Legacy databases".
 
 - Hierarchical
 - Network
@@ -717,6 +716,10 @@ whole chapter on "Legacy databases"
 - Concurrency Control
 - ACID rules
 
+** TODO SQLite overview
+
+
+  
 
 * Week 6 - Sprint Review
 * Week 7 -
