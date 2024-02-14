@@ -721,6 +721,7 @@ whole chapter on "Legacy databases".
 - SQLite architecture vs. traditional RDBMS client/server architecture
 - 
 
+
 * Week 6 - Sprint Review
 * Week 7 -
 * Week 8 -

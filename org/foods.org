@@ -1,0 +1,33 @@
+#+startup: overview hideblocks indent
+#+property: header-args:sqlite db:foods.sqlite
+* The foods database
+
+- Let's import the ~foods~ database from the file
+  ~foods.sql~ in the current directory.
+  #+begin_src sqlite :db ../data/foods.sqlite :results output
+    .database
+    .read ../data/foods.sql
+    .tables
+  #+end_src
+
+  #+RESULTS:
+  : main: /home/marcus/GitHub/db24/data/foods.sqlite r/w
+  : episodes        food_types      foods           foods_episodes
+
+- Print the first five records of ~foods_episodes~:
+  #+begin_src sqlite :db ../data/foods.sqlite
+    --  Print the first five records of ~foods_episodes~:
+    .header on
+    .mode column
+    SELECT * FROM foods_episodes LIMIT 5;
+  #+end_src
+
+  #+RESULTS:
+  | food_id  episode_id |
+  | -------  ---------- |
+  | 1        165        |
+  | 2        165        |
+  | 2        154        |
+  | 3        115        |
+  | 4        169        |
+
