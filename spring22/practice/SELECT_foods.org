@@ -126,7 +126,6 @@
 
      #+end_src
 
-     
 * Translate SQL query into natural language
 
   * SQL is a declarative, natural language. You are able to speak
@@ -233,7 +232,6 @@
 
     #+end_src
 
-    
 * Grouping rows
 
   * [ ] How many episodes did each of the seasons of the Seinfeld show
@@ -258,7 +256,6 @@
 
     #+end_src
 
-    
 * Coercion
 
   * [ ] Explain the difference between the results of these three queries!

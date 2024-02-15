@@ -5,6 +5,7 @@
     terminal), and send me a record via email.
   
 * SQLite
+
 ** Delete tables
 
    * ~DROP TABLE [table];~
