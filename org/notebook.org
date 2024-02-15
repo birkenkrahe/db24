@@ -703,8 +703,10 @@ Dr. Staples will also offer a project management course this summer.
 
 
 * Week 5 - DBMS types - SQLite introduction
+#+attr_html: :width 400px:
+[[../img/study_hour.png]]
 
-** Types of database management systems (Beaulieu, 2012)
+** DONE Types of database management systems (Beaulieu, 2012)
 
 See [[file:1_fundamental.org]], see also [[https://youtu.be/j09EQ-xlh88?si=sGAUS_XDOoKKNgRH][video on YouTube]] (techTFQ, 2020),
 13 min (includes NoSQL and graph database examples). There is also a
@@ -716,7 +718,8 @@ whole chapter on "Legacy databases".
 - Concurrency Control
 - ACID rules
 
-** SQLite overview
+
+** DONE SQLite overview
 #+attr_html: :width 400px: 
 [[../img/sqlite_intro.png]]
 
@@ -796,14 +799,17 @@ OPTIONS include:
   | highly portable - stored in 1 file | limited data types               |
 
 
-** SQLite practice
+** TODO SQLite practice
 #+attr_html: :width 400px: 
 [[../img/gitpic.png]]
 
 1. Emacs customization:
    - =org-tempo-keywords-alist=: redefine <S <H
    - =org-structure-template-alist=: redefine <sqlite <p <r
-2. SQLite practice with ~foods.sql~ (Source: Kreibich, 2014).
+2. Continue SQLite practice with ~foods.sql~ (Source: Kreibich, 2014).
+
+
+** TODO Due next week: your project proposal ([[https://lyon.instructure.com/courses/2254/assignments/24826][Canvas]]/[[https://drive.google.com/drive/folders/1Ezbgo7x0tjbkf1lJ1eSSQPCpudIPZqcC?usp=sharing][GDrive]])
 
 * Week 6 - Sprint Review
 * Week 7 -
