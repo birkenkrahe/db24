@@ -718,7 +718,6 @@ whole chapter on "Legacy databases".
 - Concurrency Control
 - ACID rules
 
-
 ** DONE SQLite overview
 #+attr_html: :width 400px: 
 [[../img/sqlite_intro.png]]
@@ -738,6 +737,7 @@ whole chapter on "Legacy databases".
   3. Deleting data (DDL for tables + DML for table content)
   4. Importing data (SQLite <-> shell)
   5. Querying data (DQL)
+  6. Console (~sqlite3~) control (DCL)
 
 - You can use graphical development tools but SQLite favors the
   command line. It has a small set of flags and options:
@@ -799,17 +799,83 @@ OPTIONS include:
   | highly portable - stored in 1 file | limited data types               |
 
 
+** TODO SQLite review questions:
+
+1) You can name a few things that are great about SQLite.
+2) You can name a couple of pros and a couple of cons.
+3) SQLite favors the command line. True or false?
+4) You can run SQLite inside the Emacs editor. True or false?
+5) You know the basic architecture of an SQLite database system.
+6) You know what kind of programming language SQLite is.
+7) You know if hierarchical databases are still used or not.
+8) You know what ACID means.
+   #+begin_quote
+- *Atomicity* requires that a transaction should either be executed in
+  its entirety or not all.
+
+- *Consistency* assures that a transaction brings the database from one
+  consistent state to another.
+
+- *Isolation* ensures that the effect of concurrent transactions should
+  be the same as if they would have been executed in isolation.
+
+- *Durability* ensures that the database changes made by a transaction
+  declared successful can be made permanent under all circumstances.
+
+   #+end_quote
+9) You know if ACID is for RDBMS.
+
 ** TODO SQLite practice
 #+attr_html: :width 400px: 
 [[../img/gitpic.png]]
 
-1. Emacs customization:
-   - =org-tempo-keywords-alist=: redefine <S <H
-   - =org-structure-template-alist=: redefine <sqlite <p <r
-2. Continue SQLite practice with ~foods.sql~ (Source: Kreibich, 2014).
+Add ~<b~ as ~src bash~ to ~org-structure-template-alist~
+1. ~C-h v org-structure-template-alist~
+2. At the bottom, click on =Customize=
+3. At the bottom, click on =Ins=
+4. Enter the =Key= ~sqlite~
+5. Enter the =Template= ~src sqlite :db test.db :results output :headerx
+   :column~ (end with a space)
+6. At the top, click on =Apply and Save=
+7. Test it in an Org-mode file by entering ~<sqlite TAB~
+8. In the code block, run a =sqlite3= command, like ~.database~
 
+*Objectives:*
+- Explore the SQLite shell
+- Creating a database (DDL)
+- Creating a table (DDL)
+- Inserting values into a table (DML)
+- Querying a table (DQL)
+- Formatting stdout (DCL)
+- Changing table content (DML)
+- Change table structure (DDL)
+- Viewing the table index (DQL)
+- Viewing the table schema (DQL)
+- Viewing table views (DQL)
+- Viewing the master table (DQL)
+- Exporting data (DML)
+- Deleting a table (DDL)
+- Deleting a database (DDL)
+- Importing data (DML)
+- Writing CSV files (DML)
+- Interfacing with the shell (DCL)
 
 ** TODO Due next week: your project proposal ([[https://lyon.instructure.com/courses/2254/assignments/24826][Canvas]]/[[https://drive.google.com/drive/folders/1Ezbgo7x0tjbkf1lJ1eSSQPCpudIPZqcC?usp=sharing][GDrive]])
+#+attr_html: :width 400px: 
+[[../img/cats.png]]
+
+- Social entrepreneurship opportunity: join forces with the pre-vet
+  club to solve the problem of feral cat infestation on campus.
+
+- A solution has to be found that is friendly to the animals, includes
+  working with local vets (spaying), the college and the animal
+  shelter.
+
+- This many actors, a yet undefined process and operations, and an
+  unknown amount of "small" data cries out for a database solution!
+
+- Who among you will be the saviour of cats!?
+
 
 * Week 6 - Sprint Review
 * Week 7 -

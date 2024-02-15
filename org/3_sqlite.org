@@ -1,28 +1,52 @@
-#+STARTUP: hideblocks overview indent:
-#+OPTIONS: toc:nil num:nil ^:nil: 
+#+STARTUP: hideblocks overview indent :
+#+OPTIONS: toc:nil num:nil ^:nil:
+#+PROPERTY: header-args:sqlite :results output
+* README
+
+- SQLite Overview / Pros and Cons
+- Explore the SQLite shell
+- Creating a database (DDL)
+- Creating a table (DDL)
+- Inserting values into a table (DML)
+- Querying a table (DQL)
+- Formatting stdout (DCL)
+- Changing table content (DML)
+- Change table structure (DDL)
+- Viewing the table index (DQL)
+- Viewing the table schema (DQL)
+- Viewing table views (DQL)
+- Viewing the master table (DQL)
+- Exporting data (DML)
+- Deleting a table (DDL)
+- Deleting a database (DDL)
+- Importing data (DML)
+- Writing CSV files (DML)
+- Interfacing with the shell (DCL)
+
 * SQLite overview
-#+attr_html: :width 400px: 
+#+attr_html: :width 400px:
 [[../img/sqlite_intro.png]]
 
 * Single-file approach (instead of client/server)
 
- SQLite architecture vs. RDBMS client/server architecture:
-  1. No management system between database files and user apps
-  2. Instead just one file directly connected to the user app
+SQLite architecture vs. RDBMS client/server architecture:
+1. No management system between database files and user apps
+2. Instead just one file directly connected to the user app
 
 * Declarative programming language
-  
- SQLite is a declarative programming language. Its properties:
-  1. DDL: creating and altering tables
-     #+begin_example sqlite
-     CREATE [temp] TABLE table_name (col_def [constraints]);
-     ALTER TABLE table_name (RENAME TO new_name|ADD COLUMN col_def);
-     #+end_example
-     Data types available: =REAL=, =TEXT=, =BLOB= =NULL=
-  2. Exporting data (SQLite <-> shell)
-  3. Deleting data (DDL for tables + DML for table content)
-  4. Importing data (SQLite <-> shell)
-  5. Querying data (DQL)
+
+SQLite is a declarative programming language. Its properties:
+1. DDL: creating and altering tables
+   #+begin_example sqlite
+   CREATE [temp] TABLE table_name (col_def [constraints]);
+   ALTER TABLE table_name (RENAME TO new_name|ADD COLUMN col_def);
+   #+end_example
+   Data types available: =REAL=, =TEXT=, =BLOB= =NULL=
+2. Exporting data (SQLite <-> shell)
+3. Deleting data (DDL for tables + DML for table content)
+4. Importing data (SQLite <-> shell)
+5. Querying data (DQL)
+6. Console (~sqlite3~) control (DCL)
 
 - You can use graphical development tools but SQLite favors the
   command line. It has a small set of flags and options:
@@ -77,10 +101,297 @@ OPTIONS include:
 
 * Pros and cons
 
-  | +                                  | -                                |
-  |------------------------------------+----------------------------------|
-  | Very lightweight < 600KB           | Limited concurrency (1 access)   |
-  | user friendly - zero config        | no user management               |
-  | self-contained - no dependencies   | security: no data access control |
-  | highly portable - stored in 1 file | limited data types               |
+| Pros                               | Cons                             |
+|------------------------------------+----------------------------------|
+| Very lightweight < 600KB           | Limited concurrency (1 access)   |
+| user friendly - zero config        | no user management               |
+| self-contained - no dependencies   | security: no data access control |
+| highly portable - stored in 1 file | limited data types               |
 
+* Explore the =sqlite3= shell/console/terminal (DQL)
+
+- The learning of a programming language
+
+- Get all help on the console from the OS shell: open an shell inside
+  Emacs with ~M-x eshell~ and run this command:
+  #+begin_src bash
+    sqlite3 --help
+  #+end_src
+
+- You can now open SQLite on a new (or existing) database while
+  directly specifying that it displays output in tables with columns
+  and header.
+
+- Try that with the ~foods.sqlite~ database that you created last time.
+  #+begin_example bash
+    sqlite3 -header -column foods.sqlite
+  #+end_example
+
+- On the console, check that the initialization worked with ~.show~
+
+- If you don't have a database, you still run the command and check
+  the settings - the database will now be created.
+
+- Get the help on the console for in-program control commands:
+  #+begin_src sqlite :db test.db
+    .help
+  #+end_src
+
+  #+RESULTS:
+  | .archive ...             Manage SQL archives                                    |                                                                   |                                                            |                                                        |
+  | .auth ON                                                                        | OFF             Show authorizer callbacks                         |                                                            |                                                        |
+  | .backup ?DB? FILE        Backup DB (default "main") to FILE                     |                                                                   |                                                            |                                                        |
+  | .bail on                                                                        | off             Stop after hitting an error.  Default OFF         |                                                            |                                                        |
+  | .binary on                                                                      | off           Turn binary output on or off.  Default OFF          |                                                            |                                                        |
+  | .cd DIRECTORY            Change the working directory to DIRECTORY              |                                                                   |                                                            |                                                        |
+  | .changes on                                                                     | off          Show number of rows changed by SQL                   |                                                            |                                                        |
+  | .check GLOB              Fail if output since .testcase does not match          |                                                                   |                                                            |                                                        |
+  | .clone NEWDB             Clone data into NEWDB from the existing database       |                                                                   |                                                            |                                                        |
+  | .connection [close] [#]  Open or close an auxiliary database connection         |                                                                   |                                                            |                                                        |
+  | .databases               List names and files of attached databases             |                                                                   |                                                            |                                                        |
+  | .dbconfig ?op? ?val?     List or change sqlite3_db_config() options             |                                                                   |                                                            |                                                        |
+  | .dbinfo ?DB?             Show status information about the database             |                                                                   |                                                            |                                                        |
+  | .dump ?OBJECTS?          Render database content as SQL                         |                                                                   |                                                            |                                                        |
+  | .echo on                                                                        | off             Turn command echo on or off                       |                                                            |                                                        |
+  | .eqp on                                                                         | off                                                               | full                                                       | ...     Enable or disable automatic EXPLAIN QUERY PLAN |
+  | .excel                   Display the output of next command in spreadsheet      |                                                                   |                                                            |                                                        |
+  | .exit ?CODE?             Exit this program with return-code CODE                |                                                                   |                                                            |                                                        |
+  | .expert                  EXPERIMENTAL. Suggest indexes for queries              |                                                                   |                                                            |                                                        |
+  | .explain ?on                                                                    | off                                                               | auto?   Change the EXPLAIN formatting mode.  Default: auto |                                                        |
+  | .filectrl CMD ...        Run various sqlite3_file_control() operations          |                                                                   |                                                            |                                                        |
+  | .fullschema ?--indent?   Show schema and the content of sqlite_stat tables      |                                                                   |                                                            |                                                        |
+  | .headers on                                                                     | off          Turn display of headers on or off                    |                                                            |                                                        |
+  | .help ?-all? ?PATTERN?   Show help text for PATTERN                             |                                                                   |                                                            |                                                        |
+  | .import FILE TABLE       Import data from FILE into TABLE                       |                                                                   |                                                            |                                                        |
+  | .imposter INDEX TABLE    Create imposter table TABLE on index INDEX             |                                                                   |                                                            |                                                        |
+  | .indexes ?TABLE?         Show names of indexes                                  |                                                                   |                                                            |                                                        |
+  | .limit ?LIMIT? ?VAL?     Display or change the value of an SQLITE_LIMIT         |                                                                   |                                                            |                                                        |
+  | .lint OPTIONS            Report potential schema issues.                        |                                                                   |                                                            |                                                        |
+  | .load FILE ?ENTRY?       Load an extension library                              |                                                                   |                                                            |                                                        |
+  | .log FILE                                                                       | off            Turn logging on or off.  FILE can be stderr/stdout |                                                            |                                                        |
+  | .mode MODE ?TABLE?       Set output mode                                        |                                                                   |                                                            |                                                        |
+  | .nonce STRING            Disable safe mode for one command if the nonce matches |                                                                   |                                                            |                                                        |
+  | .nullvalue STRING        Use STRING in place of NULL values                     |                                                                   |                                                            |                                                        |
+  | .once ?OPTIONS? ?FILE?   Output for the next SQL command only to FILE           |                                                                   |                                                            |                                                        |
+  | .open ?OPTIONS? ?FILE?   Close existing database and reopen FILE                |                                                                   |                                                            |                                                        |
+  | .output ?FILE?           Send output to FILE or stdout if FILE is omitted       |                                                                   |                                                            |                                                        |
+  | .parameter CMD ...       Manage SQL parameter bindings                          |                                                                   |                                                            |                                                        |
+  | .print STRING...         Print literal STRING                                   |                                                                   |                                                            |                                                        |
+  | .progress N              Invoke progress handler after every N opcodes          |                                                                   |                                                            |                                                        |
+  | .prompt MAIN CONTINUE    Replace the standard prompts                           |                                                                   |                                                            |                                                        |
+  | .quit                    Exit this program                                      |                                                                   |                                                            |                                                        |
+  | .read FILE               Read input from FILE                                   |                                                                   |                                                            |                                                        |
+  | .recover                 Recover as much data as possible from corrupt db.      |                                                                   |                                                            |                                                        |
+  | .restore ?DB? FILE       Restore content of DB (default "main") from FILE       |                                                                   |                                                            |                                                        |
+  | .save FILE               Write in-memory database into FILE                     |                                                                   |                                                            |                                                        |
+  | .scanstats on                                                                   | off        Turn sqlite3_stmt_scanstatus() metrics on or off       |                                                            |                                                        |
+  | .schema ?PATTERN?        Show the CREATE statements matching PATTERN            |                                                                   |                                                            |                                                        |
+  | .selftest ?OPTIONS?      Run tests defined in the SELFTEST table                |                                                                   |                                                            |                                                        |
+  | .separator COL ?ROW?     Change the column and row separators                   |                                                                   |                                                            |                                                        |
+  | .session ?NAME? CMD ...  Create or control sessions                             |                                                                   |                                                            |                                                        |
+  | .sha3sum ...             Compute a SHA3 hash of database content                |                                                                   |                                                            |                                                        |
+  | .shell CMD ARGS...       Run CMD ARGS... in a system shell                      |                                                                   |                                                            |                                                        |
+  | .show                    Show the current values for various settings           |                                                                   |                                                            |                                                        |
+  | .stats ?ARG?             Show stats or turn stats on or off                     |                                                                   |                                                            |                                                        |
+  | .system CMD ARGS...      Run CMD ARGS... in a system shell                      |                                                                   |                                                            |                                                        |
+  | .tables ?TABLE?          List names of tables matching LIKE pattern TABLE       |                                                                   |                                                            |                                                        |
+  | .testcase NAME           Begin redirecting output to 'testcase-out.txt'         |                                                                   |                                                            |                                                        |
+  | .testctrl CMD ...        Run various sqlite3_test_control() operations          |                                                                   |                                                            |                                                        |
+  | .timeout MS              Try opening locked tables for MS milliseconds          |                                                                   |                                                            |                                                        |
+  | .timer on                                                                       | off            Turn SQL timer on or off                           |                                                            |                                                        |
+  | .trace ?OPTIONS?         Output each SQL statement as it is run                 |                                                                   |                                                            |                                                        |
+  | .vfsinfo ?AUX?           Information about the top-level VFS                    |                                                                   |                                                            |                                                        |
+  | .vfslist                 List all available VFSes                               |                                                                   |                                                            |                                                        |
+  | .vfsname ?AUX?           Print the name of the VFS stack                        |                                                                   |                                                            |                                                        |
+  | .width NUM1 NUM2 ...     Set minimum column widths for columnar output          |                                                                   |                                                            |                                                        |
+
+* Creating a database (DDL)
+
+- Create a new file ~sqlite.org~ to code along. Create a headline
+  "Creating a database DDL".
+ 
+- Use ~<sqlite~ if you defined it in ~org-structure-template-alist~ to
+  create a new codeblock. Check which database sqlite3 writes to, and
+  if it has any tables in it:
+  #+begin_src sqlite :db test.db
+    .database
+    .tables
+  #+end_src
+
+  #+RESULTS:
+  : main: /home/marcus/GitHub/db24/org/test.db r/w
+
+* Creating a table with =CREATE TABLE= (DDL)
+
+- The general structure of the command:
+  #+begin_example
+  CREATE [temp|temporary] TABLE table_name (col_def [constraints]);
+  #+end_example
+
+- ~temporary~ tables can be useful for querying but they disappear when
+  the session ends - they are transient, not permanent.
+
+- Let's create a simple table ~test~ with an ~INTEGER~ field ~id~ that is a
+  ~PRIMARY KEY~, and a ~TEXT~ field called ~value~ - check that it was
+  created:
+  #+begin_src sqlite :db test.db
+    CREATE TABLE test (id INTEGER PRIMARY KEY, value TEXT);
+    .tables
+  #+end_src
+
+  #+RESULTS:
+  : test
+
+- There is a number of ~constraints~ to ensure data integrity.
+
+* SQL Table Constraints
+
+When creating a table in SQL, various constraints can be specified to
+enforce data integrity and rules within the table. These constraints
+are:
+
+** PRIMARY KEY
+- Ensures unique values across the table and cannot contain NULL
+  values.
+- Uniquely identifies each row in a table.
+#+BEGIN_EXAMPLE sql
+  CREATE TABLE example (
+  id INT PRIMARY KEY,
+  name TEXT
+  );
+#+END_EXAMPLE
+
+- For a composite primary key:
+#+BEGIN_EXAMPLE sql
+  CREATE TABLE example (
+  id1 INT,
+  id2 INT,
+  name TEXT,
+  PRIMARY KEY (id1, id2)
+  );
+#+END_EXAMPLE
+
+** FOREIGN KEY
+- Establishes a relationship between the key columns of two tables.
+- Ensures that the value in the child table matches one of the values
+  in the parent table's primary key or a unique key.
+#+BEGIN_EXAMPLE sql
+  CREATE TABLE orders (
+  order_id INT PRIMARY KEY,
+  product_id INT,
+  FOREIGN KEY (product_id) REFERENCES products(product_id)
+  );
+#+END_EXAMPLE
+
+** UNIQUE
+- Ensures that all values in a column are unique.
+- Multiple rows can have NULL values unless the column is explicitly
+  set to NOT NULL.
+#+BEGIN_EXAMPLE sql
+  CREATE TABLE example (
+  id INT PRIMARY KEY,
+  email TEXT UNIQUE
+  );
+#+END_EXAMPLE
+
+** CHECK
+- Specifies a condition that must be true for all rows in the table.
+- Used to enforce domain integrity by limiting the values that can be
+  stored in a column. 
+#+BEGIN_SRC sql
+  CREATE TABLE example (
+  id INT PRIMARY KEY,
+  age INT CHECK (age >= 18)
+  );
+#+END_SRC
+
+** NOT NULL
+- Ensures that a column cannot have a NULL value.
+- Enforces that a column must always have a data value.
+#+BEGIN_SRC sql
+  CREATE TABLE example (
+  id INT PRIMARY KEY,
+  name TEXT NOT NULL
+  );
+#+END_SRC
+
+** DEFAULT
+- Assigns a default value to a column when no value is specified.
+- If a row is inserted without a value for this column, the column
+  will take the default value.
+#+BEGIN_SRC sql
+  CREATE TABLE example (
+  id INT PRIMARY KEY,
+  name TEXT,
+  status TEXT DEFAULT 'active'
+  );
+#+END_SRC
+
+These constraints play a crucial role in maintaining data integrity,
+ensuring consistency, and enforcing database rules.
+
+* Inserting values into a table with =INSERT= (DML)
+
+- Enter three records in your table:
+  #+begin_src sqlite :db test.db :results silent
+    INSERT INTO test (value) VALUES ('Ms. Jane Robinson');
+    INSERT INTO test (value) VALUES ('Mme. Carl Robinson');
+    INSERT INTO test (value) VALUES ('Mr. Edward Jones');                      
+  #+end_src
+
+* Querying a table (DQL)
+
+- We can look at the entire table (show ~header~ and use ~column~ mode):
+  #+begin_src sqlite :db test.db :header :column
+    SELECT * FROM test;
+  #+end_src
+
+  #+RESULTS:
+  : id  value             
+  : --  ------------------
+  : 1   Ms. Jane Robinson 
+  : 2   Mme. Carl Robinson
+  : 3   Mr. Edward Jones  
+  : 4   Ms. Jane Robinson 
+  : 5   Mme. Carl Robinson
+  : 6   Mr. Edward Jones  
+
+- Notice that despite the code block header you can still change the
+  options inside the code block:
+  #+begin_src sqlite :db test.db :header :column
+    .header off            
+    SELECT * FROM test LIMIT 2;
+  #+end_src
+
+  #+RESULTS:
+  : 1   Ms. Jane Robinson 
+  : 2   Mme. Carl Robinson
+
+- You notice that constraining ~id~ as ~PRIMARY KEY~ included ~AUTO
+  INCREMENT~ - the value is automatically increased by one for each new
+  row.
+
+- If you used ~AUTO INCREMENT~, you can get the value of the last
+  non-empty row with an SQL function:
+  #+begin_src sqlite :db test.db :header :column
+     SELECT LAST_INSERT_ROWID();
+  #+end_src
+
+  #+RESULTS:
+  : LAST_INSERT_ROWID()
+  : -------------------
+  : 0                  
+
+
+* Changing table content (DML)
+* Change table structure (DDL)
+* Viewing the table index (DQL)
+* Viewing the table schema (DQL)
+* Viewing table views (DQL)
+* Viewing the master table (DQL)
+* Exporting data (DML)
+* Deleting a table (DDL)
+* Deleting a database (DDL)
+* Importing data (DML)
+* Writing CSV files (DML)
+* Interfacing with the shell (DCL)

@@ -1,0 +1,24 @@
+#+STARTUP: hideblocks overview indent :
+#+OPTIONS: toc:nil num:nil ^:nil :
+* README
+
+- Explore the SQLite shell
+- Creating a database (DDL)
+- Creating a table (DDL)
+- Inserting values into a table (DML)
+- Querying a table (DQL)
+- Formatting stdout (DCL)
+- Changing table content (DML)
+- Change table structure (DDL)
+- Viewing the table index
+- Viewing the table schema
+- Viewing table views
+- Viewing the master table
+- Exporting data
+- Deleting a table
+- Deleting a database
+- Importing data
+- Writing CSV files
+- Interfacing with the shell
+
+  
