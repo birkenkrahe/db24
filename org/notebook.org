@@ -799,7 +799,7 @@ OPTIONS include:
   | highly portable - stored in 1 file | limited data types               |
 
 
-** TODO SQLite review questions:
+** DONE SQLite review questions:
 
 1) You can name a few things that are great about SQLite.
 2) You can name a couple of pros and a couple of cons.
@@ -825,11 +825,28 @@ OPTIONS include:
    #+end_quote
 9) You know if ACID is for RDBMS.
 
+** DONE Due next week: your project proposal ([[https://lyon.instructure.com/courses/2254/assignments/24826][Canvas]]/[[https://drive.google.com/drive/folders/1Ezbgo7x0tjbkf1lJ1eSSQPCpudIPZqcC?usp=sharing][GDrive]])
+#+attr_html: :width 400px: 
+[[../img/cats.png]]
+
+- Social entrepreneurship opportunity: join forces with the pre-vet
+  club to solve the problem of feral cat infestation on campus.
+
+- A solution has to be found that is friendly to the animals, includes
+  working with local vets (spaying), the college and the animal
+  shelter.
+
+- This many actors, a yet undefined process and operations, and an
+  unknown amount of "small" data cries out for a database solution!
+
+- Who among you will be the saviour of cats!?
+
+
 ** TODO SQLite practice
 #+attr_html: :width 400px: 
 [[../img/gitpic.png]]
 
-Add ~<b~ as ~src bash~ to ~org-structure-template-alist~
+Add ~<sqlite~ to ~org-structure-template-alist~
 1. ~C-h v org-structure-template-alist~
 2. At the bottom, click on =Customize=
 3. At the bottom, click on =Ins=
@@ -859,23 +876,6 @@ Add ~<b~ as ~src bash~ to ~org-structure-template-alist~
 - Importing data (DML)
 - Writing CSV files (DML)
 - Interfacing with the shell (DCL)
-
-** TODO Due next week: your project proposal ([[https://lyon.instructure.com/courses/2254/assignments/24826][Canvas]]/[[https://drive.google.com/drive/folders/1Ezbgo7x0tjbkf1lJ1eSSQPCpudIPZqcC?usp=sharing][GDrive]])
-#+attr_html: :width 400px: 
-[[../img/cats.png]]
-
-- Social entrepreneurship opportunity: join forces with the pre-vet
-  club to solve the problem of feral cat infestation on campus.
-
-- A solution has to be found that is friendly to the animals, includes
-  working with local vets (spaying), the college and the animal
-  shelter.
-
-- This many actors, a yet undefined process and operations, and an
-  unknown amount of "small" data cries out for a database solution!
-
-- Who among you will be the saviour of cats!?
-
 
 * Week 6 - Sprint Review
 * Week 7 -

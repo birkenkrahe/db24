@@ -1,0 +1,14 @@
+#+STARTUP: hideblocks overview indent
+* Check which database I'm using
+
+#+begin_src sqlite :db test.db :header :column :results output
+  .database	  
+#+end_src
+
+#+RESULTS:
+: main: /home/marcus/GitHub/db24/org/test.db r/w
+
+- Indented
+  #+begin_src sqlite :db test.db :header :column :results output 
+
+  #+end_src
