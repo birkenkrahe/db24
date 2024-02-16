@@ -702,11 +702,11 @@ Dr. Staples will also offer a project management course this summer.
 
 
 
-* Week 5 - DBMS types - SQLite introduction
+* DONE Week 5 - DBMS types - SQLite introduction
 #+attr_html: :width 400px:
 [[../img/study_hour.png]]
 
-** DONE Types of database management systems (Beaulieu, 2012)
+** Types of database management systems (Beaulieu, 2012)
 
 See [[file:1_fundamental.org]], see also [[https://youtu.be/j09EQ-xlh88?si=sGAUS_XDOoKKNgRH][video on YouTube]] (techTFQ, 2020),
 13 min (includes NoSQL and graph database examples). There is also a
@@ -718,7 +718,7 @@ whole chapter on "Legacy databases".
 - Concurrency Control
 - ACID rules
 
-** DONE SQLite overview
+** SQLite overview
 #+attr_html: :width 400px: 
 [[../img/sqlite_intro.png]]
 
@@ -798,8 +798,7 @@ OPTIONS include:
   | self-contained - no dependencies   | security: no data access control |
   | highly portable - stored in 1 file | limited data types               |
 
-
-** DONE SQLite review questions:
+** SQLite review questions:
 
 1) You can name a few things that are great about SQLite.
 2) You can name a couple of pros and a couple of cons.
@@ -825,7 +824,7 @@ OPTIONS include:
    #+end_quote
 9) You know if ACID is for RDBMS.
 
-** DONE Due next week: your project proposal ([[https://lyon.instructure.com/courses/2254/assignments/24826][Canvas]]/[[https://drive.google.com/drive/folders/1Ezbgo7x0tjbkf1lJ1eSSQPCpudIPZqcC?usp=sharing][GDrive]])
+** Due next week: your project proposal ([[https://lyon.instructure.com/courses/2254/assignments/24826][Canvas]]/[[https://drive.google.com/drive/folders/1Ezbgo7x0tjbkf1lJ1eSSQPCpudIPZqcC?usp=sharing][GDrive]])
 #+attr_html: :width 400px: 
 [[../img/cats.png]]
 
@@ -841,8 +840,7 @@ OPTIONS include:
 
 - Who among you will be the saviour of cats!?
 
-
-** TODO SQLite practice
+** SQLite practice
 #+attr_html: :width 400px: 
 [[../img/gitpic.png]]
 
@@ -856,6 +854,8 @@ Add ~<sqlite~ to ~org-structure-template-alist~
 6. At the top, click on =Apply and Save=
 7. Test it in an Org-mode file by entering ~<sqlite TAB~
 8. In the code block, run a =sqlite3= command, like ~.database~
+
+See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlite.html][more information]] on using Org-mode with SQLite.
 
 *Objectives:*
 - Explore the SQLite shell
