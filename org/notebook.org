@@ -877,8 +877,23 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 - Writing CSV files (DML)
 - Interfacing with the shell (DCL)
 
-* Week 6 - Sprint Review
+
+* Week 6 - Sprint Review - SQLite practice & SELECT
+#+attr_html: :width 400px: 
+[[../img/week_6.png]]
+
+* Test results:
+#+attr_html: :width 400px:
+[[../img/test_1.png]]
+
+#+attr_html: :width 400px:
+[[../img/test_2.png]]
+
+
 * Week 7 -
+#+attr_html: :width 400px: 
+[[../img/week_7.png]]
+
 * Week 8 -
 * Week 9 -
 * Week 10 -
