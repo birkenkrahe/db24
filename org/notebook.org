@@ -885,11 +885,12 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 * Test results:
 #+attr_html: :width 400px:
 [[../img/test_1.png]]
-
+#participants = 14/14
 #+attr_html: :width 400px:
 [[../img/test_2.png]]
+#participants = 11/14
 
-
+What do you need to improve your test performance?
 * Week 7 -
 #+attr_html: :width 400px: 
 [[../img/week_7.png]]
