@@ -136,8 +136,8 @@ OPTIONS include:
   the settings - the database will now be created.
 
 - Get the help on the console for in-program control commands:
-  #+begin_src sqlite :db test.db :header :column :results output 
-     .help
+  #+begin_src sqlite :db test.db :header :column :results output
+    .help
   #+end_src
 
   #+RESULTS:
@@ -212,8 +212,8 @@ OPTIONS include:
 
 - How can I find out where I am? (Substitute ~pwd~ for ~DIR~ when you're
   on Windows)
-  #+begin_src sqlite :db test.db :header :column :results output 
-    .shell pwd  
+  #+begin_src sqlite :db test.db :header :column :results output
+    .shell pwd
   #+end_src
 
   #+RESULTS:
@@ -223,7 +223,7 @@ OPTIONS include:
 
 - Create a new file ~sqlite.org~ to code along. Create a headline
   "Creating a database DDL".
- 
+
 - Use ~<sqlite~ if you defined it in ~org-structure-template-alist~ to
   create a new codeblock. Check which database sqlite3 writes to, and
   if it has any tables in it:
@@ -258,7 +258,7 @@ OPTIONS include:
 
 - There is a number of ~constraints~ to ensure data integrity.
 
-* DONE SQL Table Constraints
+* SQL Table Constraints
 
 When creating a table in SQL, various constraints can be specified to
 enforce data integrity and rules within the table. These constraints
@@ -311,11 +311,11 @@ are:
 ** CHECK
 - Specifies a condition that must be true for all rows in the table.
 - Used to enforce domain integrity by limiting the values that can be
-  stored in a column. 
+  stored in a column.
 #+BEGIN_SRC sql
   CREATE TABLE example (
-    id INT PRIMARY KEY,
-    age INT CHECK (age >= 18)
+  id INT PRIMARY KEY,
+  age INT CHECK (age >= 18)
   );
 #+END_SRC
 
@@ -324,8 +324,8 @@ are:
 - Enforces that a column must always have a data value.
 #+BEGIN_SRC sql
   CREATE TABLE example (
-    id INT PRIMARY KEY,
-    name TEXT NOT NULL
+  id INT PRIMARY KEY,
+  name TEXT NOT NULL
   );
 #+END_SRC
 
@@ -335,37 +335,46 @@ are:
   will take the default value.
 #+BEGIN_SRC sql
   CREATE TABLE example (
-    id INT PRIMARY KEY,
-    name TEXT,
-    status TEXT DEFAULT 'active'
+  id INT PRIMARY KEY,
+  name TEXT,
+  status TEXT DEFAULT 'active'
   );
 #+END_SRC
 
 These constraints play a crucial role in maintaining data integrity,
 ensuring consistency, and enforcing database rules.
 
-* Inserting values into a table with =INSERT= (DML)
+* TODO Inserting values into a table with =INSERT= (DML)
 
 - Since we're returning to this section,
   1) delete the table that you already have in ~test.db~
-  2) =CREATE= a new table ~test~ that allows the =INSERT= below.
- 
-- Enter three records in your table:
-  #+begin_src sqlite :db test.db :results silent
-    INSERT INTO test (value) VALUES ('Ms. Jane Robinson');
-    INSERT INTO test (value) VALUES ('Mme. Carl Robinson');
-    INSERT INTO test (value) VALUES ('Mr. Edward Jones');                      
-  #+end_src
+  2) =CREATE= a new table ~test~ that allows the =INSERT= of an =INTEGER
+     =PRIMARY KEY= field ~id~ and a =TEXT= field ~value~.
 
-- DDL solution: 
-  #+begin_src sqlite :db test.db :results output :header :column 
+- Solution:
+  #+begin_src sqlite :db test.db :results output :header :column
     --CREATE TABLE test (id INT);
     .tables
     --This command handles an exception
     DROP TABLE IF EXISTS test; -- delete table `test`
+    .tables
+    CREATE TABLE test
+    (id INTEGER PRIMARY KEY,
+    value TEXT);
     .schema
   #+end_src
 
+  #+RESULTS:
+  : CREATE TABLE test
+  :        (id INTEGER PRIMARY KEY,
+  :         value TEXT);
+
+- Enter three records in your table:
+  #+begin_src sqlite :db test.db :results silent
+    INSERT INTO test (value) VALUES ('Ms. Jane Robinson');
+    INSERT INTO test (value) VALUES ('Mme. Carl Robinson');
+    INSERT INTO test (value) VALUES ('Mr. Edward Jones');
+  #+end_src
 
 * Querying a table (DQL)
 
@@ -374,26 +383,12 @@ ensuring consistency, and enforcing database rules.
     SELECT * FROM test;
   #+end_src
 
-  #+RESULTS:
-  : id  value             
-  : --  ------------------
-  : 1   Ms. Jane Robinson 
-  : 2   Mme. Carl Robinson
-  : 3   Mr. Edward Jones  
-  : 4   Ms. Jane Robinson 
-  : 5   Mme. Carl Robinson
-  : 6   Mr. Edward Jones  
-
 - Notice that despite the code block header you can still change the
   options inside the code block:
   #+begin_src sqlite :db test.db :header :column
-    .header off            
+    .header off
     SELECT * FROM test LIMIT 2;
   #+end_src
-
-  #+RESULTS:
-  : 1   Ms. Jane Robinson 
-  : 2   Mme. Carl Robinson
 
 - You notice that constraining ~id~ as ~PRIMARY KEY~ included ~AUTO
   INCREMENT~ - the value is automatically increased by one for each new
@@ -402,24 +397,236 @@ ensuring consistency, and enforcing database rules.
 - If you used ~AUTO INCREMENT~, you can get the value of the last
   non-empty row with an SQL function:
   #+begin_src sqlite :db test.db :header :column
-     SELECT LAST_INSERT_ROWID();
+    DROP TABLE IF EXISTS foo;
+    -- create a temporary table
+    CREATE TEMP TABLE foo (id INT AUTO INCREMENT, pray TEXT);
+    -- insert two records
+    INSERT INTO foo (pray) VALUES ("In Nomine Patri");
+    INSERT INTO foo (pray) VALUES ("Et Spiritui Sancto");
+    SELECT LAST_INSERT_ROWID();
+  #+end_src
+
+* Changing table content (DML)
+
+- The second row contains a mistake: it should be 'Mr.' instead of
+  'Mme.' (which is French for 'Mrs.'):
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT * FROM test;
+  #+end_src
+
+- To change this, we can use =UPDATE=, which uses a /row filter/:
+  #+begin_src sqlite :db test.db :results output :header :column
+    UPDATE test
+    SET value = 'Mr. Carl Robinson'
+    WHERE id = 2;
+    SELECT  * FROM test;
+  #+end_src
+
+- What do you think would happen if you'd forget the =WHERE= clause?
+  #+begin_src sqlite :db test.db :results output :header :column
+    CREATE TEMP TABLE test1 AS
+    SELECT * FROM test; -- makes a copy
+    SELECT * FROM test1;
+    UPDATE test1
+    SET value = 'Mr. Karl Robinson'; -- missing the WHERE filter
+    SELECT * FROM test1;
+  #+end_src
+
+* Change table structure (DDL)
+
+- SQLite is more limited to making schema changes than other SQL
+  flavors,because of its architecture:
+  1) You can rename tables
+  2) You can add columns to an existing table
+  3) You can drop existing columns from an existing table
+  4) You can NOT delete, change or rename columns
+
+- The DDL command is =ALTER TABLE=:
+  #+begin_example sqlite
+    ALTER TABLE tbl_name {REN|AME TO new_name | ADD COLUMN colDef}
+  #+end_example
+
+- We rename the table ~test~ to ~test_new~:
+  #+begin_src sqlite :db test.db :results output :header :column
+    .tables
+    ALTER TABLE test RENAME TO test_new;
+    .tables
+    ALTER TABLE test_new RENAME TO test;
+  #+end_src
+
+- We can also add a column:
+  #+begin_src sqlite :db test.db :results output :header :column
+    ALTER TABLE test ADD COLUMN sex TEXT;
+    SELECT * FROM test;
+  #+end_src
+
+- Delete the new column again with the =DROP COLUMN= clause, and then
+  review the database structure:
+  #+begin_src sqlite :db test.db :results output :header :column
+    ALTER TABLE test DROP COLUMN sex;
+    .schema
+  #+end_src
+
+* Viewing the table index (DQL)
+
+- An index is a keyword index. Creating an index speeds up DQL
+  commands and slows down DML commands.
+
+- The following command creates an index for the only non-trivial
+  column of the table ~test~:
+  #+begin_src sqlite :db test.db :results silent :header :column
+    CREATE INDEX test_idx ON test (value);
+  #+end_src
+
+- The console command =.indices= lists the defined indices, and the
+  =.schema= command shows that the db architecture has changed:
+  #+begin_src sqlite :db test.db :results output :header :column
+    .indices test
+    .schema
+  #+end_src
+
+- We will prefer graphical (ERD) descriptions of the database
+  architecture as soon as we have more than a handful of tables.
+
+* Viewing table views (DQL)
+
+- Let's rekindle our knowledge of stored queries or views: for
+  example a view that contains only the ~value~ column. And
+  let's check the db size before the transaction:
+  #+begin_src sqlite :db test.db :results output :header :column
+    .shell ls -l test.db
+  #+end_src
+
+- Create the view:
+  #+begin_src sqlite :db test.db :results output :header :column
+    CREATE VIEW value_view AS SELECT value FROM test;
+    .tables
+    .schema
+  #+end_src
+
+- As you can see, ~value_view~ is listed by =.tables=. If you
+  check the size, you'll see that it has not visibly changed:
+  #+begin_src sqlite :db test.db :results output :header :column
+    .shell ls -l test.db
+  #+end_src
+
+- You can delete views like tables with =DROP VIEW=.
+
+* Viewing the master table (DQL)
+
+- All the DDL commands are entered in a master table, which is
+  named =sqlite_master= whose schema you can inspect:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .schema sqlite_master
+  #+end_src
+
+- When you display the table's contents, you see the different
+  layers of abstraction that we have generated so far:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    SELECT type, name, tbl_name, sql
+           FROM sqlite_master;
+  #+end_src
+  
+* Exporting data (DML)
+
+- You've seen the =.dump= console command before. Without
+  additional options, the whole db will be dumped.
+
+- Let's look at the options using =.help=:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .help .dump
+  #+end_src
+
+- Let's test this with the content of the ~test~ table - notice
+  that the =--= is part of a flag, and not the SQL comment sign:
+  1) redirect =.output= to ~test_data.sql~
+  2) =.dump --data-only=
+  3) redirect =.output= to ~stdout~
+  4) view the file on the OS shell with =cat=
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .output test_data.sql
+    .dump --data-only
+    .output stdout
+    .shell cat test_data.sql
+  #+end_src
+
+- Compare this with the complete database dump: repeat all
+  commands but without the =--data-only= option, and dump into
+  ~test_all.sql~:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .output test_all.sql
+    .dump 
+    .output stdout
+    .shell cat test_all.sql
+  #+end_src
+
+- You can also use =.mode= to only extract query content. Check
+  out the =.help= first:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .help mode
+  #+end_src
+
+- Write only the third row of ~test~ into another file, called
+  ~test_row.sql~ using ~.mode insert~:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .mode insert
+    .output test_row.sql
+    SELECT * FROM test WHERE id=3; -- 3rd row only
+    .output stdout
+    .shell cat test_row.sql
   #+end_src
 
   #+RESULTS:
-  : LAST_INSERT_ROWID()
-  : -------------------
-  : 0                  
+  : INSERT INTO "table"(id,value) VALUES(3,'Mr. Edward Jones');
 
+- You can now use the file ~test_row.sql~ to import data into a
+  table called ~'table'~:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    CREATE TABLE IF NOT EXISTS 'table' (id INT, value TEXT);
+    .tables
+    .read test_row.sql
+    SELECT * FROM 'table';
+  #+end_src
 
-* Changing table content (DML)
-* Change table structure (DDL)
-* Viewing the table index (DQL)
-* Viewing the table schema (DQL)
-* Viewing table views (DQL)
-* Viewing the master table (DQL)
-* Exporting data (DML)
-* Deleting a table (DDL)
+  #+RESULTS:
+  : table       test        value_view
+  : id  value           
+  : --  ----------------
+  : 3   Mr. Edward Jones
+
+* Deleting a table and a view (DDL)
+
+- To delete a table and a view, use =DROP TABLE= and handle the
+  exceptions:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    DROP TABLE IF EXISTS 'table';
+    DROP VIEW IF EXISTS value_view;
+    .tables
+  #+end_src
+
+  #+RESULTS:
+  : test
+
 * Deleting a database (DDL)
+
+- There is no 'drop database' command in SQLite (unlike in
+  other SQL flavors). Instead you just delete the database
+  file:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .database
+    .tables
+    .shell ls -l test.db
+    .shell rm test.db
+    .shell ls -l test.db
+    .tables
+  #+end_src
+
 * Importing data (DML)
+
+
+
 * Writing CSV files (DML)
+
+
+
 * Interfacing with the shell (DCL)
