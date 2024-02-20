@@ -604,9 +604,6 @@ ensuring consistency, and enforcing database rules.
     .tables
   #+end_src
 
-  #+RESULTS:
-  : test
-
 * Deleting a database (DDL)
 
 - There is no 'drop database' command in SQLite (unlike in
@@ -632,16 +629,31 @@ ensuring consistency, and enforcing database rules.
   #+begin_src sqlite :db test.db :results output :header :column 
     .shell head -n 5 test_all.sql
   #+end_src
-
-  #+RESULTS:
-  : PRAGMA foreign_keys=OFF;
-  : BEGIN TRANSACTION;
-  : CREATE TABLE IF NOT EXISTS "test"
-  :        (id INTEGER PRIMARY KEY,
-  :         value TEXT);
   
 - If you don't have it for one reason or another, you can upload it
   from tinyurl.com/test-sql. 
+
+- Read the table into ~test.db~ using =.read=:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .tables
+    .read test_all.sql
+    .tables
+    SELECT * FROM test;
+  #+end_src
+
+  #+RESULTS:
+  : test        value_view
+  : test        value_view
+  : id  value            
+  : --  -----------------
+  : 1   Ms. Jane Robinson
+  : 2   Mr. Carl Robinson
+  : 3   Mr. Edward Jones 
+
+- If you try to re-import the data, the =UNIQUE= constraint will fail -
+  do you know why?
+
+- 
 
 
 * Writing CSV files (DML)
