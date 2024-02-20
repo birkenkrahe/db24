@@ -1025,7 +1025,7 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 - Writing CSV files (DML)
 - Interfacing with the shell (DCL)
 
-* TODO Home assignment for Thursday, 22 February
+* TODO Home assignment for Thursday, 22 February with ~foods~
 
 - Complete the Canvas home assignment in tinyurl/sqlite-practice-org.
 
@@ -1033,7 +1033,7 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 
 - Upload your completed Org-mode file to Canvas by 4 pm on Thu 22 Feb
 
-- I will share my sample solution before the next class.
+- I will share my sample solution.
 
 - If you're still NOT comfortable of using Emacs Org-mode with SQLite,
   let me know! Perhaps [[http://www.jesshamrick.com/2012/09/10/absolute-beginners-guide-to-emacs/][this article]] will help?
