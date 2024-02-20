@@ -3,6 +3,8 @@
 #+PROPERTY: header-args:sqlite :results output
 * README
 
+Open tinyurl.com/sqlite-codealong-org to code along.
+
 - SQLite Overview / Pros and Cons
 - Explore the SQLite shell
 - Creating a database (DDL)
@@ -256,7 +258,7 @@ OPTIONS include:
 
 - There is a number of ~constraints~ to ensure data integrity.
 
-* SQL Table Constraints
+* DONE SQL Table Constraints
 
 When creating a table in SQL, various constraints can be specified to
 enforce data integrity and rules within the table. These constraints
@@ -344,12 +346,26 @@ ensuring consistency, and enforcing database rules.
 
 * Inserting values into a table with =INSERT= (DML)
 
+- Since we're returning to this section,
+  1) delete the table that you already have in ~test.db~
+  2) =CREATE= a new table ~test~ that allows the =INSERT= below.
+ 
 - Enter three records in your table:
   #+begin_src sqlite :db test.db :results silent
     INSERT INTO test (value) VALUES ('Ms. Jane Robinson');
     INSERT INTO test (value) VALUES ('Mme. Carl Robinson');
     INSERT INTO test (value) VALUES ('Mr. Edward Jones');                      
   #+end_src
+
+- DDL solution: 
+  #+begin_src sqlite :db test.db :results output :header :column 
+    --CREATE TABLE test (id INT);
+    .tables
+    --This command handles an exception
+    DROP TABLE IF EXISTS test; -- delete table `test`
+    .schema
+  #+end_src
+
 
 * Querying a table (DQL)
 
