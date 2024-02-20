@@ -653,11 +653,72 @@ ensuring consistency, and enforcing database rules.
 - If you try to re-import the data, the =UNIQUE= constraint will fail -
   do you know why?
 
-- 
+- Upload the CSV test file from ~tinyurl.com/test-all-csv~ to your
+  current working directory (where this file is).
 
+- Check out which =.separator= SQLite is currently working with, and if
+  it's not "," then change it to ",". Then =.import= the file to another
+  table, ~test_csv~:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .show
+    .separator ","
+    .show
+    .import test.csv test_csv
+    .tables
+    SELECT * FROM test_csv;
+  #+end_src
 
+  #+RESULTS:
+  #+begin_example
+          echo: off
+           eqp: off
+       explain: auto
+       headers: on
+          mode: column
+     nullvalue: ""
+        output: stdout
+  colseparator: "|"
+  rowseparator: "\n"
+         stats: off
+         width: 
+      filename: test.db
+          echo: off
+           eqp: off
+       explain: auto
+       headers: on
+          mode: column
+     nullvalue: ""
+        output: stdout
+  colseparator: ","
+  rowseparator: "\n"
+         stats: off
+         width: 
+      filename: test.db
+  test        test_csv    value_view
+  id  value            
+  --  -----------------
+  1   Ms. Jane Robinson
+  2   Mr. Carl Robinson
+  3   Mr. Edward Jones 
+  #+end_example
+  
 * Writing CSV files (DML)
 
+- Using =.output=, you can also write CSV data. Write the data from the
+  table ~test~ to a file ~test_all.csv~ using =.mode csv=
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .mode csv
+    .output test_all.csv
+    SELECT * FROM test;  -- this will now be written to CSV
+    .output stdout
+    .shell cat test_all.csv
+  #+end_src
 
+  #+RESULTS:
+  : id,value
+  : 1,"Ms. Jane Robinson"
+  : 2,"Mr. Carl Robinson"
+  : 3,"Mr. Edward Jones"
 
 * Interfacing with the shell (DCL)
+
