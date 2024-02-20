@@ -623,6 +623,25 @@ ensuring consistency, and enforcing database rules.
 
 * Importing data (DML)
 
+- You can import data to SQLite in two different ways:
+  1) if the data are in an SQLite file (~.sql~) you can =.read= them.
+  2) if the data are in a CSV file (~.csv~) you can =.import= them.
+
+- Earlier, you saved the table to ~test_all.sql~. Check out that this is
+  indeed an SQL file from the console:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    .shell head -n 5 test_all.sql
+  #+end_src
+
+  #+RESULTS:
+  : PRAGMA foreign_keys=OFF;
+  : BEGIN TRANSACTION;
+  : CREATE TABLE IF NOT EXISTS "test"
+  :        (id INTEGER PRIMARY KEY,
+  :         value TEXT);
+  
+- If you don't have it for one reason or another, you can upload it
+  from tinyurl.com/test-sql. 
 
 
 * Writing CSV files (DML)

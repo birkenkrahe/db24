@@ -849,7 +849,6 @@ OPTIONS include:
 
   A few of you consistently miss deadlines - do you use the calendar?
   Do you get email reminders from DataCamp (I do)?
-
 - [ ] Review: test results
 - [ ] Feedback: project proposals first reactions
 - [ ] Review: Debugging SQLite
@@ -864,13 +863,15 @@ OPTIONS include:
 [[../img/test_2.png]]
 #participants = 11/14
 
-What do you need to improve your test performance?
+- What do you need to improve your test performance?
+- Complete the test late for 50% of the points!
 
 * TODO Project proposal feedback (5')
 
-
-
-
+- You'll get detailed feedback on your proposal from me.
+- There is no need to submit an improved proposal (you may do that).
+- It is however important that you take my feedback on board.
+- You should see me in office hours (or after class) if necessary.
 
 * TODO Debugging SQLite (15')
 
@@ -1039,8 +1040,6 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
   let me know! Perhaps [[http://www.jesshamrick.com/2012/09/10/absolute-beginners-guide-to-emacs/][this article]] will help?
 
 * Week 7 -
-#+attr_html: :width 400px:
-[[../img/week_7.png]]
 
 * Week 8 -
 * Week 9 -
