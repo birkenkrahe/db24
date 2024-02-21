@@ -841,16 +841,16 @@ OPTIONS include:
 
 * Week 6 - Sprint Review - SQLite practice
 #+attr_html: :width 400px:
-[[../img/week_6.png]]
+n[[../img/week_6.png]]
 
-- [ ] DataCamp check-in: how do you keep ahead of schedule?
+- [X] DataCamp check-in: how do you keep ahead of schedule?
   #+attr_html: :width 400px:
   [[../img/canvas_calendar.png]]
 
   A few of you consistently miss deadlines - do you use the calendar?
   Do you get email reminders from DataCamp (I do)?
-- [ ] Review: test results
-- [ ] Feedback: project proposals first reactions
+- [X] Review: test results
+- [X] Feedback: project proposals first reactions
 - [ ] Review: Debugging SQLite
 - [ ] Practice: SQLite
 - [ ] No class on Thursday - home assignment
@@ -897,11 +897,10 @@ OPTIONS include:
    - You might have redirected the =.output= away from =stdout=.
    - You might use a database that has no tables in it.
    #+end_quote
-4) You want to work with ~foods.sqlite~ which contains a few
-   tables. You start the SQLite session with ~sqlite3
-   foods.sqlite. However, when you enter =.tables=, there don't seem
-   to be any tables inside. The ~.output~ is set to =stdout=. What's
-   going on?
+4) You want to work with ~foods.sqlite~ which contains a few tables. You
+   start the SQLite session with ~sqlite3 foods.sqlite~. However, when
+   you enter =.tables=, there don't seem to be any tables inside. The
+   ~.output~ is set to =stdout=. What's going on?
    #+begin_quote
    You need to check with =.database= if you're using the right
    file. If you were in a directory that did not contain
@@ -922,6 +921,10 @@ OPTIONS include:
      SELECT 1+1; -- evaluate expression and print result
      SELECT "1+1"; -- print the string literal "1+1"
    #+end_src
+
+   #+RESULTS:
+   : 2  
+   : 1+1  
 7) You've dumped a database to a file ~db.sql~. You want to know if that
    worked without leaving the SQLite console. What can you do?
    #+begin_src sqlite :db test.db :results output :header :column 
@@ -937,8 +940,9 @@ OPTIONS include:
    table called ~test~, and empty the database. What are my options?
    #+begin_quote
     1) I can remove the table with: ~DROP TABLE test;~
-    2) I can remove the database with ~.shell rm~
+    2) I can remove the database with ~.shell rm test.db~
    #+end_quote
+
 10) What's the general command to create a table? Which parts of the
     command are optional, and which are mandatory? ([[https://www.sqlite.org/lang_createtable.html][see doc]])
     #+begin_example sqlite
@@ -959,9 +963,28 @@ OPTIONS include:
       .shell ls -l test.db
       .schema
     #+end_src
+
+    #+RESULTS:
+    #+begin_example
+    test        test_csv    value_view
+    -rw-r--r-- 1 marcus marcus 16384 Feb 20 14:09 test.db
+    CREATE TABLE IF NOT EXISTS "test"
+           (id INTEGER PRIMARY KEY,
+            value TEXT);
+    CREATE INDEX test_idx ON test (value);
+    CREATE VIEW value_view AS SELECT value FROM test
+    /* value_view(value) */;
+    CREATE TABLE IF NOT EXISTS "test_csv"(
+      "id" TEXT,
+      "value            " TEXT
+    );
+    CREATE TABLE temp.test (useless TEXT);
+    #+end_example
+
     #+begin_src sqlite :db test.db :results output :header :column 
       .tables
     #+end_src
+
 12) SQL warns about syntax violations but otherwise debugging
     information is very sparse. Why is that not such a big problem for
     the performance of the language?
@@ -976,11 +999,13 @@ OPTIONS include:
     #+begin_example sqlite
      email TEXT NOT NULL
     #+end_example
+
 14) You're trying to enrol in a course with a prerequisite
     'CSC245'. Which constraint applies in this case?
     #+begin_example sqlite
     prereq TEXT CHECK (prereq == 'CSC245')
     #+end_example
+
 15) You're evaluating a course, and you're feeling lazy, so you only
     fill in the fields marked with an asterisk as "must enter". A few
     fields remain empty. One of them is the field "enrolled Y/N" where

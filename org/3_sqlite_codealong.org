@@ -585,7 +585,6 @@ ensuring consistency, and enforcing database rules.
 
 - You can delete views like tables with =DROP VIEW=.
 
-
 * /*** STARTING OVER FROM HERE ***/
 
 Run the following code block on ~test.db~ to have a working database
@@ -612,7 +611,7 @@ with an index and a view in it so that you can continue from here.
   /* create stored query view */
   CREATE VIEW value_view AS SELECT value from test;
 
-  /* check tables and db schema */
+  /* check tables and db schema */         
   .tables
   .schema
 #+end_src
@@ -627,28 +626,22 @@ with an index and a view in it so that you can continue from here.
 * TODO Formatted printing
 
 - SQLite has its own =printf= function, which you know from C:
-  #+begin_src sqlite :db test.db :results output :header :column
-    .header off
-    SELECT printf("The database contains %s", value) FROM test;
+  #+begin_src sqlite :db test.db :results output :header :column 
+
   #+end_src
 
-  #+RESULTS:
-  : The database contains Mme. Carl Robinson
-  : The database contains Mr. Edward Jones
-  : The database contains Ms. Jane Robinson
 * TODO Viewing the master table (DQL)
 
 - All the DDL commands are entered in a master table, which is
   named =sqlite_master= whose schema you can inspect:
   #+begin_src sqlite :db test.db :results output :header :column
-    .schema sqlite_master
+
   #+end_src
 
 - When you display the table's contents, you see the different
   layers of abstraction that we have generated so far:
   #+begin_src sqlite :db test.db :results output :header :column
-    SELECT type, name, tbl_name, sql
-    FROM sqlite_master;
+
   #+end_src
 
 * TODO Exporting data (DML)
@@ -658,7 +651,7 @@ with an index and a view in it so that you can continue from here.
 
 - Let's look at the options using =.help=:
   #+begin_src sqlite :db test.db :results output :header :column
-    .help .dump
+
   #+end_src
 
 - Let's test this with the content of the ~test~ table - notice
@@ -668,64 +661,40 @@ with an index and a view in it so that you can continue from here.
   3) redirect =.output= to ~stdout~
   4) view the file on the OS shell with =cat=
   #+begin_src sqlite :db test.db :results output :header :column
-    .output test_data.sql
-    .dump --data-only
-    .output stdout
-    .shell cat test_data.sql
+
   #+end_src
 
 - Compare this with the complete database dump: repeat all
   commands but without the =--data-only= option, and dump into
   ~test_all.sql~:
   #+begin_src sqlite :db test.db :results output :header :column
-    .output test_all.sql
-    .dump
-    .output stdout
-    .shell cat test_all.sql
+
   #+end_src
 
 - You can also use =.mode= to only extract query content. Check
   out the =.help= first:
   #+begin_src sqlite :db test.db :results output :header :column
-    .help mode
+
   #+end_src
 
 - Write only the third row of ~test~ into another file, called
   ~test_row.sql~ using ~.mode insert~:
   #+begin_src sqlite :db test.db :results output :header :column
-    .mode insert
-    .output test_row.sql
-    SELECT * FROM test WHERE id=3; -- 3rd row only
-    .output stdout
-    .shell cat test_row.sql
-  #+end_src
 
-  #+RESULTS:
-  : INSERT INTO "table"(id,value) VALUES(3,'Mr. Edward Jones');
+  #+end_src
 
 - You can now use the file ~test_row.sql~ to import data into a
   table called ~'table'~:
   #+begin_src sqlite :db test.db :results output :header :column
-    CREATE TABLE IF NOT EXISTS 'table' (id INT, value TEXT);
-    .tables
-    .read test_row.sql
-    SELECT * FROM 'table';
-  #+end_src
 
-  #+RESULTS:
-  : table       test        value_view
-  : id  value
-  : --  ----------------
-  : 3   Mr. Edward Jones
+  #+end_src
 
 * TODO Deleting a table and a view (DDL)
 
 - To delete a table and a view, use =DROP TABLE= and handle the
   exceptions:
   #+begin_src sqlite :db test.db :results output :header :column
-    DROP TABLE IF EXISTS 'table';
-    DROP VIEW IF EXISTS value_view;
-    .tables
+
   #+end_src
 
 * TODO Deleting a database (DDL)
@@ -734,12 +703,7 @@ with an index and a view in it so that you can continue from here.
   other SQL flavors). Instead you just delete the database
   file:
   #+begin_src sqlite :db test.db :results output :header :column
-    .database
-    .tables
-    .shell ls -l test.db
-    .shell rm test.db
-    .shell ls -l test.db
-    .tables
+
   #+end_src
 
 * TODO Importing data (DML)
@@ -751,7 +715,7 @@ with an index and a view in it so that you can continue from here.
 - Earlier, you saved the table to ~test_all.sql~. Check out that this is
   indeed an SQL file from the console:
   #+begin_src sqlite :db test.db :results output :header :column
-    .shell head -n 5 test_all.sql
+
   #+end_src
 
 - If you don't have it for one reason or another, you can upload it
@@ -759,20 +723,8 @@ with an index and a view in it so that you can continue from here.
 
 - Read the table into ~test.db~ using =.read=:
   #+begin_src sqlite :db test.db :results output :header :column
-    .tables
-    .read test_all.sql
-    .tables
-    SELECT * FROM test;
-  #+end_src
 
-  #+RESULTS:
-  : test        value_view
-  : test        value_view
-  : id  value
-  : --  -----------------
-  : 1   Ms. Jane Robinson
-  : 2   Mr. Carl Robinson
-  : 3   Mr. Edward Jones
+  #+end_src
 
 - If you try to re-import the data, the =UNIQUE= constraint will fail -
   do you know why?
@@ -784,58 +736,15 @@ with an index and a view in it so that you can continue from here.
   it's not "," then change it to ",". Then =.import= the file to another
   table, ~test_csv~:
   #+begin_src sqlite :db test.db :results output :header :column
-    .show
-    .separator ","
-    .show
-    .import test.csv test_csv
-    .tables
-    SELECT * FROM test_csv;
-  #+end_src
 
-  #+RESULTS:
-  #+begin_example
-          echo: off
-           eqp: off
-       explain: auto
-       headers: on
-          mode: column
-     nullvalue: ""
-        output: stdout
-  colseparator: "|"
-  rowseparator: "\n"
-         stats: off
-         width:
-      filename: test.db
-          echo: off
-           eqp: off
-       explain: auto
-       headers: on
-          mode: column
-     nullvalue: ""
-        output: stdout
-  colseparator: ","
-  rowseparator: "\n"
-         stats: off
-         width:
-      filename: test.db
-  test        test_csv    value_view
-  id  value
-  --  -----------------
-  1   Ms. Jane Robinson
-  2   Mr. Carl Robinson
-  3   Mr. Edward Jones
-  #+end_example
+  #+end_src
 
 * TODO Writing CSV files (DML)
 
 - Using =.output=, you can also write CSV data. Write the data from the
   table ~test~ to a file ~test_all.csv~ using =.mode csv=
   #+begin_src sqlite :db test.db :results output :header :column
-    .mode csv
-    .output test_all.csv
-    SELECT * FROM test;  -- this will now be written to CSV
-    .output stdout
-    .shell cat test_all.csv
+
   #+end_src
 
 * TODO Interfacing with the shell (DCL)
@@ -843,19 +752,8 @@ with an index and a view in it so that you can continue from here.
 - Almost all console commands can also be called from the command line
   interface (CLI). For example to =.dump= the entire database:
   #+begin_src bash :results output
-    sqlite3 test.db .dump
-  #+end_src
 
-  #+RESULTS:
-  : PRAGMA foreign_keys=OFF;
-  : BEGIN TRANSACTION;
-  : CREATE TABLE test (id INT PRIMARY KEY, value TEXT);
-  : INSERT INTO test VALUES(NULL,'Ms. Jane Robinson');
-  : INSERT INTO test VALUES(NULL,'Mme. Carl Robinson');
-  : INSERT INTO test VALUES(NULL,'Mr. Edward Jones');
-  : CREATE INDEX test_idx ON test (value);
-  : CREATE VIEW value_view AS SELECT value from test;
-  : COMMIT;
+  #+end_src
 
 - Notice that this last code block executes =bash= (the shell program),
   and not SQLite. If you don't have =bash= on your computer you can
@@ -864,66 +762,33 @@ with an index and a view in it so that you can continue from here.
 
 - Or to =SELECT= the records:
   #+begin_src bash :results output
-    sqlite3 -header -column test.db "SELECT * FROM test"
-  #+end_src
 
-  #+RESULTS:
-  : id  value
-  : --  ------------------
-  :     Ms. Jane Robinson
-  :     Mme. Carl Robinson
-  :     Mr. Edward Jones
-  : CREATE TABLE test (id INT PRIMARY KEY, value TEXT);
-  : CREATE INDEX test_idx ON test (value);
-  : CREATE VIEW value_view AS SELECT value from test
-  : /* value_view(value) */;
+  #+end_src
 
 - You didn't need a delimiter here, and you can add other commands,
   too:
   #+begin_src bash :results output
-    sqlite3 -header -column test.db "SELECT * FROM test" .schema
-  #+end_src
 
-  #+RESULTS:
-  : id  value
-  : --  ------------------
-  :     Ms. Jane Robinson
-  :     Mme. Carl Robinson
-  :     Mr. Edward Jones
-  : CREATE TABLE test (id INT PRIMARY KEY, value TEXT);
-  : CREATE INDEX test_idx ON test (value);
-  : CREATE VIEW value_view AS SELECT value from test
-  : /* value_view(value) */;
+  #+end_src
 
 - The CLI in Linux supports redirection (the Windows shell does not):
   #+begin_src bash :results output
-    sqlite3 test2.db < test_all.sql   # redirect stdin to database
-    sqlite3 -csv test2.db "SELECT * FROM test"  # output test as CSV
-  #+end_src
 
-  #+RESULTS:
-  : 1,"Ms. Jane Robinson"
-  : 2,"Mr. Carl Robinson"
-  : 3,"Mr. Edward Jones"
+  #+end_src
 
 - You can also initialise a database with an ~.sql~ file:
   #+begin_src bash :results silent
-    sqlite3 -init test_all.sql test3.db
+
   #+end_src
 
 - Now check that ~test3.db~ was created:
   #+begin_src bash :results output
-    ls -l test3.db test.db
-  #+end_src  
 
-  #+RESULTS:
-  : -rw-r--r-- 1 marcus marcus 12288 Feb 20 19:01 test3.db
-  : -rw-r--r-- 1 marcus marcus 16384 Feb 20 18:35 test.db
+  #+end_src  
 
 - Whenever you invoke =sqlite3= on the CLI (not in a code block), the
   program will be started. If you don't want that, end with =.exit=:
   #+begin_example bash :results output
-    sqlite3 -init test.sql test4.db .exit
-    ls -l test*.db
+
   #+end_example
 
