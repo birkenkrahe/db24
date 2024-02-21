@@ -855,7 +855,7 @@ n[[../img/week_6.png]]
 - [ ] Practice: SQLite
 - [ ] No class on Thursday - home assignment
 
-* TODO Test results: Not too shabby for now (5')
+** TODO Test results: Not too shabby for now (5')
 #+attr_html: :width 400px:
 [[../img/test_1.png]]
 #participants = 14/14
@@ -866,14 +866,14 @@ n[[../img/week_6.png]]
 - What do you need to improve your test performance?
 - Complete the test late for 50% of the points!
 
-* TODO Project proposal feedback (5')
+** TODO Project proposal feedback (5')
 
 - You'll get detailed feedback on your proposal from me.
 - There is no need to submit an improved proposal (you may do that).
 - It is however important that you take my feedback on board.
 - You should see me in office hours (or after class) if necessary.
 
-* TODO Debugging SQLite (15')
+** TODO Debugging SQLite (15')
 
 1) What's the difference between ~sqlite3 --help~ and ~.help~?
    #+begin_quote
@@ -1014,7 +1014,7 @@ n[[../img/week_6.png]]
     enrolled INTEGER DEFAULT 1 CHECK (enrolled in (0,1))
     #+end_example
 
-* TODO SQLite practice (45')
+** TODO SQLite practice (45')
 #+attr_html: :width 400px:
 [[../img/gitpic.png]]
 
@@ -1051,6 +1051,7 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 - Writing CSV files (DML)
 - Interfacing with the shell (DCL)
 
+
 * TODO Home assignment for Thursday, 22 February with ~foods~
 
 - Complete the Canvas home assignment in tinyurl/sqlite-practice-org.
@@ -1064,7 +1065,23 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 - If you're still NOT comfortable of using Emacs Org-mode with SQLite,
   let me know! Perhaps [[http://www.jesshamrick.com/2012/09/10/absolute-beginners-guide-to-emacs/][this article]] will help?
 
-* Week 7 -
+
+* Week 7 - SQLite exports / SELECT 
+#+attr_html: :width 400px:
+[[../img/lecture_theatre.png]]
+
+** DB browser for SQLite
+
+https://sqlitebrowser.org/dl/
+
+** Test 3 available (deadline Tuesday 27 February)
+** DataCamp review: Filtering records / aggregate functions
+** Finish SQLite demo session
+
+Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlite-codealong-org]]
+
+** Project feedback / discussion / next steps
+** =SELECT= lecture / codealong / practice
 
 * Week 8 -
 * Week 9 -
