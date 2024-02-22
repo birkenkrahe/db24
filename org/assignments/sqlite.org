@@ -52,8 +52,9 @@
 
   - **Task 3**: Query only the entries whose ~id~ is 2.
 
-  - **Task 4**: Update the value of the entry whose ~id~ is 2. Verify by
-    querying the entire table again.
+  - **Task 4**: Update the value of the entry whose ~id~ is 2 by changing
+    the last name of that entry. Verify by querying the entire table
+    again.
 
 * Part 4: Save table data to file and verify on the OS shell (5 minutes)
 
