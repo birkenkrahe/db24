@@ -1,0 +1,85 @@
+#+STARTUP: hideblocks overview indent :
+#+OPTIONS: toc:nil num:nil ^:nil :
+* SQLite3 Exploration and Manipulation Exercise
+
+  - **Objective**: Gain hands-on experience with SQLite3 commands for
+    database and table manipulation. Practice entering these commands
+    within an Emacs Org-mode file using code blocks for SQLite.
+
+  - **Duration**: 45 minutes
+
+  - **Submission**: Submit the completed Org-mode file on Canvas.
+
+* Setup (5 minutes)
+
+  - Open Emacs and create a new file named ~sqlite_practice.org~ from
+    the raw Org-mode file in tinyurl.com/feb22-sqlite-practice-org.
+
+  - Set up your environment to use SQLite by ensuring =sqlite3= is
+    installed on your system. Check this on the command line by
+    checking the program's version.
+
+
+* Part 1: Exploring SQLite3 Shell (5 minutes)
+  - Open an Eshell inside Emacs with =M-x eshell= and get a list of all
+    available SQLite command-line options for =sqlite3=.
+
+  - Copy the list into an =example= Org-mode block and add it here.
+    
+  - Open a database `feb22.sqlite` from the command line with =header=
+    on and in =column= mode and check on the console if these settings
+    are active.
+
+
+* Part 2: Creating a Database and Table (10 minutes)
+
+  - **Task 1**: In your Org-mode file, create a section titled "Creating
+    a Database and Table".
+
+  - **Task 2**: Use SQLite commands to check which database sqlite3
+    writes to, and if it contains any tables already.
+
+  - **Task 3**: Create a simple table named ~customer~ with an integer
+    field ~id~ that is a primary key, with two text fields for first and
+    last name. The two text fields should be constrained to not be
+    empty when inserting data.
+
+  - Verify table creation.
+
+* Part 3: Manipulating Data (10 minutes)
+
+  - **Task 1**: Insert three records into the ~customer~ table. Choose
+    customer values that reflect a diversity of entries.
+    
+  - **Task 2**: Query the entire table but limit the output to 2 lines
+    and start in the 2nd line.
+
+  - **Task 3**: Query only the entries whose ~id~ is 2.
+
+  - **Task 4**: Update the value of the entry whose ~id~ is 2. Verify by
+    querying the entire table again.
+
+* Part 4: Save table data to file and verify on the OS shell (5 minutes)
+
+  - **Task 1**: Save your table data to a file ~customer.sql~.
+
+  - **Task 2**: Verify that the file exists with a command inside an
+    SQLite code block (i.e. without leaving the SQLite console).
+
+* Part 5: Cleanup and Reflection (10 minutes)
+
+  - Drop the  table only if it exists in the database to clean up.
+
+  - Delete the database in an SQLite code block and verify that it was deleted.
+
+  - Import the SQL file and check that the table was recreated properly.
+    
+  - In a brief paragraph, reflect on the experience of using SQLite
+    commands within an Org-mode file. Discuss any challenges you faced
+    and what you learned about data manipulation and querying.
+
+* Submission Instructions
+  - Ensure your Org-mode file includes the SQLite code blocks with the
+    commands you ran and their outputs, as well as your reflection.
+  - Add an sqlite code block after every task and run it.
+  - Save your Org-mode file and submit it to Canvas.
