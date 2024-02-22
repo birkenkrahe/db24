@@ -56,6 +56,9 @@
     the last name of that entry. Verify by querying the entire table
     again.
 
+  - Tip: if you make mistakes, you may have to =DROP TABLE IF EXISTS=
+    and =INSERT= the values again.
+
 * Part 4: Save table data to file and verify on the OS shell (5 minutes)
 
   - **Task 1**: Save your table data to a file ~customer.sql~.
