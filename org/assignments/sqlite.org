@@ -28,23 +28,19 @@
     
   - Open a database `feb22.sqlite` from the command line with =header=
     on and in =column= mode and check on the console if these settings
-    are active.
-
+    are active. Copy the outpt here into an =example= block.
 
 * Part 2: Creating a Database and Table (10 minutes)
 
-  - **Task 1**: In your Org-mode file, create a section titled "Creating
-    a Database and Table".
-
-  - **Task 2**: Use SQLite commands to check which database sqlite3
+  - **Task 1**: Use SQLite commands to check which database sqlite3
     writes to, and if it contains any tables already.
 
-  - **Task 3**: Create a simple table named ~customer~ with an integer
+  - **Task 2**: Create a simple table named ~customer~ with an integer
     field ~id~ that is a primary key, with two text fields for first and
     last name. The two text fields should be constrained to not be
     empty when inserting data.
 
-  - Verify table creation.
+  - **Task 3**: Verify table creation.
 
 * Part 3: Manipulating Data (10 minutes)
 
