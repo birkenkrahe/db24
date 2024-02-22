@@ -68,9 +68,11 @@
 
 * Part 5: Cleanup and Reflection (10 minutes)
 
-  - Drop the  table only if it exists in the database to clean up.
+  - Drop the table only if it exists in the database to clean
+    up. Verify that all tables are gone.
 
-  - Delete the database in an SQLite code block and verify that it was deleted.
+  - Delete the database in an SQLite code block and verify that it was
+    deleted.
 
   - Import the SQL file and check that the table was recreated properly.
     
