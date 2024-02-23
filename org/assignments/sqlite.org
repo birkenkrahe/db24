@@ -77,9 +77,9 @@
   - Import the SQL file and check that the table was recreated properly.
     
   - In a brief paragraph in a =quote= block, reflect on the experience
-    of using SQLite commands within an Emacs Org-mode file. Discuss any
-    challenges you faced and what you learned about data manipulation
-    and querying.
+    of using SQLite commands within an Emacs Org-mode file. Discuss
+    any challenges you faced and what you learned about data
+    manipulation and querying.
 
 * Submission Instructions
   - Ensure your Org-mode file includes the SQLite code blocks with the
