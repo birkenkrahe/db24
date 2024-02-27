@@ -838,8 +838,7 @@ OPTIONS include:
 
 - Who among you will be the saviour of cats!?
 
-
-* Week 6 - Sprint Review - SQLite practice
+* DONE Week 6 - Sprint Review - SQLite practice
 #+attr_html: :width 400px:
 n[[../img/week_6.png]]
 
