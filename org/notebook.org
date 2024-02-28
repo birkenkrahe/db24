@@ -1068,24 +1068,40 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 #+attr_html: :width 400px:
 [[../img/lecture_theatre.png]]
 
-** Popquiz: ungraded + anonymous + memory-only + self-graded
+** DONE Popquiz: ungraded + anonymous + memory-only + self-graded
 
 - Complete this quiz in your own time.
 - Create an Org-mode file to test your answers.
 - Grade yourself and return the quiz to me.
 
+** Why memorize at all? 5 reasons
+#+attr_html: :width 400px:
+[[../img/helping.png]]
+
+1) Get syntax errors out of the way. The enemy is logic.
+2) Know how much you really know without crutches
+   (Google, ChatGPT, StackOverflow etc.).
+3) It'll make you fast and furious.
+4) It feels good to just know.
+5) You can now help others (which feels good, too).
+
 ** Finish SQLite demo session
 
 Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlite-codealong-org]]
 
-** DB browser for SQLite
+
+** TODO DB browser for SQLite
 
 https://sqlitebrowser.org/dl/
 
-** Test 3 available (deadline Tuesday 27 February)
-** DataCamp review: Filtering records / aggregate functions
-** Project feedback / discussion / next steps
-** =SELECT= lecture / codealong / practice
+
+** TODO Test 3 available (deadline Thursday 7 March)
+
+** TODO DataCamp review: Filtering records / aggregate functions
+
+** TODO Project feedback / discussion / next steps
+
+** TODO =SELECT= lecture / codealong / practice
 
 
 * Week 8 -
