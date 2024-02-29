@@ -595,7 +595,7 @@ ensuring consistency, and enforcing database rules.
 
 Run this if you have ~test.db~ (otherwise you'll get an error).
 #+begin_src sqlite :db test.db :results silent :header :column 
-  .shell rm test.db
+  .shell rm test.db    /* on Windows, may have to use DEL */
 #+end_src
 
 Run the following code block on ~test.db~ to have a working database
@@ -624,12 +624,26 @@ with an index and a view in it so that you can continue from here.
   .schema
 #+end_src
 
+#+RESULTS:
+: test        value_view
+: CREATE TABLE test (id INTEGER PRIMARY KEY, value TEXT);
+: CREATE INDEX test_idx ON test (value);
+: CREATE VIEW value_view AS SELECT value from test
+: /* value_view(value) */;
+
 Check content of ~test~ table:
 #+begin_src sqlite :db test.db :results output :header :column 
   SELECT * FROM test;
 #+end_src
 
-* TODO Formatted printing
+#+RESULTS:
+: id  value            
+: --  -----------------
+: 1   Ms. Jane Robinson
+: 2   Mr. Carl Robinson
+: 3   Mr. Edward Jones 
+
+* Formatted printing (DQL)
 
 - SQLite has its own =printf= function, which you know from C:
   #+begin_src sqlite :db test.db :results output :header :column
@@ -638,7 +652,23 @@ Check content of ~test~ table:
   #+end_src
 
   #+RESULTS:
-* TODO Viewing the master table (DQL)
+  : The database contains Ms. Jane Robinson  
+  : The database contains Mr. Carl Robinson  
+  : The database contains Mr. Edward Jones   
+
+- On Windoze, you need single quotes.
+
+- Sometimes, the SQLite version has unexpected effects.
+  #+begin_src sqlite :db test.db :results output :header :column 
+     .version
+  #+end_src
+
+  #+RESULTS:
+  : SQLite 3.37.2 2022-01-06 13:25:41 872ba256cbf61d9290b571c0e6d82a20c224ca3ad82971edc46b29818d5dalt1
+  : zlib version 1.2.11
+  : gcc-11.4.0
+
+* Viewing the master table (DQL)
 
 - All the DDL commands are entered in a master table, which is
   named =sqlite_master= whose schema you can inspect:
@@ -646,14 +676,30 @@ Check content of ~test~ table:
     .schema sqlite_master
   #+end_src
 
+  #+RESULTS:
+  : CREATE TABLE sqlite_master (
+  :   type text,
+  :   name text,
+  :   tbl_name text,
+  :   rootpage integer,
+  :   sql text
+  : );
+
 - When you display the table's contents, you see the different
   layers of abstraction that we have generated so far:
   #+begin_src sqlite :db test.db :results output :header :column
     SELECT type, name, tbl_name, sql
-    FROM sqlite_master;
+           FROM sqlite_master;
   #+end_src
 
-* TODO Exporting data (DML)
+  #+RESULTS:
+  : type   name        tbl_name    sql                                                   
+  : -----  ----------  ----------  ------------------------------------------------------
+  : table  test        test        CREATE TABLE test (id INTEGER PRIMARY KEY, value TEXT)
+  : index  test_idx    test        CREATE INDEX test_idx ON test (value)                 
+  : view   value_view  value_view  CREATE VIEW value_view AS SELECT value from test      
+
+* Exporting data (DML)
 
 - You've seen the =.dump= console command before. Without
   additional options, the whole db will be dumped.
@@ -662,6 +708,16 @@ Check content of ~test~ table:
   #+begin_src sqlite :db test.db :results output :header :column
     .help .dump
   #+end_src
+
+  #+RESULTS:
+  : .dump ?OBJECTS?          Render database content as SQL
+  :    Options:
+  :      --data-only            Output only INSERT statements
+  :      --newlines             Allow unescaped newline characters in output
+  :      --nosys                Omit system tables (ex: "sqlite_stat1")
+  :      --preserve-rowids      Include ROWID values in the output
+  :    OBJECTS is a LIKE pattern for tables, indexes, triggers or views to dump
+  :    Additional LIKE patterns can be given in subsequent arguments
 
 - Let's test this with the content of the ~test~ table - notice
   that the =--= is part of a flag, and not the SQL comment sign:
@@ -673,8 +729,13 @@ Check content of ~test~ table:
     .output test_data.sql
     .dump --data-only
     .output stdout
-    .shell cat test_data.sql
+    .shell cat test_data.sql  /* on Windoze, try TYPE instead of `cat` */
   #+end_src
+
+  #+RESULTS:
+  : INSERT INTO test VALUES(1,'Ms. Jane Robinson');
+  : INSERT INTO test VALUES(2,'Mr. Carl Robinson');
+  : INSERT INTO test VALUES(3,'Mr. Edward Jones');
 
 - Compare this with the complete database dump: repeat all
   commands but without the =--data-only= option, and dump into
@@ -683,14 +744,45 @@ Check content of ~test~ table:
     .output test_all.sql
     .dump
     .output stdout
-    .shell cat test_all.sql
+    .shell cat test_all.sql /* On Windoze replace `cat` by TYPE */
   #+end_src
+
+  #+RESULTS:
+  : PRAGMA foreign_keys=OFF;
+  : BEGIN TRANSACTION;
+  : CREATE TABLE test (id INTEGER PRIMARY KEY, value TEXT);
+  : INSERT INTO test VALUES(1,'Ms. Jane Robinson');
+  : INSERT INTO test VALUES(2,'Mr. Carl Robinson');
+  : INSERT INTO test VALUES(3,'Mr. Edward Jones');
+  : CREATE INDEX test_idx ON test (value);
+  : CREATE VIEW value_view AS SELECT value from test;
+  : COMMIT;
 
 - You can also use =.mode= to only extract query content. Check
   out the =.help= first:
   #+begin_src sqlite :db test.db :results output :header :column
     .help mode
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  .mode MODE ?TABLE?       Set output mode
+     MODE is one of:
+       ascii     Columns/rows delimited by 0x1F and 0x1E
+       box       Tables using unicode box-drawing characters
+       csv       Comma-separated values
+       column    Output in columns.  (See .width)
+       html      HTML <table> code
+       insert    SQL insert statements for TABLE
+       json      Results in a JSON array
+       line      One value per line
+       list      Values delimited by "|"
+       markdown  Markdown table format
+       quote     Escape answers as for SQL
+       table     ASCII-art table
+       tabs      Tab-separated values
+       tcl       TCL list elements
+  #+end_example
 
 - Write only the third row of ~test~ into another file, called
   ~test_row.sql~ using ~.mode insert~:
@@ -699,7 +791,7 @@ Check content of ~test~ table:
     .output test_row.sql
     SELECT * FROM test WHERE id=3; -- 3rd row only
     .output stdout
-    .shell cat test_row.sql
+    .shell cat test_row.sql  /* On Windoze, use TYPE instead of `cat` */
   #+end_src
 
   #+RESULTS:
@@ -708,7 +800,7 @@ Check content of ~test~ table:
 - You can now use the file ~test_row.sql~ to import data into a
   table called ~'table'~:
   #+begin_src sqlite :db test.db :results output :header :column
-    CREATE TABLE IF NOT EXISTS 'table' (id INT, value TEXT);
+    CREATE TABLE IF NOT EXISTS 'table' (id INTEGER, value TEXT);
     .tables
     .read test_row.sql
     SELECT * FROM 'table';
@@ -716,11 +808,11 @@ Check content of ~test~ table:
 
   #+RESULTS:
   : table       test        value_view
-  : id  value
+  : id  value           
   : --  ----------------
   : 3   Mr. Edward Jones
 
-* TODO Deleting a table and a view (DDL)
+* Deleting a table and a view (DDL)
 
 - To delete a table and a view, use =DROP TABLE= and handle the
   exceptions:
@@ -730,7 +822,13 @@ Check content of ~test~ table:
     .tables
   #+end_src
 
-* TODO Deleting a database (DDL)
+  #+RESULTS:
+  : test
+
+- There is no =DROP DATABASE= command in SQLite (but there is in all
+  other SQL flavors).
+  
+* Deleting a database (DDL)
 
 - There is no 'drop database' command in SQLite (unlike in
   other SQL flavors). Instead you just delete the database
@@ -738,11 +836,14 @@ Check content of ~test~ table:
   #+begin_src sqlite :db test.db :results output :header :column
     .database
     .tables
-    .shell ls -l test.db
-    .shell rm test.db
+    .shell ls -l test.db /* on Windoze, use DIR instead of `ls -l` */
+    .shell rm test.db /* On Windoze, use DEL instead of `rm` */
     .shell ls -l test.db
     .tables
   #+end_src
+
+  #+RESULTS:
+  : main: /home/marcus/GitHub/db24/org/test.db r/w
 
 * TODO Importing data (DML)
 
@@ -753,11 +854,11 @@ Check content of ~test~ table:
 - Earlier, you saved the table to ~test_all.sql~. Check out that this is
   indeed an SQL file from the console:
   #+begin_src sqlite :db test.db :results output :header :column
-    .shell head -n 5 test_all.sql
+    .shell head -n 5 test_all.sql  /* On Windoze try TYPE instead of `head -n 5` */
   #+end_src
 
 - If you don't have it for one reason or another, you can upload it
-  from tinyurl.com/test-sql.
+  from ~tinyurl.com/test-sql~.
 
 - Read the table into ~test.db~ using =.read=:
   #+begin_src sqlite :db test.db :results output :header :column
@@ -770,17 +871,20 @@ Check content of ~test~ table:
   #+RESULTS:
   : test        value_view
   : test        value_view
-  : id  value
+  : id  value            
   : --  -----------------
   : 1   Ms. Jane Robinson
   : 2   Mr. Carl Robinson
-  : 3   Mr. Edward Jones
+  : 3   Mr. Edward Jones 
 
 - If you try to re-import the data, the =UNIQUE= constraint will fail -
   do you know why?
 
 - Upload the CSV test file from ~tinyurl.com/test-all-csv~ to your
   current working directory (where this file is).
+
+#+RESULTS:
+: test        value_view
 
 - Check out which =.separator= SQLite is currently working with, and if
   it's not "," then change it to ",". Then =.import= the file to another
@@ -789,7 +893,7 @@ Check content of ~test~ table:
     .show
     .separator ","
     .show
-    .import test.csv test_csv
+    .import test_csv.csv test_csv  /* 1st file = source, 2nd file = target */
     .tables
     SELECT * FROM test_csv;
   #+end_src
@@ -806,7 +910,7 @@ Check content of ~test~ table:
   colseparator: "|"
   rowseparator: "\n"
          stats: off
-         width:
+         width: 
       filename: test.db
           echo: off
            eqp: off
@@ -818,14 +922,23 @@ Check content of ~test~ table:
   colseparator: ","
   rowseparator: "\n"
          stats: off
-         width:
+         width: 
       filename: test.db
-  test        test_csv    value_view
-  id  value
-  --  -----------------
-  1   Ms. Jane Robinson
-  2   Mr. Carl Robinson
-  3   Mr. Edward Jones
+  ERROR: extra argument: "/*".  Usage:
+  .import FILE TABLE       Import data from FILE into TABLE
+     Options:
+       --ascii               Use \037 and \036 as column and row separators
+       --csv                 Use , and \n as column and row separators
+       --skip N              Skip the first N rows of input
+       -v                    "Verbose" - increase auxiliary output
+     Notes:
+       ,*  If TABLE does not exist, it is created.  The first row of input
+          determines the column names.
+       ,*  If neither --csv or --ascii are used, the input mode is derived
+          from the ".mode" output mode
+       ,*  If FILE begins with "|" then it is a command that generates the
+          input text.
+  test        value_view
   #+end_example
 
 * TODO Writing CSV files (DML)
@@ -839,6 +952,12 @@ Check content of ~test~ table:
     .output stdout
     .shell cat test_all.csv
   #+end_src
+
+  #+RESULTS:
+  : id,value
+  : 1,"Ms. Jane Robinson"
+  : 2,"Mr. Carl Robinson"
+  : 3,"Mr. Edward Jones"
 
 * TODO Interfacing with the shell (DCL)
 

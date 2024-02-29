@@ -1086,14 +1086,15 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 5) You can now help others (which feels good, too).
 
 
-** TODO Test 3 coming up (deadline Thursday 7 March)
+** Test 3 coming up (deadline Thursday 7 March)
 
 - Bad: average performance dropped by 10% from test 1 to test 2
 - Good: you spend on average more time on the test
 - Please: make sure you have SQLite available (even replit.com)
 - Take your time with the test and run the code questions
 
-** TODO Mark the date: Lyon College Career Expo (free headshots!?)
+
+** Mark the date: Lyon College Career Expo (free headshots!?)
 
 1) Register at the entrance (QR code) to get bonus points
 
@@ -1101,9 +1102,11 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 
 3) Pick up contacts, follow up on them and let me know about them
    
+
 ** TODO Finish SQLite demo session
 
 Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlite-codealong-org]]
+
 
 ** TODO Project update (pair exercise) - 30 min
 
@@ -1111,6 +1114,24 @@ Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlit
   proposal, do so within a week from today (Thursday, March 7), and
   *send me a chat message* to let me know what you did.
 
+- Issues from my reading of your proposals: 
+  1) Databases are not machine learning. They are part of the
+     infrastructure.
+  2) Interesting issues around databases include: design, data types,
+     type of database, scale (volume of data, and users), how they are
+     used, developed, maintained and deployed.
+  3) You can always have a database as an extension of any coding or
+     data collecting, modeling, visualizing or predicting project.
+  4) Time is always an issue, time management is always terrible when
+     you're young and reckless: if you mention it as a challenge, do
+     so only if you can also think of ways to manage your time better!
+
+Shorter pair exercise:
+1) (In pairs) discuss what makes projects successful?
+2) What makes database projects successful?
+3) What database technology do you need for your project?
+
+Longer pair exercise:
 - Now, *get together in pairs* and *explain your project* and your
   *progress* (or lack thereof) to your partner (10 min)
 
@@ -1121,10 +1142,10 @@ Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlit
   4) Your main challenges ahead
   5) Your next steps (first results due week 11/end of March)
 
+
 ** TODO DB browser for SQLite
 
 https://sqlitebrowser.org/dl/
-
 
 ** TODO DataCamp review: Filtering records / aggregate functions
 
