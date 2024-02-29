@@ -845,7 +845,7 @@ Check content of ~test~ table:
   #+RESULTS:
   : main: /home/marcus/GitHub/db24/org/test.db r/w
 
-* TODO Importing data (DML)
+* Importing data (DML)
 
 - You can import data to SQLite in two different ways:
   1) if the data are in an SQLite file (~.sql~) you can =.read= them.
@@ -941,7 +941,7 @@ Check content of ~test~ table:
   test        value_view
   #+end_example
 
-* TODO Writing CSV files (DML)
+* Writing CSV files (DML)
 
 - Using =.output=, you can also write CSV data. Write the data from the
   table ~test~ to a file ~test_all.csv~ using =.mode csv=
@@ -959,7 +959,7 @@ Check content of ~test~ table:
   : 2,"Mr. Carl Robinson"
   : 3,"Mr. Edward Jones"
 
-* TODO Interfacing with the shell (DCL)
+* Interfacing with the shell (DCL)
 
 - Almost all console commands can also be called from the command line
   interface (CLI). For example to =.dump= the entire database:
