@@ -1074,7 +1074,7 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 - Create an Org-mode file to test your answers.
 - Grade yourself and return the quiz to me.
 
-** Why memorize at all? 5 reasons
+** DONE Why memorize at all? 5 reasons
 #+attr_html: :width 400px:
 [[../img/helping.png]]
 
@@ -1085,9 +1085,39 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 4) It feels good to just know.
 5) You can now help others (which feels good, too).
 
+
+** Mark the date: Lyon College Career Expo (free headshots!?)
+
+1) Register at the entrance (QR code) to get bonus points
+
+2) Remember to dress the part and bring your 1-page resume
+
+3) Pick up contacts, follow up on them and let me know about them
+   
 ** Finish SQLite demo session
 
 Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlite-codealong-org]]
+
+** Project update (pair exercise) - 45 min
+#+attr_html: :width 400px:
+[[../img/project.webp]]
+
+- If you were asked to improve on your (perhaps non-existing)
+  proposal, do so within a week from today (Thursday, March 7), and
+  *send me a chat message* to let me know what you did. 
+
+- Now, *get together in pairs* and *explain your project* and your
+  *progress* (or lack thereof) to your partner (10 min)
+
+- Your partner will then introduce your project to everyone else (35 min):
+  1) Your current project status
+  2) Your final deliverable
+  3) Your motivation for this project
+  4) Your main challenges ahead
+  5) Your next steps (first results due week 11/end of March)
+
+
+
 
 
 ** TODO DB browser for SQLite
@@ -1095,11 +1125,9 @@ Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlit
 https://sqlitebrowser.org/dl/
 
 
-** TODO Test 3 available (deadline Thursday 7 March)
+** TODO Test 3 coming up (deadline Thursday 7 March)
 
 ** TODO DataCamp review: Filtering records / aggregate functions
-
-** TODO Project feedback / discussion / next steps
 
 ** TODO =SELECT= lecture / codealong / practice
 

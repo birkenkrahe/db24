@@ -55,6 +55,9 @@ SQLite is a declarative programming language. Its properties:
   #+begin_src bash
     sqlite3 --help
   #+end_src
+
+  #+RESULTS:
+
   #+begin_example sh
 Usage: sqlite3 [OPTIONS] FILENAME [SQL]
 FILENAME is the name of an SQLite database. A new database is created
@@ -120,6 +123,8 @@ OPTIONS include:
   #+begin_src bash
     sqlite3 --help
   #+end_src
+
+  #+RESULTS:
 
 - You can now open SQLite on a new (or existing) database while
   directly specifying that it displays output in tables with columns
@@ -588,15 +593,17 @@ ensuring consistency, and enforcing database rules.
 
 * /*** STARTING OVER FROM HERE ***/
 
+Run this if you have ~test.db~ (otherwise you'll get an error).
+#+begin_src sqlite :db test.db :results silent :header :column 
+  .shell rm test.db
+#+end_src
+
 Run the following code block on ~test.db~ to have a working database
 with an index and a view in it so that you can continue from here.
 #+begin_src sqlite :db test.db :results output :header :column
 
-  /* remove SQLite database - on Windows, run DEL not `rm` */
-  .shell rm test.db
-
   /* starting over with table creation */
-  CREATE TABLE IF NOT EXISTS test (id INT PRIMARY KEY, value TEXT);
+  CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, value TEXT);
 
   /* insert records */
   INSERT INTO test (value) VALUES ('Ms. Jane Robinson');
@@ -617,12 +624,10 @@ with an index and a view in it so that you can continue from here.
   .schema
 #+end_src
 
-#+RESULTS:
-: test        value_view
-: CREATE TABLE test (id INT PRIMARY KEY, value TEXT);
-: CREATE INDEX test_idx ON test (value);
-: CREATE VIEW value_view AS SELECT value from test
-: /* value_view(value) */;
+Check content of ~test~ table:
+#+begin_src sqlite :db test.db :results output :header :column 
+  SELECT * FROM test;
+#+end_src
 
 * TODO Formatted printing
 
@@ -633,9 +638,6 @@ with an index and a view in it so that you can continue from here.
   #+end_src
 
   #+RESULTS:
-  : The database contains Mme. Carl Robinson
-  : The database contains Mr. Edward Jones
-  : The database contains Ms. Jane Robinson
 * TODO Viewing the master table (DQL)
 
 - All the DDL commands are entered in a master table, which is

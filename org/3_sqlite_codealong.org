@@ -587,12 +587,14 @@ ensuring consistency, and enforcing database rules.
 
 * /*** STARTING OVER FROM HERE ***/
 
+Run this if you have ~test.db~ (otherwise you'll get an error).
+#+begin_src sqlite :db test.db :results silent :header :column 
+  .shell rm test.db
+#+end_src
+
 Run the following code block on ~test.db~ to have a working database
 with an index and a view in it so that you can continue from here.
 #+begin_src sqlite :db test.db :results output :header :column
-
-  /* remove SQLite database - on Windows, run DEL not `rm` */
-  .shell rm test.db
 
   /* starting over with table creation */
   CREATE TABLE IF NOT EXISTS test (id INT PRIMARY KEY, value TEXT);
@@ -615,13 +617,6 @@ with an index and a view in it so that you can continue from here.
   .tables
   .schema
 #+end_src
-
-#+RESULTS:
-: test        value_view
-: CREATE TABLE test (id INT PRIMARY KEY, value TEXT);
-: CREATE INDEX test_idx ON test (value);
-: CREATE VIEW value_view AS SELECT value from test
-: /* value_view(value) */;
 
 * TODO Formatted printing
 
