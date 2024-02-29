@@ -587,10 +587,17 @@ ensuring consistency, and enforcing database rules.
 
 * /*** STARTING OVER FROM HERE ***/
 
-Run this if you have ~test.db~ (otherwise you'll get an error).
-#+begin_src sqlite :db test.db :results silent :header :column 
-  .shell rm test.db
-#+end_src
+- This command will not work in Emacs because you're trying to remove
+  the database that you're currently writing to!
+  #+begin_example sqlite
+    .shell rm ./test.db    /* on Windows, may have to use DEL */
+  #+end_example
+
+- Unfortunately, you'll have to remove the old database ~test.db~ manually:
+  1) Either by opening a shell (~M-x eshell~) and entering ~rm test.db~ or
+     ~DEL test.db~ on Windoze.
+  2) Or by opening Emacs' ~Dired~ with ~C-x d~ and removing the file with
+     ~d x~ (cursor on the file).
 
 Run the following code block on ~test.db~ to have a working database
 with an index and a view in it so that you can continue from here.

@@ -593,55 +593,62 @@ ensuring consistency, and enforcing database rules.
 
 * /*** STARTING OVER FROM HERE ***/
 
-Run this if you have ~test.db~ (otherwise you'll get an error).
-#+begin_src sqlite :db test.db :results silent :header :column 
-  .shell rm test.db    /* on Windows, may have to use DEL */
-#+end_src
+- This command will not work in Emacs because you're trying to remove
+  the database that you're currently writing to!
+  #+begin_example sqlite
+    .shell rm ./test.db    /* on Windows, may have to use DEL */
+  #+end_example
 
-Run the following code block on ~test.db~ to have a working database
-with an index and a view in it so that you can continue from here.
-#+begin_src sqlite :db test.db :results output :header :column
+- Unfortunately, you'll have to remove the old database ~test.db~ manually:
+  1) Either by opening a shell (~M-x eshell~) and entering ~rm test.db~ or
+     ~DEL test.db~ on Windoze.
+  2) Or by opening Emacs' ~Dired~ with ~C-x d~ and removing the file with
+     ~d x~ (cursor on the file).
 
-  /* starting over with table creation */
-  CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, value TEXT);
+- Run the following code block on ~test.db~ to have a working database
+  with an index and a view in it so that you can continue from here.
+  #+begin_src sqlite :db test.db :results output :header :column
 
-  /* insert records */
-  INSERT INTO test (value) VALUES ('Ms. Jane Robinson');
-  INSERT INTO test (value) VALUES ('Mme. Carl Robinson');
-  INSERT INTO test (value) VALUES ('Mr. Edward Jones');
+    /* starting over with table creation */
+    CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, value TEXT);
 
-  /* correct record */
-  UPDATE test SET VALUE='Mr. Carl Robinson' WHERE id=2;
+    /* insert records */
+    INSERT INTO test (value) VALUES ('Ms. Jane Robinson');
+    INSERT INTO test (value) VALUES ('Mme. Carl Robinson');
+    INSERT INTO test (value) VALUES ('Mr. Edward Jones');
 
-  /* create table index for `value` column */
-  CREATE INDEX test_idx ON test (value);
+    /* correct record */
+    UPDATE test SET VALUE='Mr. Carl Robinson' WHERE id=2;
 
-  /* create stored query view */
-  CREATE VIEW value_view AS SELECT value from test;
+    /* create table index for `value` column */
+    CREATE INDEX test_idx ON test (value);
 
-  /* check tables and db schema */
-  .tables
-  .schema
-#+end_src
+    /* create stored query view */
+    CREATE VIEW value_view AS SELECT value from test;
 
-#+RESULTS:
-: test        value_view
-: CREATE TABLE test (id INTEGER PRIMARY KEY, value TEXT);
-: CREATE INDEX test_idx ON test (value);
-: CREATE VIEW value_view AS SELECT value from test
-: /* value_view(value) */;
+    /* check tables and db schema */
+    .tables
+    .schema
+  #+end_src
 
-Check content of ~test~ table:
-#+begin_src sqlite :db test.db :results output :header :column 
+  #+RESULTS:
+  : test        value_view
+  : CREATE TABLE test (id INTEGER PRIMARY KEY, value TEXT);
+  : CREATE INDEX test_idx ON test (value);
+  : CREATE VIEW value_view AS SELECT value from test
+  : /* value_view(value) */;
+
+- Check content of ~test~ table:
+  #+begin_src sqlite :db test.db :results output :header :column
   SELECT * FROM test;
-#+end_src
+  #+end_src
 
-#+RESULTS:
-: id  value            
-: --  -----------------
-: 1   Ms. Jane Robinson
-: 2   Mr. Carl Robinson
-: 3   Mr. Edward Jones 
+  #+RESULTS:
+  : id  value
+  : --  -----------------
+  : 1   Ms. Jane Robinson
+  : 2   Mr. Carl Robinson
+  : 3   Mr. Edward Jones
 
 * Formatted printing (DQL)
 
@@ -652,15 +659,15 @@ Check content of ~test~ table:
   #+end_src
 
   #+RESULTS:
-  : The database contains Ms. Jane Robinson  
-  : The database contains Mr. Carl Robinson  
-  : The database contains Mr. Edward Jones   
+  : The database contains Ms. Jane Robinson
+  : The database contains Mr. Carl Robinson
+  : The database contains Mr. Edward Jones
 
 - On Windoze, you need single quotes.
 
 - Sometimes, the SQLite version has unexpected effects.
-  #+begin_src sqlite :db test.db :results output :header :column 
-     .version
+  #+begin_src sqlite :db test.db :results output :header :column
+    .version
   #+end_src
 
   #+RESULTS:
@@ -689,15 +696,15 @@ Check content of ~test~ table:
   layers of abstraction that we have generated so far:
   #+begin_src sqlite :db test.db :results output :header :column
     SELECT type, name, tbl_name, sql
-           FROM sqlite_master;
+    FROM sqlite_master;
   #+end_src
 
   #+RESULTS:
-  : type   name        tbl_name    sql                                                   
+  : type   name        tbl_name    sql
   : -----  ----------  ----------  ------------------------------------------------------
   : table  test        test        CREATE TABLE test (id INTEGER PRIMARY KEY, value TEXT)
-  : index  test_idx    test        CREATE INDEX test_idx ON test (value)                 
-  : view   value_view  value_view  CREATE VIEW value_view AS SELECT value from test      
+  : index  test_idx    test        CREATE INDEX test_idx ON test (value)
+  : view   value_view  value_view  CREATE VIEW value_view AS SELECT value from test
 
 * Exporting data (DML)
 
@@ -808,7 +815,7 @@ Check content of ~test~ table:
 
   #+RESULTS:
   : table       test        value_view
-  : id  value           
+  : id  value
   : --  ----------------
   : 3   Mr. Edward Jones
 
@@ -827,7 +834,7 @@ Check content of ~test~ table:
 
 - There is no =DROP DATABASE= command in SQLite (but there is in all
   other SQL flavors).
-  
+
 * Deleting a database (DDL)
 
 - There is no 'drop database' command in SQLite (unlike in
@@ -871,11 +878,11 @@ Check content of ~test~ table:
   #+RESULTS:
   : test        value_view
   : test        value_view
-  : id  value            
+  : id  value
   : --  -----------------
   : 1   Ms. Jane Robinson
   : 2   Mr. Carl Robinson
-  : 3   Mr. Edward Jones 
+  : 3   Mr. Edward Jones
 
 - If you try to re-import the data, the =UNIQUE= constraint will fail -
   do you know why?
@@ -910,7 +917,7 @@ Check content of ~test~ table:
   colseparator: "|"
   rowseparator: "\n"
          stats: off
-         width: 
+         width:
       filename: test.db
           echo: off
            eqp: off
@@ -922,7 +929,7 @@ Check content of ~test~ table:
   colseparator: ","
   rowseparator: "\n"
          stats: off
-         width: 
+         width:
       filename: test.db
   ERROR: extra argument: "/*".  Usage:
   .import FILE TABLE       Import data from FILE into TABLE
@@ -1035,7 +1042,7 @@ Check content of ~test~ table:
 - Now check that ~test3.db~ was created:
   #+begin_src bash :results output
     ls -l test3.db test.db
-  #+end_src  
+  #+end_src
 
   #+RESULTS:
   : -rw-r--r-- 1 marcus marcus 12288 Feb 20 19:01 test3.db
@@ -1047,4 +1054,3 @@ Check content of ~test~ table:
     sqlite3 -init test.sql test4.db .exit
     ls -l test*.db
   #+end_example
-
