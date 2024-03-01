@@ -922,11 +922,11 @@ n[[../img/week_6.png]]
    #+end_src
 
    #+RESULTS:
-   : 2  
-   : 1+1  
+   : 2
+   : 1+1
 7) You've dumped a database to a file ~db.sql~. You want to know if that
    worked without leaving the SQLite console. What can you do?
-   #+begin_src sqlite :db test.db :results output :header :column 
+   #+begin_src sqlite :db test.db :results output :header :column
      .shell ls
    #+end_src
 8) How can I create comments in an SQLite file?
@@ -938,8 +938,8 @@ n[[../img/week_6.png]]
 9) I want to start over with a database ~test.db~ that contains one
    table called ~test~, and empty the database. What are my options?
    #+begin_quote
-    1) I can remove the table with: ~DROP TABLE test;~
-    2) I can remove the database with ~.shell rm test.db~
+   1) I can remove the table with: ~DROP TABLE test;~
+   2) I can remove the database with ~.shell rm test.db~
    #+end_quote
 
 10) What's the general command to create a table? Which parts of the
@@ -956,7 +956,7 @@ n[[../img/week_6.png]]
     started/ended. Temporary tables are not permanently written to the
     database, so they are only in transient memory.
     #+end_quote
-    #+begin_src sqlite :db test.db :results output :header :column 
+    #+begin_src sqlite :db test.db :results output :header :column
       .tables
       CREATE temp TABLE test (useless TEXT);
       .shell ls -l test.db
@@ -980,7 +980,7 @@ n[[../img/week_6.png]]
     CREATE TABLE temp.test (useless TEXT);
     #+end_example
 
-    #+begin_src sqlite :db test.db :results output :header :column 
+    #+begin_src sqlite :db test.db :results output :header :column
       .tables
     #+end_src
 
@@ -1063,18 +1063,17 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 - If you're still NOT comfortable of using Emacs Org-mode with SQLite,
   let me know! Perhaps [[http://www.jesshamrick.com/2012/09/10/absolute-beginners-guide-to-emacs/][this article]] will help?
 
-
-* Week 7 - SQLite exports / SELECT 
+* DONE Week 7 - Complete SQLite demo
 #+attr_html: :width 400px:
 [[../img/lecture_theatre.png]]
 
-** DONE Popquiz: ungraded + anonymous + memory-only + self-graded
+** Popquiz: ungraded + anonymous + memory-only + self-graded
 
 - Complete this quiz in your own time.
 - Create an Org-mode file to test your answers.
 - Grade yourself and return the quiz to me.
 
-** DONE Why memorize at all? 5 reasons
+** Why memorize at all? 5 reasons
 #+attr_html: :width 400px:
 [[../img/helping.png]]
 
@@ -1085,14 +1084,12 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 4) It feels good to just know.
 5) You can now help others (which feels good, too).
 
-
 ** Test 3 coming up (deadline Thursday 7 March)
 
 - Bad: average performance dropped by 10% from test 1 to test 2
 - Good: you spend on average more time on the test
 - Please: make sure you have SQLite available (even replit.com)
 - Take your time with the test and run the code questions
-
 
 ** Mark the date: Lyon College Career Expo (free headshots!?)
 
@@ -1101,12 +1098,93 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 2) Remember to dress the part and bring your 1-page resume
 
 3) Pick up contacts, follow up on them and let me know about them
-   
 
-** TODO Finish SQLite demo session
+** Finish SQLite demo session
 
 Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlite-codealong-org]]
 
+
+* Week 8 - Projects / DB browser / SELECT
+#+attr_html: :width 400px:
+[[../img/week_8.webp]]
+
+** TODO What does "creating a database" mean?
+
+- Student:
+  #+begin_quote
+  I think I am struggling to understand exactly what a "Databases"
+  project means. Other than putting the data in a database, what should
+  I be looking to do?
+  #+end_quote
+  
+- Answer:
+  #+begin_quote
+  It only looks so simple because we've been dealing with 1-table
+  2-column databases, which require no planning and no maintenance.
+
+  "Creating a database" includes practical and theoretical understanding
+  of the database system (DB + infrastructure) from conception (what
+  data, who will use, when, why etc.) through implementation (which
+  flavor, which OS, which network, which speed, which size) to
+  maintenance.
+
+  The next DataCamp course is on another section of the DB
+  conception/planning stage.
+
+  The scope of the problem was included in the lecture (video) by Prof
+  Baesens on databases a few weeks ago - we reviewed it in class -
+  cp. the 3-layer-model.
+  #+end_quote
+
+Creating a database for a course project generally implies several key
+activities aimed at *designing*, *implementing*, and *managing* a *structured*
+collection of data that is both *efficient* to use and *scalable*.
+
+This process often encompasses a variety of tasks from initial
+conception to final implementation, including but not limited to the
+following:
+
+1. INITIAL PLANNING AND DESIGN:
+   - *Requirement Analysis:* Understanding the data needs and the
+     operations that will be performed on the database.
+   - *Conceptual Design:* Creating a high-level model of what data will
+     be stored and how the entities within the database will interact
+     with each other, often represented through an Entity-Relationship
+     (ER) diagram.
+
+2. IMPLEMENTATION:
+   - *Logical Design:* Transforming the conceptual model into a logical
+     model, which includes defining the specific structures and
+     relationships between the data in a way that can be implemented
+     in a database management system (DBMS).
+   - *Physical Design*: Deciding on the physical storage of data,
+     considering performance optimization through indexing,
+     partitioning, and choosing the appropriate storage format.
+
+3. DATABASE CREATION
+   - *Schema Definition:* Using Data Definition Language (DDL) commands
+     to create the database schema, which includes tables, views,
+     indexes, and other database objects.
+   - *Data Insertion:* Populating the database with initial data using
+     Data Manipulation Language (DML) commands or bulk insert tools.
+
+4. TESTING AND EVALUATION
+   - *Functionality Testing*: Ensuring that the database functions
+     correctly, including data insertion, querying, updating, and
+     deletion.
+   - *Performance Testing*: Evaluating the database performance under
+     different loads and optimizing as necessary.
+
+5. DOCUMENTATION AND MAINTENANCE
+   - *Documentation:* Creating comprehensive documentation that covers
+     the design decisions, schema details, and usage instructions for
+     future reference and maintenance.
+   - *Maintenance Plans:* Establishing procedures for regular
+     maintenance tasks such as backups, performance tuning, and
+     security updates.
+
+Steps 1-3 are illustrated by this [[https://youtu.be/MiAl2mQ718s?si=v_EikQULs0oG_7oq][Database Design video tutorial]] for
+beginners (15 min video by Adam Finer, 2022) - shared in Google [[https://chat.google.com/room/AAAAEZSJ81g/zgS4qWacXLw/zgS4qWacXLw?cls=10][Chat]].
 
 ** TODO Project update (pair exercise) - 30 min
 
@@ -1114,7 +1192,7 @@ Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlit
   proposal, do so within a week from today (Thursday, March 7), and
   *send me a chat message* to let me know what you did.
 
-- Issues from my reading of your proposals: 
+- Issues from my reading of your proposals:
   1) Databases are not machine learning. They are part of the
      infrastructure.
   2) Interesting issues around databases include: design, data types,
@@ -1142,7 +1220,6 @@ Longer pair exercise:
   4) Your main challenges ahead
   5) Your next steps (first results due week 11/end of March)
 
-
 ** TODO DB browser for SQLite
 
 https://sqlitebrowser.org/dl/
@@ -1152,7 +1229,6 @@ https://sqlitebrowser.org/dl/
 ** TODO =SELECT= lecture / codealong / practice
 
 
-* Week 8 -
 * Week 9 -
 * Week 10 -
 * Week 11 -
@@ -1169,5 +1245,3 @@ The Practical Guide to Storing, Managing and Analyzing Big and
 Small. Cambridge U Press 2018.
 
 Beaulieu: Learning SQL (2e). O'Reilly 2021.
-
-
