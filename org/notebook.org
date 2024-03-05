@@ -1186,11 +1186,34 @@ following:
 Steps 1-3 are illustrated by this [[https://youtu.be/MiAl2mQ718s?si=v_EikQULs0oG_7oq][Database Design video tutorial]] for
 beginners (15 min video by Adam Finer, 2022) - shared in Google [[https://chat.google.com/room/AAAAEZSJ81g/zgS4qWacXLw/zgS4qWacXLw?cls=10][Chat]].
 
+In March, you will also study the basics of database design with two
+chapters of the "[[https://app.datacamp.com/learn/courses/database-design][Database Design]]" course on DataCamp.
+
+** TODO DB browser for SQLite
+#+attr_html: :width 400px:
+[[../img/db_browser.png]]
+
+- "Bypass the learning of complicated SQL commands."
+- Download: https://sqlitebrowser.org/dl/ (GitHub)
+
+** TODO DBeaver - FOSS database manager and client for many SQL flavors
+#+attr_html: :width 400px:
+[[../img/dbeaver.png]]
+
+Download: https://dbeaver.io/ (requires admin rights)
+- Show Sample database
+- Show ER diagrams
+- Show primary and foreign keys
+
 ** TODO Project update (pair exercise) - 30 min
 
 - If you were asked to improve on your (perhaps non-existing)
   proposal, do so within a week from today (Thursday, March 7), and
   *send me a chat message* to let me know what you did.
+
+- (After talking with Jordan Deuley) Consider taking a conceptual
+  project, e.g. Data modeling in Power BI ([[https://app.datacamp.com/learn/courses/introduction-to-power-bi][courses in DataCamp]]), or
+  one of the large database management systems like MySQL.
 
 - Issues from my reading of your proposals:
   1) Databases are not machine learning. They are part of the
@@ -1204,29 +1227,17 @@ beginners (15 min video by Adam Finer, 2022) - shared in Google [[https://chat.g
      you're young and reckless: if you mention it as a challenge, do
      so only if you can also think of ways to manage your time better!
 
-Shorter pair exercise:
-1) (In pairs) discuss what makes projects successful?
-2) What makes database projects successful?
+*Shorter pair exercise:*
+1) (In pairs) discuss what makes projects in general successful?
+2) What makes database projects in particular successful?
 3) What database technology do you need for your project?
 
-Longer pair exercise:
-- Now, *get together in pairs* and *explain your project* and your
-  *progress* (or lack thereof) to your partner (10 min)
-
-- Your partner will then introduce your project to everyone else (20 min):
-  1) Your current project status
-  2) Your final deliverable
-  3) Your motivation for this project
-  4) Your main challenges ahead
-  5) Your next steps (first results due week 11/end of March)
-
-** TODO DB browser for SQLite
-
-https://sqlitebrowser.org/dl/
 
 ** TODO DataCamp review: Filtering records / aggregate functions
 
 ** TODO =SELECT= lecture / codealong / practice
+
+- Mindmap overview of the SELECT command pipeline
 
 
 * Week 9 -
