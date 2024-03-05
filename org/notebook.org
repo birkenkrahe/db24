@@ -1108,7 +1108,7 @@ Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlit
 #+attr_html: :width 400px:
 [[../img/week_8.webp]]
 
-** TODO What does "creating a database" mean?
+** What does "creating a database" mean?
 
 - Student:
   #+begin_quote
@@ -1189,23 +1189,11 @@ beginners (15 min video by Adam Finer, 2022) - shared in Google [[https://chat.g
 In March, you will also study the basics of database design with two
 chapters of the "[[https://app.datacamp.com/learn/courses/database-design][Database Design]]" course on DataCamp.
 
-** TODO DB browser for SQLite
-#+attr_html: :width 400px:
-[[../img/db_browser.png]]
+The Seinfeld 'food' SQLite database will serve as our example, and I
+will work it up into a sample project that you can use as springboard.
 
-- "Bypass the learning of complicated SQL commands."
-- Download: https://sqlitebrowser.org/dl/ (GitHub)
 
-** TODO DBeaver - FOSS database manager and client for many SQL flavors
-#+attr_html: :width 400px:
-[[../img/dbeaver.png]]
-
-Download: https://dbeaver.io/ (requires admin rights)
-- Show Sample database
-- Show ER diagrams
-- Show primary and foreign keys
-
-** TODO Project update (pair exercise) - 30 min
+** Project update (pair exercise) - 30 min
 
 - If you were asked to improve on your (perhaps non-existing)
   proposal, do so within a week from today (Thursday, March 7), and
@@ -1233,14 +1221,49 @@ Download: https://dbeaver.io/ (requires admin rights)
 3) What database technology do you need for your project?
 
 
-** TODO DataCamp review: Filtering records / aggregate functions
+** Books about SQLite
 
-** TODO =SELECT= lecture / codealong / practice
+- Here is an excellent [[https://www.sqlite.org/books.html][list of books on SQLite]]. I own three of
+  these. Most SQLite books focus on the C API. There's no book (yet)
+  on using SQLite as a database engine for web applications.
+
+- There is a section of the documentation on "[[https://www.sqlite.org/whentouse.html][When SQLite works well]]"
+  which is worth reading.
+
+- There are some [[https://subscription.packtpub.com/search?query=sqlite][new books on Python Programming]] with SQLite at Packt,
+  and books on [[https://link.springer.com/search?query=sqlite&package=41786&facet-content-type=%22Book%22][mobile development with SQLite]] by Springer.
+
+** DB browser for SQLite
+#+attr_html: :width 400px:
+[[../img/db_browser.png]]
+
+- "Bypass the learning of complicated SQL commands."
+- Download: https://sqlitebrowser.org/dl/ (GitHub)
+
+
+** DBeaver - FOSS database manager and client for many SQL flavors
+#+attr_html: :width 400px:
+[[../img/dbeaver.png]]
+
+Download: https://dbeaver.io/ (requires admin rights)
+- Show Sample database
+- Show ER diagrams
+- Show primary and foreign keys
+
+
+** DataCamp review: Filtering records / aggregate functions
+
+
+** =SELECT= lecture / codealong / practice
 
 - Mindmap overview of the SELECT command pipeline
 
 
-* Week 9 -
+* Week 9 - Database Design
+#+attr_html: :width 400px:
+[[../img/sqlhero.png]]
+
+
 * Week 10 -
 * Week 11 -
 * Week 12 -
