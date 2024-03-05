@@ -1147,27 +1147,62 @@ following:
 1. INITIAL PLANNING AND DESIGN:
    - *Requirement Analysis:* Understanding the data needs and the
      operations that will be performed on the database.
+     #+begin_quote
+     Example: The database should contain available, relevant
+     information about the foods and the types of foods in all of the
+     Seinfeld TV show episodes.
+     #+end_quote
+     #+begin_src sqlite :db ../data/foods.db :results output :column 
+       SELECT name FROM foods LIMIT 1; /* example food */
+       SELECT name FROM food_types LIMIT 1; /* example food type */
+       SELECT name FROM episodes LIMIT 1; /* example episode */              
+     #+end_src
+                    
    - *Conceptual Design:* Creating a high-level model of what data will
      be stored and how the entities within the database will interact
      with each other, often represented through an Entity-Relationship
      (ER) diagram.
+     #+begin_quote
+     #+attr_html: :width 700px: 
+     [[../img/foods_erd.png]]
+     #+end_quote
 
 2. IMPLEMENTATION:
    - *Logical Design:* Transforming the conceptual model into a logical
      model, which includes defining the specific structures and
      relationships between the data in a way that can be implemented
      in a database management system (DBMS).
+     #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+       .schema foods_episodes /* bridge table between `foods` and `episodes` */
+     #+end_src
+
    - *Physical Design*: Deciding on the physical storage of data,
      considering performance optimization through indexing,
      partitioning, and choosing the appropriate storage format.
-
+     #+begin_quote
+     - How to translate entities into physical tables (e.g. `foods`
+     - What attributes to use for columns of the physical tables (e.g. `name` of food)
+     - Which columns to define as keys (for cross-table queries)
+     - What indexes to define on the tables (to speed up queries)
+     - What views to define on the tables (stored queries)
+     - How to denormalize the tables (to avoid costly joins)
+     - How to resolve many-to-many relationships (bridge tables)
+     #+end_quote
+          
 3. DATABASE CREATION
    - *Schema Definition:* Using Data Definition Language (DDL) commands
      to create the database schema, which includes tables, views,
      indexes, and other database objects.
+     #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+       .schema
+     #+end_src
+
    - *Data Insertion:* Populating the database with initial data using
      Data Manipulation Language (DML) commands or bulk insert tools.
-
+     #+begin_example sqlite
+     INSERT INTO "episodes" VALUES(0, NULL, 'Good News Bad News');
+     #+end_example
+     
 4. TESTING AND EVALUATION
    - *Functionality Testing*: Ensuring that the database functions
      correctly, including data insertion, querying, updating, and
@@ -1183,14 +1218,15 @@ following:
      maintenance tasks such as backups, performance tuning, and
      security updates.
 
-Steps 1-3 are illustrated by this [[https://youtu.be/MiAl2mQ718s?si=v_EikQULs0oG_7oq][Database Design video tutorial]] for
-beginners (15 min video by Adam Finer, 2022) - shared in Google [[https://chat.google.com/room/AAAAEZSJ81g/zgS4qWacXLw/zgS4qWacXLw?cls=10][Chat]].
-
-In March, you will also study the basics of database design with two
-chapters of the "[[https://app.datacamp.com/learn/courses/database-design][Database Design]]" course on DataCamp.
-
-The Seinfeld 'food' SQLite database will serve as our example, and I
-will work it up into a sample project that you can use as springboard.
+MORE:
+- Steps 1-3 are illustrated by this [[https://youtu.be/MiAl2mQ718s?si=v_EikQULs0oG_7oq][Database Design video tutorial]] for
+  beginners (15 min video by Adam Finer, 2022) - shared in Google
+  [[https://chat.google.com/room/AAAAEZSJ81g/zgS4qWacXLw/zgS4qWacXLw?cls=10][Chat]].
+- In March, you will also study the basics of database design with two
+  chapters of the "[[https://app.datacamp.com/learn/courses/database-design][Database Design]]" course on DataCamp.
+- The Seinfeld 'food' SQLite database will serve as our example, and I
+  will work it up into a sample project that you can use as
+  springboard.
 
 
 ** Project update (pair exercise) - 30 min
@@ -1233,6 +1269,7 @@ will work it up into a sample project that you can use as springboard.
 - There are some [[https://subscription.packtpub.com/search?query=sqlite][new books on Python Programming]] with SQLite at Packt,
   and books on [[https://link.springer.com/search?query=sqlite&package=41786&facet-content-type=%22Book%22][mobile development with SQLite]] by Springer.
 
+
 ** DB browser for SQLite
 #+attr_html: :width 400px:
 [[../img/db_browser.png]]
@@ -1255,10 +1292,17 @@ Download: https://dbeaver.io/ (requires admin rights)
 
 
 ** =SELECT= lecture / codealong / practice
+#+attr_html: :width 700px:
+[[../img/select1.png]]
 
 - Mindmap overview of the SELECT command pipeline
+  #+attr_html: :width 700px:
+  [[../img/select.png]]
 
-
+- Phases of =SELECT=
+  #+attr_html: :width 700px:
+  [[../img/select_phases.png]]   
+  
 * Week 9 - Database Design
 #+attr_html: :width 400px:
 [[../img/sqlhero.png]]
