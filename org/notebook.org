@@ -1157,6 +1157,11 @@ following:
        SELECT name FROM food_types LIMIT 1; /* example food type */
        SELECT name FROM episodes LIMIT 1; /* example episode */              
      #+end_src
+
+     #+RESULTS:
+     : Bagels
+     : Bakery
+     : Good News Bad News
                     
    - *Conceptual Design:* Creating a high-level model of what data will
      be stored and how the entities within the database will interact
@@ -1173,14 +1178,20 @@ following:
      relationships between the data in a way that can be implemented
      in a database management system (DBMS).
      #+begin_src sqlite :db ../data/foods.db :results output :header :column 
-       .schema foods_episodes /* bridge table between `foods` and `episodes` */
+       /* bridge table between `foods` and `episodes` */	
+       .schema foods_episodes 
      #+end_src
+
+     #+RESULTS:
+     : CREATE TABLE foods_episodes(
+     :   food_id integer,
+     :   episode_id integer );
 
    - *Physical Design*: Deciding on the physical storage of data,
      considering performance optimization through indexing,
      partitioning, and choosing the appropriate storage format.
      #+begin_quote
-     - How to translate entities into physical tables (e.g. `foods`
+     - How to translate entities into physical tables (e.g. `foods`)
      - What attributes to use for columns of the physical tables (e.g. `name` of food)
      - Which columns to define as keys (for cross-table queries)
      - What indexes to define on the tables (to speed up queries)
@@ -1197,20 +1208,41 @@ following:
        .schema
      #+end_src
 
+     #+RESULTS:
+     #+begin_example
+     CREATE TABLE episodes (
+       id integer primary key,
+       season int,
+       name text );
+     CREATE TABLE foods(
+       id integer primary key,
+       type_id integer,
+       name text );
+     CREATE TABLE foods_episodes(
+       food_id integer,
+       episode_id integer );
+     CREATE TABLE food_types(
+       id integer primary key,
+       name text );
+     #+end_example
+
    - *Data Insertion:* Populating the database with initial data using
      Data Manipulation Language (DML) commands or bulk insert tools.
      #+begin_example sqlite
      INSERT INTO "episodes" VALUES(0, NULL, 'Good News Bad News');
      #+end_example
+
+4. DASHBOARD CREATION (optional): a UI (user interface) that allows
+   users to query the data easily using a webservice, e.g. `R Shiny`.
      
-4. TESTING AND EVALUATION
+5. TESTING AND EVALUATION
    - *Functionality Testing*: Ensuring that the database functions
      correctly, including data insertion, querying, updating, and
      deletion.
    - *Performance Testing*: Evaluating the database performance under
      different loads and optimizing as necessary.
 
-5. DOCUMENTATION AND MAINTENANCE
+6. DOCUMENTATION AND MAINTENANCE
    - *Documentation:* Creating comprehensive documentation that covers
      the design decisions, schema details, and usage instructions for
      future reference and maintenance.
@@ -1227,6 +1259,7 @@ MORE:
 - The Seinfeld 'food' SQLite database will serve as our example, and I
   will work it up into a sample project that you can use as
   springboard.
+
 
 
 ** Project update (pair exercise) - 30 min
@@ -1255,7 +1288,6 @@ MORE:
 1) (In pairs) discuss what makes projects in general successful?
 2) What makes database projects in particular successful?
 3) What database technology do you need for your project?
-
 
 ** Books about SQLite
 
@@ -1303,10 +1335,10 @@ Download: https://dbeaver.io/ (requires admin rights)
   #+attr_html: :width 700px:
   [[../img/select_phases.png]]   
   
+
 * Week 9 - Database Design
 #+attr_html: :width 400px:
 [[../img/sqlhero.png]]
-
 
 * Week 10 -
 * Week 11 -

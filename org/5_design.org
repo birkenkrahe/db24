@@ -5,7 +5,10 @@
 #+OPTIONS: toc:nil num:nil ^:nil:
 #+PROPERTY: header-args:sqlite :results output
 * README
-* What does "creating a database" mean?
+
+- What does a database project entail?
+
+* What does a "database project" entail?
 
 - Student:
   #+begin_quote
@@ -114,6 +117,12 @@ following:
    - *Maintenance Plans:* Establishing procedures for regular
      maintenance tasks such as backups, performance tuning, and
      security updates.
+
+6. DASHBOARD CREATION
+   - Select UI (user interaction) design framework (e.g. R Shiny)
+
+   - Build dashboard with database connection to customer
+     specifications.
 
 MORE:
 - Steps 1-3 are illustrated by this [[https://youtu.be/MiAl2mQ718s?si=v_EikQULs0oG_7oq][Database Design video tutorial]] for
