@@ -1108,7 +1108,7 @@ Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlit
 #+attr_html: :width 400px:
 [[../img/week_8.webp]]
 
-** What does "creating a database" mean?
+** DONE What does "creating a database" mean?
 
 - Student:
   #+begin_quote
@@ -1262,7 +1262,7 @@ MORE:
 
 
 
-** Project update (pair exercise) - 30 min
+** DONE Project update (pair exercise) - 30 min
 
 - If you were asked to improve on your (perhaps non-existing)
   proposal, do so within a week from today (Thursday, March 7), and
@@ -1289,6 +1289,7 @@ MORE:
 2) What makes database projects in particular successful?
 3) What database technology do you need for your project?
 
+
 ** Books about SQLite
 
 - Here is an excellent [[https://www.sqlite.org/books.html][list of books on SQLite]]. I own three of
@@ -1296,22 +1297,21 @@ MORE:
   on using SQLite as a database engine for web applications.
 
 - There is a section of the documentation on "[[https://www.sqlite.org/whentouse.html][When SQLite works well]]"
-  which is worth reading.
+  which you should read especially if you're planning to use SQLite.
 
 - There are some [[https://subscription.packtpub.com/search?query=sqlite][new books on Python Programming]] with SQLite at Packt,
   and books on [[https://link.springer.com/search?query=sqlite&package=41786&facet-content-type=%22Book%22][mobile development with SQLite]] by Springer.
 
-
 ** DB browser for SQLite
-#+attr_html: :width 400px:
+#+attr_html: :width 600px:
 [[../img/db_browser.png]]
 
-- "Bypass the learning of complicated SQL commands."
+- "Bypass the learning of complicated SQL commands" ???
+
 - Download: https://sqlitebrowser.org/dl/ (GitHub)
 
-
 ** DBeaver - FOSS database manager and client for many SQL flavors
-#+attr_html: :width 400px:
+#+attr_html: :width 600px:
 [[../img/dbeaver.png]]
 
 Download: https://dbeaver.io/ (requires admin rights)
@@ -1320,7 +1320,8 @@ Download: https://dbeaver.io/ (requires admin rights)
 - Show primary and foreign keys
 
 
-** DataCamp review: Filtering records / aggregate functions
+** DataCamp review: Filtering records/aggregate functions/sorting & grouping
+
 
 
 ** =SELECT= lecture / codealong / practice
@@ -1328,13 +1329,11 @@ Download: https://dbeaver.io/ (requires admin rights)
 [[../img/select1.png]]
 
 - Mindmap overview of the SELECT command pipeline
-  #+attr_html: :width 700px:
-  [[../img/select.png]]
 
 - Phases of =SELECT=
   #+attr_html: :width 700px:
   [[../img/select_phases.png]]   
-  
+
 
 * Week 9 - Database Design
 #+attr_html: :width 400px:
