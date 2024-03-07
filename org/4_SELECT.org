@@ -1,0 +1,45 @@
+#+STARTUP: hideblocks overview indent :
+#+OPTIONS: toc:nil num:nil ^:nil:
+#+PROPERTY: header-args:sqlite :results output
+* README
+
+- Open [[http://tinyurl.com/select-org][tinyurl.com/select-org]] to code along
+
+- If we don't finish, you'll get the updated file at the start
+
+* =SELECT= overview
+
+- Phases of =SELECT=
+  #+attr_html: :width 700px:
+  [[../img/select_phases.png]]
+
+- Mindmap overview of the SELECT command pipeline
+  #+attr_html: :width 700px:
+  [[../img/select.png]]
+
+- =SELECT= projects columns into a new working table:
+  #+attr_html: :width 700px:
+  [[../img/select_phases.png]]
+
+  #+begin_src sqlite :db ../data/foods.db :results output :header :column
+    SELECT * FROM foods LIMIT 1;  /* no projection */
+    SELECT name FROM foods LIMIT 1; /* projecting `foods.name` */
+  #+end_src
+
+  #+RESULTS:
+  : id  type_id  name
+  : --  -------  ------
+  : 1   1        Bagels
+  : name
+  : ------
+  : Bagels
+
+- =SELECT= projects, and =WHERE= restricts:
+  #+attr_html: :width 700px:
+  [[../img/select_restrict.png]]
+
+* =SELECT= pipeline  
+#+attr_html: :width 700px:
+[[../img/select1.png]]
+
+  

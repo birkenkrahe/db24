@@ -1290,7 +1290,7 @@ MORE:
 3) What database technology do you need for your project?
 
 
-** Books about SQLite
+** TODO Books about SQLite
 
 - Here is an excellent [[https://www.sqlite.org/books.html][list of books on SQLite]]. I own three of
   these. Most SQLite books focus on the C API. There's no book (yet)
@@ -1302,7 +1302,7 @@ MORE:
 - There are some [[https://subscription.packtpub.com/search?query=sqlite][new books on Python Programming]] with SQLite at Packt,
   and books on [[https://link.springer.com/search?query=sqlite&package=41786&facet-content-type=%22Book%22][mobile development with SQLite]] by Springer.
 
-** DB browser for SQLite
+** TODO DB browser for SQLite
 #+attr_html: :width 600px:
 [[../img/db_browser.png]]
 
@@ -1310,7 +1310,8 @@ MORE:
 
 - Download: https://sqlitebrowser.org/dl/ (GitHub)
 
-** DBeaver - FOSS database manager and client for many SQL flavors
+
+** TODO DBeaver - FOSS database manager and client for many SQL flavors
 #+attr_html: :width 600px:
 [[../img/dbeaver.png]]
 
@@ -1320,19 +1321,24 @@ Download: https://dbeaver.io/ (requires admin rights)
 - Show primary and foreign keys
 
 
-** DataCamp review: Filtering records/aggregate functions/sorting & grouping
-
-
-
 ** =SELECT= lecture / codealong / practice
 #+attr_html: :width 700px:
 [[../img/select1.png]]
 
-- Mindmap overview of the SELECT command pipeline
+- We're going to use SQLite but present common SQL flavour syntax
 
-- Phases of =SELECT=
-  #+attr_html: :width 700px:
-  [[../img/select_phases.png]]   
+- Codealong file in: [[http://tinyurl.com/select-org][tinyurl.com/select-org]]
+
+** TODO Test 3: Filtering records/aggregate functions/sorting & grouping
+
+- Source: DataCamp lessons
+- 20 questions, deadline Tuesday 12 March
+
+
+** TODO Test 4: SQLite
+
+- Lecture and practice files on GitHub
+- 20 questions, deadline Tuesday 14 March
 
 
 * Week 9 - Database Design
