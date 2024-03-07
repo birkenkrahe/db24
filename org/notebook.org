@@ -1310,7 +1310,6 @@ MORE:
 
 - Download: https://sqlitebrowser.org/dl/ (GitHub)
 
-
 ** TODO DBeaver - FOSS database manager and client for many SQL flavors
 #+attr_html: :width 600px:
 [[../img/dbeaver.png]]
@@ -1329,17 +1328,16 @@ Download: https://dbeaver.io/ (requires admin rights)
 
 - Codealong file in: [[http://tinyurl.com/select-org][tinyurl.com/select-org]]
 
-** TODO Test 3: Filtering records/aggregate functions/sorting & grouping
 
-- Source: DataCamp lessons
-- 20 questions, deadline Tuesday 12 March
-
-
-** TODO Test 4: SQLite
+** TODO Test 3: SQLite
 
 - Lecture and practice files on GitHub
 - 20 questions, deadline Tuesday 14 March
 
+** TODO Test 4: SELECT (includes DataCamp review)
+
+- Lecture and practice files on GitHub
+- 25 questions, deadline Tuesday 26 March
 
 * Week 9 - Database Design
 #+attr_html: :width 400px:

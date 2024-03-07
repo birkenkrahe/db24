@@ -9,14 +9,12 @@
 
 - Import the ~foods~ database from the commandline:
   #+begin_example bash
-    sqlite3 foods.db < foods.sql
+
   #+end_example  
 
 - Or import the database in a code block:
   #+begin_src sqlite :db foods.db :results output :header :column 
-    .read ../data/foods.sql
-    .database
-    .tables
+
   #+end_src
 
 - If we don't finish, you'll get the updated file at the start
@@ -28,42 +26,24 @@ Content:
 - Values and data types
 - Unary, binary, and ternary operators
 
-* =SELECT= command overview
-#+attr_html: :width 700px:
-[[../img/select1.png]]
-
-- [[https://xmind.app/m/Rg5Dw8][The mindmap]] contains 91 examples but you need to open XMind
-  (xmind.app) to see it, alas ([[https://github.com/birkenkrahe/db24/blob/main/img/SELECT.xmind][GitHub copy)]].
-
-* =SELECT= pipeline overview
-
-- Phases of =SELECT=
-  #+attr_html: :width 700px:
-  [[../img/select_phases.png]]
-
 * =SELECT= column restriction (projection)
 
 - =SELECT= is the most complex command in SQL.
 
 - =SELECT= projects columns into a new working table.
-  #+attr_html: :width 300px:
-  [[../img/select_project.png]]
 
   #+begin_src sqlite :db ../data/foods.db :results output :header :column
-    SELECT id, name FROM food_types;
+
   #+end_src
 
 * =WHERE= row restriction (filtering)
 
 - The =WHERE= clause is the most complex clause in =SELECT.=
 
-- =SELECT= projects, and =WHERE= restricts the number of rows. In between,
-  virtual tables R1 and R2 are created.
-  #+attr_html: :width 700px:
-  [[../img/select_restrict.png]]
-
+- =SELECT= projects, and =WHERE= restricts the number of rows.
+  
   #+begin_src sqlite :db ../data/foods.db :results output :header :column
-    SELECT name FROM foods WHERE (id=1 OR id=2); /* restriction with Boolean expression */
+
   #+end_src
 
 - The argument of =WHERE= is a logical /predicate/.
@@ -82,13 +62,13 @@ Content:
 
 - How would the sentence above be translated into SQL?
   #+begin_quote
-  SELECT * FROM dogs WHERE color='purple' AND grin='toothy';
+
   #+end_quote
 
 - This statement would filter those rows that satisfy the logical
   proposition:
   #+begin_quote
-  This row has color='purple' and grin='toothy'
+
   #+end_quote
 
 * Values and data types
@@ -101,41 +81,29 @@ Content:
 
   1) *literals* (unchangeable) - like ~1~, ~2~, ~3~, "~Batesville~" etc.
      #+begin_src sqlite :db ../data/foods.db :results output :header :column
-       SELECT "Batesville" AS 'City of';
+
      #+end_src
 
      #+begin_src sqlite :db ../data/foods.db :results output :column
-       SELECT 1,2,3;
+
      #+end_src
 
   2) *variables* (changeable) - e.g. column names like ~foods.name~
      #+begin_src sqlite :db ../data/foods.db :results output :header :column
-       SELECT "Batesville" AS 'City of';
+
      #+end_src
 
   3) *expressions* (reducible) - e.g. ~3 + 2/5~
      #+begin_src sqlite :db ../data/foods.db :results output :column
-       SELECT 3+2/5;
-       SELECT 3.+2./5.;
-     #+end_src
 
-     #+RESULTS:
-     : 3         
-     : 3.4       
+     #+end_src
 
   4) *function results* - e.g. ~COUNT(foods.name))~
      #+begin_src sqlite :db ../data/foods.db :results output :header :column
-       SELECT COUNT(foods.name) AS "No. of foods" FROM foods;
+
      #+end_src
 
-     #+RESULTS:
-     : No. of foods
-     : ------------
-     : 412         
-
 * Operators
-#+attr_html: :width 600px:
-[[../img/operators.png]]
 
 - An operator takes one or more values as input and produces a value as output.
 
@@ -150,23 +118,12 @@ Content:
 
 - In ~foods~, this could look like this:
   #+begin_src sqlite :db ../data/foods.db :results output :column 
-    SELECT
-       (SELECT COUNT(name) FROM foods)/
-       (SELECT COUNT(name) FROM episodes) * 11;
-  #+end_src
 
-  #+RESULTS:
-  : 22                                                                         
+  #+end_src
 
 - The result is correct apart from rounding errors (we need ~ROUND~):
   #+begin_src sqlite :db ../data/foods.db :results output :column 
-    SELECT COUNT(name) FROM episodes;
-    SELECT COUNT(name) FROM foods;
   #+end_src
-
-  #+RESULTS:
-  : 412        
-  : 181        
 
 - Or you could create a temporary table or a Common Table Expression (CTE):
   #+begin_src sqlite :db ../data/foods.db :results output :column 
