@@ -1103,8 +1103,7 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 
 Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlite-codealong-org]]
 
-
-* Week 8 - Projects / DB browser / SELECT
+* DONE Week 8 - Projects / DB browser / SELECT
 #+attr_html: :width 400px:
 [[../img/week_8.webp]]
 
@@ -1338,6 +1337,7 @@ Download: https://dbeaver.io/ (requires admin rights)
 
 - Lecture and practice files on GitHub
 - 25 questions, deadline Tuesday 26 March
+
 
 * Week 9 - Database Design
 #+attr_html: :width 400px:
