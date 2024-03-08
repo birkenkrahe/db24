@@ -1310,6 +1310,7 @@ MORE:
 
 - Download: https://sqlitebrowser.org/dl/ (GitHub)
 
+
 ** TODO DBeaver - FOSS database manager and client for many SQL flavors
 #+attr_html: :width 600px:
 [[../img/dbeaver.png]]
@@ -1318,7 +1319,6 @@ Download: https://dbeaver.io/ (requires admin rights)
 - Show Sample database
 - Show ER diagrams
 - Show primary and foreign keys
-
 
 ** =SELECT= lecture / codealong / practice
 #+attr_html: :width 700px:

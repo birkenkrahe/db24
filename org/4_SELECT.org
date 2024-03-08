@@ -3,11 +3,12 @@
 #+PROPERTY: header-args:sqlite :results output
 * README
 
-- Open [[http://tinyurl.com/select-org][tinyurl.com/select-org]] to code along
+- Open [[http://tinyurl.com/select-org][tinyurl.com/select-org]] to code along and save as ~select.org~
 
-- Download the foods database as an SQL file from [[http://tinyurl.com/foods-sql][tinyurl.com/foods-sql]]
+- Download the foods database as an SQL file from
+  [[http://tinyurl.com/foods-sql][tinyurl.com/foods-sql]] and save it as foods.sql
 
-- Import the ~foods~ database from the commandline:
+- Either import the ~foods~ database from the commandline:
   #+begin_example bash
     sqlite3 foods.db < foods.sql
   #+end_example  
@@ -18,6 +19,17 @@
     .database
     .tables
   #+end_src
+
+  #+RESULTS:
+  : main: /home/marcus/GitHub/db24/org/foods.db r/w
+  : episodes        food_types      foods           foods_episodes
+
+#+begin_src bash
+  ls -l foods.db   # DIR foods.db
+#+end_src
+
+#+RESULTS:
+: -rw-r--r-- 1 marcus marcus 40960 Mar  7 15:01 foods.db
 
 - If we don't finish, you'll get the updated file at the start
 
@@ -50,8 +62,39 @@ Content:
   [[../img/select_project.png]]
 
   #+begin_src sqlite :db ../data/foods.db :results output :header :column
-    SELECT id, name FROM food_types;
+    SELECT name FROM food_types;
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  name        
+  ------------
+  Bakery      
+  Cereal      
+  Chicken/Fowl
+  Condiments  
+  Dairy       
+  Dip         
+  Drinks      
+  Fruit       
+  Junkfood    
+  Meat        
+  Rice/Pasta  
+  Sandwiches  
+  Seafood     
+  Soup        
+  Vegetables  
+  #+end_example
+
+  But how many columns does this table have?
+  #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+    .schema food_types
+  #+end_src
+
+  #+RESULTS:
+  : CREATE TABLE food_types(
+  :   id integer primary key,
+  :   name text );
 
 * =WHERE= row restriction (filtering)
 
@@ -84,6 +127,8 @@ Content:
   #+begin_quote
   SELECT * FROM dogs WHERE color='purple' AND grin='toothy';
   #+end_quote
+  1) ~dogs~ is the table with all data about dogs
+  2) ~color~ and ~grin~ are two column in ~dogs~
 
 - This statement would filter those rows that satisfy the logical
   proposition:
@@ -104,25 +149,41 @@ Content:
        SELECT "Batesville" AS 'City of';
      #+end_src
 
-     #+begin_src sqlite :db ../data/foods.db :results output :column
-       SELECT 1,2,3;
-     #+end_src
+     #+RESULTS:
+     : City of   
+     : ----------
+     : Batesville
 
-  2) *variables* (changeable) - e.g. column names like ~foods.name~
      #+begin_src sqlite :db ../data/foods.db :results output :header :column
-       SELECT "Batesville" AS 'City of';
-     #+end_src
-
-  3) *expressions* (reducible) - e.g. ~3 + 2/5~
-     #+begin_src sqlite :db ../data/foods.db :results output :column
-       SELECT 3+2/5;
-       SELECT 3.+2./5.;
+       SELECT '1,2,3' AS "numbers";
      #+end_src
 
      #+RESULTS:
-     : 3         
-     : 3.4       
+     : numbers
+     : -------
+     : 1,2,3  
 
+  2) *variables* (changeable) - e.g. column names like ~foods.name~
+     #+begin_src sqlite :db ../data/foods.db :results output :header :column
+       SELECT foods.name FROM foods LIMIT 2;
+     #+end_src
+
+     #+RESULTS:
+     : name          
+     : --------------
+     : Bagels        
+     : Bagels, raisin
+
+  3) *expressions* (reducible) - e.g. ~3 + 2/5~
+     #+begin_src sqlite :db ../data/foods.db :results output :column
+       SELECT 3+2/5;  /* without decimal point, rounding takes place */
+       SELECT 3.+2./17.;  
+     #+end_src
+
+     #+RESULTS:
+     : 3    
+     : 3.11764705882353
+     
   4) *function results* - e.g. ~COUNT(foods.name))~
      #+begin_src sqlite :db ../data/foods.db :results output :header :column
        SELECT COUNT(foods.name) AS "No. of foods" FROM foods;
@@ -148,7 +209,7 @@ Content:
   z = y/x * 11
   #+end_example
 
-- In ~foods~, this could look like this:
+- In ~foods~, this could look like this (max 1000 subqueries in SQLite)[fn:1]:
   #+begin_src sqlite :db ../data/foods.db :results output :column 
     SELECT
        (SELECT COUNT(name) FROM foods)/
@@ -158,22 +219,55 @@ Content:
   #+RESULTS:
   : 22                                                                         
 
-- The result is correct apart from rounding errors (we need ~ROUND~):
+- Redo this with =REAL= numbers:
   #+begin_src sqlite :db ../data/foods.db :results output :column 
-    SELECT COUNT(name) FROM episodes;
-    SELECT COUNT(name) FROM foods;
+    SELECT
+       ((SELECT COUNT(name) FROM foods) * 1.0 /
+       (SELECT COUNT(name) FROM episodes) ) * 11.0;
   #+end_src
 
   #+RESULTS:
-  : 412        
-  : 181        
+  : 25.0386740331492                                                                       
 
-- Or you could create a temporary table or a Common Table Expression (CTE):
-  #+begin_src sqlite :db ../data/foods.db :results output :column 
-    CREATE TEMP TABLE x AS
-       SELECT COUNT(name) FROM episodes; 
-    CREATE TEMP TABLE y AS
-       SELECT COUNT(name) FROM foods;
+- Or you could create a temporary table ~TempResult~ to hold the result:
+  #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+    CREATE TEMP TABLE TempResult AS
+    SELECT
+      ((SELECT COUNT(name) * 1.0 FROM foods) /
+       (SELECT COUNT(name) FROM episodes)) * 11.0 AS result;
     .tables
+    SELECT * FROM temp.TempResult;
   #+end_src
-  
+
+  #+RESULTS:
+  : episodes         foods            temp.TempResult
+  : food_types       foods_episodes 
+  : result          
+  : ----------------
+  : 25.0386740331492
+
+- As a Common Table Expression (CTE):
+  #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+    WITH ComputedResult AS (
+      SELECT
+       ((SELECT COUNT(name) * 1.0 FROM foods) /
+        (SELECT COUNT(name) FROM episodes)) * 11.0 AS result
+        )
+    SELECT result FROM ComputedResult;
+  #+end_src
+
+  #+RESULTS:
+  : result          
+  : ----------------
+  : 25.0386740331492
+
+* Footnotes
+
+[fn:1] In SQLite, the set parameter ~SQLITE_MAX_EXPR_DEPTH~ is 1000, not
+9, and it's not just for nested SELECT queries but for the whole
+expression tree ([[https://sqlite.org/limits.html][source]]). For other flavors, the values are all over
+the place: SQL Server = 32 nested subqueries, Oracle = 255, and
+another source said "There is no limit to the number of subqueries you
+can use in an SQL query." MySQL and PostgreSQL have a ~thread_stack~
+parameter that can be set freely. Either way, these set values can be
+changed at runtime.
