@@ -898,9 +898,10 @@ ensuring consistency, and enforcing database rules.
   table, ~test_csv~:
   #+begin_src sqlite :db test.db :results output :header :column
     .show
-    .separator ","
+    .sep ","
     .show
-    .import test_csv.csv test_csv  /* 1st file = source, 2nd file = target */
+    /* 1st file = source, 2nd file = target */            
+    .import test_csv.csv test_csv  
     .tables
     SELECT * FROM test_csv;
   #+end_src
@@ -917,7 +918,7 @@ ensuring consistency, and enforcing database rules.
   colseparator: "|"
   rowseparator: "\n"
          stats: off
-         width:
+         width: 
       filename: test.db
           echo: off
            eqp: off
@@ -929,23 +930,14 @@ ensuring consistency, and enforcing database rules.
   colseparator: ","
   rowseparator: "\n"
          stats: off
-         width:
+         width: 
       filename: test.db
-  ERROR: extra argument: "/*".  Usage:
-  .import FILE TABLE       Import data from FILE into TABLE
-     Options:
-       --ascii               Use \037 and \036 as column and row separators
-       --csv                 Use , and \n as column and row separators
-       --skip N              Skip the first N rows of input
-       -v                    "Verbose" - increase auxiliary output
-     Notes:
-       ,*  If TABLE does not exist, it is created.  The first row of input
-          determines the column names.
-       ,*  If neither --csv or --ascii are used, the input mode is derived
-          from the ".mode" output mode
-       ,*  If FILE begins with "|" then it is a command that generates the
-          input text.
-  test        value_view
+  test_csv
+  id  value            
+  --  -----------------
+  1   Ms. Jane Robinson
+  2   Mr. Carl Robinson
+  3   Mr. Edward Jones 
   #+end_example
 
 * Writing CSV files (DML)

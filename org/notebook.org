@@ -1084,7 +1084,7 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 4) It feels good to just know.
 5) You can now help others (which feels good, too).
 
-** Test 3 coming up (deadline Thursday 7 March)
+** Test 3 coming up
 
 - Bad: average performance dropped by 10% from test 1 to test 2
 - Good: you spend on average more time on the test
@@ -1107,7 +1107,7 @@ Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlit
 #+attr_html: :width 400px:
 [[../img/week_8.webp]]
 
-** DONE What does "creating a database" mean?
+** What does "creating a database" mean?
 
 - Student:
   #+begin_quote
@@ -1259,9 +1259,7 @@ MORE:
   will work it up into a sample project that you can use as
   springboard.
 
-
-
-** DONE Project update (pair exercise) - 30 min
+** Project update (pair exercise) - 30 min
 
 - If you were asked to improve on your (perhaps non-existing)
   proposal, do so within a week from today (Thursday, March 7), and
@@ -1288,8 +1286,7 @@ MORE:
 2) What makes database projects in particular successful?
 3) What database technology do you need for your project?
 
-
-** TODO Books about SQLite
+** Books about SQLite
 
 - Here is an excellent [[https://www.sqlite.org/books.html][list of books on SQLite]]. I own three of
   these. Most SQLite books focus on the C API. There's no book (yet)
@@ -1301,7 +1298,7 @@ MORE:
 - There are some [[https://subscription.packtpub.com/search?query=sqlite][new books on Python Programming]] with SQLite at Packt,
   and books on [[https://link.springer.com/search?query=sqlite&package=41786&facet-content-type=%22Book%22][mobile development with SQLite]] by Springer.
 
-** TODO DB browser for SQLite
+** DB browser for SQLite
 #+attr_html: :width 600px:
 [[../img/db_browser.png]]
 
@@ -1309,8 +1306,7 @@ MORE:
 
 - Download: https://sqlitebrowser.org/dl/ (GitHub)
 
-
-** TODO DBeaver - FOSS database manager and client for many SQL flavors
+** DBeaver - FOSS database manager and client for many SQL flavors
 #+attr_html: :width 600px:
 [[../img/dbeaver.png]]
 
@@ -1327,21 +1323,22 @@ Download: https://dbeaver.io/ (requires admin rights)
 
 - Codealong file in: [[http://tinyurl.com/select-org][tinyurl.com/select-org]]
 
-
-** TODO Test 3: SQLite
+** Test 3 (SQLite) available by the weekend
 
 - Lecture and practice files on GitHub
-- 20 questions, deadline Tuesday 14 March
+- 30 questions, deadline Thursday 14 March
+
+
+* Week 9 - The SELECT pipeline
+#+attr_html: :width 400px:
+[[../img/sqlhero.png]]
+
 
 ** TODO Test 4: SELECT (includes DataCamp review)
 
 - Lecture and practice files on GitHub
 - 25 questions, deadline Tuesday 26 March
 
-
-* Week 9 - Database Design
-#+attr_html: :width 400px:
-[[../img/sqlhero.png]]
 
 * Week 10 -
 * Week 11 -
