@@ -1333,12 +1333,7 @@ Download: https://dbeaver.io/ (requires admin rights)
 #+attr_html: :width 400px:
 [[../img/sqlhero.png]]
 
-
-** TODO Test 4: SELECT (includes DataCamp review)
-
-- Lecture and practice files on GitHub
-- 25 questions, deadline Tuesday 26 March
-
+** TODO Next sprint review: March 28 ([[https://lyon.instructure.com/courses/2254/assignments/26163][Canvas]])
 
 * Week 10 -
 * Week 11 -
