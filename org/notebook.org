@@ -1103,7 +1103,7 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 
 Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlite-codealong-org]]
 
-* DONE Week 8 - Projects / DB browser / SELECT
+* DONE Week 8 - Projects / DB browser / SELECT overview
 #+attr_html: :width 400px:
 [[../img/week_8.webp]]
 
@@ -1333,7 +1333,58 @@ Download: https://dbeaver.io/ (requires admin rights)
 #+attr_html: :width 400px:
 [[../img/sqlhero.png]]
 
-** TODO Next sprint review: March 28 ([[https://lyon.instructure.com/courses/2254/assignments/26163][Canvas]])
+** Next sprint review: March 28 ([[https://lyon.instructure.com/courses/2254/assignments/26163][Canvas]])
+** Next test due on Friday March 15 (1 hour/30 questions)
+
+** Review: =SELECT= overview
+
+
+*** What is the purpose of the SELECT command in SQL?
+#+BEGIN_QUOTE
+The =SELECT= command projects columns into a new working table, allowing
+for the restriction (projection) and filtering (restriction) of data.
+#+END_QUOTE
+
+*** How does the WHERE clause function in a SELECT statement?
+#+BEGIN_QUOTE
+The =WHERE= clause restricts the number of rows in the output by
+applying a /logical predicate/ to each row. Only rows that satisfy the
+condition(s) specified in the =WHERE= clause are included in the result
+set.
+#+END_QUOTE
+
+*** How can values in SQL be classified?
+#+BEGIN_QUOTE
+Values in SQL can be classified into *literals* (unchangeable),
+*variables* (changeable), *expressions* (reducible), and *function* results.
+#+END_QUOTE
+
+*** What are operators in SQL, and how are they categorized?
+#+BEGIN_QUOTE
+Operators in SQL take one or more values as input and produce a value
+as output. They are categorized into *unary*, *binary*, and *ternary*
+operators, based on the number of input values (operands) they take.
+#+END_QUOTE
+
+*** Describe how subqueries can be used in SQL, including any limitations.
+#+BEGIN_QUOTE
+Subqueries can be used to perform operations that involve multiple
+queries within a single SQL statement. Limitations include the maximum
+number of nested subqueries allowed, which varies by SQL flavor. For
+example, SQLite allows up to 1000 nested subqueries, while other
+systems have different limits.
+#+END_QUOTE
+
+*** What does the term '=SELECT= pipeline' refer to?
+#+begin_quote
+The term "=SELECT= pipeline" in the context of SQL refers to the
+sequence of operations that are performed by the database engine to
+execute a =SELECT= statement and produce the final result set. This
+pipeline outlines the steps through which the data is processed, from
+identifying the target data to applying various filters,
+transformations, and sorting before the final output is generated.
+#+end_quote
+
 
 * Week 10 -
 * Week 11 -
