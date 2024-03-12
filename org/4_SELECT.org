@@ -490,7 +490,6 @@ Content:
   can develop your own using the =sqlite_create_function()= API call
   ([[https://sqlite.org/appfunc.html][read more]]).
 
-
 * Limiting and ordering
 
 - You can limit size and range of the result with =LIMIT= and =OFFSET=:
@@ -529,22 +528,6 @@ Content:
            ORDER BY type_id DESC, name LIMIT 10;
   #+end_src
 
-  #+RESULTS:
-  #+begin_example
-  id   type_id  name                     
-  ---  -------  -------------------------
-  382  15       Baked Beans              
-  383  15       Baked Potato w/Sour Cream
-  384  15       Big Salad                
-  385  15       Brocolli                 
-  362  14       Bouillabaisse            
-  328  12       BLT                      
-  327  12       Bacon Club (no turkey)   
-  326  12       Bologna                  
-  329  12       Brisket Sandwich         
-  274  10       Bacon                    
-  #+end_example
-
 - You can see that the ~type_id~ column is order in descending
   order. Within each group of identical food types, the food ~name~ is
   ordered in ascending order (by default).
@@ -571,7 +554,19 @@ Content:
   10  1        Chocolate Bobka    
   9   1        Chips Ahoy Cookies 
   #+end_example
-  
+
+- If you use both =LIMIT= and =OFFSET= together, you can use a comma
+  notation in place of the =OFFSET= keyword:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    SELECT * FROM foods WHERE NAME LIKE 'B%'
+           ORDER BY type_id DESC, name LIMIT 2,1; /* display 2nd row of result only */
+  #+end_src
+
+  #+RESULTS:
+  : id   type_id  name     
+  : ---  -------  ---------
+  : 384  15       Big Salad
+
 * COUNT
 
 - How many junkfoods are there?

@@ -283,36 +283,21 @@ Content:
 * Binary operators
 
 - Binary operators (operators with two operands) are the most common
-  ones. The table lists them by precedence from highest to lowest.
-  #+attr_html: :width 600px:
-  [[../img/binary_operators.png]]
+  ones. [[https://github.com/birkenkrahe/db24/blob/main/img/binary_operators.png][This table]] lists them by precedence from highest to lowest.
   
 * String concatenation
 
 - String concatenation can be used to combine field values:
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT name || '(' || season || ')' AS 'Season: name' FROM episodes LIMIT 1,3;
+
   #+end_src
 
 * Relational operators
 
 - These operators work even without reference to any table:
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT 1 > 2;
-    SELECT 1 > 2;
-    SELECT 1 == 2; /* Same result as 1 = 2 */
-  #+end_src
 
-  #+RESULTS:
-  : 1 > 2
-  : -----
-  : 0    
-  : 1 > 2
-  : -----
-  : 0    
-  : 1 == 2
-  : ------
-  : 0     
+  #+end_src
 
 * Logical operators
 
@@ -322,65 +307,36 @@ Content:
 
 -  What do you think ~SELECT -1 AND 1;~ will yield?
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT -1 AND 1; /* same as TRUE AND TRUE */
-  #+end_src
 
-  #+RESULTS:
-  : -1 AND 1
-  : --------
-  : 1       
+  #+end_src
 
 - Try ~SELECT 0 AND 1~:
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT 0 AND 1;
-  #+end_src
 
-  #+RESULTS:
-  : 0 AND 1
-  : -------
-  : 0      
+  #+end_src
 
 - Bonus assignment: prove De Morgan's laws[fn:2] using ~SELECT~!
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT NOT(1 OR 0);
-    SELECT (NOT 1 AND NOT 0);       
-  #+end_src
 
-  #+RESULTS:
-  : NOT(1 OR 0)
-  : -----------
-  : 0          
-  : (NOT 1 AND NOT 0)
-  : -----------------
-  : 0                
+  #+end_src
 
 - What if you wanted values in a particular range, e.g. ~id \in [3,8)~
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT name FROM foods WHERE 3 <= id AND id < 8; /* id in [3,8) */
+
   #+end_src
 
 - What if you wanted to know if there is a ~Junkfood~ (~type_id = 9~)
   named ~JujyFruit~?
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT * FROM foods WHERE name='JujyFruit' AND type_id=9;
-  #+end_src
 
-  #+RESULTS:
-  : id   type_id  name     
-  : ---  -------  ---------
-  : 244  9        JujyFruit
+  #+end_src
 
 - The =IN= operator is used to check if a value matches a value in a
   list or a subquery result. For example: how many ~foods~ are chicken
   (~type_id=3~) or meat (~type_id=10~)?
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT COUNT() FROM foods WHERE type_id IN (3,10);
-  #+end_src
 
-  #+RESULTS:
-  : COUNT()
-  : -------
-  : 59     
+  #+end_src
 
 * The =LIKE= and =GLOB= operators
 
@@ -389,18 +345,8 @@ Content:
 
 - Say you wanted to know all ~foods~ whose name begins with a ~J~:
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT id, name FROM foods WHERE name LIKE 'J%';
-  #+end_src
 
-  #+RESULTS:
-  : id   name              
-  : ---  ------------------
-  : 156  Juice box         
-  : 236  Jucyfruit Gum     
-  : 243  Jello with Bananas
-  : 244  JujyFruit         
-  : 245  Junior Mints      
-  : 370  Jambalaya         
+  #+end_src
 
 - Here, a percent symbol =%= matches any sequence of zero or more
   characters in the string.
@@ -409,16 +355,8 @@ Content:
 
 - Example: find all ~foods~ that have ~ac~ and ~P~ somewhere in the ~name~.
   #+begin_src sqlite :db test.db :results output :header :column
-    SELECT id, name FROM foods WHERE name LIKE '%ac%P%';
-  #+end_src
 
-  #+RESULTS:
-  : id   name                
-  : ---  --------------------
-  : 38   Pie (Blackberry) Pie
-  : 127  Guacamole Dip       
-  : 168  Peach Schnapps      
-  : 198  Macinaw peaches     
+  #+end_src
 
 - If you remove the last =%= sign, you're only looking for ~foods~ that
   also end in ~p~ or ~P.~
@@ -426,30 +364,14 @@ Content:
 - =LIKE= is not case-sensitive in all SQL flavors. In SQLite, you can
   switch case sensitivity on (=PRAGMA case_sensitive_like=ON=):
   #+begin_src sqlite :db test.db :results output :header :column
-    PRAGMA case_sensitive_like=ON;
-    SELECT id, name FROM foods WHERE name LIKE '%ac%p%';
-  #+end_src
 
-  #+RESULTS:
-  : id   name           
-  : ---  ---------------
-  : 127  Guacamole Dip  
-  : 168  Peach Schnapps 
-  : 198  Macinaw peaches
+  #+end_src
 
 - A useful trick is NOT to negate a pattern: for example, if you did
   not want ~foods~ with ~Sch~ in the name (excludes German/Dutch foods):
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT id, name FROM foods
-       WHERE name LIKE '%ac%P%' AND NAME NOT LIKE '%Sch%';
-  #+end_src
 
-  #+RESULTS:
-  : id   name                
-  : ---  --------------------
-  : 38   Pie (Blackberry) Pie
-  : 127  Guacamole Dip       
-  : 198  Macinaw peaches     
+  #+end_src
 
 - In Unix/Linux, /globbing/ refers to auto-completion for example when
   searching for files beginning with ~hello~ using a wildcard: ~ls -l
@@ -458,32 +380,20 @@ Content:
 - The =GLOB= operator uses wildcards like ~*~ and ~_~ and matching is cas
   sensitive:
   #+begin_src sqlite :db test.db :results output :header :column
-    SELECT id, name FROM foods WHERE name GLOB 'Pine*';
-  #+end_src
 
-  #+RESULTS:
-  : id   name                 
-  : ---  ---------------------
-  : 205  Pineapple            
-  : 258  Pineapple Italian Ice
+  #+end_src
 
 - You can get very creative if you know, like and use regular
   expressions. SQLite does not provide native implementations but you
   can develop your own using the =sqlite_create_function()= API call
   ([[https://sqlite.org/appfunc.html][read more]]).
 
-
 * Limiting and ordering
 
 - You can limit size and range of the result with =LIMIT= and =OFFSET=:
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT * FROM food_types ORDER BY id LIMIT 1 OFFSET 1;
-  #+end_src
 
-  #+RESULTS:
-  : id  name  
-  : --  ------
-  : 2   Cereal
+  #+end_src
 
 - The =OFFSET= clause skips one row (~Bakery~), and the =LIMIT= clause
   returns a maximum of one row (~Cereal~). They come last in the
@@ -507,25 +417,7 @@ Content:
 - Example: extract all rows whose ~food~ names start with a ~B~, and then
   order them in descending food ~type_id~ order. Return only 10 results.
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT * FROM foods WHERE NAME LIKE 'B%'
-           ORDER BY type_id DESC, name LIMIT 10;
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  id   type_id  name                     
-  ---  -------  -------------------------
-  382  15       Baked Beans              
-  383  15       Baked Potato w/Sour Cream
-  384  15       Big Salad                
-  385  15       Brocolli                 
-  362  14       Bouillabaisse            
-  328  12       BLT                      
-  327  12       Bacon Club (no turkey)   
-  326  12       Bologna                  
-  329  12       Brisket Sandwich         
-  274  10       Bacon                    
-  #+end_example
 
 - You can see that the ~type_id~ column is order in descending
   order. Within each group of identical food types, the food ~name~ is
@@ -534,25 +426,7 @@ Content:
 - Challenge: show the ~foods~ that start with C and order them in
   ascending order by type, but in descending order by name.
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT * FROM foods WHERE NAME LIKE 'C%'
-           ORDER BY type_id, name DESC LIMIT 10;
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  id  type_id  name               
-  --  -------  -------------------
-  18  1        Cupcakes           
-  17  1        Cupcake            
-  16  1        Crackers           
-  15  1        Cookie             
-  14  1        Cinnamon Swirls    
-  13  1        Cinnamon Bobka     
-  11  1        Chocolate Eclairs  
-  12  1        Chocolate Cream Pie
-  10  1        Chocolate Bobka    
-  9   1        Chips Ahoy Cookies 
-  #+end_example
   
 * COUNT
 
