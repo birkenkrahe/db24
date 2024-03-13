@@ -484,7 +484,6 @@ CREATE TABLE food_types(
   : ---------------
   : 59             
 
-
 * The =LIKE= and =GLOB= operators
 
 - The =LIKE= operator is used to match string values against patterns

@@ -1335,9 +1335,7 @@ Download: https://dbeaver.io/ (requires admin rights)
 
 ** Next sprint review: March 28 ([[https://lyon.instructure.com/courses/2254/assignments/26163][Canvas]])
 ** Next test due on Friday March 15 (1 hour/30 questions)
-
 ** Review: =SELECT= overview
-
 
 *** What is the purpose of the SELECT command in SQL?
 #+BEGIN_QUOTE
