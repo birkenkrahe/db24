@@ -484,7 +484,6 @@ CREATE TABLE food_types(
   : ---------------
   : 59             
 
-
 * The =LIKE= and =GLOB= operators
 
 - The =LIKE= operator is used to match string values against patterns
@@ -656,6 +655,28 @@ CREATE TABLE food_types(
   : ---  -------  ---------
   : 384  15       Big Salad
 
+* Functions and aggregates
+
+- SQL comes with various built-in functions and aggregetas that can be
+  used in clauses.
+
+- Function types include: mathematical like =ABS()=, and
+  string-formatting like =UPPER()= and =LOWER()=, which convert text to
+  upper- and lowercase, respectively.
+
+- Example: Guess what the output of this command is before running it
+  #+begin_src sqlite :db test.db :results output :header :column 
+    SELECT UPPER('hello there'), LENGTH('hello there'), ABS(-12);        
+  #+end_src
+
+  #+RESULTS:
+  : UPPER('hello there')  LENGTH('hello there')  ABS(-12)
+  : --------------------  ---------------------  --------
+  : HELLO THERE           11                     12      
+
+- Built-in functions are case-insensitive: =abs= is the same as =ABS= or =Abs=.
+
+- 
 * COUNT
 
 - How many junkfoods are there?
