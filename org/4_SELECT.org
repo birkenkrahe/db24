@@ -769,7 +769,7 @@ CREATE TABLE food_types(
   - Example: How many ~foods~ are ~Bakery~ (~type_id=1~) goods?
     (~type_id=1~):
     #+begin_src sqlite :db test.db :results output :header :column 
-      SELECT COUNT(*) AS"Baked goods" FROM foods WHERE type_id=1;
+      SELECT COUNT(*) AS "Baked goods" FROM foods WHERE type_id=1;
     #+end_src
 
     #+RESULTS:
@@ -836,7 +836,7 @@ CREATE TABLE food_types(
 
 - =GROUP BY= takes the output from =WHERE= and splits it into groups of
   rows that share a common value (or values) for a specific column (or
-  columns):
+  columns) - [[https://github.com/birkenkrahe/db24/blob/main/img/group_by.png][see image at GitHub]]:
   #+attr_html: :width 600px:
   #+CAPTION: Source: Allen/Owens (Apress, 2010)
   [[../img/group_by.png]]
@@ -847,11 +847,69 @@ CREATE TABLE food_types(
 - When =GROUP BY= is used, =SELECT= applies aggregates to each group
   separately rather than the entire filtered result as a whole.
 
-- Example: 
- 
-* Removing duplicates
+- Example: count the number of records per group, for each type:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    SELECT type_id AS "Food group", COUNT(*) AS "Foods by group"
+    FROM foods GROUP BY type_id;
+  #+end_src
 
-* SUMMARY
+  #+RESULTS:
+  #+begin_example
+  Food group  Foods by group
+  ----------  --------------
+  1           47            
+  2           15            
+  3           23            
+  4           22            
+  5           17            
+  6           4             
+  7           60            
+  8           23            
+  9           61            
+  10          36            
+  11          16            
+  12          23            
+  13          14            
+  14          19            
+  15          32            
+  #+end_example
+
+- Here, =COUNT= is applied 15 times, once for each group:
+  #+attr_html: :width 600px: 
+  [[../img/group_count.png]]
+
+- The number of ~Bakery~ foods is 47, the number of ~Cereal~ foods is 15,
+  etc. To get the same information, you could also run individual queries:
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT COUNT(*) AS "Bakery" FROM foods WHERE type_id=1;
+    SELECT COUNT(*) AS "Cereal" FROM foods WHERE type_id=2;
+    SELECT COUNT(*) AS "Chicken/Fowl" FROM foods WHERE type_id=3;
+    .header OFF
+    SELECT "               (...) ";
+    .header ON
+    SELECT COUNT(*) AS "Vegetables" FROM foods WHERE type_id=15;       
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  Bakery
+  ------
+  47    
+  Cereal
+  ------
+  15    
+  Chicken/Fowl
+  ------------
+  23          
+                 (...)   
+  Vegetables
+  ----------
+  32        
+  #+end_example
+
+* TODO =HAVING= patterns
+* TODO Removing duplicates
+* TODO SUMMARY
 
 - Table joins are a big topic and we'll postpone their discussion
   until after we talked about database design some more.
@@ -869,3 +927,4 @@ another source said "There is no limit to the number of subqueries you
 can use in an SQL query." MySQL and PostgreSQL have a ~thread_stack~
 parameter that can be set freely. Either way, these set values can be
 changed at runtime.
+
