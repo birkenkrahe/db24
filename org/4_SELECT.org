@@ -604,17 +604,33 @@ CREATE TABLE food_types(
 - In other words: you need =ORDER BY= if you need to count on the result
   being in any specific order.
 
-- THe =ORDER BY= clause is similar to =SELECT=: it takes an ordered,
-  comma-separated list of column. After each column name, you can
+- The =ORDER BY= clause is similar to =SELECT=: it takes an ordered,
+  comma-separated list of columnsq. After each column name, you can
   specify if you want ascending (=ASC= default) or descending (=DESC=)
   order.
 
 - Example: extract all rows whose ~food~ names start with a ~B~, and then
   order them in descending food ~type_id~ order. Return only 10 results.
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT * FROM foods WHERE NAME LIKE 'B%'
+    SELECT * FROM foods WHERE name LIKE 'B%'
            ORDER BY type_id DESC, name LIMIT 10;
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  id   type_id  name                     
+  ---  -------  -------------------------
+  382  15       Baked Beans              
+  383  15       Baked Potato w/Sour Cream
+  384  15       Big Salad                
+  385  15       Brocolli                 
+  362  14       Bouillabaisse            
+  328  12       BLT                      
+  327  12       Bacon Club (no turkey)   
+  326  12       Bologna                  
+  329  12       Brisket Sandwich         
+  274  10       Bacon                    
+  #+end_example
 
 - You can see that the ~type_id~ column is order in descending
   order. Within each group of identical food types, the food ~name~ is
@@ -624,40 +640,44 @@ CREATE TABLE food_types(
   ascending order by type, but in descending order by name.
   #+begin_src sqlite :db test.db :results output :header :column 
     SELECT * FROM foods WHERE NAME LIKE 'C%'
-           ORDER BY type_id, name DESC LIMIT 10;
+           ORDER BY type_id, name DESC LIMIT 10 OFFSET 25;
   #+end_src
 
   #+RESULTS:
   #+begin_example
-  id  type_id  name               
-  --  -------  -------------------
-  18  1        Cupcakes           
-  17  1        Cupcake            
-  16  1        Crackers           
-  15  1        Cookie             
-  14  1        Cinnamon Swirls    
-  13  1        Cinnamon Bobka     
-  11  1        Chocolate Eclairs  
-  12  1        Chocolate Cream Pie
-  10  1        Chocolate Bobka    
-  9   1        Chips Ahoy Cookies 
+  id   type_id  name                          
+  ---  -------  ------------------------------
+  76   3        Chicken (Kenny Rogers)        
+  65   3        Chicken                       
+  64   3        Casserole                     
+  143  7        Cream Soda                    
+  144  7        Cranberry juice with two limes
+  142  7        Colt 45                       
+  141  7        Coffe                         
+  140  7        Cocoa                         
+  139  7        Coca Cola                     
+  138  7        Club Soda                     
   #+end_example
 
 - If you use both =LIMIT= and =OFFSET= together, you can use a comma
   notation in place of the =OFFSET= keyword:
   #+begin_src sqlite :db test.db :results output :header :column 
     SELECT * FROM foods WHERE NAME LIKE 'B%'
-           ORDER BY type_id DESC, name LIMIT 2,1; /* display 2nd row of result only */
+           ORDER BY type_id DESC, name LIMIT 2,5; /* display 2nd row of result only */
   #+end_src
 
   #+RESULTS:
-  : id   type_id  name     
-  : ---  -------  ---------
-  : 384  15       Big Salad
+  : id   type_id  name                  
+  : ---  -------  ----------------------
+  : 384  15       Big Salad             
+  : 385  15       Brocolli              
+  : 362  14       Bouillabaisse         
+  : 328  12       BLT                   
+  : 327  12       Bacon Club (no turkey)
 
 * Functions
 
-- SQL comes with various built-in functions and aggregetas that can be
+- SQL comes with various built-in functions and aggregates that can be
   used in clauses.
 
 - Function types include: mathematical like =ABS()=, and
@@ -718,7 +738,7 @@ CREATE TABLE food_types(
 
   - Aggregates are functions that calculate a composite (or aggregate)
     value over a group of rows (or relation) - statistical functions are
-    useful aggregates.
+    useful aggregates: =AVG=, =SUM=, =MIN=, =MAX= etc.
 
   - Within the pipeline, aggregates follow the =WHERE= clause: they
     compute their values on the rows filtered by =WHERE=. =SELECT= filters
@@ -778,11 +798,15 @@ CREATE TABLE food_types(
     : 47         
 
   - When you see an aggregate, you should think "For each row in the
-    table, do something".
+    table, do something" (like sum, find the minimum, the average etc.)
 
   - Aggregates can aggregate any expression including functions.
 
   - Example: what is the average =LENGTH= of all names in ~foods~?
+    1. Work on the ~foods~ table
+    2. =SELECT= the ~name~ column
+    3. Compute the =LENGTH= of that column
+    4. Compute the =AVG= of the length
     #+begin_src sqlite :db test.db :results output :header :column 
       SELECT AVG(LENGTH(name)) AS "Average length of food names" FROM foods;
     #+end_src
@@ -813,27 +837,6 @@ CREATE TABLE food_types(
     SELECT type_id FROM foods GROUP BY type_id;
   #+end_src
 
-  #+RESULTS:
-  #+begin_example
-  type_id
-  -------
-  1      
-  2      
-  3      
-  4      
-  5      
-  6      
-  7      
-  8      
-  9      
-  10     
-  11     
-  12     
-  13     
-  14     
-  15     
-  #+end_example
-
 - =GROUP BY= takes the output from =WHERE= and splits it into groups of
   rows that share a common value (or values) for a specific column (or
   columns) - [[https://github.com/birkenkrahe/db24/blob/main/img/group_by.png][see image at GitHub]]:
@@ -844,13 +847,40 @@ CREATE TABLE food_types(
   In the example, =GROUP BY= organizes all rows in ~foods~ in 15
   (~DISTINCT type_ID~) groups varying by ~type_id~.
 
+  #+begin_src sqlite :db test.db :results output :header :column 
+    SELECT type_id AS "Food group"
+           FROM foods GROUP BY type_id;
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  Food group
+  ----------
+  1         
+  2         
+  3         
+  4         
+  5         
+  6         
+  7         
+  8         
+  9         
+  10        
+  11        
+  12        
+  13        
+  14        
+  15        
+  #+end_example
+
 - When =GROUP BY= is used, =SELECT= applies aggregates to each group
   separately rather than the entire filtered result as a whole.
 
 - Example: count the number of records per group, for each type:
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT type_id AS "Food group", COUNT(*) AS "Foods by group"
-    FROM foods GROUP BY type_id;
+    SELECT type_id AS "Food group",
+           COUNT(*) AS "Foods by group"
+           FROM foods GROUP BY type_id;
   #+end_src
 
   #+RESULTS:
@@ -885,7 +915,7 @@ CREATE TABLE food_types(
     SELECT COUNT(*) AS "Cereal" FROM foods WHERE type_id=2;
     SELECT COUNT(*) AS "Chicken/Fowl" FROM foods WHERE type_id=3;
     .header OFF
-    SELECT "               (...) ";
+    SELECT "               (..food groups 4 to 14...) ";
     .header ON
     SELECT COUNT(*) AS "Vegetables" FROM foods WHERE type_id=15;       
   #+end_src
@@ -901,11 +931,13 @@ CREATE TABLE food_types(
   Chicken/Fowl
   ------------
   23          
-                 (...)   
+                 (..food groups 4 to 14...)   
   Vegetables
   ----------
   32        
   #+end_example
+
+
 
 * TODO =HAVING= patterns
 * TODO Removing duplicates
