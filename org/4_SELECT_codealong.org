@@ -554,36 +554,14 @@ Content:
 
   #+end_src
 
-- Here, =COUNT= is applied 15 times, once for each group: see image at GitHub.
+- Here, =COUNT= is applied 15 times, once for each group: [[https://github.com/birkenkrahe/db24/blob/main/img/group_count.png][see image at
+  GitHub]].
 
 - The number of ~Bakery~ foods is 47, the number of ~Cereal~ foods is 15,
   etc. To get the same information, you could also run individual queries:
   #+begin_src sqlite :db test.db :results output :header :column
-    SELECT COUNT(*) AS "Bakery" FROM foods WHERE type_id=1;
-    SELECT COUNT(*) AS "Cereal" FROM foods WHERE type_id=2;
-    SELECT COUNT(*) AS "Chicken/Fowl" FROM foods WHERE type_id=3;
-    .header OFF
-    SELECT "               (...) ";
-    .header ON
-    SELECT COUNT(*) AS "Vegetables" FROM foods WHERE type_id=15;       
-  #+end_src
 
-  #+RESULTS:
-  #+begin_example
-  Bakery
-  ------
-  47    
-  Cereal
-  ------
-  15    
-  Chicken/Fowl
-  ------------
-  23          
-                 (...)   
-  Vegetables
-  ----------
-  32        
-  #+end_example
+  #+end_src
 
 * Footnotes
 [fn:2] The negation of a disjunction is the conjunction of the
