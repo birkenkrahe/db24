@@ -1384,6 +1384,10 @@ transformations, and sorting before the final output is generated.
 #+end_quote
 
 
+** Review: SQL operators
+
+
+
 * Week 10 -
 * Week 11 -
 * Week 12 -

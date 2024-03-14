@@ -655,7 +655,7 @@ CREATE TABLE food_types(
   : ---  -------  ---------
   : 384  15       Big Salad
 
-* Functions and aggregates
+* Functions
 
 - SQL comes with various built-in functions and aggregetas that can be
   used in clauses.
@@ -676,39 +676,186 @@ CREATE TABLE food_types(
 
 - Built-in functions are case-insensitive: =abs= is the same as =ABS= or =Abs=.
 
-- 
-* COUNT
-
-- How many junkfoods are there?
+- Functions can accept column values as their arguments:  
   #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT DISTINCT COUNT() FROM foods WHERE type_id=9;
-           SELECT id,name from food_types;
+    SELECT id, UPPER(name), LENGTH(name) FROM foods
+           WHERE type_id=1 LIMIT 10;  /* foods with type_id = 1 (Bakery) */
   #+end_src
 
   #+RESULTS:
   #+begin_example
-  COUNT()
-  -------
-  61     
-  id  name        
-  --  ------------
-  1   Bakery      
-  2   Cereal      
-  3   Chicken/Fowl
-  4   Condiments  
-  5   Dairy       
-  6   Dip         
-  7   Drinks      
-  8   Fruit       
-  9   Junkfood    
-  10  Meat        
-  11  Rice/Pasta  
-  12  Sandwiches  
-  13  Seafood     
-  14  Soup        
-  15  Vegetables  
+  id  UPPER(name)              LENGTH(name)
+  --  -----------------------  ------------
+  1   BAGELS                   6           
+  2   BAGELS, RAISIN           14          
+  3   BAVARIAN CREAM PIE       18          
+  4   BEAR CLAWS               10          
+  5   BLACK AND WHITE COOKIES  23          
+  6   BREAD (WITH NUTS)        17          
+  7   BUTTERFINGERS            13          
+  8   CARROT CAKE              11          
+  9   CHIPS AHOY COOKIES       18          
+  10  CHOCOLATE BOBKA          15          
   #+end_example
+
+- Since functions can be part of any expression, they can also be part
+  of a =WHERE= clause:
+  #+begin_src sqlite :db test.db :results output :header :column 
+    SELECT id, UPPER(name), LENGTH(name) FROM foods
+           WHERE LENGTH(name) < 5 LIMIT 5;  /* foods with names of fewer than 5 characters */
+  #+end_src
+
+  #+RESULTS:
+  : id  UPPER(name)  LENGTH(name)
+  : --  -----------  ------------
+  : 36  PIE          3           
+  : 48  BRAN         4           
+  : 56  KIX          3           
+  : 57  LIFE         4           
+  : 80  DUCK         4           
   
+* Aggregates
+
+  - Aggregates are functions that calculate a composite (or aggregate)
+    value over a group of rows (or relation) - statistical functions are
+    useful aggregates.
+
+  - Within the pipeline, aggregates follow the =WHERE= clause: they
+    compute their values on the rows filtered by =WHERE=. =SELECT= filters
+    first, and then aggregates values.
+
+  - The SQLite C API allows you to create fast custom functions and
+    aggregates using C.
+
+  - Reasons to perform calculations in SQL rather than in R or Python:
+    1. *Efficiency:* SQL databases are optimized for operations on large
+       datasets. By using the =AVG()= function directly in SQL, the
+       calculation is done on the database server, which can handle the
+       computation more efficiently than fetching all the data into an
+       external program and then computing the mean. This is especially
+       important with very large datasets.
+
+    2. *Network Overhead:* Calculating the mean directly in the database
+       reduces the amount of data that needs to be transferred over the
+       network. If you were to calculate the mean in R or Python, you
+       would first need to transfer all the relevant data from the
+       database to the application, which can be slow and
+       resource-intensive for large datasets.
+
+    3. *Simplicity:* Writing a query to calculate the average in SQL is
+       straightforward and keeps the data manipulation logic within the
+       database, which can make the code easier to manage and
+       understand. It avoids the complexity of fetching the data and
+       then using a separate tool for the calculation.
+
+    4. *Scalability:* Databases are designed to handle queries on large
+       datasets efficiently, and they often include optimizations for
+       aggregation functions like =AVG()=. These optimizations can include
+       parallel processing and indexing strategies that are not as
+       easily implemented in client-side languages.
+
+    5. *Real-time data processing*: When working with real-time data, it
+       might be necessary to get the average value updated dynamically
+       as the data changes. Performing this operation directly in SQL
+       ensures that the most current data is used for the calculation
+       without the need for repeated data transfers.
+
+    6. *Consistency*: When multiple analyses are being performed on the
+       same data, performing calculations directly in the database
+       ensures that all calculations are based on the same data state,
+       which helps in maintaining consistency across different reports
+       or analyses.
+
+  - Example: How many ~foods~ are ~Bakery~ (~type_id=1~) goods?
+    (~type_id=1~):
+    #+begin_src sqlite :db test.db :results output :header :column 
+      SELECT COUNT(*) AS"Baked goods" FROM foods WHERE type_id=1;
+    #+end_src
+
+    #+RESULTS:
+    : Baked goods
+    : -----------
+    : 47         
+
+  - When you see an aggregate, you should think "For each row in the
+    table, do something".
+
+  - Aggregates can aggregate any expression including functions.
+
+  - Example: what is the average =LENGTH= of all names in ~foods~?
+    #+begin_src sqlite :db test.db :results output :header :column 
+      SELECT AVG(LENGTH(name)) AS "Average length of food names" FROM foods;
+    #+end_src
+
+    #+RESULTS:
+    : Average length of food names
+    : ----------------------------
+    : 12.5849514563107            
+
+  - You might not care for the decimal places:
+    #+begin_src sqlite :db test.db :results output :header :column 
+      SELECT ROUND(AVG(LENGTH(name))) AS "Average length of food names" FROM foods;
+    #+end_src
+
+    #+RESULTS:
+    : Average length of food names
+    : ----------------------------
+    : 13.0                        
+
+* Grouping
+
+- You can compute aggregates over an entire query result (subset of
+  rows). You can also split that result into groups of rows with like
+  values and compute aggregates on each group - all in one step.
+
+- Example: group the types of food by type.
+  #+begin_src sqlite :db test.db :results output :header :column 
+    SELECT type_id FROM foods GROUP BY type_id;
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  type_id
+  -------
+  1      
+  2      
+  3      
+  4      
+  5      
+  6      
+  7      
+  8      
+  9      
+  10     
+  11     
+  12     
+  13     
+  14     
+  15     
+  #+end_example
+
+- =GROUP BY= takes the output from =WHERE= and splits it into groups of
+  rows that share a common value (or values) for a specific column (or
+  columns):
+  #+attr_html: :width 600px:
+  #+CAPTION: Source: Allen/Owens (Apress, 2010)
+  [[../img/group_by.png]]
+
+  In the example, =GROUP BY= organizes all rows in ~foods~ in 15
+  (~DISTINCT type_ID~) groups varying by ~type_id~.
+
+- When =GROUP BY= is used, =SELECT= applies aggregates to each group
+  separately rather than the entire filtered result as a whole.
+
+- Example: 
+ 
+* Removing duplicates
+
+* SUMMARY
+
+- Table joins are a big topic and we'll postpone their discussion
+  until after we talked about database design some more.
+
 * Footnotes
 [fn:2] The negation of a disjunction is the conjunction of the
 negations, and the negation of a conjunction is the disjunction of the
