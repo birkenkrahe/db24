@@ -1,5 +1,0 @@
-PRAGMA foreign_keys=OFF;
-BEGIN TRANSACTION;
-CREATE TABLE test (id INT, name TEXT);
-INSERT INTO test VALUES(1,'Jimmy Jones');
-COMMIT;
