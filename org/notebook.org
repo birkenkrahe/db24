@@ -1115,7 +1115,7 @@ Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlit
   project means. Other than putting the data in a database, what should
   I be looking to do?
   #+end_quote
-  
+
 - Answer:
   #+begin_quote
   It only looks so simple because we've been dealing with 1-table
@@ -1151,23 +1151,23 @@ following:
      information about the foods and the types of foods in all of the
      Seinfeld TV show episodes.
      #+end_quote
-     #+begin_src sqlite :db ../data/foods.db :results output :column 
+     #+begin_src sqlite :db ../data/foods.db :results output :column
        SELECT name FROM foods LIMIT 1; /* example food */
        SELECT name FROM food_types LIMIT 1; /* example food type */
-       SELECT name FROM episodes LIMIT 1; /* example episode */              
+       SELECT name FROM episodes LIMIT 1; /* example episode */
      #+end_src
 
      #+RESULTS:
      : Bagels
      : Bakery
      : Good News Bad News
-                    
+
    - *Conceptual Design:* Creating a high-level model of what data will
      be stored and how the entities within the database will interact
      with each other, often represented through an Entity-Relationship
      (ER) diagram.
      #+begin_quote
-     #+attr_html: :width 700px: 
+     #+attr_html: :width 700px:
      [[../img/foods_erd.png]]
      #+end_quote
 
@@ -1176,9 +1176,9 @@ following:
      model, which includes defining the specific structures and
      relationships between the data in a way that can be implemented
      in a database management system (DBMS).
-     #+begin_src sqlite :db ../data/foods.db :results output :header :column 
-       /* bridge table between `foods` and `episodes` */	
-       .schema foods_episodes 
+     #+begin_src sqlite :db ../data/foods.db :results output :header :column
+       /* bridge table between `foods` and `episodes` */
+       .schema foods_episodes
      #+end_src
 
      #+RESULTS:
@@ -1198,12 +1198,12 @@ following:
      - How to denormalize the tables (to avoid costly joins)
      - How to resolve many-to-many relationships (bridge tables)
      #+end_quote
-          
+
 3. DATABASE CREATION
    - *Schema Definition:* Using Data Definition Language (DDL) commands
      to create the database schema, which includes tables, views,
      indexes, and other database objects.
-     #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+     #+begin_src sqlite :db ../data/foods.db :results output :header :column
        .schema
      #+end_src
 
@@ -1233,7 +1233,7 @@ following:
 
 4. DASHBOARD CREATION (optional): a UI (user interface) that allows
    users to query the data easily using a webservice, e.g. `R Shiny`.
-     
+
 5. TESTING AND EVALUATION
    - *Functionality Testing*: Ensuring that the database functions
      correctly, including data insertion, querying, updating, and
@@ -1329,7 +1329,7 @@ Download: https://dbeaver.io/ (requires admin rights)
 - 30 questions, deadline Thursday 14 March
 
 
-* Week 9 - The SELECT pipeline
+* DONE Week 9 - The SELECT pipeline
 #+attr_html: :width 400px:
 [[../img/sqlhero.png]]
 
@@ -1384,7 +1384,48 @@ transformations, and sorting before the final output is generated.
 #+end_quote
 
 
-* Week 10 -
+* Week 10 - Database Design
+
+** Test 3 results (could've been better):
+#+attr_html: :width 400px: 
+[[../img/test_3.png]]
+
+*Same appeal as in all other courses (why?):*
+- Use the review sessions in this file ([[https://github.com/birkenkrahe/db24/blob/main/org/notebook.org][notebook.org]])
+- Check out the [[https://github.com/birkenkrahe/db24/tree/main/org][practice files]] (do you still understand them?)
+- Everything is in [[https://github.com/birkenkrahe/db24][GitHub]], rendered beautifully for you!
+- If you test code, use the graphical Emacs rather than ~-nw~
+- Let us know how you do this!?
+  
+*Manual stats visualization (Canvas too slow):*
+#+begin_src R :file ../img/test_3_R.png :results output graphics file :exports both :comments both :tangle yes :noweb yes
+  x <- c(83.33,90,83.33,83.33,86.67,73.33,83.33,86.67,83.33)
+  avg <- mean(x)
+  par(mfrow=c(2,1))
+  hist(x,col="lightblue",
+       xlab="Percentage",
+       ylab="Count (9/14)",
+       main="")
+  abline(v=avg,col="red",lwd=2)
+  title("Test 3 results (CSC 330 SP24)\nHistogram")
+  text(x=85,y=4,
+       labels=paste(" Mean: ",format(avg,digits=4),"%"),
+       adj=0,col="red")  
+  boxplot(x,col="lightgreen",
+          horizontal=TRUE,
+          xlab="Percentage",
+          main="Boxplot")
+  abline(v=avg,col="red",lwd=2)
+  text(x=85,y=1.4,
+       labels=paste("Mean: ",format(avg,digits=4),"%"),
+       adj=0,col="red")  
+#+end_src
+
+** Test 4 - SELECT
+
+- 30 questions created with the help of ChatGPT using only the lecture
+- The lecture is available in GitHub as a PDF and as an Org-mode file
+
 * Week 11 -
 * Week 12 -
 * Week 13 -
