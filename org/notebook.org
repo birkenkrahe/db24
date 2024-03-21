@@ -1421,17 +1421,27 @@ transformations, and sorting before the final output is generated.
        adj=0,col="red")  
 #+end_src
 
-** Test 4 - SELECT
+** Test 4 - SELECT (due Sunday, March 31)
 
 - 30 questions created with the help of ChatGPT using only the lecture
-- The lecture is available in GitHub as a PDF and as an Org-mode file
+- The lecture is available in GitHub as a [[https://github.com/birkenkrahe/db24/blob/main/pdf/4_SELECT.pdf][PDF]] and as an [[https://github.com/birkenkrahe/db24/blob/main/org/4_SELECT.org][Org-mode file]]
+
+** Finish =SELECT= clauses =HAVING= and =DISTINCT= 
+
+** Database design and E-R diagrams
 
 * Week 11 -
+
 * Week 12 -
+
 * Week 13 -
+
 * Week 14 -
+
 * Week 15 -
-* Week 16 -
+
+* Week 16 - Presentations
+
 
 * References
 
