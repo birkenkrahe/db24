@@ -1064,6 +1064,37 @@ Examples:
 
 
 * TODO =HAVING= patterns
+
+- You can group all records/rows by the values of the ~type_id~ column
+  with =GROUP BY=:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT name as FOOD, COUNT(*) AS COUNT FROM foods
+           GROUP BY type_id ORDER BY COUNT DESC;
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  FOOD                 COUNT
+  -------------------  -----
+  Almond Joy           61   
+  Apple Cider          60   
+  Bagels               47   
+  Arby's Roast Beef    36   
+  Artichokes           32   
+  Atomic Sub           23   
+  Apple                23   
+  Broiled Chicken      23   
+  A1 Sauce             22   
+  Bouillabaisse        19   
+  Banana Yogurt        17   
+  Calzone (Paisano's)  16   
+  Bran                 15   
+  Clams Casino         14   
+  Generic (as a meal)  4    
+  #+end_example
+
+
+
 * TODO Removing duplicates
 * TODO SUMMARY
 

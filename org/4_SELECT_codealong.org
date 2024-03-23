@@ -1,7 +1,7 @@
 #+STARTUP: hideblocks overview indent entitiespretty :
 #+OPTIONS: toc:nil num:nil ^:nil:
 #+PROPERTY: header-args:sqlite :results output
-* README
+* DONE README
 
 - Open [[http://tinyurl.com/select-org][tinyurl.com/select-org]] to code along and save as ~select.org~
 
@@ -40,20 +40,20 @@ Content:
 - Values and data types
 - Unary, binary, and ternary operators
 
-* =SELECT= command overview
+* DONE =SELECT= command overview
 #+attr_html: :width 700px:
 [[../img/select1.png]]
 
 - [[https://xmind.app/m/Rg5Dw8][The mindmap]] contains 91 examples but you need to open XMind
   (xmind.app) to see it, alas ([[https://github.com/birkenkrahe/db24/blob/main/img/SELECT.xmind][GitHub copy)]].
 
-* =SELECT= pipeline overview
+* DONE =SELECT= pipeline overview
 
 - Phases of =SELECT=
   #+attr_html: :width 700px:
   [[../img/select_phases.png]]
 
-* =SELECT= column restriction (projection)
+* DONE =SELECT= column restriction (projection)
 
 - =SELECT= is the most complex command in SQL.
 
@@ -96,7 +96,7 @@ Content:
   :   id integer primary key,
   :   name text );
 
-* =WHERE= row restriction (filtering)
+* DONE =WHERE= row restriction (filtering)
 
 - The =WHERE= clause is the most complex clause in =SELECT.=
 
@@ -142,7 +142,7 @@ Content:
   This row has color='purple' and grin='toothy'
   #+end_quote
 
-* Values and data types
+* DONE Values and data types
 
 - /Values/ represent data in in the real world.
 
@@ -200,7 +200,7 @@ Content:
      : ------------
      : 412         
 
-* Operators
+* DONE Operators
 #+attr_html: :width 600px:
 [[../img/operators.png]]
 
@@ -280,26 +280,26 @@ Content:
 - This is /ternary/ (three-way) in the sense that each row in the ~name~
   column is input, with two output possibilities depending on the =CASE.=
 
-* Binary operators
+* DONE Binary operators
 
 - Binary operators (operators with two operands) are the most common
   ones. [[https://github.com/birkenkrahe/db24/blob/main/img/binary_operators.png][This table]] lists them by precedence from highest to lowest.
   
-* String concatenation
+* DONE String concatenation
 
 - String concatenation can be used to combine field values:
   #+begin_src sqlite :db test.db :results output :header :column 
 
   #+end_src
 
-* Relational operators
+* DONE Relational operators
 
 - These operators work even without reference to any table:
   #+begin_src sqlite :db test.db :results output :header :column 
 
   #+end_src
 
-* Logical operators
+* DONE Logical operators
 
 - Logical operators (=AND=, =OR=, =NOT=, =IN=) are binary operators that
   operate no truth values or logical expressions. Here, like in C, any
@@ -338,7 +338,7 @@ Content:
 
   #+end_src
 
-* The =LIKE= and =GLOB= operators
+* DONE The =LIKE= and =GLOB= operators
 
 - The =LIKE= operator is used to match string values against patterns
   (like =grep=).
@@ -388,12 +388,117 @@ Content:
   can develop your own using the =sqlite_create_function()= API call
   ([[https://sqlite.org/appfunc.html][read more]]).
 
-* Limiting and ordering
+
+* NEXT =GLOB= vs. =LIKE=
+
+Summary of differences:
+1. =GLOB= is case-sensitive by default, =LIKE= is not
+2. =GLOB= uses ~*~ and ~?~ wildcards, =LIKE= only uses ~%~ and ~_~
+3. =GLOB= matches the entire string, =LIKE= matches substrings
+4. =GLOB= has no escape character, while =LIKE= uses ~\~ to escape special
+   characters
+
+Examples:
+1. Case sensitivity
+
+   - This query will not match a name that starts with "A" or "a"
+     because GLOB is case-sensitive.
+     #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
+
+     #+end_src
+
+   - This query will match any name that starts with 'A' OR 'a':
+     #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
+
+     #+end_src
+
+2. Different wildcard characters
+
+   - This query will match any name that starts with 'c', followed by
+     exactly three characters, and ends with 'y', using * and ?:
+     #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
+
+     #+end_src
+
+     - This query will match names that start with 'c', followed by any
+       single character, and ends with 'y', using % and _:
+       #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
+
+       #+end_src
+
+3. Matching entire strings vs. substrings
+
+   - This query will only match names that are exactly 'apple' because
+     =GLOB= matches entire strings but not substrings:
+     #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+     #+end_src
+
+   - This query will match all names that contain the string 'apple'
+     because =LIKE= matches substrings not only entire strings:
+     #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+     #+end_src
+
+4. Escaping special characters
+
+   - Create a sample table ~test~:
+     #+begin_src bash :results silent
+       rm -vf test1.db
+     #+end_src
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+       CREATE table IF NOT EXISTS test1 (string TEXT UNIQUE);
+       INSERT INTO test1 (string) VALUES ('Hello world%');
+       INSERT INTO test1 (string) VALUES ('Hello_world');
+       SELECT string AS WORD FROM test1;
+     #+end_src
+
+   - =GLOB=: The =GLOB= operator does not have an escape character. If you
+     need to match literal percent or underscore characters, they are
+     treated as ordinary characters.
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+
+     #+end_src
+
+   - =LIKE=: In the =LIKE= operator, you can escape special characters
+     like ~%~ and ~_~ using the ESCAPE keyword followed by the escape
+     character. By default, the escape character is ~\~. For example,
+     ~LIKE '%\%' ESCAPE '\'~ would match strings ending with a percent
+     sign.
+
+   - In the following query, SQLite sees 'Hello_world%' literally, but
+     it does not recognize 'Hello_world' because the '%' character is
+     escaped and not seen as a wildcard, and the '_' character is
+     interpreted as any single non-empty character:
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+
+     #+end_src
+
+   - In the next query, SQLite sees only 'Hello_world', because now
+     the '_' character is escaped and can be seen literally, while
+     'Hello world%' is not recognized:
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+
+     #+end_src
+
+   - Test1 question: what would ~LIKE 'Hello\_world\%'~ return (if you
+     escape both wildcard characters?
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+
+     #+end_src
+
+
+* DONE Limiting and ordering
 
 - You can limit size and range of the result with =LIMIT= and =OFFSET=:
-  #+begin_src sqlite :db test.db :results output :header :column 
-
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT * FROM food_types ORDER BY id LIMIT 1 OFFSET 1;
   #+end_src
+
+  #+RESULTS:
+  : id  name
+  : --  ------
+  : 2   Cereal
 
 - The =OFFSET= clause skips one row (~Bakery~), and the =LIMIT= clause
   returns a maximum of one row (~Cereal~). They come last in the
@@ -409,15 +514,33 @@ Content:
 - In other words: you need =ORDER BY= if you need to count on the result
   being in any specific order.
 
-- THe =ORDER BY= clause is similar to =SELECT=: it takes an ordered,
-  comma-separated list of column. After each column name, you can
+- The =ORDER BY= clause is similar to =SELECT=: it takes an ordered,
+  comma-separated list of columnsq. After each column name, you can
   specify if you want ascending (=ASC= default) or descending (=DESC=)
   order.
 
 - Example: extract all rows whose ~food~ names start with a ~B~, and then
   order them in descending food ~type_id~ order. Return only 10 results.
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT * FROM foods WHERE name LIKE 'B%'
+    ORDER BY type_id DESC, name LIMIT 10;
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  id   type_id  name
+  ---  -------  -------------------------
+  382  15       Baked Beans
+  383  15       Baked Potato w/Sour Cream
+  384  15       Big Salad
+  385  15       Brocolli
+  362  14       Bouillabaisse
+  328  12       BLT
+  327  12       Bacon Club (no turkey)
+  326  12       Bologna
+  329  12       Brisket Sandwich
+  274  10       Bacon
+  #+end_example
 
 - You can see that the ~type_id~ column is order in descending
   order. Within each group of identical food types, the food ~name~ is
@@ -425,12 +548,46 @@ Content:
 
 - Challenge: show the ~foods~ that start with C and order them in
   ascending order by type, but in descending order by name.
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT * FROM foods WHERE NAME LIKE 'C%'
+    ORDER BY type_id, name DESC LIMIT 10 OFFSET 25;
   #+end_src
-  
-* Functions
 
-- SQL comes with various built-in functions and aggregetas that can be
+  #+RESULTS:
+  #+begin_example
+  id   type_id  name
+  ---  -------  ------------------------------
+  76   3        Chicken (Kenny Rogers)
+  65   3        Chicken
+  64   3        Casserole
+  143  7        Cream Soda
+  144  7        Cranberry juice with two limes
+  142  7        Colt 45
+  141  7        Coffe
+  140  7        Cocoa
+  139  7        Coca Cola
+  138  7        Club Soda
+  #+end_example
+
+- If you use both =LIMIT= and =OFFSET= together, you can use a comma
+  notation in place of the =OFFSET= keyword:
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT * FROM foods WHERE NAME LIKE 'B%'
+    ORDER BY type_id DESC, name LIMIT 2,5; /* display 2nd row of result only */
+  #+end_src
+
+  #+RESULTS:
+  : id   type_id  name
+  : ---  -------  ----------------------
+  : 384  15       Big Salad
+  : 385  15       Brocolli
+  : 362  14       Bouillabaisse
+  : 328  12       BLT
+  : 327  12       Bacon Club (no turkey)
+
+* DONE Functions
+
+- SQL comes with various built-in functions and aggregates that can be
   used in clauses.
 
 - Function types include: mathematical like =ABS()=, and
@@ -438,130 +595,260 @@ Content:
   upper- and lowercase, respectively.
 
 - Example: Guess what the output of this command is before running it
-  #+begin_src sqlite :db test.db :results output :header :column 
-
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT UPPER('hello there'), LENGTH('hello there'), ABS(-12);
   #+end_src
+
+  #+RESULTS:
+  : UPPER('hello there')  LENGTH('hello there')  ABS(-12)
+  : --------------------  ---------------------  --------
+  : HELLO THERE           11                     12
 
 - Built-in functions are case-insensitive: =abs= is the same as =ABS= or =Abs=.
 
-- Functions can accept column values as their arguments:  
-  #+begin_src sqlite :db test.db :results output :header :column 
-
+- Functions can accept column values as their arguments:
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT id, UPPER(name), LENGTH(name) FROM foods
+    WHERE type_id=1 LIMIT 10;  /* foods with type_id = 1 (Bakery) */
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  id  UPPER(name)              LENGTH(name)
+  --  -----------------------  ------------
+  1   BAGELS                   6
+  2   BAGELS, RAISIN           14
+  3   BAVARIAN CREAM PIE       18
+  4   BEAR CLAWS               10
+  5   BLACK AND WHITE COOKIES  23
+  6   BREAD (WITH NUTS)        17
+  7   BUTTERFINGERS            13
+  8   CARROT CAKE              11
+  9   CHIPS AHOY COOKIES       18
+  10  CHOCOLATE BOBKA          15
+  #+end_example
 
 - Since functions can be part of any expression, they can also be part
   of a =WHERE= clause:
-  #+begin_src sqlite :db test.db :results output :header :column 
-
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT id, UPPER(name), LENGTH(name) FROM foods
+    WHERE LENGTH(name) < 5 LIMIT 5;  /* foods with names of fewer than 5 characters */
   #+end_src
-  
-* Aggregates
 
-  - Aggregates are functions that calculate a composite (or aggregate)
-    value over a group of rows (or relation) - statistical functions are
-    useful aggregates.
+  #+RESULTS:
+  : id  UPPER(name)  LENGTH(name)
+  : --  -----------  ------------
+  : 36  PIE          3
+  : 48  BRAN         4
+  : 56  KIX          3
+  : 57  LIFE         4
+  : 80  DUCK         4
 
-  - Within the pipeline, aggregates follow the =WHERE= clause: they
-    compute their values on the rows filtered by =WHERE=. =SELECT= filters
-    first, and then aggregates values.
+* DONE Aggregates
 
-  - The SQLite C API allows you to create fast custom functions and
-    aggregates using C.
+- Aggregates are functions that calculate a composite (or aggregate)
+  value over a group of rows (or relation) - statistical functions are
+  useful aggregates: =AVG=, =SUM=, =MIN=, =MAX= etc.
 
-  - Reasons to perform calculations in SQL rather than in R or Python:
-    1. *Efficiency:* SQL databases are optimized for operations on large
-       datasets. By using the =AVG()= function directly in SQL, the
-       calculation is done on the database server, which can handle the
-       computation more efficiently than fetching all the data into an
-       external program and then computing the mean. This is especially
-       important with very large datasets.
+- Within the pipeline, aggregates follow the =WHERE= clause: they
+  compute their values on the rows filtered by =WHERE=. =SELECT= filters
+  first, and then aggregates values.
 
-    2. *Network Overhead:* Calculating the mean directly in the database
-       reduces the amount of data that needs to be transferred over the
-       network. If you were to calculate the mean in R or Python, you
-       would first need to transfer all the relevant data from the
-       database to the application, which can be slow and
-       resource-intensive for large datasets.
+- The SQLite C API allows you to create fast custom functions and
+  aggregates using C.
 
-    3. *Simplicity:* Writing a query to calculate the average in SQL is
-       straightforward and keeps the data manipulation logic within the
-       database, which can make the code easier to manage and
-       understand. It avoids the complexity of fetching the data and
-       then using a separate tool for the calculation.
+- Reasons to perform calculations in SQL rather than in R or Python:
+  1. *Efficiency:* SQL databases are optimized for operations on large
+     datasets. By using the =AVG()= function directly in SQL, the
+     calculation is done on the database server, which can handle the
+     computation more efficiently than fetching all the data into an
+     external program and then computing the mean. This is especially
+     important with very large datasets.
 
-    4. *Scalability:* Databases are designed to handle queries on large
-       datasets efficiently, and they often include optimizations for
-       aggregation functions like =AVG()=. These optimizations can include
-       parallel processing and indexing strategies that are not as
-       easily implemented in client-side languages.
+  2. *Network Overhead:* Calculating the mean directly in the database
+     reduces the amount of data that needs to be transferred over the
+     network. If you were to calculate the mean in R or Python, you
+     would first need to transfer all the relevant data from the
+     database to the application, which can be slow and
+     resource-intensive for large datasets.
 
-    5. *Real-time data processing*: When working with real-time data, it
-       might be necessary to get the average value updated dynamically
-       as the data changes. Performing this operation directly in SQL
-       ensures that the most current data is used for the calculation
-       without the need for repeated data transfers.
+  3. *Simplicity:* Writing a query to calculate the average in SQL is
+     straightforward and keeps the data manipulation logic within the
+     database, which can make the code easier to manage and
+     understand. It avoids the complexity of fetching the data and
+     then using a separate tool for the calculation.
 
-    6. *Consistency*: When multiple analyses are being performed on the
-       same data, performing calculations directly in the database
-       ensures that all calculations are based on the same data state,
-       which helps in maintaining consistency across different reports
-       or analyses.
+  4. *Scalability:* Databases are designed to handle queries on large
+     datasets efficiently, and they often include optimizations for
+     aggregation functions like =AVG()=. These optimizations can include
+     parallel processing and indexing strategies that are not as
+     easily implemented in client-side languages.
 
-  - Example: How many ~foods~ are ~Bakery~ (~type_id=1~) goods?
-    (~type_id=1~):
-    #+begin_src sqlite :db test.db :results output :header :column 
+  5. *Real-time data processing*: When working with real-time data, it
+     might be necessary to get the average value updated dynamically
+     as the data changes. Performing this operation directly in SQL
+     ensures that the most current data is used for the calculation
+     without the need for repeated data transfers.
 
-    #+end_src
+  6. *Consistency*: When multiple analyses are being performed on the
+     same data, performing calculations directly in the database
+     ensures that all calculations are based on the same data state,
+     which helps in maintaining consistency across different reports
+     or analyses.
 
-  - When you see an aggregate, you should think "For each row in the
-    table, do something".
+- Example: How many ~foods~ are ~Bakery~ (~type_id=1~) goods?
+  (~type_id=1~):
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT COUNT(*) AS "Baked goods" FROM foods WHERE type_id=1;
+  #+end_src
 
-  - Aggregates can aggregate any expression including functions.
+  #+RESULTS:
+  : Baked goods
+  : -----------
+  : 47
 
-  - Example: what is the average =LENGTH= of all names in ~foods~?
-    #+begin_src sqlite :db test.db :results output :header :column 
+- When you see an aggregate, you should think "For each row in the
+  table, do something" (like sum, find the minimum, the average etc.)
 
-    #+end_src
+- Aggregates can aggregate any expression including functions.
 
-  - You might not care for the decimal places:
-    #+begin_src sqlite :db test.db :results output :header :column 
+- Example: what is the average =LENGTH= of all names in ~foods~?
+  1. Work on the ~foods~ table
+  2. =SELECT= the ~name~ column
+  3. Compute the =LENGTH= of that column
+  4. Compute the =AVG= of the length
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT AVG(LENGTH(name)) AS "Average length of food names" FROM foods;
+  #+end_src
 
-    #+end_src
+  #+RESULTS:
+  : Average length of food names
+  : ----------------------------
+  : 12.5849514563107
 
-* Grouping
+- You might not care for the decimal places:
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT ROUND(AVG(LENGTH(name))) AS "Average length of food names" FROM foods;
+  #+end_src
+
+  #+RESULTS:
+  : Average length of food names
+  : ----------------------------
+  : 13.0
+
+* DONE Grouping
 
 - You can compute aggregates over an entire query result (subset of
   rows). You can also split that result into groups of rows with like
   values and compute aggregates on each group - all in one step.
 
 - Example: group the types of food by type.
-  #+begin_src sqlite :db test.db :results output :header :column 
-
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT type_id FROM foods GROUP BY type_id;
   #+end_src
 
 - =GROUP BY= takes the output from =WHERE= and splits it into groups of
   rows that share a common value (or values) for a specific column (or
-  columns) - [[https://github.com/birkenkrahe/db24/blob/main/img/group_by.png][see image at GitHub]].
+  columns) - [[https://github.com/birkenkrahe/db24/blob/main/img/group_by.png][see image at GitHub]]:
+  #+attr_html: :width 600px:
+  #+CAPTION: Source: Allen/Owens (Apress, 2010)
+  [[../img/group_by.png]]
 
-  In the example, =GROUP BY= organizes all rows in ~foods~ in 15 (~DISTINCT
-  type_ID~) groups varying by ~type_id~.
+  In the example, =GROUP BY= organizes all rows in ~foods~ in 15
+  (~DISTINCT type_ID~) groups varying by ~type_id~.
+
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT type_id AS "Food group"
+    FROM foods GROUP BY type_id;
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  Food group
+  ----------
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  10
+  11
+  12
+  13
+  14
+  15
+  #+end_example
 
 - When =GROUP BY= is used, =SELECT= applies aggregates to each group
   separately rather than the entire filtered result as a whole.
 
 - Example: count the number of records per group, for each type:
-  #+begin_src sqlite :db test.db :results output :header :column 
-
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT type_id AS "Food group",
+    COUNT(*) AS "Foods by group"
+    FROM foods GROUP BY type_id;
   #+end_src
 
-- Here, =COUNT= is applied 15 times, once for each group: [[https://github.com/birkenkrahe/db24/blob/main/img/group_count.png][see image at
-  GitHub]].
+  #+RESULTS:
+  #+begin_example
+  Food group  Foods by group
+  ----------  --------------
+  1           47
+  2           15
+  3           23
+  4           22
+  5           17
+  6           4
+  7           60
+  8           23
+  9           61
+  10          36
+  11          16
+  12          23
+  13          14
+  14          19
+  15          32
+  #+end_example
+
+- Here, =COUNT= is applied 15 times, once for each group:
+  #+attr_html: :width 600px:
+  [[../img/group_count.png]]
 
 - The number of ~Bakery~ foods is 47, the number of ~Cereal~ foods is 15,
   etc. To get the same information, you could also run individual queries:
   #+begin_src sqlite :db test.db :results output :header :column
-
+    SELECT COUNT(*) AS "Bakery" FROM foods WHERE type_id=1;
+    SELECT COUNT(*) AS "Cereal" FROM foods WHERE type_id=2;
+    SELECT COUNT(*) AS "Chicken/Fowl" FROM foods WHERE type_id=3;
+    .header OFF
+    SELECT "               (..food groups 4 to 14...) ";
+    .header ON
+    SELECT COUNT(*) AS "Vegetables" FROM foods WHERE type_id=15;
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  Bakery
+  ------
+  47
+  Cereal
+  ------
+  15
+  Chicken/Fowl
+  ------------
+  23
+                 (..food groups 4 to 14...)
+  Vegetables
+  ----------
+  32
+  #+end_example
+
+
+
 
 * Footnotes
 [fn:2] The negation of a disjunction is the conjunction of the

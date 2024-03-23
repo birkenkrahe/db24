@@ -1443,7 +1443,6 @@ Let's finish the lecture before we go on to database design:
 
 Download the updated code-along file [[http://tinyurl.com/select-org][tinyurl.com/select-org]].
 
-** 
 ** Review DataCamp: Database Design 
 
 * Week 11 -
