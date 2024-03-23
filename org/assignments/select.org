@@ -1,25 +1,16 @@
 #+TITLE: PopQuiz 2 - =SELECT=, =WHERE=, =ORDER BY=, and =LIMIT=
 #+AUTHOR: Name:_________________ (pledged)
-#+DATE: 2024-04-02 (deadline)
 #+startup: overview hideblocks indent entitiespretty:
-#+options: toc:nil num:nil ^:nil:
+#+options: toc:nil num:nil ^:nil date:nil validate:nil creator:nil timestamp:nil html-postamble:nil
 * README
-
-This OPTIONAL BONUS assignment is designed to test your understanding
-of the SELECT command in SQLite, focusing on WHERE clauses, data
-types, operators, and more. Please execute all queries against the
-provided test.db database, which you can download from here:
-[[http://tinyurl.com/foods-sql][tinyurl.com/foods-sql]]
-
 1) Complete the printout it without looking stuff up.
 2) Test your answers (10 points for each correct answer) using the
-   Org-mode version of the quiz: tinyurl.com/select-pop
+   Org-mode version of the quiz (at tinyurl.com): [[http://tinyurl.com/select-pop][select-pop]] and the
+   test database ~foods.sql~: [[http://tinyurl.com/foods-sql][foods-sql]]. Solution: [[http://tinyurl.com/select-pop-solution][select-pop-solution]].
 3) An answer is correct (10 points) if it runs and returns the correct
-   result.
-4) You can give yourself some additional points for getting the syntax
-   right (be conservative - no grade inflation!)
-5) Grade yourself and submit your original paper copy to me no later
-   than Tuesday, April 2, 2.30 pm.
+   result. You can give yourself extra points if you were close!
+4) Grade yourself and submit your original paper copy to me no later
+   than Tuesday, April 2, 2.30 pm, with your name and pledge.
 
 Check that ~test.db~ in the current working directory contains the
 tables in ~foods.sql~, ~episodes~, ~food_types~, ~foods~, and ~foods_episodes~:
@@ -27,79 +18,89 @@ tables in ~foods.sql~, ~episodes~, ~food_types~, ~foods~, and ~foods_episodes~:
 
 #+end_src
 
-* Task 1: Basic WHERE clause usage
+* Task 1: Basic =WHERE= clause usage
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- Find all foods with an id of 5. Print id and name.
-
-
-
 
      
 #+END_SRC
 
-* Task 2: Using logical operators in WHERE clause
+* Task 2: Using logical operators in =WHERE= clause
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- Select all foods whose type_id is either 1 (Bakery) or 2 (Cereal).
   -- Print the name as "Name" and the type_id as "Type"
 
+     
 #+END_SRC
 
-* Task 3: String manipulation with WHERE clause
+* Task 3: String manipulation with =WHERE= clause
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- Find foods whose names start with 'Ch' and contain 'e'.
-  -- Print the names with the header:
-  --       Names that start with 'Ch' and contain 'e'
+  -- Print the names with the following header phrase:
+  -- `Names that start with 'Ch' and contain 'e'`.
 
+           
 #+END_SRC
 
-* Task 4: Using arithmetic expressions in SELECT
+* Task 4: Using arithmetic expressions in =SELECT=
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- Find the name of each food along with its name length.
   -- Display only the records 10 to 20
   -- Show `Name` and `Length of Name` in the header
 
+
+     
 #+END_SRC
 
-* Task 5: Employing the IN operator
+* Task 5: Employing the =IN= operator
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- Select all foods whose type_id is either 3 (Chicken/Fowl) or 4
   -- (Dairy) using the IN operator. Show only 10 rows, no offset.
 
+
+     
 #+END_SRC
 
-* Task 6: Combining string functions and WHERE clause
+* Task 6: Combining string functions and =WHERE= clause
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- Select foods whose names end with 's' and are at least 20 characters
   -- long. Pick an appropriate header name.
 
+
+     
 #+END_SRC
 
-* Task 7: Exploring the ORDER BY clause
+* Task 7: Exploring the =ORDER BY= clause
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- List all foods in ascending order of their type_id, and descending
   -- order of their names. Display only 10 rows starting after 100 rows.
 
+     
 #+END_SRC
 
 * Task 8: Using aggregate functions
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- Find the average length of food names.
 
+
+     
 #+END_SRC
 
-* Task 9: The GLOB pattern matching
+* Task 9: The =GLOB= pattern matching
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- Select foods whose names start with 'P' and contain an 'e'.
   -- Use the GLOB operator instead of LIKE and * instead of %
-  --  SELECT name AS "NAME starts with P and contains e" FROM foods
-  --         WHERE name GLOB 'P*e*';
+
+     
 
 #+END_SRC
 
-* Task 10: Complex WHERE with logical and relational operators
+* Task 10: Complex =WHERE= with logical and relational operators
 #+BEGIN_SRC sqlite :db test.db :header :column :results output
   -- Find all foods whose name starts with B and are not of type_id 2
   -- (Cereal) or type_id 1 (Bakery).
+
+
 
 #+END_SRC
 
