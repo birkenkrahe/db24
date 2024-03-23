@@ -1,0 +1,62 @@
+#+TITLE: SQL Assignment on SELECT Command
+#+AUTHOR: [yourname] (pledged)
+#+DATE: 2024-03-22
+#+startup: overview hideblocks indent entitiespretty:
+#+options: toc:nil num:nil ^:nil:
+* README
+
+This assignment is designed to test your understanding of the SELECT
+command in SQLite, focusing on WHERE clauses, data types, operators,
+and more. Please execute all queries against the provided test.db
+database, which you can download from here: [[http://tinyurl.com/foods-sql][tinyurl.com/foods-sql]]
+
+* Task 1: Basic WHERE clause usage
+#+BEGIN_SRC sql :tangle test.db
+  -- Find all foods with an id of 5.
+#+END_SRC
+
+* Task 2: Using logical operators in WHERE clause
+#+BEGIN_SRC sql :tangle test.db
+  -- Select all foods whose type_id is either 1 (Bakery) or 2 (Cereal).
+#+END_SRC
+
+* Task 3: String manipulation with WHERE clause
+#+BEGIN_SRC sql :tangle test.db
+  -- Find foods whose names start with 'Ch' and contain 'e'.
+#+END_SRC
+
+* Task 4: Using arithmetic expressions in SELECT
+#+BEGIN_SRC sql :tangle test.db
+  -- Display the name of each food along with its name length.
+#+END_SRC
+
+* Task 5: Employing the IN operator
+#+BEGIN_SRC sql :tangle test.db
+  -- Select all foods whose type_id is either 3 (Chicken/Fowl) or 4 (Dairy).
+#+END_SRC
+
+* Task 6: Combining string functions and WHERE clause
+#+BEGIN_SRC sql :tangle test.db
+  -- Select foods whose names end with 's' and are at least 5 characters long.
+#+END_SRC
+
+* Task 7: Exploring the ORDER BY clause
+#+BEGIN_SRC sql :tangle test.db
+  -- List all foods in ascending order of their type_id, and descending order of their names.
+#+END_SRC
+
+* Task 8: Using aggregate functions
+#+BEGIN_SRC sql :tangle test.db
+  -- Find the average length of food names.
+#+END_SRC
+
+* Task 9: The GLOB pattern matching
+#+BEGIN_SRC sql :tangle test.db
+  -- Select foods whose names start with 'P' and contain an 'e'.
+#+END_SRC
+
+* Task 10: Complex WHERE with logical and relational operators
+#+BEGIN_SRC sql :tangle test.db
+  -- Find foods whose id is between 10 and 20 and are not of type_id 2 (Cereal).
+#+END_SRC
+

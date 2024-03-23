@@ -11,10 +11,10 @@
 - Either import the ~foods~ database from the commandline:
   #+begin_example bash
     sqlite3 foods.db < foods.sql
-  #+end_example  
+  #+end_example
 
 - Or import the database in a code block:
-  #+begin_src sqlite :db foods.db :results output :header :column 
+  #+begin_src sqlite :db foods.db :results output :header :column
     .read ../data/foods.sql
     .database
     .tables
@@ -67,27 +67,27 @@ Content:
 
   #+RESULTS:
   #+begin_example
-  name        
+  name
   ------------
-  Bakery      
-  Cereal      
+  Bakery
+  Cereal
   Chicken/Fowl
-  Condiments  
-  Dairy       
-  Dip         
-  Drinks      
-  Fruit       
-  Junkfood    
-  Meat        
-  Rice/Pasta  
-  Sandwiches  
-  Seafood     
-  Soup        
-  Vegetables  
+  Condiments
+  Dairy
+  Dip
+  Drinks
+  Fruit
+  Junkfood
+  Meat
+  Rice/Pasta
+  Sandwiches
+  Seafood
+  Soup
+  Vegetables
   #+end_example
 
   But how many columns does this table have?
-  #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+  #+begin_src sqlite :db ../data/foods.db :results output :header :column
     .schema food_types
   #+end_src
 
@@ -110,9 +110,9 @@ Content:
   #+end_src
 
   #+RESULTS:
-  : name          
+  : name
   : --------------
-  : Bagels        
+  : Bagels
   : Bagels, raisin
 
 - The argument of =WHERE= is a logical /predicate/.
@@ -156,7 +156,7 @@ Content:
      #+end_src
 
      #+RESULTS:
-     : City of   
+     : City of
      : ----------
      : Batesville
 
@@ -167,7 +167,7 @@ Content:
      #+RESULTS:
      : numbers
      : -------
-     : 1,2,3  
+     : 1,2,3
 
   2) *variables* (changeable) - e.g. column names like ~foods.name~
      #+begin_src sqlite :db ../data/foods.db :results output :header :column
@@ -175,21 +175,21 @@ Content:
      #+end_src
 
      #+RESULTS:
-     : name          
+     : name
      : --------------
-     : Bagels        
+     : Bagels
      : Bagels, raisin
 
   3) *expressions* (reducible) - e.g. ~3 + 2/5~
      #+begin_src sqlite :db ../data/foods.db :results output :column
        SELECT 3+2/5;  /* without decimal point, rounding takes place */
-       SELECT 3.+2./17.;  
+       SELECT 3.+2./17.;
      #+end_src
 
      #+RESULTS:
-     : 3    
+     : 3
      : 3.11764705882353
-     
+
   4) *function results* - e.g. ~COUNT(foods.name))~
      #+begin_src sqlite :db ../data/foods.db :results output :header :column
        SELECT COUNT(foods.name) AS "No. of foods" FROM foods;
@@ -198,7 +198,7 @@ Content:
      #+RESULTS:
      : No. of foods
      : ------------
-     : 412         
+     : 412
 
 * Operators
 #+attr_html: :width 600px:
@@ -216,27 +216,27 @@ Content:
   #+end_example
 
 - In ~foods~, this could look like this (max 1000 subqueries in SQLite)[fn:1]:
-  #+begin_src sqlite :db ../data/foods.db :results output :column 
+  #+begin_src sqlite :db ../data/foods.db :results output :column
     SELECT
     (SELECT COUNT(name) FROM foods)/
     (SELECT COUNT(name) FROM episodes) * 11;
   #+end_src
 
   #+RESULTS:
-  : 22                                                                         
+  : 22
 
 - Redo this with =REAL= numbers:
-  #+begin_src sqlite :db ../data/foods.db :results output :column 
+  #+begin_src sqlite :db ../data/foods.db :results output :column
     SELECT
     ((SELECT COUNT(name) FROM foods) * 1.0 /
     (SELECT COUNT(name) FROM episodes) ) * 11.0;
   #+end_src
 
   #+RESULTS:
-  : 25.0386740331492                                                                       
+  : 25.0386740331492
 
 - Or you could create a temporary table ~TempResult~ to hold the result:
-  #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+  #+begin_src sqlite :db ../data/foods.db :results output :header :column
     CREATE TEMP TABLE TempResult AS
     SELECT
     ((SELECT COUNT(name) * 1.0 FROM foods) /
@@ -247,23 +247,23 @@ Content:
 
   #+RESULTS:
   : episodes         foods            temp.TempResult
-  : food_types       foods_episodes 
-  : result          
+  : food_types       foods_episodes
+  : result
   : ----------------
   : 25.0386740331492
 
 - As a Common Table Expression (CTE):
-  #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+  #+begin_src sqlite :db ../data/foods.db :results output :header :column
     WITH ComputedResult AS (
-     SELECT
-     ((SELECT COUNT(name) * 1.0 FROM foods) /
-      (SELECT COUNT(name) FROM episodes)) * 11.0 AS result
-      )
+    SELECT
+    ((SELECT COUNT(name) * 1.0 FROM foods) /
+    (SELECT COUNT(name) FROM episodes)) * 11.0 AS result
+    )
     SELECT result FROM ComputedResult;
   #+end_src
 
   #+RESULTS:
-  : result          
+  : result
   : ----------------
   : 25.0386740331492
 
@@ -285,13 +285,13 @@ Content:
 
 - For ~foods~, we could for example check if a food type is sweet and
   print that information as a new (virtual) column ~Sweet~:
-  
-  #+begin_src sqlite :db foods.db :results output :header :column 
+
+  #+begin_src sqlite :db foods.db :results output :header :column
     SELECT name,
-      CASE
-       WHEN name='Bakery' OR name='Cereal' OR name='Fruit' THEN 'yes'
-       ELSE 'no'
-      END AS 'Sweet'
+    CASE
+    WHEN name='Bakery' OR name='Cereal' OR name='Fruit' THEN 'yes'
+    ELSE 'no'
+    END AS 'Sweet'
     FROM food_types;
   #+end_src
 
@@ -299,21 +299,21 @@ Content:
   #+begin_example
   name          Sweet
   ------------  -----
-  Bakery        yes  
-  Cereal        yes  
-  Chicken/Fowl  no   
-  Condiments    no   
-  Dairy         no   
-  Dip           no   
-  Drinks        no   
-  Fruit         yes  
-  Junkfood      no   
-  Meat          no   
-  Rice/Pasta    no   
-  Sandwiches    no   
-  Seafood       no   
-  Soup          no   
-  Vegetables    no   
+  Bakery        yes
+  Cereal        yes
+  Chicken/Fowl  no
+  Condiments    no
+  Dairy         no
+  Dip           no
+  Drinks        no
+  Fruit         yes
+  Junkfood      no
+  Meat          no
+  Rice/Pasta    no
+  Sandwiches    no
+  Seafood       no
+  Soup          no
+  Vegetables    no
   #+end_example
 
 - This is /ternary/ (three-way) in the sense that each row in the ~name~
@@ -325,23 +325,23 @@ Content:
   ones. The table lists them by precedence from highest to lowest.
   #+attr_html: :width 600px:
   [[../img/binary_operators.png]]
-  
+
 * String concatenation
 
 - String concatenation can be used to combine field values:
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT name || '(' || season || ')' AS 'Episode (#)' FROM episodes LIMIT 1,3;
   #+end_src
 
   #+RESULTS:
-  : Episode (#)      
+  : Episode (#)
   : -----------------
   : Male Unbonding(1)
-  : The Stake Out(1) 
-  : The Robbery(1)   
+  : The Stake Out(1)
+  : The Robbery(1)
 
-- Is ~"Episode (#)~ a new table? 
-#+begin_src sqlite :db test.db :results output :header :column 
+- Is ~"Episode (#)~ a new table?
+#+begin_src sqlite :db test.db :results output :header :column
   .schema
 #+end_src
 
@@ -366,27 +366,27 @@ CREATE TABLE food_types(
 * Relational operators
 
 - These operators work even without reference to any table:
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT 1 > 2-2; /* order or precedence is observed */
     SELECT 1 < 2;
     SELECT 1 == 2; /* Same result as 1 = 2 */
-    SELECT 1 = 2; /* Same result as 1 == 2 */           
+    SELECT 1 = 2; /* Same result as 1 == 2 */
   #+end_src
 
   #+RESULTS:
   #+begin_example
   1 > 2-2
   -------
-  1      
+  1
   1 < 2
   -----
-  1    
+  1
   1 == 2
   ------
-  0     
+  0
   1 = 2
   -----
-  0    
+  0
   #+end_example
 
 * Logical operators
@@ -396,93 +396,93 @@ CREATE TABLE food_types(
   non-zero value is ~TRUE~.
 
 -  What do you think ~SELECT -1 AND 1;~ will yield?
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT -1 AND 1; /* same as TRUE AND TRUE */
   #+end_src
 
   #+RESULTS:
   : -1 AND 1
   : --------
-  : 1       
+  : 1
 
 - Try ~SELECT 0 AND 1~ and ~0 OR 1~:
   #+begin_src sqlite :db test.db :results output :header :column
-    SELECT 0 AND 1;            
+    SELECT 0 AND 1;
     SELECT 0 OR 1;
   #+end_src
 
   #+RESULTS:
   : 0 AND 1
   : -------
-  : 0      
+  : 0
   : 0 OR 1
   : ------
-  : 1     
+  : 1
 
 - Bonus assignment: prove De Morgan's laws[fn:2] using ~SELECT~:
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT NOT(1 OR 0);
-    SELECT (NOT 1 AND NOT 0);       
+    SELECT (NOT 1 AND NOT 0);
   #+end_src
 
   #+RESULTS:
   : NOT(1 OR 0)
   : -----------
-  : 0          
+  : 0
   : (NOT 1 AND NOT 0)
   : -----------------
-  : 0                
+  : 0
 
 - What if you wanted values in a particular range, e.g. ~id \in [3,8)~
-  #+begin_src sqlite :db foods.db :results output :header :column 
+  #+begin_src sqlite :db foods.db :results output :header :column
     SELECT id, name FROM foods WHERE 3 <= id AND id < 8; /* id in [3,8) */
   #+end_src
 
   #+RESULTS:
-  : id  name                   
+  : id  name
   : --  -----------------------
-  : 3   Bavarian Cream Pie     
-  : 4   Bear Claws             
+  : 3   Bavarian Cream Pie
+  : 4   Bear Claws
   : 5   Black and White cookies
-  : 6   Bread (with nuts)      
-  : 7   Butterfingers          
+  : 6   Bread (with nuts)
+  : 7   Butterfingers
 
 - What if you wanted values outside of the range ~id \in [3,8)~
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT id, name FROM foods WHERE  id < 3 OR 8 <= id LIMIT 5; /* id NOT in [3,8) */
   #+end_src
 
   #+RESULTS:
-  : id  name              
+  : id  name
   : --  ------------------
-  : 1   Bagels            
-  : 2   Bagels, raisin    
-  : 8   Carrot Cake       
+  : 1   Bagels
+  : 2   Bagels, raisin
+  : 8   Carrot Cake
   : 9   Chips Ahoy Cookies
-  : 10  Chocolate Bobka   
+  : 10  Chocolate Bobka
 
 - What if you wanted to know if there is a ~Junkfood~ (~type_id = 9~)
   named ~JujyFruit~?
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT * FROM foods WHERE name='JujyFruit' AND type_id=9;
   #+end_src
 
   #+RESULTS:
-  : id   type_id  name     
+  : id   type_id  name
   : ---  -------  ---------
   : 244  9        JujyFruit
 
 - The =IN= operator is used to check if a value matches a value in a
   list or a subquery result. For example: how many ~foods~ are chicken
   (~type_id=3~) or meat (~type_id=10~)?
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT COUNT() AS "Chicken or meat" FROM foods WHERE type_id IN (3,10);
   #+end_src
 
   #+RESULTS:
   : Chicken or meat
   : ---------------
-  : 59             
+  : 59
 
 * The =LIKE= and =GLOB= operators
 
@@ -490,19 +490,19 @@ CREATE TABLE food_types(
   (like =grep=).
 
 - Say you wanted to know all ~foods~ whose name begins with a ~J~:
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT id, name FROM foods WHERE name LIKE 'J%';
   #+end_src
 
   #+RESULTS:
-  : id   name              
+  : id   name
   : ---  ------------------
-  : 156  Juice box         
-  : 236  Jucyfruit Gum     
+  : 156  Juice box
+  : 236  Jucyfruit Gum
   : 243  Jello with Bananas
-  : 244  JujyFruit         
-  : 245  Junior Mints      
-  : 370  Jambalaya         
+  : 244  JujyFruit
+  : 245  Junior Mints
+  : 370  Jambalaya
 
 - Here, a percent symbol =%= matches any sequence of zero or more
   characters in the string.
@@ -515,12 +515,12 @@ CREATE TABLE food_types(
   #+end_src
 
   #+RESULTS:
-  : id   name                
+  : id   name
   : ---  --------------------
   : 38   Pie (Blackberry) Pie
-  : 127  Guacamole Dip       
-  : 168  Peach Schnapps      
-  : 198  Macinaw peaches     
+  : 127  Guacamole Dip
+  : 168  Peach Schnapps
+  : 198  Macinaw peaches
 
 - If you remove the last =%= sign, you're only looking for ~foods~ that
   also end in ~p~ or ~P.~
@@ -533,26 +533,26 @@ CREATE TABLE food_types(
   #+end_src
 
   #+RESULTS:
-  : id   name                
+  : id   name
   : ---  --------------------
   : 38   Pie (Blackberry) Pie
-  : 127  Guacamole Dip       
-  : 168  Peach Schnapps      
-  : 198  Macinaw peaches     
+  : 127  Guacamole Dip
+  : 168  Peach Schnapps
+  : 198  Macinaw peaches
 
 - A useful trick is NOT to negate a pattern: for example, if you did
   not want ~foods~ with ~Sch~ in the name (excludes German/Dutch foods):
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT id, name FROM foods
     WHERE name LIKE '%ac%P%' AND name NOT LIKE '%Sch%';
-    #+end_src
+  #+end_src
 
   #+RESULTS:
-  : id   name                
+  : id   name
   : ---  --------------------
   : 38   Pie (Blackberry) Pie
-  : 127  Guacamole Dip       
-  : 198  Macinaw peaches     
+  : 127  Guacamole Dip
+  : 198  Macinaw peaches
 
 - In Unix/Linux, /globbing/ refers to auto-completion for example when
   searching for files beginning with ~hello~ using a wildcard: ~ls -l
@@ -566,27 +566,152 @@ CREATE TABLE food_types(
   : -rw-r--r-- 1 marcus marcus 40960 Mar  7 15:01 foods.db
   : -rw-rw-r-- 1 marcus marcus   903 Feb 13 18:50 foods.org
 
-- The =GLOB= operator uses wildcards like ~*~ and ~_~ and matching is cas
+- The =GLOB= operator uses wildcards like ~*~ , ~?~ , and ~_~ and matching is case
   sensitive:
   #+begin_src sqlite :db test.db :results output :header :column
-    /* match all rows whose `name` begins with `Pine` */            
-    SELECT id, name FROM foods WHERE name GLOB 'Pine*'; 
+    /* match all rows whose `name` begins with `Pine` */
+    SELECT id, name FROM foods WHERE name GLOB 'Pine*';
   #+end_src
+
+  #+RESULTS:
+  : id   name
+  : ---  ---------------------
+  : 205  Pineapple
+  : 258  Pineapple Italian Ice
 
 - You can get very creative if you know, like and use regular
   expressions. SQLite does not provide native implementations but you
   can develop your own using the =sqlite_create_function()= API call
   ([[https://sqlite.org/appfunc.html][read more]]).
 
+* =GLOB= vs. =LIKE=
+
+Summary of differences:
+1. =GLOB= is case-sensitive by default, =LIKE= is not
+2. =GLOB= uses ~*~ and ~?~ wildcards, =LIKE= only uses ~%~ and ~_~
+3. =GLOB= matches the entire string, =LIKE= matches substrings
+4. =GLOB= has no escape character, while =LIKE= uses ~\~ to escape special
+   characters
+
+Examples:
+1. Case sensitivity
+
+   - This query will not match a name that starts with "A" or "a"
+     because GLOB is case-sensitive.
+     #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
+       SELECT name FROM foods WHERE name GLOB 'a*';
+     #+end_src
+
+   - This query will match any name that starts with 'A' OR 'a':
+     #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
+       SELECT name FROM foods WHERE name LIKE 'a%';
+     #+end_src
+
+2. Different wildcard characters
+
+   - This query will match any name that starts with 'c', followed by
+     exactly three characters, and ends with 'y', using * and ?:
+     #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
+       SELECT name FROM foods
+       WHERE name GLOB 'C???e*';
+     #+end_src
+
+     - This query will match names that start with 'c', followed by any
+       single character, and ends with 'y', using % and _:
+       #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
+         SELECT name FROM foods
+         WHERE name LIKE 'c_e%';
+       #+end_src
+
+3. Matching entire strings vs. substrings
+
+   - This query will only match names that are exactly 'apple' because
+     =GLOB= matches entire strings but not substrings:
+     #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+       SELECT name FROM foods WHERE name GLOB 'apple';
+     #+end_src
+
+   - This query will match all names that contain the string 'apple'
+     because =LIKE= matches substrings not only entire strings:
+     #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+       SELECT name FROM foods WHERE name LIKE '%apple%';
+     #+end_src
+
+4. Escaping special characters
+
+   - Create a sample table ~test~:
+     #+begin_src bash :results silent
+       rm -vf test1.db
+     #+end_src
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+       CREATE table IF NOT EXISTS test1 (string TEXT UNIQUE);
+       INSERT INTO test1 (string) VALUES ('Hello world%');
+       INSERT INTO test1 (string) VALUES ('Hello_world');
+       SELECT string AS WORD FROM test1;
+     #+end_src
+
+     #+RESULTS:
+     : Hello world%
+     : Hello_world 
+
+   - =GLOB=: The =GLOB= operator does not have an escape character. If you
+     need to match literal percent or underscore characters, they are
+     treated as ordinary characters.
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+       SELECT string FROM test1 WHERE string GLOB 'Hello world%';
+       SELECT string FROM test1 WHERE string GLOB 'Hello_world';
+     #+end_src
+
+     #+RESULTS:
+     : Hello world%
+     : Hello_world
+
+   - =LIKE=: In the =LIKE= operator, you can escape special characters
+     like ~%~ and ~_~ using the ESCAPE keyword followed by the escape
+     character. By default, the escape character is ~\~. For example,
+     ~LIKE '%\%' ESCAPE '\'~ would match strings ending with a percent
+     sign.
+
+   - In the following query, SQLite sees 'Hello_world%' literally, but
+     it does not recognize 'Hello_world' because the '%' character is
+     escaped and not seen as a wildcard, and the '_' character is
+     interpreted as any single non-empty character:
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+       SELECT string FROM test1
+       WHERE string LIKE 'Hello_world\%' ESCAPE '\';
+     #+end_src
+
+     #+RESULTS:
+     : Hello world%
+
+   - In the next query, SQLite sees only 'Hello_world', because now
+     the '_' character is escaped and can be seen literally, while
+     'Hello world%' is not recognized:
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+       SELECT string FROM test1
+       WHERE string LIKE 'Hello\_world%' ESCAPE '\';
+     #+end_src
+
+     #+RESULTS:
+     : Hello_world
+
+   - Test1 question: what would ~LIKE 'Hello\_world\%'~ return (if you
+     escape both wildcard characters?
+     #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
+       SELECT string FROM test1 WHERE string LIKE 'Hello\_world\%' ESCAPE '\';
+     #+end_src
+
+     #+RESULTS:
+
 * Limiting and ordering
 
 - You can limit size and range of the result with =LIMIT= and =OFFSET=:
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT * FROM food_types ORDER BY id LIMIT 1 OFFSET 1;
   #+end_src
 
   #+RESULTS:
-  : id  name  
+  : id  name
   : --  ------
   : 2   Cereal
 
@@ -611,25 +736,25 @@ CREATE TABLE food_types(
 
 - Example: extract all rows whose ~food~ names start with a ~B~, and then
   order them in descending food ~type_id~ order. Return only 10 results.
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT * FROM foods WHERE name LIKE 'B%'
-           ORDER BY type_id DESC, name LIMIT 10;
+    ORDER BY type_id DESC, name LIMIT 10;
   #+end_src
 
   #+RESULTS:
   #+begin_example
-  id   type_id  name                     
+  id   type_id  name
   ---  -------  -------------------------
-  382  15       Baked Beans              
+  382  15       Baked Beans
   383  15       Baked Potato w/Sour Cream
-  384  15       Big Salad                
-  385  15       Brocolli                 
-  362  14       Bouillabaisse            
-  328  12       BLT                      
-  327  12       Bacon Club (no turkey)   
-  326  12       Bologna                  
-  329  12       Brisket Sandwich         
-  274  10       Bacon                    
+  384  15       Big Salad
+  385  15       Brocolli
+  362  14       Bouillabaisse
+  328  12       BLT
+  327  12       Bacon Club (no turkey)
+  326  12       Bologna
+  329  12       Brisket Sandwich
+  274  10       Bacon
   #+end_example
 
 - You can see that the ~type_id~ column is order in descending
@@ -638,41 +763,41 @@ CREATE TABLE food_types(
 
 - Challenge: show the ~foods~ that start with C and order them in
   ascending order by type, but in descending order by name.
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT * FROM foods WHERE NAME LIKE 'C%'
-           ORDER BY type_id, name DESC LIMIT 10 OFFSET 25;
+    ORDER BY type_id, name DESC LIMIT 10 OFFSET 25;
   #+end_src
 
   #+RESULTS:
   #+begin_example
-  id   type_id  name                          
+  id   type_id  name
   ---  -------  ------------------------------
-  76   3        Chicken (Kenny Rogers)        
-  65   3        Chicken                       
-  64   3        Casserole                     
-  143  7        Cream Soda                    
+  76   3        Chicken (Kenny Rogers)
+  65   3        Chicken
+  64   3        Casserole
+  143  7        Cream Soda
   144  7        Cranberry juice with two limes
-  142  7        Colt 45                       
-  141  7        Coffe                         
-  140  7        Cocoa                         
-  139  7        Coca Cola                     
-  138  7        Club Soda                     
+  142  7        Colt 45
+  141  7        Coffe
+  140  7        Cocoa
+  139  7        Coca Cola
+  138  7        Club Soda
   #+end_example
 
 - If you use both =LIMIT= and =OFFSET= together, you can use a comma
   notation in place of the =OFFSET= keyword:
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT * FROM foods WHERE NAME LIKE 'B%'
-           ORDER BY type_id DESC, name LIMIT 2,5; /* display 2nd row of result only */
+    ORDER BY type_id DESC, name LIMIT 2,5; /* display 2nd row of result only */
   #+end_src
 
   #+RESULTS:
-  : id   type_id  name                  
+  : id   type_id  name
   : ---  -------  ----------------------
-  : 384  15       Big Salad             
-  : 385  15       Brocolli              
-  : 362  14       Bouillabaisse         
-  : 328  12       BLT                   
+  : 384  15       Big Salad
+  : 385  15       Brocolli
+  : 362  14       Bouillabaisse
+  : 328  12       BLT
   : 327  12       Bacon Club (no turkey)
 
 * Functions
@@ -685,146 +810,146 @@ CREATE TABLE food_types(
   upper- and lowercase, respectively.
 
 - Example: Guess what the output of this command is before running it
-  #+begin_src sqlite :db test.db :results output :header :column 
-    SELECT UPPER('hello there'), LENGTH('hello there'), ABS(-12);        
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT UPPER('hello there'), LENGTH('hello there'), ABS(-12);
   #+end_src
 
   #+RESULTS:
   : UPPER('hello there')  LENGTH('hello there')  ABS(-12)
   : --------------------  ---------------------  --------
-  : HELLO THERE           11                     12      
+  : HELLO THERE           11                     12
 
 - Built-in functions are case-insensitive: =abs= is the same as =ABS= or =Abs=.
 
-- Functions can accept column values as their arguments:  
-  #+begin_src sqlite :db test.db :results output :header :column 
+- Functions can accept column values as their arguments:
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT id, UPPER(name), LENGTH(name) FROM foods
-           WHERE type_id=1 LIMIT 10;  /* foods with type_id = 1 (Bakery) */
+    WHERE type_id=1 LIMIT 10;  /* foods with type_id = 1 (Bakery) */
   #+end_src
 
   #+RESULTS:
   #+begin_example
   id  UPPER(name)              LENGTH(name)
   --  -----------------------  ------------
-  1   BAGELS                   6           
-  2   BAGELS, RAISIN           14          
-  3   BAVARIAN CREAM PIE       18          
-  4   BEAR CLAWS               10          
-  5   BLACK AND WHITE COOKIES  23          
-  6   BREAD (WITH NUTS)        17          
-  7   BUTTERFINGERS            13          
-  8   CARROT CAKE              11          
-  9   CHIPS AHOY COOKIES       18          
-  10  CHOCOLATE BOBKA          15          
+  1   BAGELS                   6
+  2   BAGELS, RAISIN           14
+  3   BAVARIAN CREAM PIE       18
+  4   BEAR CLAWS               10
+  5   BLACK AND WHITE COOKIES  23
+  6   BREAD (WITH NUTS)        17
+  7   BUTTERFINGERS            13
+  8   CARROT CAKE              11
+  9   CHIPS AHOY COOKIES       18
+  10  CHOCOLATE BOBKA          15
   #+end_example
 
 - Since functions can be part of any expression, they can also be part
   of a =WHERE= clause:
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT id, UPPER(name), LENGTH(name) FROM foods
-           WHERE LENGTH(name) < 5 LIMIT 5;  /* foods with names of fewer than 5 characters */
+    WHERE LENGTH(name) < 5 LIMIT 5;  /* foods with names of fewer than 5 characters */
   #+end_src
 
   #+RESULTS:
   : id  UPPER(name)  LENGTH(name)
   : --  -----------  ------------
-  : 36  PIE          3           
-  : 48  BRAN         4           
-  : 56  KIX          3           
-  : 57  LIFE         4           
-  : 80  DUCK         4           
-  
+  : 36  PIE          3
+  : 48  BRAN         4
+  : 56  KIX          3
+  : 57  LIFE         4
+  : 80  DUCK         4
+
 * Aggregates
 
-  - Aggregates are functions that calculate a composite (or aggregate)
-    value over a group of rows (or relation) - statistical functions are
-    useful aggregates: =AVG=, =SUM=, =MIN=, =MAX= etc.
+- Aggregates are functions that calculate a composite (or aggregate)
+  value over a group of rows (or relation) - statistical functions are
+  useful aggregates: =AVG=, =SUM=, =MIN=, =MAX= etc.
 
-  - Within the pipeline, aggregates follow the =WHERE= clause: they
-    compute their values on the rows filtered by =WHERE=. =SELECT= filters
-    first, and then aggregates values.
+- Within the pipeline, aggregates follow the =WHERE= clause: they
+  compute their values on the rows filtered by =WHERE=. =SELECT= filters
+  first, and then aggregates values.
 
-  - The SQLite C API allows you to create fast custom functions and
-    aggregates using C.
+- The SQLite C API allows you to create fast custom functions and
+  aggregates using C.
 
-  - Reasons to perform calculations in SQL rather than in R or Python:
-    1. *Efficiency:* SQL databases are optimized for operations on large
-       datasets. By using the =AVG()= function directly in SQL, the
-       calculation is done on the database server, which can handle the
-       computation more efficiently than fetching all the data into an
-       external program and then computing the mean. This is especially
-       important with very large datasets.
+- Reasons to perform calculations in SQL rather than in R or Python:
+  1. *Efficiency:* SQL databases are optimized for operations on large
+     datasets. By using the =AVG()= function directly in SQL, the
+     calculation is done on the database server, which can handle the
+     computation more efficiently than fetching all the data into an
+     external program and then computing the mean. This is especially
+     important with very large datasets.
 
-    2. *Network Overhead:* Calculating the mean directly in the database
-       reduces the amount of data that needs to be transferred over the
-       network. If you were to calculate the mean in R or Python, you
-       would first need to transfer all the relevant data from the
-       database to the application, which can be slow and
-       resource-intensive for large datasets.
+  2. *Network Overhead:* Calculating the mean directly in the database
+     reduces the amount of data that needs to be transferred over the
+     network. If you were to calculate the mean in R or Python, you
+     would first need to transfer all the relevant data from the
+     database to the application, which can be slow and
+     resource-intensive for large datasets.
 
-    3. *Simplicity:* Writing a query to calculate the average in SQL is
-       straightforward and keeps the data manipulation logic within the
-       database, which can make the code easier to manage and
-       understand. It avoids the complexity of fetching the data and
-       then using a separate tool for the calculation.
+  3. *Simplicity:* Writing a query to calculate the average in SQL is
+     straightforward and keeps the data manipulation logic within the
+     database, which can make the code easier to manage and
+     understand. It avoids the complexity of fetching the data and
+     then using a separate tool for the calculation.
 
-    4. *Scalability:* Databases are designed to handle queries on large
-       datasets efficiently, and they often include optimizations for
-       aggregation functions like =AVG()=. These optimizations can include
-       parallel processing and indexing strategies that are not as
-       easily implemented in client-side languages.
+  4. *Scalability:* Databases are designed to handle queries on large
+     datasets efficiently, and they often include optimizations for
+     aggregation functions like =AVG()=. These optimizations can include
+     parallel processing and indexing strategies that are not as
+     easily implemented in client-side languages.
 
-    5. *Real-time data processing*: When working with real-time data, it
-       might be necessary to get the average value updated dynamically
-       as the data changes. Performing this operation directly in SQL
-       ensures that the most current data is used for the calculation
-       without the need for repeated data transfers.
+  5. *Real-time data processing*: When working with real-time data, it
+     might be necessary to get the average value updated dynamically
+     as the data changes. Performing this operation directly in SQL
+     ensures that the most current data is used for the calculation
+     without the need for repeated data transfers.
 
-    6. *Consistency*: When multiple analyses are being performed on the
-       same data, performing calculations directly in the database
-       ensures that all calculations are based on the same data state,
-       which helps in maintaining consistency across different reports
-       or analyses.
+  6. *Consistency*: When multiple analyses are being performed on the
+     same data, performing calculations directly in the database
+     ensures that all calculations are based on the same data state,
+     which helps in maintaining consistency across different reports
+     or analyses.
 
-  - Example: How many ~foods~ are ~Bakery~ (~type_id=1~) goods?
-    (~type_id=1~):
-    #+begin_src sqlite :db test.db :results output :header :column 
-      SELECT COUNT(*) AS "Baked goods" FROM foods WHERE type_id=1;
-    #+end_src
+- Example: How many ~foods~ are ~Bakery~ (~type_id=1~) goods?
+  (~type_id=1~):
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT COUNT(*) AS "Baked goods" FROM foods WHERE type_id=1;
+  #+end_src
 
-    #+RESULTS:
-    : Baked goods
-    : -----------
-    : 47         
+  #+RESULTS:
+  : Baked goods
+  : -----------
+  : 47
 
-  - When you see an aggregate, you should think "For each row in the
-    table, do something" (like sum, find the minimum, the average etc.)
+- When you see an aggregate, you should think "For each row in the
+  table, do something" (like sum, find the minimum, the average etc.)
 
-  - Aggregates can aggregate any expression including functions.
+- Aggregates can aggregate any expression including functions.
 
-  - Example: what is the average =LENGTH= of all names in ~foods~?
-    1. Work on the ~foods~ table
-    2. =SELECT= the ~name~ column
-    3. Compute the =LENGTH= of that column
-    4. Compute the =AVG= of the length
-    #+begin_src sqlite :db test.db :results output :header :column 
-      SELECT AVG(LENGTH(name)) AS "Average length of food names" FROM foods;
-    #+end_src
+- Example: what is the average =LENGTH= of all names in ~foods~?
+  1. Work on the ~foods~ table
+  2. =SELECT= the ~name~ column
+  3. Compute the =LENGTH= of that column
+  4. Compute the =AVG= of the length
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT AVG(LENGTH(name)) AS "Average length of food names" FROM foods;
+  #+end_src
 
-    #+RESULTS:
-    : Average length of food names
-    : ----------------------------
-    : 12.5849514563107            
+  #+RESULTS:
+  : Average length of food names
+  : ----------------------------
+  : 12.5849514563107
 
-  - You might not care for the decimal places:
-    #+begin_src sqlite :db test.db :results output :header :column 
-      SELECT ROUND(AVG(LENGTH(name))) AS "Average length of food names" FROM foods;
-    #+end_src
+- You might not care for the decimal places:
+  #+begin_src sqlite :db test.db :results output :header :column
+    SELECT ROUND(AVG(LENGTH(name))) AS "Average length of food names" FROM foods;
+  #+end_src
 
-    #+RESULTS:
-    : Average length of food names
-    : ----------------------------
-    : 13.0                        
+  #+RESULTS:
+  : Average length of food names
+  : ----------------------------
+  : 13.0
 
 * Grouping
 
@@ -833,7 +958,7 @@ CREATE TABLE food_types(
   values and compute aggregates on each group - all in one step.
 
 - Example: group the types of food by type.
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT type_id FROM foods GROUP BY type_id;
   #+end_src
 
@@ -847,65 +972,65 @@ CREATE TABLE food_types(
   In the example, =GROUP BY= organizes all rows in ~foods~ in 15
   (~DISTINCT type_ID~) groups varying by ~type_id~.
 
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT type_id AS "Food group"
-           FROM foods GROUP BY type_id;
+    FROM foods GROUP BY type_id;
   #+end_src
 
   #+RESULTS:
   #+begin_example
   Food group
   ----------
-  1         
-  2         
-  3         
-  4         
-  5         
-  6         
-  7         
-  8         
-  9         
-  10        
-  11        
-  12        
-  13        
-  14        
-  15        
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  10
+  11
+  12
+  13
+  14
+  15
   #+end_example
 
 - When =GROUP BY= is used, =SELECT= applies aggregates to each group
   separately rather than the entire filtered result as a whole.
 
 - Example: count the number of records per group, for each type:
-  #+begin_src sqlite :db test.db :results output :header :column 
+  #+begin_src sqlite :db test.db :results output :header :column
     SELECT type_id AS "Food group",
-           COUNT(*) AS "Foods by group"
-           FROM foods GROUP BY type_id;
+    COUNT(*) AS "Foods by group"
+    FROM foods GROUP BY type_id;
   #+end_src
 
   #+RESULTS:
   #+begin_example
   Food group  Foods by group
   ----------  --------------
-  1           47            
-  2           15            
-  3           23            
-  4           22            
-  5           17            
-  6           4             
-  7           60            
-  8           23            
-  9           61            
-  10          36            
-  11          16            
-  12          23            
-  13          14            
-  14          19            
-  15          32            
+  1           47
+  2           15
+  3           23
+  4           22
+  5           17
+  6           4
+  7           60
+  8           23
+  9           61
+  10          36
+  11          16
+  12          23
+  13          14
+  14          19
+  15          32
   #+end_example
 
 - Here, =COUNT= is applied 15 times, once for each group:
-  #+attr_html: :width 600px: 
+  #+attr_html: :width 600px:
   [[../img/group_count.png]]
 
 - The number of ~Bakery~ foods is 47, the number of ~Cereal~ foods is 15,
@@ -917,26 +1042,25 @@ CREATE TABLE food_types(
     .header OFF
     SELECT "               (..food groups 4 to 14...) ";
     .header ON
-    SELECT COUNT(*) AS "Vegetables" FROM foods WHERE type_id=15;       
+    SELECT COUNT(*) AS "Vegetables" FROM foods WHERE type_id=15;
   #+end_src
 
   #+RESULTS:
   #+begin_example
   Bakery
   ------
-  47    
+  47
   Cereal
   ------
-  15    
+  15
   Chicken/Fowl
   ------------
-  23          
-                 (..food groups 4 to 14...)   
+  23
+                 (..food groups 4 to 14...)
   Vegetables
   ----------
-  32        
+  32
   #+end_example
-
 
 
 * TODO =HAVING= patterns
@@ -959,4 +1083,3 @@ another source said "There is no limit to the number of subqueries you
 can use in an SQL query." MySQL and PostgreSQL have a ~thread_stack~
 parameter that can be set freely. Either way, these set values can be
 changed at runtime.
-

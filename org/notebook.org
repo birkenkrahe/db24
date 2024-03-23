@@ -1423,12 +1423,28 @@ transformations, and sorting before the final output is generated.
 
 ** Test 4 - SELECT (due Sunday, March 31)
 
-- 30 questions created with the help of ChatGPT using only the lecture
-- The lecture is available in GitHub as a [[https://github.com/birkenkrahe/db24/blob/main/pdf/4_SELECT.pdf][PDF]] and as an [[https://github.com/birkenkrahe/db24/blob/main/org/4_SELECT.org][Org-mode file]]
+- 30 questions created with the help of ChatGPT using the lecture.
+- Details on =GLOB= vs. =LIKE= are not included yet (only DataCamp level).
+- The lecture is available in GitHub as a [[https://github.com/birkenkrahe/db24/blob/main/pdf/4_SELECT.pdf][PDF]] and as an [[https://github.com/birkenkrahe/db24/blob/main/org/4_SELECT.org][Org-mode file]].
 
-** Finish =SELECT= clauses =HAVING= and =DISTINCT= 
+** Popquiz 2 available as bonus home exercise (pledged)
 
-** Database design and E-R diagrams
+- Complete the printout it without looking stuff up
+- Test your answers (1 point for each correct answer)
+- An answer is correct if it runs and returns the correct result
+- Grade yourself and submit your original paper copy for points
+
+** Finish =SELECT= lecture and practice
+
+Let's finish the lecture before we go on to database design:
+- Update on =GLOB= vs. =LIKE=
+- Clauses =HAVING= and =DISTINCT=
+- Subqueries
+
+Download the updated code-along file [[http://tinyurl.com/select-org][tinyurl.com/select-org]].
+
+** 
+** Review DataCamp: Database Design 
 
 * Week 11 -
 

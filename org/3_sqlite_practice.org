@@ -1,5 +1,0 @@
-#+STARTUP: hideblocks overview indent :
-#+OPTIONS: toc:nil num:nil ^:nil :
-* README
-
-  
