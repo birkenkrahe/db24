@@ -872,7 +872,7 @@ Examples:
 
   #+end_src
 
-- This figure shows what's going on:
+- [[https://github.com/birkenkrahe/db24/blob/main/img/having_count.png][This figure]] shows what's going on:
   1) =WHERE= (not used) filters rows
   2) =GROUP BY= aggregates rows by ~type_id~
   3) =HAVING= filters the ~type_id~ aggregates by condition ~COUNT<20~
@@ -885,13 +885,8 @@ Examples:
 
 - Example: this is an allowed query
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    SELECT type_id AS TYPE, COUNT(*) FROM foods;
-  #+end_src
 
-  #+RESULTS:
-  : TYPE  COUNT(*)
-  : ----  --------
-  : 1     412
+  #+end_src
 
 - As you can see from the result, the aggregate function =COUNT=
   collapses the input table to a number, but we have not told SQLite
@@ -906,47 +901,19 @@ Examples:
 - In the previous example, it would make sense to filter out duplicate
   rows with =DISTINCT= to arrive at a unique set of types:
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    SELECT DISTINCT type_id FROM foods;
+
   #+end_src
 
-  #+RESULTS:
-  #+begin_example
-  type_id
-  -------
-  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
-  10
-  11
-  12
-  13
-  14
-  15
-  #+end_example
-
-- How does this align with the pipeline (see figure)
+- How does this align with the pipeline ([[https://github.com/birkenkrahe/db24/blob/main/img/select_phases.png][see figure]])?
   1) =WHERE= returns the entire foods table (412 records)
   2) =SELECT= clause pulls out only the ~type_id~ column
   3) =DISTINCT= removes duplicate rows resulting in 15 unique ones.
-     #+attr_html: :width 600px:
-     [[../img/select_phases.png]]
 
 - Now we can also count the number of types:
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    SELECT COUNT(DISTINCT type_id) AS "Number of food types" FROM foods;
+
   #+end_src
-
-  #+RESULTS:
-  : Number of food types
-  : --------------------
-  : 15
-
+  
 * Summary
 
 - =SELECT= command is a fundamental SQL command for data retrieval,
