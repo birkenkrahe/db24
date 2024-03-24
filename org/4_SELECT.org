@@ -50,7 +50,7 @@ Content:
 * =SELECT= pipeline overview
 
 - Phases of =SELECT=
-  #+attr_html: :width 700px:
+  #+attr_html: :width 600px:
   [[../img/select_phases.png]]
 
 * =SELECT= column restriction (projection)
@@ -584,6 +584,7 @@ CREATE TABLE food_types(
   can develop your own using the =sqlite_create_function()= API call
   ([[https://sqlite.org/appfunc.html][read more]]).
 
+
 * =GLOB= vs. =LIKE=
 
 Summary of differences:
@@ -652,7 +653,7 @@ Examples:
 
      #+RESULTS:
      : Hello world%
-     : Hello_world 
+     : Hello_world
 
    - =GLOB=: The =GLOB= operator does not have an escape character. If you
      need to match literal percent or underscore characters, they are
@@ -1062,44 +1063,165 @@ Examples:
   32
   #+end_example
 
-
-* TODO =HAVING= patterns
+* =HAVING= patterns
 
 - You can group all records/rows by the values of the ~type_id~ column
-  with =GROUP BY=:
+  with =GROUP BY=.
+
+- This query prints all food groups in descending order of the number
+  of foods in each group:
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
     SELECT name as FOOD, COUNT(*) AS COUNT FROM foods
-           GROUP BY type_id ORDER BY COUNT DESC;
+    GROUP BY type_id ORDER BY COUNT DESC;
   #+end_src
 
   #+RESULTS:
   #+begin_example
   FOOD                 COUNT
   -------------------  -----
-  Almond Joy           61   
-  Apple Cider          60   
-  Bagels               47   
-  Arby's Roast Beef    36   
-  Artichokes           32   
-  Atomic Sub           23   
-  Apple                23   
-  Broiled Chicken      23   
-  A1 Sauce             22   
-  Bouillabaisse        19   
-  Banana Yogurt        17   
-  Calzone (Paisano's)  16   
-  Bran                 15   
-  Clams Casino         14   
-  Generic (as a meal)  4    
+  Almond Joy           61
+  Apple Cider          60
+  Bagels               47
+  Arby's Roast Beef    36
+  Artichokes           32
+  Atomic Sub           23
+  Apple                23
+  Broiled Chicken      23
+  A1 Sauce             22
+  Bouillabaisse        19
+  Banana Yogurt        17
+  Calzone (Paisano's)  16
+  Bran                 15
+  Clams Casino         14
+  Generic (as a meal)  4
   #+end_example
 
+- The =HAVING= clause filters the groups from =GROUP BY= in the same way
+  that the =WHERE= clause filters the rows from the =FROM= clause.
 
+- The only difference is that =WHERE='s predicate is expressed in terms
+  of individual row values, while =HAVING='s predicate is expressed in
+  terms of aggregate values.
 
-* TODO Removing duplicates
-* TODO SUMMARY
+- This query filters those food groups that have fewer than 20 foods
+  in them, and then orders the result in ascending order by count:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT type_id AS 'Type', name AS 'Name', COUNT(*) AS 'Count'
+    FROM foods
+    WHERE id
+    GROUP BY type_id HAVING COUNT(*) < 20
+    ORDER BY Type; -- or you can order by `Count` or `Name`
+  #+end_src
 
-- Table joins are a big topic and we'll postpone their discussion
-  until after we talked about database design some more.
+  #+RESULTS:
+  : Type  Name                 Count
+  : ----  -------------------  -----
+  : 2     Bran                 15
+  : 5     Banana Yogurt        17
+  : 6     Generic (as a meal)  4
+  : 11    Calzone (Paisano's)  16
+  : 13    Clams Casino         14
+  : 14    Bouillabaisse        19
+
+- The figure shows what's going on:
+  1) =WHERE= (not used) filters rows
+  2) =GROUP BY= aggregates rows by ~type_id~
+  3) =HAVING= filters the ~type_id~ aggregates by condition ~COUNT<20~
+  4) =COUNT= counts the items in each filtered ~type_id~ aggregate
+  5) =ORDER BY= (not shown) sorts the result by column value.
+  #+attr_html: :width 600px:
+  [[../img/having_count.png]]
+
+- Caveat! Some databases will allow you to construct nonsensical
+  queries where non-aggregated columns are grouped in a =SELECT=
+  statement with mixed aggregate and non-aggregate columns.
+
+- Example: this is an allowed query
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT type_id AS TYPE, COUNT(*) FROM foods;
+  #+end_src
+
+  #+RESULTS:
+  : TYPE  COUNT(*)
+  : ----  --------
+  : 1     412
+
+- As you can see from the result, the aggregate function =COUNT=
+  collapses the input table to a number, but we have not told SQLite
+  how to group ~type_id~ - the value 412 does not have anything to do
+  with the ~type_id~ value 1.
+
+- Lesson: do not rely on any statement that fails to group by
+  non-aggregate fields!
+
+* Removing duplicates with =DISTINCT=
+
+- In the previous example, it would make sense to filter out duplicate
+  rows with =DISTINCT= to arrive at a unique set of types:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT DISTINCT type_id FROM foods;
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  type_id
+  -------
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  10
+  11
+  12
+  13
+  14
+  15
+  #+end_example
+
+- How does this align with the pipeline (see figure)
+  1) =WHERE= returns the entire foods table (412 records)
+  2) =SELECT= clause pulls out only the ~type_id~ column
+  3) =DISTINCT= removes duplicate rows resulting in 15 unique ones.
+     #+attr_html: :width 600px:
+     [[../img/select_phases.png]]
+
+- Now we can also count the number of types:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT COUNT(DISTINCT type_id) AS "Number of food types" FROM foods;
+  #+end_src
+
+  #+RESULTS:
+  : Number of food types
+  : --------------------
+  : 15
+
+* Summary
+
+- =SELECT= command is a fundamental SQL command for data retrieval,
+  allowing column projection and row restriction.
+- The =WHERE= clause filters rows based on conditions, using logical
+  predicates.
+- Data can be represented as literals, variables, expressions, or
+  function results.
+- Operators can be unary, binary, or ternary, affecting how values are
+  processed in SQL queries.
+- The =LIKE= and =GLOB= operators are used for pattern matching, with
+  differences in case sensitivity and wildcard characters.
+- =LIMIT= and =OFFSET= clauses control the size and range of query
+  results.
+- SQL functions and aggregates perform operations on data, offering
+  built-in methods for data manipulation and calculation.
+- =GROUP BY= and =HAVING= clauses enable grouping and filtering of
+  aggregated data.
+- The =DISTINCT= keyword removes duplicate rows from results.
+
+Table joins and subqueries are bigger topic and we'll postpone their
+discussion until after we talked about database design some more.
 
 * Footnotes
 [fn:2] The negation of a disjunction is the conjunction of the

@@ -1429,21 +1429,26 @@ transformations, and sorting before the final output is generated.
 
 ** Popquiz 2 available as bonus home exercise (pledged)
 
-- Complete the printout it without looking stuff up
+- Complete the printed handout without looking stuff up
 - Test your answers (1 point for each correct answer)
 - An answer is correct if it runs and returns the correct result
 - Grade yourself and submit your original paper copy for points
-
+- [[https://lyon.instructure.com/courses/2254/assignments/26365][PDFs also linked in Canvas (bonus section)]]
+  
 ** Finish =SELECT= lecture and practice
 
 Let's finish the lecture before we go on to database design:
 - Update on =GLOB= vs. =LIKE=
 - Clauses =HAVING= and =DISTINCT=
-- Subqueries
 
 Download the updated code-along file [[http://tinyurl.com/select-org][tinyurl.com/select-org]].
 
+We'll return to =SELECT= Joins, subqueries and =NULL= values after an
+intermission with database design and ERDs.
+
 ** Review DataCamp: Database Design 
+
+
 
 * Week 11 -
 
