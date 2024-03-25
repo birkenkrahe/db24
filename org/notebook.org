@@ -1446,7 +1446,7 @@ Download the updated code-along file [[http://tinyurl.com/select-org][tinyurl.co
 We'll return to =SELECT= Joins, subqueries and =NULL= values after an
 intermission with database design and ERDs.
 
-** Review DataCamp: Database Design 
+** TODO Review DataCamp: Database Design 
 
 
 
