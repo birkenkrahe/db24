@@ -1430,8 +1430,10 @@ transformations, and sorting before the final output is generated.
 - Details on =GLOB= vs. =LIKE= are not included yet (only DataCamp level).
 - The lecture is available in GitHub as a [[https://github.com/birkenkrahe/db24/blob/main/pdf/4_SELECT.pdf][PDF]] and as an [[https://github.com/birkenkrahe/db24/blob/main/org/4_SELECT.org][Org-mode file]].
 
+x
+** 2nd Sprint Review postponed until April 7: watch the DataCamp stuff!
 
-** Popquiz 2 available as bonus exercise
+** Popquiz 2 (bonus exercise)
 
 - Complete the printed handout without looking stuff up
 - Test your answers (1 point for each correct answer)
@@ -1439,7 +1441,6 @@ transformations, and sorting before the final output is generated.
 - Grade yourself and submit your original paper copy for points
 - Submit no later than Tuesday, April 2, 2.30 pm (next week)
 - [[https://lyon.instructure.com/courses/2254/assignments/26365][PDFs also linked in Canvas (bonus section)]]
-  
 
 ** Finish =SELECT= lecture and practice
 
