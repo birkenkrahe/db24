@@ -1384,7 +1384,7 @@ transformations, and sorting before the final output is generated.
 #+end_quote
 
 
-* Week 10 - Database Design
+* Week 10 - Finish SELECT & Database Design
 #+attr_html: :width 400px:
 [[../img/week_10.png]]
 
@@ -1423,6 +1423,8 @@ transformations, and sorting before the final output is generated.
        adj=0,col="red")  
 #+end_src
 
+#+RESULTS:
+[[file:../img/test_3_R.png]]
 
 ** Test 4 - SELECT (due Sunday, March 31)
 
@@ -1430,9 +1432,7 @@ transformations, and sorting before the final output is generated.
 - Details on =GLOB= vs. =LIKE= are not included yet (only DataCamp level).
 - The lecture is available in GitHub as a [[https://github.com/birkenkrahe/db24/blob/main/pdf/4_SELECT.pdf][PDF]] and as an [[https://github.com/birkenkrahe/db24/blob/main/org/4_SELECT.org][Org-mode file]].
 
-x
 ** 2nd Sprint Review postponed until April 7: watch the DataCamp stuff!
-
 ** Popquiz 2 (bonus exercise)
 
 - Complete the printed handout without looking stuff up
@@ -1453,8 +1453,8 @@ Download the updated code-along file [[http://tinyurl.com/select-org][tinyurl.co
 We'll return to =SELECT= Joins, subqueries and =NULL= values after an
 intermission with database design and ERDs.
 
-
 ** Entity-Relationship Diagrams (ERD)
+
 
 ** TODO Review DataCamp: Database Design 
 

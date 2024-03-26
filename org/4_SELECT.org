@@ -584,8 +584,7 @@ CREATE TABLE food_types(
   can develop your own using the =sqlite_create_function()= API call
   ([[https://sqlite.org/appfunc.html][read more]]).
 
-
-* TODO =GLOB= vs. =LIKE=
+* =GLOB= vs. =LIKE=
 
 Summary of differences:
 1. =GLOB= is case-sensitive by default, =LIKE= is not
@@ -603,26 +602,56 @@ Examples:
        SELECT name FROM foods WHERE name GLOB 'a*';
      #+end_src
 
+     #+RESULTS:
+
    - This query will match any name that starts with 'A' OR 'a':
      #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
        SELECT name FROM foods WHERE name LIKE 'a%';
      #+end_src
+
+     #+RESULTS:
+     #+begin_example
+     "A1 Sauce"
+     "Apple Cider"
+     "Arabian Mocha Java (beans)"
+     Apple
+     "Apple Pie"
+     Avacado
+     "Almond Joy"
+     "All Day Sucker"
+     "Arby's Roast Beef"
+     "Atomic Sub"
+     Artichokes
+     #+end_example
 
 2. Different wildcard characters
 
    - This query will match any name that starts with 'c', followed by
      exactly three characters, and ends with 'y', using * and ?:
      #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
-       SELECT name FROM foods
-       WHERE name GLOB 'C???e*';
+       SELECT name FROM foods WHERE name GLOB 'C???e*';
      #+end_src
+
+     #+RESULTS:
+     : Casserole
+     : Coffe
+     : "Canned Fruit"
+     : "Cashew Nuts"
+     : "Cashews (bag of)"
+     : "Chinese Chewing Gum"
+     : "Corned Beef"
 
      - This query will match names that start with 'c', followed by any
        single character, and ends with 'y', using % and _:
        #+begin_src sqlite :db test.db :results output :exports both :comments both :tangle yes :noweb yes
-         SELECT name FROM foods
-         WHERE name LIKE 'c_e%';
+         SELECT name FROM foods WHERE name LIKE 'c_e%';
        #+end_src
+
+       #+RESULTS:
+       : Cheerios
+       : "Cream Soda"
+       : "Creamed Soups"
+       : "Chef Salad"
 
 3. Matching entire strings vs. substrings
 
@@ -632,11 +661,24 @@ Examples:
        SELECT name FROM foods WHERE name GLOB 'apple';
      #+end_src
 
+     #+RESULTS:
+
    - This query will match all names that contain the string 'apple'
      because =LIKE= matches substrings not only entire strings:
      #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
        SELECT name FROM foods WHERE name LIKE '%apple%';
      #+end_src
+
+     #+RESULTS:
+     : name                 
+     : ---------------------
+     : Apple Cider          
+     : Snapple              
+     : Apple                
+     : Apple Pie            
+     : Pineapple            
+     : Candy Apple          
+     : Pineapple Italian Ice
 
 4. Escaping special characters
 
@@ -653,7 +695,7 @@ Examples:
 
      #+RESULTS:
      : Hello world%
-     : Hello_world
+     : Hello_world 
 
    - =GLOB=: The =GLOB= operator does not have an escape character. If you
      need to match literal percent or underscore characters, they are
@@ -701,9 +743,6 @@ Examples:
      #+begin_src sqlite :db test1.db :column :results output :exports both :comments both :tangle yes :noweb yes
        SELECT string FROM test1 WHERE string LIKE 'Hello\_world\%' ESCAPE '\';
      #+end_src
-
-     #+RESULTS:
-
 
 * Limiting and ordering
 
@@ -1064,7 +1103,6 @@ Examples:
   32
   #+end_example
 
-
 * =HAVING= patterns
 
 - You can group all records/rows by the values of the ~type_id~ column
@@ -1074,28 +1112,28 @@ Examples:
   of foods in each group:
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
     SELECT name as FOOD, COUNT(*) AS COUNT FROM foods
-    GROUP BY type_id ORDER BY COUNT DESC;
+    GROUP BY type_id ORDER BY COUNT DESC ;
   #+end_src
 
   #+RESULTS:
   #+begin_example
   FOOD                 COUNT
   -------------------  -----
-  Almond Joy           61
-  Apple Cider          60
-  Bagels               47
-  Arby's Roast Beef    36
-  Artichokes           32
-  Atomic Sub           23
-  Apple                23
-  Broiled Chicken      23
-  A1 Sauce             22
-  Bouillabaisse        19
-  Banana Yogurt        17
-  Calzone (Paisano's)  16
-  Bran                 15
-  Clams Casino         14
-  Generic (as a meal)  4
+  Almond Joy           61   
+  Apple Cider          60   
+  Bagels               47   
+  Arby's Roast Beef    36   
+  Artichokes           32   
+  Atomic Sub           23   
+  Apple                23   
+  Broiled Chicken      23   
+  A1 Sauce             22   
+  Bouillabaisse        19   
+  Banana Yogurt        17   
+  Calzone (Paisano's)  16   
+  Bran                 15   
+  Clams Casino         14   
+  Generic (as a meal)  4    
   #+end_example
 
 - The =HAVING= clause filters the groups from =GROUP BY= in the same way
@@ -1109,21 +1147,21 @@ Examples:
   in them, and then orders the result in ascending order by count:
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
     SELECT type_id AS 'Type', name AS 'Name', COUNT(*) AS 'Count'
-    FROM foods
-    WHERE id
-    GROUP BY type_id HAVING COUNT(*) < 20
-    ORDER BY Type; -- or you can order by `Count` or `Name`
+      FROM foods
+      WHERE id
+        GROUP BY type_id HAVING COUNT(*) < 20
+        ORDER BY Type; -- or you can order by `Count` or `Name`
   #+end_src
 
   #+RESULTS:
   : Type  Name                 Count
   : ----  -------------------  -----
-  : 2     Bran                 15
-  : 5     Banana Yogurt        17
-  : 6     Generic (as a meal)  4
-  : 11    Calzone (Paisano's)  16
-  : 13    Clams Casino         14
-  : 14    Bouillabaisse        19
+  : 2     Bran                 15   
+  : 5     Banana Yogurt        17   
+  : 6     Generic (as a meal)  4    
+  : 11    Calzone (Paisano's)  16   
+  : 13    Clams Casino         14   
+  : 14    Bouillabaisse        19   
 
 - The figure shows what's going on:
   1) =WHERE= (not used) filters rows
@@ -1146,7 +1184,7 @@ Examples:
   #+RESULTS:
   : TYPE  COUNT(*)
   : ----  --------
-  : 1     412
+  : 1     412     
 
 - As you can see from the result, the aggregate function =COUNT=
   collapses the input table to a number, but we have not told SQLite
@@ -1168,21 +1206,21 @@ Examples:
   #+begin_example
   type_id
   -------
-  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
-  10
-  11
-  12
-  13
-  14
-  15
+  1      
+  2      
+  3      
+  4      
+  5      
+  6      
+  7      
+  8      
+  9      
+  10     
+  11     
+  12     
+  13     
+  14     
+  15     
   #+end_example
 
 - How does this align with the pipeline (see figure)
@@ -1200,7 +1238,7 @@ Examples:
   #+RESULTS:
   : Number of food types
   : --------------------
-  : 15
+  : 15                  
 
 * Summary
 
