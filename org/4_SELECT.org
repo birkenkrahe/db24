@@ -585,7 +585,7 @@ CREATE TABLE food_types(
   ([[https://sqlite.org/appfunc.html][read more]]).
 
 
-* =GLOB= vs. =LIKE=
+* TODO =GLOB= vs. =LIKE=
 
 Summary of differences:
 1. =GLOB= is case-sensitive by default, =LIKE= is not
@@ -703,6 +703,7 @@ Examples:
      #+end_src
 
      #+RESULTS:
+
 
 * Limiting and ordering
 
@@ -1062,6 +1063,7 @@ Examples:
   ----------
   32
   #+end_example
+
 
 * =HAVING= patterns
 

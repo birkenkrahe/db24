@@ -8,7 +8,7 @@
 
 - What does a database project entail?
 
-* What does a "database project" entail?
+* DONE What does a "database project" entail?
 
 - Student:
   #+begin_quote
@@ -133,5 +133,4 @@ MORE:
 - The Seinfeld 'food' SQLite database will serve as our example, and I
   will work it up into a sample project that you can use as
   springboard.
-
 
