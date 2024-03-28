@@ -1388,7 +1388,7 @@ transformations, and sorting before the final output is generated.
 #+attr_html: :width 400px:
 [[../img/week_10.png]]
 
-** Test 3 results (could've been better):
+** DONE Test 3 results (could've been better):
 #+attr_html: :width 400px: 
 [[../img/test_3.png]]
 
@@ -1426,14 +1426,16 @@ transformations, and sorting before the final output is generated.
 #+RESULTS:
 [[file:../img/test_3_R.png]]
 
-** Test 4 - SELECT (due Sunday, March 31)
+
+** Test 4 - SELECT (due +Sunday, March 31+ Tuesday, April 2). 
 
 - 30 questions created with the help of ChatGPT using the lecture.
 - Details on =GLOB= vs. =LIKE= are not included yet (only DataCamp level).
 - The lecture is available in GitHub as a [[https://github.com/birkenkrahe/db24/blob/main/pdf/4_SELECT.pdf][PDF]] and as an [[https://github.com/birkenkrahe/db24/blob/main/org/4_SELECT.org][Org-mode file]].
 
-** 2nd Sprint Review postponed until April 7: watch the DataCamp stuff!
-** Popquiz 2 (bonus exercise)
+** DONE 2nd Sprint Review postponed until April 7: watch the DataCamp stuff!
+
+** DONE Popquiz 2 (bonus exercise)
 
 - Complete the printed handout without looking stuff up
 - Test your answers (1 point for each correct answer)
@@ -1442,7 +1444,8 @@ transformations, and sorting before the final output is generated.
 - Submit no later than Tuesday, April 2, 2.30 pm (next week)
 - [[https://lyon.instructure.com/courses/2254/assignments/26365][PDFs also linked in Canvas (bonus section)]]
 
-** Finish =SELECT= lecture and practice
+
+** DONE Finish =SELECT= lecture and practice
 
 Let's finish the lecture before we go on to database design:
 - Update on =GLOB= vs. =LIKE=
@@ -1453,13 +1456,15 @@ Download the updated code-along file [[http://tinyurl.com/select-org][tinyurl.co
 We'll return to =SELECT= Joins, subqueries and =NULL= values after an
 intermission with database design and ERDs.
 
+
+** Extended DataCamp deadlines to April 2 and April 9 (Easter holidays)
+
 ** Entity-Relationship Diagrams (ERD)
 
-
-** TODO Review DataCamp: Database Design 
-
-
 * Week 11 -
+
+** TODO Review DataCamp: Database Design
+
 
 * Week 12 -
 
