@@ -1487,16 +1487,59 @@ intermission with database design and ERDs.
    - OLAP is focused on analysing large data sets for better
      statistics - big data.
    #+end_quote
-4) 
+4) What's a "data warehouse" ("data mart") and where is it used?
+   #+begin_quote
+   A data warehouse architecture supports OLAP to consolidate data
+   from multiple sources into a single, optimized structure for
+   multi-dimensional analysis.
+   #+attr_html: :width 600px:
+   [[../img/data_warehouse.png]]
+   #+end_quote
+5) What does "JSON" stand for?
+   #+begin_quote
+   "JavaScript Object Notation" - a data exchange notation that is
+   independent of any programming language - like BPMN (Business
+   Process Model and Notation) or UML (Unified Modeling Language).
+   #+end_quote
+   #+begin_example python
+     # Let's create the JSON explanation as a JSON formatted string
+     # Each key generates a searchable field
+     json_explanation = {
+         "JSON": "JavaScript Object Notation",
+         "Description": "A lightweight data-interchange format that is easy for humans to read and write and for machines to parse and generate.",
+         "BasedOn": "A subset of the JavaScript Programming Language Standard ECMA-262 3rd Edition - December 1999.",
+         "Purpose": "Designed to store and transport data, often used when data is sent from a server to a web page.",
+         "Format": "Text format that is completely language independent but uses conventions familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others.",
+     }
 
+     # Now we'll save this explanation to a JSON file
+     file_path = '/mnt/data/json_explanation.json'
+
+     with open(file_path, 'w') as file:
+         import json
+         json.dump(json_explanation, file, indent=4)
+     
+     file_path # output /mnt/data/json_explanation.json
+   #+end_example
+6) What's a "data lake" and where is it used?
+   #+begin_quote
+
+   #+end_quote
+7) Visualize "structure" vs. "scalability" with examples, e.g. a
+   relational database, an image collection, a JSON or XML file.
+   #+attr_html: :width 400px: 
+8) Visualize "data structure" vs. "decision complexity", e.g. a cash
+   transaction, an employee hiring process, a research project.
+   #+attr_html: :width 400px: 
+
+More information on NoSQL and semi-structured data: Schwarzmüller on
+"[[https://youtu.be/ZS_kXvOeQ5Y?si=p1RRmEPg-pNbspWj][SQL vs NoSQL or MySQL vs MongoDB]]" (Academind, 2019) - home assignment!
 
 ** TODO Introduction to Entity Relationship Diagrams (ERD)
 
 ** TODO Review: SQL DataBase Tutorial for Beginners
 
 - [[https://youtu.be/MiAl2mQ718s?si=145lekfuJCxujUOq][Source: YouTube (Adam Finer - Learn BI online), Feb 18, 2022.]]
-
-  
 
 * Week 12 -
 
