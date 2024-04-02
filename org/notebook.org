@@ -1461,8 +1461,11 @@ intermission with database design and ERDs.
 
 /Image: medieval programmers celebrating Easter (?)/
 
-** TODO Don't forget the test deadline tonight
+** TODO Don't forget the test deadline tonight! Take your time for it!
+
 ** TODO Review DataCamp: DB Design - Processing, Storing, Organizing Data
+
+/Overall: OK lesson (C), I did not care for the presenter's vocal fry./
 
 1) Name at least two reasons for designing your data management.
    #+begin_quote
@@ -1491,11 +1494,25 @@ intermission with database design and ERDs.
    #+begin_quote
    A data warehouse architecture supports OLAP to consolidate data
    from multiple sources into a single, optimized structure for
-   multi-dimensional analysis.
+   multi-dimensional analysis:
    #+attr_html: :width 600px:
    [[../img/data_warehouse.png]]
+
+   - ERP = Enterprise Resource Planning [system]
+   - SCM = Supply Chain Management [systems]
+   - ODS = Operational Data Store [database system] - OLTP
+   - ETL = Extract, Transform, Load [data]
+      #+end_quote
+5) What's a "data lake" and where is it used?
+   #+begin_quote
+   A data storage repository that accepts and supports all data types,
+   especially for OLTP but increasingly also for OLAP. Important data
+   science technologies include [[https://hadoop.apache.org/][Apache Hadoop]] (parallel clusters) and
+   [[https://spark.apache.org/][Apache Spark]] (big data analytics) - both of which are totally FOSS.
+   #+attr_html: :width 600px:
+   [[../img/data_lake.png]]
    #+end_quote
-5) What does "JSON" stand for?
+6) What does "JSON" stand for?
    #+begin_quote
    "JavaScript Object Notation" - a data exchange notation that is
    independent of any programming language - like BPMN (Business
@@ -1521,21 +1538,57 @@ intermission with database design and ERDs.
      
      file_path # output /mnt/data/json_explanation.json
    #+end_example
-6) What's a "data lake" and where is it used?
-   #+begin_quote
-
-   #+end_quote
 7) Visualize "structure" vs. "scalability" with examples, e.g. a
    relational database, an image collection, a JSON or XML file.
-   #+attr_html: :width 400px: 
+   #+begin_quote
+   #+attr_html: :width 600px:
+   [[../img/scalable.jpg]]
+   #+end_quote
 8) Visualize "data structure" vs. "decision complexity", e.g. a cash
-   transaction, an employee hiring process, a research project.
-   #+attr_html: :width 400px: 
+   transaction, a bonus payment, an employee hiring process, and a
+   research project.
+   #+begin_quote
+   #+attr_html: :width 600px: 
+   [[../img/structure.jpg]]
+   #+end_quote
+9) ETL vs. ELT - what's the difference?
+   #+begin_quote
+   ETL = Extract data + transform data + load into data warehouse
+   #+attr_html: :width 600px:
+   [[../img/ETL.png]]
 
+   ELT = Extract data + load into data lake + transform (model)
+   #+attr_html: :width 600px:
+   [[../img/ELT.png]]
+      #+end_quote
+10) Which database design models do you know?
+    #+begin_quote
+
+    - Relational model (tables)
+    - Dimensional models (analysis facts + attribute dimensions)
+      #+attr_html: :width 400px:
+      [[../img/dimension.png]]
+
+    - NoSQL model (tables + dictionaries)
+    - Object-oriented model (classes)
+    - Network model (graphs + nodes)
+
+    All models: *concept* (entities, relationships, attributes), *logic*
+    (schemas including data types), *implementation* (infrastructure).
+    #+end_quote
+11) What is the fastest way to implement an entity, e.g. "song",
+    "artist", "album" in a database?
+    #+begin_quote
+    Turn every entity (e.g. "song", "album", "artist") into a table,
+    with attributes limited to the entity + foreign keys.
+    #+end_quote
+    
 More information on NoSQL and semi-structured data: Schwarzmüller on
 "[[https://youtu.be/ZS_kXvOeQ5Y?si=p1RRmEPg-pNbspWj][SQL vs NoSQL or MySQL vs MongoDB]]" (Academind, 2019) - home assignment!
 
 ** TODO Introduction to Entity Relationship Diagrams (ERD)
+
+
 
 ** TODO Review: SQL DataBase Tutorial for Beginners
 
