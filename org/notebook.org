@@ -1564,14 +1564,15 @@ intermission with database design and ERDs.
 10) Which database design models do you know?
     #+begin_quote
 
-    - Relational model (tables)
+    - Relational model (tables) - everything else
     - Dimensional models (analysis facts + attribute dimensions)
       #+attr_html: :width 400px:
       [[../img/dimension.png]]
 
-    - NoSQL model (tables + dictionaries)
-    - Object-oriented model (classes)
-    - Network model (graphs + nodes)
+    - NoSQL model (tables + dictionaries) - unstructured + structured
+      data
+    - Object-oriented model (classes) - game apps
+    - Network model (graphs + nodes) - social media analytics
 
     All models: *concept* (entities, relationships, attributes), *logic*
     (schemas including data types), *implementation* (infrastructure).
