@@ -1582,13 +1582,11 @@ intermission with database design and ERDs.
     Turn every entity (e.g. "song", "album", "artist") into a table,
     with attributes limited to the entity + foreign keys.
     #+end_quote
-    
+
 More information on NoSQL and semi-structured data: Schwarzmüller on
 "[[https://youtu.be/ZS_kXvOeQ5Y?si=p1RRmEPg-pNbspWj][SQL vs NoSQL or MySQL vs MongoDB]]" (Academind, 2019) - home assignment!
 
 ** TODO Introduction to Entity Relationship Diagrams (ERD)
-
-
 
 ** TODO Review: SQL DataBase Tutorial for Beginners
 

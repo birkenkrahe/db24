@@ -389,13 +389,13 @@
 
 * Footnotes
 
-[fn:2]Yes - (1) computers cannot generate true random numbers; (2) the
-basis for the number may over time get exhausted - this happened
-e.g. with IPv4 addresses (see "[[https://en.wikipedia.org/wiki/IPv4_address_exhaustion][IPv4 address exhaustion]]").
-
 [fn:1]Notation reflects priorities, e.g. readibility vs. detail. It is
 surprising that there aren't more popular notations!  Notation must
 faithfully represent the modeling standard. You can in fact become
 famous with notation - [[https://en.wikipedia.org/wiki/Feynman_diagram][Feynman diagrams]] are an example: they are a
 diagrammatic language for complicated integrals that represent
 elementary particle interactions.
+
+[fn:2]Yes - (1) computers cannot generate true random numbers; (2) the
+basis for the number may over time get exhausted - this happened
+e.g. with IPv4 addresses (see "[[https://en.wikipedia.org/wiki/IPv4_address_exhaustion][IPv4 address exhaustion]]").
