@@ -1459,16 +1459,44 @@ intermission with database design and ERDs.
 #+attr_html: :width 400px:
 [[../img/week_11.png]]
 
+/Image: medieval programmers celebrating Easter (?)/
+
 ** TODO Don't forget the test deadline tonight
-** TODO Review DataCamp: Database Design - Processing, Storing, Organizing Data
+** TODO Review DataCamp: DB Design - Processing, Storing, Organizing Data
+
+1) Name at least two reasons for designing your data management.
+   #+begin_quote
+   - *Schemas*: logical organization / data definition (tables/DDL)
+   - *Normalization*: minimize dependency and redundancy (keys/DML)
+   - *Views*: what does the customer want to see most? (joins/DQL)
+   - *Access*: who should have which level of access (control/DCL)
+   - *System*: which SQL flavor is my best bet? (SQL/SQLite/NoSQL)
+   #+end_quote
+2) What do OLTP and OLAP stand for - can you think of examples?
+   #+begin_quote
+   1) OLTP = OnLine *Transaction* Processing, e.g. keeping track of
+      employee hours, finding a product price.
+   2) OLAP = OnLine *Analytical* Processing, e.g. finding loyal
+      customers, decide employee of the month.
+   #+end_quote
+3) Which design approach is more likely to use *big data*, and which is
+   more likely to use *recent data*?
+   #+begin_quote
+   - OLTP is focused on querying transactions, stuff happening now -
+     recent data.
+   - OLAP is focused on analysing large data sets for better
+     statistics - big data.
+   #+end_quote
+4) 
+
+
+** TODO Introduction to Entity Relationship Diagrams (ERD)
 
 ** TODO Review: SQL DataBase Tutorial for Beginners
 
 - [[https://youtu.be/MiAl2mQ718s?si=145lekfuJCxujUOq][Source: YouTube (Adam Finer - Learn BI online), Feb 18, 2022.]]
 
   
-
-** TODO Introduction to Entity Relationship Diagrams (ERD)
 
 * Week 12 -
 
