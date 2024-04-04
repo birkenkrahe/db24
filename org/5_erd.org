@@ -227,28 +227,7 @@
 - Put ~ERD assignment by [Your name] - Pledged~ in the title of your
   diagram
 
-- Upload a screenshot of your solution to Canvas
-
-** Sample solution
-
-- All relationships are subject to *business rules*. E.g. at least one
-  student may have to be enroled in a course, or a lecturer may only
-  be allowed to give a certain number of lectures - or reversely, a
-  lecture may have to have at least one lecturer assigned to it.
-
-- Because business rules change, the relationship structure of the
-  database may also change. The schema, reflected in the entity
-  relationship diagram, reflects this ([[https://editor.ponyorm.com/user/birkenkrahe/Team/designer][source diagram at ponyorm]]).
-  #+name: fig:students
-  #+attr_html: :width 700px
-  #+caption: Sample solution (part) for students db
-  [[../img/students.png]]
-
-- Important to note:
-  + Each lecturer can teach many courses (or none)
-  + Each course can only be taught by exactly one lecturer
-  + Each course can have many students (or none)
-  + Each student can have many courses (or none)
+- Save your diagram in you Google Drive and share a link in Canvas.
 
 * Keys and bridge tables
 
