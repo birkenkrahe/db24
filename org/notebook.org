@@ -1461,9 +1461,9 @@ intermission with database design and ERDs.
 
 /Image: medieval programmers celebrating Easter (?)/
 
-** TODO Don't forget the test deadline tonight! Take your time for it!
+** DONE Don't forget the test deadline! Take your time for it!
 
-** TODO Review DataCamp: DB Design - Processing, Storing, Organizing Data
+** DONE Review DataCamp: DB Design - Processing, Storing, Organizing Data
 
 /Overall: OK lesson (C), I did not care for the presenter's vocal fry./
 
@@ -1587,13 +1587,14 @@ intermission with database design and ERDs.
 More information on NoSQL and semi-structured data: Schwarzmüller on
 "[[https://youtu.be/ZS_kXvOeQ5Y?si=p1RRmEPg-pNbspWj][SQL vs NoSQL or MySQL vs MongoDB]]" (Academind, 2019) - home assignment!
 
-** TODO Introduction to Entity Relationship Diagrams (ERD)
+** IN PROGRESS Introduction to Entity Relationship Diagrams (ERD)
+
+* Week 12 -
 
 ** TODO Review: SQL DataBase Tutorial for Beginners
 
 - [[https://youtu.be/MiAl2mQ718s?si=145lekfuJCxujUOq][Source: YouTube (Adam Finer - Learn BI online), Feb 18, 2022.]]
 
-* Week 12 -
 
 * Week 13 -
 

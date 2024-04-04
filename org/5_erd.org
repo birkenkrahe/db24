@@ -1,392 +1,443 @@
 #+TITLE:Entity Relationship Diagrams
 #+AUTHOR:Marcus Birkenkrahe
 #+SUBTITLE:DB Practice CSC 330 Spring 2024
-#+STARTUP:overview hideblocks
+#+STARTUP:overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
 * README
 
-  - This is a notebook for learning and practicing modeling relational
-    databases using Entity Relationship Diagrams, keys and bridge
-    tables
+- This is a notebook for learning and practicing modeling relational
+  databases using Entity Relationship Diagrams, keys and bridge
+  tables
 
-  - Though we won't get more deeply into database design,
-    understanding relationships, you need to understand this to
-    understand ~JOIN~ commands when querying relational databases
+- Though we won't get more deeply into database design,
+  understanding relationships, you need to understand this to
+  understand ~JOIN~ commands when querying relational databases
 
-  - The notebook also contains two practice exercises for you to
-    complete on your own in a self-guided lab session.
+- The notebook also contains two practice exercises for you to
+  complete on your own in a self-guided lab session.
 
-  - *Modeling* is an essential IT design skill. You can model:
-    - Technical processes (e.g. with UML)
-    - Human processes (e.g. with BPMN)
-    - Algorithms (e.g. with pseudocode or flowcharts)
-    - Entity relationships (e.g. with ERDs)
+- *Modeling* is an essential IT design skill. You can model:
+  - Technical processes (e.g. with UML)
+  - Human processes (e.g. with BPMN)
+  - Algorithms (e.g. with pseudocode or flowcharts)
+  - Entity relationships (e.g. with ERDs)
 
 * ERD notations
 
-  - Relational database design relies on table relationships
-  - This is especially important for ~JOIN~ operations
-  - There are two dominant notations for ERD[fn:1]
+- Relational database design relies on table relationships
+- This is especially important for ~JOIN~ operations
+- There are two dominant notations for ERD[fn:1]
 
 ** Chen notation
 
-   - *Notation Example*
+- *Notation Example*
 
-   #+attr_html: :width 600px
-   #+caption: ERD Chen notation example (Source: Dybka, 2014)
-   [[../img/chen.png]]
+  #+attr_html: :width 600px
+  #+caption: ERD Chen notation example (Source: Dybka, 2014)
+  [[../img/chen.png]]
 
-   - ~BOOK~ and ~CHAPTER~ are two entities (tables)
-   - A ~BOOK~ fully ~CONTAINS~ 1...N ~CHAPTER~ entities
-   - The ~CHAPTER~ is a fully dependent child of ~BOOK~
-   - The ~CHAPTER~ totally participates in the ~BOOK~
-   - The ~BOOK~ has attributes ~TITLE~ and ~BOOK_ID~
-   - ~BOOK_ID~ is a /Primary Key/ (~PK~) of ~BOOK~
-   - The ~CHAPTER~ has attributes ~TITLE~ and ~CHAPTER_ID~
-   - The ~CHAPTER_ID~ is a /Primary Key/ (~PK~) of ~CHAPTER~
+  - ~BOOK~ and ~CHAPTER~ are two entities (tables)
+  - A ~BOOK~ fully ~CONTAINS~ 1...N ~CHAPTER~ entities
+  - The ~CHAPTER~ is a fully dependent child of ~BOOK~
+  - The ~CHAPTER~ totally participates in the ~BOOK~
+  - The ~BOOK~ has attributes ~TITLE~ and ~BOOK_ID~
+  - ~BOOK_ID~ is a /Primary Key/ (~PK~) of ~BOOK~
+  - The ~CHAPTER~ has attributes ~TITLE~ and ~CHAPTER_ID~
+  - The ~CHAPTER_ID~ is a /Primary Key/ (~PK~) of ~CHAPTER~
 
 ** Crow's foot notation
 
-   - *Notation summary*
+- *Notation summary*
 
-     1. A box represents an *entity*, e.g. ~book~
-	
-     2. An entity has *attributes*, e.g. ~book_id~, ~book_title~ etc.
-	#+attr_html: :width 300px
-	#+caption: Entity with attributes
-	[[../img/entity.png]]
+  1. A box represents an *entity*, e.g. ~book~
 
-     3. The attributes can be overloaded with additional properties
-	like /Primary Key/, /Foreign Key/, and they have types like
-	/integer/, /text/ etc.
-	#+attr_html: :width 300px
-	#+caption: Entity with overloaded attributes
-	[[../img/overloaded.png]]
+  2. An entity has *attributes*, e.g. ~book_id~, ~book_title~ etc.
+     #+attr_html: :width 300px
+     #+caption: Entity with attributes
+     [[../img/entity.png]]
 
-     4. Lines between entities represent a (binary) *relationship*
+  3. The attributes can be overloaded with additional properties
+     like /Primary Key/, /Foreign Key/, and they have types like
+     /integer/, /text/ etc.
+     #+attr_html: :width 300px
+     #+caption: Entity with overloaded attributes
+     [[../img/overloaded.png]]
 
-     5. Relationships have two indicators: *maximum* (aka multiplicity) and *minimum*
+  4. Lines between entities represent a (binary) *relationship*
 
-     6. Multiplicity = /maximum/ number of associations between the entities
-	#+attr_html: :width 500px
-	#+caption: Multiplicity (Source: Dybka, 2016)
-	[[../img/multiplicity.png]]
+  5. Relationships have two indicators: *maximum* (aka multiplicity) and *minimum*
 
-     7. Example 1: "A book has one and only one ISBN."
+  6. Multiplicity = /maximum/ number of associations between the entities
+     #+attr_html: :width 500px
+     #+caption: Multiplicity (Source: Dybka, 2016)
+     [[../img/multiplicity.png]]
 
-     8. Example 2: "A book has many chapters."
-	#+attr_html: :width 500px
-	#+caption: Minimum (Source: Dybka, 2016)
-	[[../img/minimum.png]]
+  7. Example 1: "A book has one and only one ISBN."
 
-     9. Example 3: "A book has at least one chapter."
+  8. Example 2: "A book has many chapters."
+     #+attr_html: :width 500px
+     #+caption: Minimum (Source: Dybka, 2016)
+     [[../img/minimum.png]]
 
-     10. Example 4: "A book has no or many new editions."
-         #+attr_html: :width 500px
-         #+caption: ERD crow's foot notation summary
-         [[../img/crowfoot.jpeg]]
+  9. Example 3: "A book has at least one chapter."
 
-   - Realistic example: bank tables
-     #+name: bankerd
-     #+attr_html: :width 700px
-     #+caption: ERD of a bank (Source: Beaulieu, 2008)
-     [[../img/bank.png]]
+  10. Example 4: "A book has no or many new editions."
+      #+attr_html: :width 500px
+      #+caption: ERD crow's foot notation summary
+      [[../img/crowfoot.jpeg]]
 
-   - What is the relationship between:
-     1) ~employee~ and ~department~?
-        #+begin_quote
-	- An employee belongs to at most one department (0,1).
-	- A department has no or many employees (0,m).
-        #+end_quote
-     2) ~customer~ and ~business~?
-        #+begin_quote
-	- A ~customer~ can have none or multiple ~business~ accounts (0,m).
-	- A ~business~ is linked to one and only one ~customer~ (1,1).
-        #+end_quote	
-     3) ~employee~ and ~employee~?
-        #+begin_quote
-	- An ~employee~ can supervise multiple ~employee~ members (0,m).
-	- An ~employee~ can be supervised by at most one other ~employee~ (0,1).
-        #+end_quote
+- Realistic example: bank tables
+  #+name: bankerd
+  #+attr_html: :width 700px
+  #+caption: ERD of a bank (Source: Beaulieu, 2008)
+  [[../img/bank.png]]
 
+- What is the relationship between:
+  1) ~employee~ and ~department~?
+     #+begin_quote
+     - An employee belongs to at most one department (0,1).
+     - A department has no or many employees (0,m).
+     #+end_quote
+  2) ~customer~ and ~business~?
+     #+begin_quote
+     - A ~customer~ can have none or multiple ~business~ accounts (0,m).
+     - A ~business~ is linked to one and only one ~customer~ (1,1).
+     #+end_quote
+  3) ~employee~ and ~employee~?
+     #+begin_quote
+     - An ~employee~ can supervise multiple ~employee~ members (0,m).
+     - An ~employee~ can be supervised by at most one other ~employee~ (0,1).
+     #+end_quote
 
 * Food database revisited
-
 ** Create diagram with ~draw.io~
 
-   1) Open [[https://draw.io][draw.io]] - you can choose where to save your diagrams
+1) Open [[https://draw.io][draw.io]] - you can choose where to save your diagrams
 
-   2) If you choose Google Drive, you need to sign in to authorize as
-      shown in the image.
-      #+attr_html: :width 500px
-      #+caption: draw.io authorization dialog
-      [[../img/drawio.png]]
+2) If you choose Google Drive, you need to sign in to authorize as
+   shown in the image.
+   #+attr_html: :width 500px
+   #+caption: draw.io authorization dialog
+   [[../img/drawio.png]]
 
-   3) When you've authorized the storage place, you can create a new
-      diagram. Don't bother with the templates.
+3) When you've authorized the storage place, you can create a new
+   diagram. Don't bother with the templates.
 
-   4) [[https://youtu.be/gCranxLqZDI][This short video]] shows how to create an entity and relationships
-      between them using the crow's foot notation.
+4) [[https://youtu.be/gCranxLqZDI][This short video]] shows how to create an entity and relationships
+   between them using the crow's foot notation (Birkenkrahe, 2023).
 
 ** Create diagram
 
-   1) /Zoom to Width/ using the menu (left bottom of screen).
-   2) Highlight and delete the diagrams on the screen.
-   3) Drag a table template onto the drawing board.
-   4) Draw the 4 entity diagrams for the food database.
-      #+attr_html: :width 700px
-      #+caption: ERD of the food database (Source: Allen/Owens, 2010)
-      [[../img/food.png]]
+1) /Zoom to Width/ using the menu (left bottom of screen).
+2) Delete the diagrams on the screen (or move them out of the way)
+3) Drag a table template onto the drawing board.
+4) Draw the 4 entity diagrams for the food database.
+   #+attr_html: :width 700px
+   #+caption: ERD of the food database (Source: Allen/Owens, 2010)
+   [[../img/food.png]]
 
-   5) Write down the relationships between ~food_types~ and
-      ~food~. Remember that you're not trying to describe all possible
-      relationships but only the relationship for the purpose of this
-      database with its narrow meaning: types of foods shown in
-      episodes of the Seinfeld TV show.
+5) In prose, write down the relationships between ~food_types~ and
+   ~food~. Remember that you're not trying to describe all possible
+   relationships but only the relationship for the purpose of this
+   database with its narrow meaning: types of foods shown in
+   episodes of the Seinfeld TV show.
+   #+begin_quote
+   - ~food_types~ to ~food~: each food type has zero or many instances
+     of food in the show.
+   - ~food~ to ~food_types~: each food on the show is exactly one type
+     of food.
+   #+end_quote
 
-      #+begin_quote
-      - ~food_types~ to ~food~: each food type has zero or many instances
-        of food in the show.
-      - ~food~ to ~food_types~: each food on the show is exactly one type
-        of food.
+6) Write down the relationships between ~foods~ and ~episodes~.
+   #+begin_quote
+   - A food in ~foods~ can be mentioned in many ~episodes~ of the show.
+   - An episode can contain many ~foods~.
+   #+end_quote
+
+7) Write down the relationships between ~foods_episodes~ and
+   ~episodes~, and between ~foods_episodes~ and ~foods~.
+   #+begin_quote
+   - A ~foods_episode~ must contain at least one food from ~foods~.
+   - A food from ~foods~ can be in none or many ~foods_episodes~.
+   - An episode from ~episodes~ can be in none or many ~foods_episodes~.
+   - A ~foods_episode~ must be at least one episode in ~episodes~.
    #+end_quote
 
 * Practice: customer orders
 
-  1) Develop an ER diagram with three tables: ~customer~, ~order~, and
-     ~product~
+1) Develop an ER diagram with three tables: ~customer~, ~order~, and
+nn   ~product~
 
-  2) Identify suitable attributes
+2) Identify suitable attributes for each of these three entities.
 
-  3) The diagram should allow for relationships like
-     - "A customer submits an order"
-     - "An order contains a product"
-     - "An order belongs to a customer"
-     - "A product is part of an order."
+3) The diagram should allow for relationships like
+   - "A customer submits an order"
+   - "An order contains a product"
+   - "An order belongs to a customer"
+   - "A product is part of an order."
 
-  4) Use draw.io to draw the diagram
+4) Use draw.io to draw the diagram.
 
-  5) Draw relationships with the correct minimum/maximum
+5) Draw relationships with the correct minimum/maximum.
 
-  6) Give your diagram a title
-
-  7) Share the link to your solution with me via Email
-     #+name: fig:customer_ERD
-     #+attr_html: :width 700px
-     #+caption: Customer orders products ERD
-     [[../img/customer1.png]]
-
-* Practice exercise
-
-  - Develop an ER diagram with relationships between *four* tables:
-    ~Student~, ~Course~, ~Lecturer~, and ~Class~ (or meeting).
-
-  - Identify suitable attributes: make sure that they are
-    - measurable (you can think of a suitable data type)
-    - atomic (~address~ is composite, ~street~, ~street number~ are atomic)
-    - attributes (like ~name~) and not entities (like ~registrar~) or
-      relationships (like ~attendance~) themselves
-
-  - The diagram should allow for relationships like
-    - "A student is enroled in a course."
-    - "A class is attended by students."
-    - "An lecturer offers a course."
-    - "A class is taught by an lecturer."
-    - etc.
-
-  - Use draw.io to draw the final ERD (see [[https://youtu.be/gCranxLqZDI][demo video]])
-
-  - Draw relationships with the correct minimum/maximum
-
-  - Put ~ERD assignment by [Your name] - Pledged~ in the title of your
-    diagram
-
-  - Upload a screenshot of your solution to Schoology
+6) Give your diagram a title.
 
 ** Sample solution
 
-   - All relationships are subject to *business rules*. E.g. at least one
-     student may have to be enroled in a course, or a lecturer may only
-     be allowed to give a certain number of lectures - or reversely, a
-     lecture may have to have at least one lecturer assigned to it.
+Some fields are missing in the image:
+- ~Order.Customer_ID~ is a foreign key (~FK~)
+- ~Order.Product_ID~ is a foreign key (~FK~)
+- ~Product.Order_number~ is a foreign key (~FK~).
 
-   - Because business rules change, the relationship structure of the
-     database may also change. The schema, reflected in the entity
-     relationship diagram, reflects this ([[https://editor.ponyorm.com/user/birkenkrahe/Team/designer][source diagram at ponyorm]]).
-     #+name: fig:students
-     #+attr_html: :width 700px
-     #+caption: Sample solution (part) for students db
-     [[../img/students.png]]
+#+name: fig:customer_ERD
+#+attr_html: :width 700px
+#+caption: Customer orders products ERD
+[[../img/customer1.png]]
 
-   - Important to note:
-     + Each lecturer can teach many courses (or none)
-     + Each course can only be taught by exactly one lecturer
-     + Each course can have many students (or none)
-     + Each student can have many courses (or none)
+* Practice exercise
+
+- Develop an ER diagram with relationships between *four* tables:
+  ~Student~, ~Course~, ~Lecturer~, and ~Class~ (or meeting).
+
+- Identify suitable attributes: make sure that they are
+  - measurable (you can think of a suitable data type)
+  - atomic (~address~ is composite, ~street~, ~street number~ are atomic)
+  - attributes (like ~name~) and not entities (like ~registrar~) or
+    relationships (like ~attendance~) themselves
+
+- The diagram should allow for relationships like
+  - "A student is enroled in a course."
+  - "A class is attended by students."
+  - "An lecturer offers a course."
+  - "A class is taught by an lecturer."
+  - etc.
+
+- Use draw.io for the final ERD (see [[https://youtu.be/gCranxLqZDI][demo video]] for details). Use
+  the ~Table~ template to distinguish PK and FK attributes.
+
+- Draw relationships with the correct minimum/maximum
+  multiplicities.
+
+- Put ~ERD assignment by [Your name] - Pledged~ in the title of your
+  diagram
+
+- Upload a screenshot of your solution to Canvas
+
+** Sample solution
+
+- All relationships are subject to *business rules*. E.g. at least one
+  student may have to be enroled in a course, or a lecturer may only
+  be allowed to give a certain number of lectures - or reversely, a
+  lecture may have to have at least one lecturer assigned to it.
+
+- Because business rules change, the relationship structure of the
+  database may also change. The schema, reflected in the entity
+  relationship diagram, reflects this ([[https://editor.ponyorm.com/user/birkenkrahe/Team/designer][source diagram at ponyorm]]).
+  #+name: fig:students
+  #+attr_html: :width 700px
+  #+caption: Sample solution (part) for students db
+  [[../img/students.png]]
+
+- Important to note:
+  + Each lecturer can teach many courses (or none)
+  + Each course can only be taught by exactly one lecturer
+  + Each course can have many students (or none)
+  + Each student can have many courses (or none)
 
 * Keys and bridge tables
+
 ** ERD and relational model
 
-  - The ER model maps the relational database model - using the
-    ~Lecturer~ table as an example.
-    #+name: tab:lecturer
-    | ER MODEL (ORM)   | DATABASE         | EXAMPLE                    |
-    |------------------+------------------+----------------------------|
-    | Entity           | Table            | Lecturer                   |
-    | Entity attribute | Tuple/record/row | ("2", "Birkenkrahe")       |
-    | Attribute        | Column           | Lecturer.name              |
-    | Attribute type   | Column data type | integer/int                |
-  
-  - Some database design necessities such as normalization (removal of
-    logical dependencies between cells) can be done using ERDs.
-  
+- The ER model maps the relational database model - using the
+  ~Lecturer~ table as an example.
+  #+name: tab:lecturer
+  | ER MODEL (ORM)   | DATABASE         | EXAMPLE                    |
+  |------------------+------------------+----------------------------|
+  | Entity           | Table            | Lecturer                   |
+  | Entity attribute | Tuple/record/row | ("2", "Birkenkrahe")       |
+  | Attribute        | Table column     | Lecturer.name              |
+  | Attribute type   | Column data type | integer/int                |
+
+- Some database design necessities such as normalization (removal of
+  logical dependencies between cells) can be done using ERDs.
+
 ** PK Definition
 
-   - A *primary key* (~PK~) is an attribute (or column) that uniquely
-     identifies every record in a certain table.
+- A *primary key* (~PK~) is an attribute (or column) that uniquely
+  identifies every record in a certain table.
 
-   - We already marked the potential PKs in the figure
-     [[fig:customer_ERD]].
+- We already marked the potential PKs in the figure
+  [[fig:customer_ERD]].
 
-   - Primary key rules:
-     1) *UNIQUE* (across the database, i.e. all tables)
-     2) *unchangeable* (while the table exists)
-     3) *NOT NULL* (when data are inserted)
+- Primary key rules:
+  1) *UNIQUE* (across the database, i.e. all tables)
+  2) *unchangeable* (while the table exists)
+  3) *NOT NULL* (when data are inserted)
 
 ** Key candidate identification
 
-   - In any table, the tuple of potential primary keys form the
-     *candidate key*.
-     
-     Example table:
-     #+name: tab:pk
-     |    id | fname | lname | street          | city       |   zip |        phone |
-     |-------+-------+-------+-----------------+------------+-------+--------------|
-     | 30014 | John  | Smith | 1014 Main St    | Batesville | 72501 | 870-307-4245 |
-     | 30067 | John  | Smith | 2300 College Rd | Batesville | 72501 | 501-444-4287 |
-     | 30333 | Jane  | Doe   | 1014 Main St    | Conway     | 72004 | 877-223-4445 |
+- In any table, the tuple of potential primary keys form the
+  *candidate key*.
 
-   - Names, phones, addresses are not /unique/ or /unchangeable/
-   - Only ~id~ is designed to fulfil the PK rules
-   - Can be "randomly" assigned (are there problems with that?)[fn:2]
+  Example table:
+  #+name: tab:pk
+  |    id | fname | lname | street          | city       |   zip |        phone |
+  |-------+-------+-------+-----------------+------------+-------+--------------|
+  | 30014 | John  | Smith | 1014 Main St    | Batesville | 72501 | 870-307-4245 |
+  | 30067 | John  | Smith | 2300 College Rd | Batesville | 72501 | 501-444-4287 |
+  | 30333 | Jane  | Doe   | 1014 Main St    | Conway     | 72004 | 877-223-4445 |
+
+- Names, phones, addresses are not /unique/ or /unchangeable/
+- Only ~id~ is designed to fulfil the PK rules
+- Can be "randomly" assigned (are there problems with that?)[fn:2]
 
 ** Example: web sites
 
-   - If a website does not let you change your username, it likely
-     uses your ~username~ as a primary key (/unchangeable/)
+- If a website does not let you change your username, it likely
+  uses your ~username~ as a primary key (/unchangeable/)
 
-   - If you're told that a username is already taken, it likely uses
-     your ~username~ as a primary key (/unique/)
+- If you're told that a username is already taken, it likely uses
+  your ~username~ as a primary key (/unique/)
 
-   - A website will force you to enter certain information for
-     database reasons if the information is used to create your PK
-     (must be ~NOT NULL~)
+- A website will force you to enter certain information for
+  database reasons if the information is used to create your PK
+  (must be ~NOT NULL~)
 
 ** Foreign Keys
 
-   - Foreign keys are primary keys in other (linked) tables in the
-     same database
+- Foreign keys are primary keys in other (linked) tables in the
+  same database
 
-   - Example from the customer example:
-     #+name: fig:customer_ERD_2
-     #+attr_html: :width 700px
-     #+caption: PK and FK in Customer and Order (ERD)
-     [[../img/customer2.png]]
+- Example from the customer example:
+  #+name: fig:customer_ERD_2
+  #+attr_html: :width 700px
+  #+caption: PK and FK in Customer and Order (ERD)
+  [[../img/customer2.png]]
 
-     #+name: tab:customer_ERD_2
-     #+attr_html: :width 700px
-     #+caption: PK and FK in Customer and Order (tables)
-     [[../img/customer2table.png]]
+  #+name: tab:customer_ERD_2
+  #+attr_html: :width 700px
+  #+caption: PK and FK in Customer and Order (tables)
+  [[../img/customer2table.png]]
 
-   - Foreign keys do not need to be unique (a customer could make
-     another order) and there can be multiple foreign keys in one
-     entity - if we want to link information across multiple tables.
+- Foreign keys do not need to be unique (a customer could make another
+  order) and there can be multiple foreign keys in one entity - if we
+  want to link information across multiple tables.
 
-   - Example: ~product_id~ in a customer order. Now the order table has
-     two foreign keys, ~customer_id~ and ~product_id~.
-     #+name: fig:customer_ERD_3
-     #+attr_html: :width 700px
-     #+caption: PK and FK in Order and Product (ERD)
-     [[../img/customer3.png]]
+- Example: ~product_id~ in a customer order. Now the order table has
+  two foreign keys, ~customer_id~ and ~product_id~.
+  #+name: fig:customer_ERD_3
+  #+attr_html: :width 700px
+  #+caption: PK and FK in Order and Product (ERD)
+  [[../img/customer3.png]]
 
-   - Example bank ERD [[bankerd]]:
-     1. the ~employee~ table has the FKs ~dept_id~ and ~assigned_branch~, 
-	linking each employee to a department and a branch.
-     2. the ~transaction~ table logs bank transactions; its FKs are the
-	~account_id~ for the account used, the ~teller_emp_id~ of the
-	teller responsible for the transaction, and the
-	~execution_branch_id~ for the executing bank branch.
-   
+- Example bank ERD [[bankerd]]:
+  1. the ~employee~ table has the FKs ~dept_id~ and ~assigned_branch~,
+     linking each employee to a department and a branch.
+  2. the ~transaction~ table logs bank transactions; its FKs are the
+     ~account_id~ for the account used, the ~teller_emp_id~ of the
+     teller responsible for the transaction, and the
+     ~execution_branch_id~ for the executing bank branch.
+
 ** Composite primary key
 
-   - Let's say, an order is sent in two different shipments.
-     #+name: tab:shipment
-     #+attr_html: :width 500px
-     #+caption: Two orders in the shipment table
-     [[../img/shipment.png]]
+- Let's say, an order is sent in two different shipments.
+  #+name: tab:shipment
+  #+attr_html: :width 500px
+  #+caption: Two orders in the shipment table
+  [[../img/shipment.png]]
 
-   - We need a composite primary key, because none of the individual
-     IDs will satisfy our rules - none are unique:
-     - Someone else might order the same product (~Product_ID~)
-     - Products might be in the same order (~Order_ID~)
-     - Time and date information of two orders could coincide
+- We need a composite primary key, because none of the individual
+  IDs will satisfy our rules - none are unique:
+  - Someone else might order the same product (~Product_ID~)
+  - Products might be in the same order (~Order_ID~)
+  - Time and date information of two orders could coincide
 
-   - The pair ~(Product_ID, Order_ID)~ is unique for the shipment - it's
-     a valid *composite primary key*.
+- The pair ~(Product_ID, Order_ID)~ is unique for the shipment - it's
+  a valid *composite primary key*.
 
-   - Rules:
-     1. use the fewest number of attributes possible
-     2. attributes should be unchangeable
+- Rules:
+  1. use the fewest number of attributes possible
+  2. attributes should be unchangeable
 
-   - Alternative: add a ~Shipping_ID~. There are arguments for either
-     method.
+- Alternative: add a ~Shipping_ID~. There are arguments for either
+  method.
 
-   - In the bank ERD [[bankerd]] there is one composite key in the table
-     ~business~. It consists of the PK ~cust_id~ in the ~customer~ table,
-     and the ~FK~ that points at ~cust_id~ in the ~officer~ table. 
+- In the bank ERD [[bankerd]] there is one composite key in the table
+  ~business~. It consists of the PK ~cust_id~ in the ~customer~ table,
+  and the ~FK~ that points at ~cust_id~ in the ~officer~ table.
 
 ** Bridge tables
 
-   - If two tables (like ~Student~ and ~Course~ in figure [[fig:students]])
-     are connected by man-to-many relationships, you need a bridge
-     table to remove ambiguities.
+- If two tables (like ~Student~ and ~Course~ in figure [[fig:students]])
+  are connected by man-to-many relationships, you need a bridge
+  table to remove ambiguities.
 
-   - Otherwise, many details are not accessible: e.g. without the
-     Order table, you would not know how many products a customer
-     bought, or when he made individual purchases.
+- Otherwise, many details are not accessible: e.g. without the
+  Order table, you would not know how many products a customer
+  bought, or when he made individual purchases.
 
-   - With the order table, each time a product is purchased, there is
-     a record in the order table about when and how many products.
+- In the ~Student~ and ~Course~ example, the issues include:
+  1. Direct Relationship Management: Attempting to directly link
+     ~Student~ and ~Course~ tables would necessitate multiple rows for the
+     same entity, leading to confusion.
+  2. Data Redundancy: Direct links might result in duplicate
+     information, increasing storage requirements and complicating
+     data management.
+  3. Update Anomalies: Changes to ~Student~ or ~Course~ details could be
+     error-prone and cumbersome, as the information might be
+     duplicated across multiple rows.
+  4. Deletion Ambiguities: Removing a course could lead to confusion
+     about whether to delete all instances of that course, potentially
+     affecting other entries.
+  5. Inefficient Queries: Without a bridge table, querying for
+     relationships could become inefficient and complex, requiring
+     nested queries.
 
-   - The easiest way to generate a bridge table is by creating an
-     intermediate table with only two columns that together form the
-     composite key.
+- Introducing a bridge table, such as ~Enrollment~, that includes
+  foreign keys referencing ~Student~ and ~Course~, resolves the above
+  issues by providing a clear and efficient structure for managing
+  many-to-many relationships:
+  #+BEGIN_example sql
+  CREATE TABLE Enrollment (
+      student_id INT,
+      course_id INT,
+      PRIMARY KEY (student_id, course_id),
+      FOREIGN KEY (student_id) REFERENCES Student(student_id),
+      FOREIGN KEY (course_id) REFERENCES Course(course_id)
+  );
+  #+END_example
 
-   - For example, for the ~student~-~course~ relationship, this could be a
-     table ~enrolment~ with the primary key ~(student_id,
-     course_id)~. Such a table could record all kinds of enrolment
-     data.
+- With the ~Order~ table, each time a product is purchased, there is
+  a record in the order table about when and how many products.
 
-   - You see another example in the bank ERD [[bankerd]]: can you find the
-     bridge table with the composite key?
+- The easiest way to generate a bridge table is by creating an
+  intermediate table with only two columns that together form the
+  composite key.
+
+- For example, for the ~student~-~course~ relationship, this could be a
+  table ~enrolment~ with the primary key ~(student_id, course_id)~. Such a
+  table could record all kinds of enrolment data.
+
+- You see another example in the bank ERD [[bankerd]]: can you find the
+  bridge table with the composite key?
 
 * Object relations mapper
 
-  - [[https://editor.ponyorm.com][Ponyorm]] is a (free) example, and Lucidchart and other apps also
-    offer this option - translate an ERD model into a database.
+- [[https://editor.ponyorm.com][Ponyorm]] is a (free) example, and Lucidchart and other apps also
+  offer this option - translate an ERD model into a database.
 
-  - The other way around is also possible and common: visualizing an
-    existing database. Recommended for SQLite: [[https://dbeaver.io/][DBeaver (open source)]].
+- The other way around is also possible and common: visualizing an
+  existing database. Recommended for SQLite: [[https://dbeaver.io/][DBeaver (open source)]].
 
 * References
 
-  - Birkenkrahe (April 5, 2022). Drawing ERD in draw.io [video]. [[https://youtu.be/gCranxLqZDI][URL:
-    youtu.be/gCranxLqZDI]].
-  - Dybka (August 2, 2014). Chen Notation [blog]. [[https://vertabelo.com/blog/chen-erd-notation/][URL: vertabelo.com]].
-  - Dybka (August 31, 2016). Crow's Foot Notation [blog]. [[https://vertabelo.com/blog/crow-s-foot-notation/][URL:
-    vertabelo.com]].
-  - Lucidchart (2017). Entity Relationship Diagram (ERD) Tutorial Part
-    1 [video]. [[https://youtu.be/QpdhBUYk7Kk][URL: youtu.be/QpdhBUYk7Kk]].
+- Birkenkrahe (April 5, 2022). Drawing ERD in draw.io [video]. [[https://youtu.be/gCranxLqZDI][URL:
+  youtu.be/gCranxLqZDI]].
+- Dybka (August 2, 2014). Chen Notation [blog]. [[https://vertabelo.com/blog/chen-erd-notation/][URL: vertabelo.com]].
+- Dybka (August 31, 2016). Crow's Foot Notation [blog]. [[https://vertabelo.com/blog/crow-s-foot-notation/][URL:
+  vertabelo.com]].
+- Lucidchart (2017). Entity Relationship Diagram (ERD) Tutorial Part
+  1 [video]. [[https://youtu.be/QpdhBUYk7Kk][URL: youtu.be/QpdhBUYk7Kk]].
 
 * Footnotes
 
