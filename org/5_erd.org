@@ -126,7 +126,7 @@
 4) [[https://youtu.be/gCranxLqZDI][This short video]] shows how to create an entity and relationships
    between them using the crow's foot notation (Birkenkrahe, 2023).
 
-** Create diagram
+ ** Create diagram
 
 1) /Zoom to Width/ using the menu (left bottom of screen).
 2) Delete the diagrams on the screen (or move them out of the way)
@@ -137,11 +137,13 @@
    [[../img/food.png]]
 
 5) In prose, write down the relationships between ~food_types~ and
-   ~food~. Remember that you're not trying to describe all possible
+   ~foods~. Remember that you're not trying to describe all possible
    relationships but only the relationship for the purpose of this
-   database with its narrow meaning: types of foods shown in
-   episodes of the Seinfeld TV show.
+   database with its narrow meaning: types of foods shown in episodes
+   of the Seinfeld TV show.
    #+begin_quote
+   #+attr_html: :width 400px:
+   [[../img/food_types_foods.png]]
    - ~food_types~ to ~food~: each food type has zero or many instances
      of food in the show.
    - ~food~ to ~food_types~: each food on the show is exactly one type
@@ -150,6 +152,8 @@
 
 6) Write down the relationships between ~foods~ and ~episodes~.
    #+begin_quote
+   #+attr_html: :width 400px:
+   [[../img/episodes_foods.png]]
    - A food in ~foods~ can be mentioned in many ~episodes~ of the show.
    - An episode can contain many ~foods~.
    #+end_quote
@@ -157,6 +161,8 @@
 7) Write down the relationships between ~foods_episodes~ and
    ~episodes~, and between ~foods_episodes~ and ~foods~.
    #+begin_quote
+   #+attr_html: :width 400px:
+   [[../img/foods_episodes_foods.png]]
    - A ~foods_episode~ must contain at least one food from ~foods~.
    - A food from ~foods~ can be in none or many ~foods_episodes~.
    - An episode from ~episodes~ can be in none or many ~foods_episodes~.
@@ -166,7 +172,7 @@
 * Practice: customer orders
 
 1) Develop an ER diagram with three tables: ~customer~, ~order~, and
-nn   ~product~
+   ~product~
 
 2) Identify suitable attributes for each of these three entities.
 
@@ -184,10 +190,10 @@ nn   ~product~
 
 ** Sample solution
 
-Some fields are missing in the image:
-- ~Order.Customer_ID~ is a foreign key (~FK~)
-- ~Order.Product_ID~ is a foreign key (~FK~)
-- ~Product.Order_number~ is a foreign key (~FK~).
+- Some fields are missing in the image:
+ + ~Order.Customer_ID~ is a foreign key (~FK~)
+ + ~Order.Product_ID~ is a foreign key (~FK~)
+ + ~Product.Order_number~ is a foreign key (~FK~).
 
 #+name: fig:customer_ERD
 #+attr_html: :width 700px
