@@ -3,8 +3,7 @@
 #+SUBTITLE:Bonus assignment - CSC 330 Database Theory and Applications - Lyon College, Spring 2024
 #+STARTUP:overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
-#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes#+PROPERTY: header-args:python :session *Python* :results output :exports both :noweb yes#+PROPERTY: header-args:C :main yes :includes <stdio.h> :results output :exports both :noweb yes#+PROPERTY: header-args:C++ :main yes :includes <iostream> :results output :exports both :noweb yes
-#+startup: overview hideblocks indent entitiespretty: 
+#+PROPERTY: header-args:sqlite :results output :exports both :noweb yes
 * Bonus assignment: prove De Morgan's laws in SQLite
 
 ** Background
@@ -102,8 +101,8 @@ my sample solution when you submit your working solution.
   #+RESULTS:
   : P  Q  NOT(P OR Q)  (NOT P) AND (NOT Q)  NOT(P AND Q)  (NOT P) OR (NOT Q)
   : -  -  -----------  -------------------  ------------  ------------------
-  : 0  0  1            1                    1             1
-  : 0  1  0            0                    1             1
-  : 1  0  0            0                    1             1
-  : 1  1  0            0                    0             0
+  : 0  0  1            1                    1             1                 
+  : 0  1  0            0                    1             1                 
+  : 1  0  0            0                    1             1                 
+  : 1  1  0            0                    0             0                 
 
