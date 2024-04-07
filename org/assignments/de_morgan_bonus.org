@@ -1,9 +1,8 @@
-#+TITLE:Proving De Morgan's Laws in SQLite 
+#+TITLE:Proving De Morgan's Laws in SQLite
 #+AUTHOR:Marcus Birkenkrahe
 #+SUBTITLE:Bonus assignment - CSC 330 Database Theory and Applications - Lyon College, Spring 2024
 #+STARTUP:overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
-#+PROPERTY: header-args:sqlite :results output :exports both :noweb yes
 * Bonus assignment: prove De Morgan's laws in SQLite
 
 ** Background
@@ -59,50 +58,50 @@ my sample solution when you submit your working solution.
      identical.
   5) The first =SELECT= statement prints the header, which is then
      switched =OFF=.
-  #+begin_src sqlite :db test.db :results output :header :column
-    /* P = 0 Q = 0 */
-    SELECT
-    0 AS "P",
-    0 AS "Q",
-    NOT(0 OR 0) AS "NOT(P OR Q)",
-    (NOT 0) AND (NOT 0) AS "(NOT P) AND (NOT Q)",
-    NOT(0 AND 0) AS "NOT(P AND Q)",
-    (NOT 0) OR (NOT 0) AS "(NOT P) OR (NOT Q)";
 
-    /* P = 0 Q = 1  and header off*/
-    .header OFF
-    SELECT
-    0 AS "P",
-    1 AS "Q",
-    NOT(0 OR 1) AS "NOT(P OR Q)",
-    (NOT 0) AND (NOT 1) AS "(NOT P) AND (NOT Q)",
-    NOT(0 AND 1) AS "NOT(P AND Q)",
-    (NOT 0) OR (NOT 1) AS "(NOT P) OR (NOT Q)";
+     #+begin_src sqlite :db test.db :results output :header :column :exports both
+       /* P = 0 Q = 0 */
+       SELECT
+       0 AS "P",
+       0 AS "Q",
+       NOT(0 OR 0) AS "NOT(P OR Q)",
+       (NOT 0) AND (NOT 0) AS "(NOT P) AND (NOT Q)",
+       NOT(0 AND 0) AS "NOT(P AND Q)",
+       (NOT 0) OR (NOT 0) AS "(NOT P) OR (NOT Q)";
 
-    /* P = 1 Q = 0  and header off*/
-    SELECT
-    1 AS "P",
-    0 AS "Q",
-    NOT(1 OR 0) AS "NOT(P OR Q)",
-    (NOT 1) AND (NOT 0) AS "(NOT P) AND (NOT Q)",
-    NOT(0 AND 1) AS "NOT(P AND Q)",
-    (NOT 1) OR (NOT 0) AS "(NOT P) OR (NOT Q)";
+       /* P = 0 Q = 1  and header off*/
+       .header OFF
+       SELECT
+       0 AS "P",
+       1 AS "Q",
+       NOT(0 OR 1) AS "NOT(P OR Q)",
+       (NOT 0) AND (NOT 1) AS "(NOT P) AND (NOT Q)",
+       NOT(0 AND 1) AS "NOT(P AND Q)",
+       (NOT 0) OR (NOT 1) AS "(NOT P) OR (NOT Q)";
 
-    /* P = 1 Q = 1  and header off*/
-    SELECT
-    1 AS "P",
-    1 AS "Q",
-    NOT(1 OR 1) AS "NOT(P OR Q)",
-    (NOT 1) AND (NOT 1) AS "(NOT P) AND (NOT Q)",
-    NOT(1 AND 1) AS "NOT(P AND Q)",
-    (NOT 1) OR (NOT 1) AS "(NOT P) OR (NOT Q)";
-  #+end_src
+       /* P = 1 Q = 0  and header off*/
+       SELECT
+       1 AS "P",
+       0 AS "Q",
+       NOT(1 OR 0) AS "NOT(P OR Q)",
+       (NOT 1) AND (NOT 0) AS "(NOT P) AND (NOT Q)",
+       NOT(0 AND 1) AS "NOT(P AND Q)",
+       (NOT 1) OR (NOT 0) AS "(NOT P) OR (NOT Q)";
 
-  #+RESULTS:
-  : P  Q  NOT(P OR Q)  (NOT P) AND (NOT Q)  NOT(P AND Q)  (NOT P) OR (NOT Q)
-  : -  -  -----------  -------------------  ------------  ------------------
-  : 0  0  1            1                    1             1                 
-  : 0  1  0            0                    1             1                 
-  : 1  0  0            0                    1             1                 
-  : 1  1  0            0                    0             0                 
+       /* P = 1 Q = 1  and header off*/
+       SELECT
+       1 AS "P",
+       1 AS "Q",
+       NOT(1 OR 1) AS "NOT(P OR Q)",
+       (NOT 1) AND (NOT 1) AS "(NOT P) AND (NOT Q)",
+       NOT(1 AND 1) AS "NOT(P AND Q)",
+       (NOT 1) OR (NOT 1) AS "(NOT P) OR (NOT Q)";
+     #+end_src
 
+     #+RESULTS:
+     : P  Q  NOT(P OR Q)  (NOT P) AND (NOT Q)  NOT(P AND Q)  (NOT P) OR (NOT Q)
+     : -  -  -----------  -------------------  ------------  ------------------
+     : 0  0  1            1                    1             1                 
+     : 0  1  0            0                    1             1                 
+     : 1  0  0            0                    1             1                 
+     : 1  1  0            0                    0             0                 
