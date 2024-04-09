@@ -1387,7 +1387,7 @@ transformations, and sorting before the final output is generated.
 [[../img/week_10.png]]
 
 ** Test 3 results (could've been better):
-#+attr_html: :width 400px: 
+#+attr_html: :width 400px:
 [[../img/test_3.png]]
 
 *Same appeal as in all other courses (why?):*
@@ -1396,7 +1396,7 @@ transformations, and sorting before the final output is generated.
 - Everything is in [[https://github.com/birkenkrahe/db24][GitHub]], rendered beautifully for you!
 - If you test code, use the graphical Emacs rather than ~-nw~
 - Let us know how you do this!?
-  
+
 *Manual stats visualization (Canvas too slow):*
 #+begin_src R :file ../img/test_3_R.png :results output graphics file :exports both :comments both :tangle yes :noweb yes
   x <- c(83.33,90,83.33,83.33,86.67,73.33,83.33,86.67,83.33)
@@ -1410,7 +1410,7 @@ transformations, and sorting before the final output is generated.
   title("Test 3 results (CSC 330 SP24)\nHistogram")
   text(x=85,y=4,
        labels=paste(" Mean: ",format(avg,digits=4),"%"),
-       adj=0,col="red")  
+       adj=0,col="red")
   boxplot(x,col="lightgreen",
           horizontal=TRUE,
           xlab="Percentage",
@@ -1418,13 +1418,13 @@ transformations, and sorting before the final output is generated.
   abline(v=avg,col="red",lwd=2)
   text(x=85,y=1.4,
        labels=paste("Mean: ",format(avg,digits=4),"%"),
-       adj=0,col="red")  
+       adj=0,col="red")
 #+end_src
 
 #+RESULTS:
 [[file:../img/test_3_R.png]]
 
-** Test 4 - SELECT (due +Sunday, March 31+ Tuesday, April 2). 
+** Test 4 - SELECT (due +Sunday, March 31+ Tuesday, April 2).
 
 - 30 questions created with the help of ChatGPT using the lecture.
 - Details on =GLOB= vs. =LIKE= are not included yet (only DataCamp level).
@@ -1454,16 +1454,15 @@ intermission with database design and ERDs.
 
 ** Extended DataCamp deadlines to April 2 and April 9 (Easter holidays)
 
-
-* Week 11 - Entity-Relationship Diagrams (ERD)
+* DONE Week 11 - Entity-Relationship Diagrams (ERD)
 #+attr_html: :width 400px:
 [[../img/week_11.png]]
 
 /Image: medieval programmers celebrating Easter (?)/
 
-** DONE Don't forget the test deadline! Take your time for it!
+** Don't forget the test deadline! Take your time for it!
 
-** DONE Review DataCamp: DB Design - Processing, Storing, Organizing Data
+** Review DataCamp: DB Design - Processing, Storing, Organizing Data
 
 /Overall: OK lesson (C), I did not care for the presenter's vocal fry./
 
@@ -1502,7 +1501,7 @@ intermission with database design and ERDs.
    - SCM = Supply Chain Management [systems]
    - ODS = Operational Data Store [database system] - OLTP
    - ETL = Extract, Transform, Load [data]
-      #+end_quote
+   #+end_quote
 5) What's a "data lake" and where is it used?
    #+begin_quote
    A data storage repository that accepts and supports all data types,
@@ -1535,7 +1534,7 @@ intermission with database design and ERDs.
      with open(file_path, 'w') as file:
          import json
          json.dump(json_explanation, file, indent=4)
-     
+
      file_path # output /mnt/data/json_explanation.json
    #+end_example
 7) Visualize "structure" vs. "scalability" with examples, e.g. a
@@ -1548,7 +1547,7 @@ intermission with database design and ERDs.
    transaction, a bonus payment, an employee hiring process, and a
    research project.
    #+begin_quote
-   #+attr_html: :width 600px: 
+   #+attr_html: :width 600px:
    [[../img/structure.jpg]]
    #+end_quote
 9) ETL vs. ELT - what's the difference?
@@ -1560,22 +1559,22 @@ intermission with database design and ERDs.
    ELT = Extract data + load into data lake + transform (model)
    #+attr_html: :width 600px:
    [[../img/ELT.png]]
-      #+end_quote
+   #+end_quote
 10) Which database design models do you know?
     #+begin_quote
 
-    - Relational model (tables) - everything else
-    - Dimensional models (analysis facts + attribute dimensions)
-      #+attr_html: :width 400px:
-      [[../img/dimension.png]]
+- Relational model (tables) - everything else
+- Dimensional models (analysis facts + attribute dimensions)
+  #+attr_html: :width 400px:
+  [[../img/dimension.png]]
 
-    - NoSQL model (tables + dictionaries) - unstructured + structured
-      data
-    - Object-oriented model (classes) - game apps
-    - Network model (graphs + nodes) - social media analytics
+- NoSQL model (tables + dictionaries) - unstructured + structured
+  data
+- Object-oriented model (classes) - game apps
+- Network model (graphs + nodes) - social media analytics
 
-    All models: *concept* (entities, relationships, attributes), *logic*
-    (schemas including data types), *implementation* (infrastructure).
+  All models: *concept* (entities, relationships, attributes), *logic*
+  (schemas including data types), *implementation* (infrastructure).
     #+end_quote
 11) What is the fastest way to implement an entity, e.g. "song",
     "artist", "album" in a database?
@@ -1589,12 +1588,131 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 
 ** IN PROGRESS Introduction to Entity Relationship Diagrams (ERD)
 
-* Week 12 -
+
+* Week 12 - More ERD - MySQL - Subqueries and Joins
+#+attr_html: :width 600px:
+[[../img/eclipse.png]]
 
 ** TODO Review: SQL DataBase Tutorial for Beginners
 
 - [[https://youtu.be/MiAl2mQ718s?si=145lekfuJCxujUOq][Source: YouTube (Adam Finer - Learn BI online), Feb 18, 2022.]]
 
+- Useful process: "client brief"
+  + Scenario: Ben is opening up a new pizzeria in his town. It won't
+    be a dine-in, just take-out and delivery, a bit like a Domino's
+    Pizza restaurant.
+
+  + Project brief:
+    1. Design and build a tailor-made, bespoke, relational database his
+       business that allows him to capture and store all of the
+       important information and data that the business generates.
+    2. The data will help the client to monitor business performance in
+       dashboards to be built as the front-end to the database back-end.
+    3. Someone else will be hired to build the front-end ordering
+       system.
+
+  + The important data include:
+    1) customer orders
+    2) stock levels
+    3) staff data
+
+  + Approach:
+    1. spec out all the field for the data to be collected
+    2. normalize the data adding tables and defining relationships
+    3. add data to the database
+
+  + Client brief - Ben's pizzeria: orders data required
+    + Item name
+    + Item price
+    + Quantity
+    + Customer name
+    + Delivery address
+
+  + Our orders data
+    + Row ID
+    + Order ID
+    + Item name
+    + Item category
+    + Item size
+    + Item price
+    + Quantity
+    + Customer first name
+    + Customer last name
+    + Delivery address 1
+    + Delivery address 2
+    + Delivery city
+    + Delivery zip code
+
+- Useful tool: dbdiagram.io (ORM tool) - [[https://dbdiagram.io/d/pizzeria_sqlite-6614559c03593b6b6180d70d][see my example]] (no SQLite export)
+  #+attr_html: :width 600px:
+  [[../img/pizzeria.png]]
+
+- Not useful (but realistic): using Excel to capture/store data. Work
+  in SQL from the start. Excel forces you to use additional tools and
+  export (again) to and from CSV.
+
+- Realistically, however, many businesses still keep their data in
+  Excel. The earlier they are exported and kept in SQL the better!
+
+- The final ERD looks like this:
+  #+attr_html: :width 600px:
+  [[../img/pizzeria_erd.png]]
+
+- "How can I get access to MySQL?" (We'll do this later in the
+  week. If you're impatient, check out XAMPP at [[https://apachefriends.org][apachefriends.org]].
+
+- This author also has a [[https://youtu.be/gm6tNK_iOHs?si=byuYRXSfJh9mmYLX][15 min tutorial]] to get started with SQL. It
+  also uses the MySQL flavor and is not bad though I prefer [[https://youtu.be/XqIk2PwP0To?si=QJUuHKnq7r4-77xG][this one]]
+  by Derek Banas (which I used many years ago to learn SQL myself).
+
+
+** IN PROGRESS Introduction to Entity Relationship Diagrams (ERD)
+
+- Review:
+  1) How would you define the following relationship using crow's foot:
+     - An employee need not supervise other employees but he can
+       supervise any number of other employees.
+     - Every employee must have a supervisor.
+     #+attr_html: :width 300px:
+     [[../img/superior.png]]
+
+  2) What does ~(0,1)~ for a relationship beetween two entities A and B
+     mean, if the ordered pair is located next to A?
+     #+begin_quote
+     Zero or one instance of B are related to A. E.g. if A =
+     employee, and B = department, then every employee (A) works
+     either in no or in exactly one department (B).
+     #+end_quote
+
+  3) What does it mean that ~(1,m)~ is "mandatory", and ~(0,n)~ optional?
+     #+begin_quote
+     - A "mandatory" relationship, also known as a "required" or
+       "one-to-many" relationship, requires that every record in one table
+       (the child table) must be related to a record in another table (the
+       parent table). This is enforced by a foreign key constraint, which
+       means that the foreign key column in the child table cannot have
+       null values. In other words, the presence of a related record in the
+       parent table is mandatory for each record in the child table.
+     - An "optional" relationship, also known as an "optional" or
+       "zero-to-many" relationship, allows for the foreign key column in
+       the child table to have null values. This means that a record in the
+       child table may exist without being related to any record in the
+       parent table. In this case, the presence of a related record in the
+       parent table is optional for each record in the child table.
+     #+end_quote
+
+- College database ERD practice example
+
+- Normalization
+
+- Object-Relational Mapper tool (editor.ponyorm.com)
+
+
+** TODO Review DataCamp: Schemas and Normalization
+
+** TODO Subqueries and Joins in SQLite
+
+** TODO Install and learn to use MySQL via XAMPP
 
 * Week 13 -
 

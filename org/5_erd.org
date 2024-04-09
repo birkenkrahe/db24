@@ -168,7 +168,7 @@
    - An episode from ~episodes~ can be in none or many ~foods_episodes~.
    - A ~foods_episode~ must be at least one episode in ~episodes~.
    #+end_quote
-
+   
 * Practice: customer orders
 
 1) Develop an ER diagram with three tables: ~customer~, ~order~, and
@@ -227,7 +227,7 @@
 - Put ~ERD assignment by [Your name] - Pledged~ in the title of your
   diagram
 
-- Save your diagram in you Google Drive and share a link in Canvas.
+- Save your diagram in you Google Drive and [[https://lyon.instructure.com/courses/2254/assignments/26647][share a link in Canvas]].
 
 * Keys and bridge tables
 
