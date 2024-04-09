@@ -1596,7 +1596,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 ** TODO Review: SQL DataBase Tutorial for Beginners
 
 - [[https://youtu.be/MiAl2mQ718s?si=145lekfuJCxujUOq][Source: YouTube (Adam Finer - Learn BI online), Feb 18, 2022.]]
-
+  
 - Useful process: "client brief"
   + Scenario: Ben is opening up a new pizzeria in his town. It won't
     be a dine-in, just take-out and delivery, a bit like a Domino's
@@ -1670,7 +1670,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 
 - Review:
   1) How would you define the following relationship using crow's foot:
-     - An employee need not supervise other employees but s/he can
+     - An employee need not supervise other employees but he can
        supervise any number of other employees.
      - Every employee must have a supervisor.
      #+attr_html: :width 300px:

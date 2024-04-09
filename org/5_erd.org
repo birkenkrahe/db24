@@ -203,7 +203,7 @@
 * Practice exercise
 
 - Develop an ER diagram with relationships between *four* tables:
-  ~Student~, ~Course~, ~Lecturer~, and ~Class~ (or meeting).
+  ~Student~, ~Course~, ~Lecturer~.
 
 - Identify suitable attributes: make sure that they are
   - measurable (you can think of a suitable data type)
@@ -212,11 +212,15 @@
     relationships (like ~attendance~) themselves
 
 - The diagram should allow for relationships like
-  - "A student is enroled in a course."
-  - "A class is attended by students."
+  - "A student is enrolled in a course."
   - "An lecturer offers a course."
-  - "A class is taught by an lecturer."
+  - "A course is taught by an lecturer."
+  - "A student is part of a student team."
   - etc.
+
+- To make it more realistic, you'd add another table for the entity
+  ~Class~ (class meeting), to capture relationships like "A ~student~
+  attends a lecture," and "a ~lecturer~ teaches a ~class~.
 
 - Use draw.io for the final ERD (see [[https://youtu.be/gCranxLqZDI][demo video]] for details). Use
   the ~Table~ template to distinguish PK and FK attributes.
@@ -236,12 +240,12 @@
 - The ER model maps the relational database model - using the
   ~Lecturer~ table as an example.
   #+name: tab:lecturer
-  | ER MODEL (ORM)   | DATABASE         | EXAMPLE                    |
+  | ER MODEL (ORM)   | DATABASE         | QUERY EXAMPLE              |
   |------------------+------------------+----------------------------|
   | Entity           | Table            | Lecturer                   |
   | Entity attribute | Tuple/record/row | ("2", "Birkenkrahe")       |
   | Attribute        | Table column     | Lecturer.name              |
-  | Attribute type   | Column data type | integer/int                |
+  | Attribute type   | Column data type | integer/int, text/str      |
 
 - Some database design necessities such as normalization (removal of
   logical dependencies between cells) can be done using ERDs.
