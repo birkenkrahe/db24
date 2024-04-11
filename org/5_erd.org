@@ -413,7 +413,6 @@
 - You see another example in the bank ERD [[bankerd]]: can you find the
   bridge table with the composite key?
 
-
 * Object relations mapper
 
 - [[https://editor.ponyorm.com][Ponyorm]] is a (free) example, and Lucidchart and other apps also

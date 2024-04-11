@@ -1712,9 +1712,10 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 1) Imagine the following entity relationships:
    - "A user has zero, one or more accounts."
    - "An account is associated with one and only one user."
-   #+attr_html: :width 600px:
-   #+caption: min and max multiplicities (set size)
-   [[../img/min_max_cardinality.png]]
+   - Example
+      #+attr_html: :width 700px:
+      #+caption: min and max multiplicities (set size)
+      [[../img/min_max_cardinality.png]]
    #+begin_quote
    - Sentence 1 describes a multiplicity of (0,M) or min=0, max=M
    - Sentence 2 describes a multiplicity of (1,1) or min=max=1
@@ -1734,18 +1735,18 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
    #+end_quote
 
 3) How can you experiment with the data in the DataCamp lesson?
-   #+attr_html: :width 400px:
+   #+attr_html: :width 600px:
    #+caption: Get started with SQL in the DataCamp workspace
    [[../img/datacamp_workspace.png]]
 
-   #+attr_html: :width 400px:
+   #+attr_html: :width 600px:
    #+caption: Create an interactive (Jupyter) notebook
    [[../img/datacamp_workspace1.png]]
 
-   #+attr_html: :width 400px:
+   #+attr_html: :width 800px:
    #+caption: List tables and `books` table content (PostgreSQL)
    [[../img/datacamp_workspace2.png]]
-
+   
 4) Explain this command:
    #+begin_example sql
    ALTER TABLE fact_booksales ADD CONSTRAINT sales_book
@@ -1765,7 +1766,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
    5. The =CONSTRAINT= ensures that any value in ~fact_booksales.book_id~
       also exists in ~dim_book_star.book_id~.
    #+end_quote
-   #+attr_html: :width 600px:
+   #+attr_html: :width 800px:
    [[../img/book-star.png]]
 
 5) How can you find out what the proper syntax is for such a command?
@@ -1791,7 +1792,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
    #+begin_quote
    - Normalization saves space - more space for tables but fewer records
    #+end_quote
-   #+attr_html: :width 600px:
+   #+attr_html: :width 800px:
    [[../img/normalized1.png]]
 
 8) Which of these has typically higher degree of normalization? OLTP or OLAP?
@@ -1802,17 +1803,17 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 
 9) What are the "normal forms"?
    #+begin_quote
-   1. 1NF rules: each record must be unique, and each cell must hold one value.
-   2. 2NF rules: 1NF + each non-key column must be dependent on all
+   1) 1NF rules: each record must be unique, and each cell must hold one value.
+   2) 2NF rules: 1NF + each non-key column must be dependent on all
       keys (comp key). If there is a PK, 2NF is automatically
       satisfied. Columns that depend only on one key need to be extracted.
-   3. 3NF = 2NF + no transitive dependencies = non-key columns cannot
+   3) 3NF = 2NF + no transitive dependencies = non-key columns cannot
       depend on other non-key columns.
    #+end_quote
 
 10) What is risked if we don't "normalized enough"?
     #+begin_quote
-    Data consistency anomaly errors:
+    Data consistency 'anomaly' errors:
     1) Update anomaly: multiple redundant records would have to be updated.
     2) Insertion anomaly: cannot record because attributes are missing.
     3) Deletion anomaly: unintentional loss of data when deleting records.
@@ -1823,7 +1824,6 @@ video already announced, and I'll give you another video to watch.
 
 We'll also get back to joins and subqueries with SQLite to understand
 these operations better, before picking up on the DataCamp examples.
-
 
 ** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) (Apr 16)
 
