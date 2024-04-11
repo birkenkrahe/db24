@@ -63,7 +63,7 @@
 
      #+attr_html: :width 600px
      #+caption: Entity-Relationship Diagram for foods.db
-     [[./img/erd.png]]
+     [[../,,/img/erd.png]]
 
    * You can create such diagrams yourself in an Object-Relationship
      Mapper (ORM) application like /ponyorm/. This is more than a
@@ -72,7 +72,7 @@
 
      #+attr_html: :width 600px
      #+caption: Object-relationship map for foods (ponyorm.com)
-     [[./img/ponyorm.png]]
+     [[../../img/ponyorm.png]]
 
    * [ ] In the next code blocks list the commands that are needed
      to import the ORM schema, stored in a file ~orm.sql~ into SQLite.
@@ -126,7 +126,6 @@
 
      #+end_src
 
-     
 * Translate SQL query into natural language
 
   * SQL is a declarative, natural language. You are able to speak
@@ -233,7 +232,6 @@
 
     #+end_src
 
-    
 * Grouping rows
 
   * [ ] How many episodes did each of the seasons of the Seinfeld show
@@ -258,7 +256,6 @@
 
     #+end_src
 
-    
 * Coercion
 
   * [ ] Explain the difference between the results of these three queries!

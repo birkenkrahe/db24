@@ -1707,7 +1707,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 - Object-Relational Mapper tool (editor.ponyorm.com)
 
 
-** TODO Review DataCamp: Schemas and Normalization
+** TODO [Extended] Review DataCamp: Schemas and Normalization
 
 1) Imagine the following entity relationships:
    - "A user has zero, one or more accounts."
@@ -1733,7 +1733,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
      cardinality, which can be refined by the multiplicity.
    #+end_quote
 
-3) Can you experiment with the data in the DataCamp lesson?
+3) How can you experiment with the data in the DataCamp lesson?
    #+attr_html: :width 400px:
    #+caption: Get started with SQL in the DataCamp workspace
    [[../img/datacamp_workspace.png]]
@@ -1746,11 +1746,50 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
    #+caption: List tables and `books` table content (PostgreSQL)
    [[../img/datacamp_workspace2.png]]
 
+4) Explain this command:
+   #+begin_example sql
+   ALTER TABLE fact_booksales ADD CONSTRAINT sales_book
+       FOREIGN KEY (book_id) REFERENCES dim_book_star (book_id)
+   #+end_example
+   #+begin_quote
+   1. You want to be able to draw on the data in the tables
+      ~dim_book_star~ and ~fact_booksales~. To join these two tables, you
+      need to 'zip' them together using a common, unique field like
+      ~book_id~.
+   2. You need to add ~dim_book_star.book_id~ as a =FOREIGN KEY= to
+      ~fact_booksales~ (indicated in the ERD as an ~FK~ constraint).
+   3. You need to =ALTER= the schema of ~fact_booksales~ and =ADD= a
+      =CONSTRAINT= to the =FOREIGN KEY= ~fact_booksales.book_id~.
+   4. To add the =CONSTRAINT=, you need to establish that
+      ~fact_booksales.book_id~ references ~dim_book_star.book_id~.
+   5. The =CONSTRAINT= ensures that any value in ~fact_booksales.book_id~
+      also exists in ~dim_book_star.book_id~.
+   #+end_quote
+   #+attr_html: :width 600px:
+   [[../img/book-star.png]]
+
+5) How can you find out what the proper syntax is for such a command?
+   #+begin_quote
+   - Check the =ALTER TABLE= [[https://www.postgresql.org/docs/current/sql-altertable.html][documentation for PostgreSQL]]:
+     #+attr_html: :width 600px: 
+     [[../img/alter_table_add_constraint.png]]
+   - SQLite doesn't have this feature - it is enforced by default.
+   #+end_quote
+
+6) 
+
+7) 
+
+8) 
+
+9) 
+
+10) 
+
+
 ** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) (Apr 16)
 
 ** TODO Install and learn to use MySQL via XAMPP
-
-
 ** TODO Subqueries and Joins in SQLite
 
 

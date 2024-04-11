@@ -238,7 +238,6 @@
 - Save your diagram in you Google Drive and [[https://lyon.instructure.com/courses/2254/assignments/26647][share a link in Canvas]].
 
 * Keys and bridge tables
-
 ** ERD and relational model
 
 - The ER model maps the relational database model - using the
@@ -413,6 +412,7 @@
 
 - You see another example in the bank ERD [[bankerd]]: can you find the
   bridge table with the composite key?
+
 
 * Object relations mapper
 
