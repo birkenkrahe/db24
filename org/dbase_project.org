@@ -1,0 +1,136 @@
+#+TITLE: Database Design
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: CSC 330 Database Theory and Applications, Lyon College, Spring 2024
+#+STARTUP: hideblocks overview indent :
+#+OPTIONS: toc:nil num:nil ^:nil:
+#+PROPERTY: header-args:sqlite :results output
+* README
+
+- What does a database project entail?
+
+* DONE What does a "database project" entail?
+
+- Student:
+  #+begin_quote
+  I think I am struggling to understand exactly what a "Databases"
+  project means. Other than putting the data in a database, what should
+  I be looking to do?
+  #+end_quote
+  
+- Answer:
+  #+begin_quote
+  It only looks so simple because we've been dealing with 1-table
+  2-column databases, which require no planning and no maintenance.
+
+  "Creating a database" includes practical and theoretical understanding
+  of the database system (DB + infrastructure) from conception (what
+  data, who will use, when, why etc.) through implementation (which
+  flavor, which OS, which network, which speed, which size) to
+  maintenance.
+
+  The next DataCamp course is on another section of the DB
+  conception/planning stage.
+
+  The scope of the problem was included in the lecture (video) by Prof
+  Baesens on databases a few weeks ago - we reviewed it in class -
+  cp. the 3-layer-model.
+  #+end_quote
+
+Creating a database for a course project generally implies several key
+activities aimed at *designing*, *implementing*, and *managing* a *structured*
+collection of data that is both *efficient* to use and *scalable*.
+
+This process often encompasses a variety of tasks from initial
+conception to final implementation, including but not limited to the
+following:
+
+1. INITIAL PLANNING AND DESIGN:
+   - *Requirement Analysis:* Understanding the data needs and the
+     operations that will be performed on the database.
+     #+begin_quote
+     Example: The database should contain available, relevant
+     information about the foods and the types of foods in all of the
+     Seinfeld TV show episodes.
+     #+end_quote
+     #+begin_src sqlite :db ../data/foods.db :results output :column 
+       SELECT name FROM foods LIMIT 1; /* example food */
+       SELECT name FROM food_types LIMIT 1; /* example food type */
+       SELECT name FROM episodes LIMIT 1; /* example episode */              
+     #+end_src
+                    
+   - *Conceptual Design:* Creating a high-level model of what data will
+     be stored and how the entities within the database will interact
+     with each other, often represented through an Entity-Relationship
+     (ER) diagram.
+     #+begin_quote
+     #+attr_html: :width 700px: 
+     [[../img/foods_erd.png]]
+     #+end_quote
+
+2. IMPLEMENTATION:
+   - *Logical Design:* Transforming the conceptual model into a logical
+     model, which includes defining the specific structures and
+     relationships between the data in a way that can be implemented
+     in a database management system (DBMS).
+     #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+       .schema foods_episodes /* bridge table between `foods` and `episodes` */
+     #+end_src
+
+   - *Physical Design*: Deciding on the physical storage of data,
+     considering performance optimization through indexing,
+     partitioning, and choosing the appropriate storage format.
+     #+begin_quote
+     - How to translate entities into physical tables (e.g. `foods`
+     - What attributes to use for columns of the physical tables (e.g. `name` of food)
+     - Which columns to define as keys (for cross-table queries)
+     - What indexes to define on the tables (to speed up queries)
+     - What views to define on the tables (stored queries)
+     - How to denormalize the tables (to avoid costly joins)
+     - How to resolve many-to-many relationships (bridge tables)
+     #+end_quote
+          
+3. DATABASE CREATION
+   - *Schema Definition:* Using Data Definition Language (DDL) commands
+     to create the database schema, which includes tables, views,
+     indexes, and other database objects.
+     #+begin_src sqlite :db ../data/foods.db :results output :header :column 
+       .schema
+     #+end_src
+
+   - *Data Insertion:* Populating the database with initial data using
+     Data Manipulation Language (DML) commands or bulk insert tools.
+     #+begin_example sqlite
+     INSERT INTO "episodes" VALUES(0, NULL, 'Good News Bad News');
+     #+end_example
+     
+4. TESTING AND EVALUATION
+   - *Functionality Testing*: Ensuring that the database functions
+     correctly, including data insertion, querying, updating, and
+     deletion.
+   - *Performance Testing*: Evaluating the database performance under
+     different loads and optimizing as necessary.
+
+5. DOCUMENTATION AND MAINTENANCE
+   - *Documentation:* Creating comprehensive documentation that covers
+     the design decisions, schema details, and usage instructions for
+     future reference and maintenance.
+   - *Maintenance Plans:* Establishing procedures for regular
+     maintenance tasks such as backups, performance tuning, and
+     security updates.
+
+6. DASHBOARD CREATION
+   - Select UI (user interaction) design framework (e.g. R Shiny)
+
+   - Build dashboard with database connection to customer
+     specifications.
+
+MORE:
+- Steps 1-3 are illustrated by this [[https://youtu.be/MiAl2mQ718s?si=v_EikQULs0oG_7oq][Database Design video tutorial]] for
+  beginners (15 min video by Adam Finer, 2022) - shared in Google
+  [[https://chat.google.com/room/AAAAEZSJ81g/zgS4qWacXLw/zgS4qWacXLw?cls=10][Chat]].
+- In March, you will also study the basics of database design with two
+  chapters of the "[[https://app.datacamp.com/learn/courses/database-design][Database Design]]" course on DataCamp.
+- The Seinfeld 'food' SQLite database will serve as our example, and I
+  will work it up into a sample project that you can use as
+  springboard.
+
