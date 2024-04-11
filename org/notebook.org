@@ -1709,6 +1709,42 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 
 ** TODO Review DataCamp: Schemas and Normalization
 
+1) Imagine the following entity relationships:
+   - "A user has zero, one or more accounts."
+   - "An account is associated with one and only one user."
+   #+attr_html: :width 600px:
+   #+caption: min and max multiplicities (set size)
+   [[../img/min_max_cardinality.png]]
+   #+begin_quote
+   - Sentence 1 describes a multiplicity of (0,M) or min=0, max=M
+   - Sentence 2 describes a multiplicity of (1,1) or min=max=1
+   #+end_quote
+   
+2) When someone says two entities, e.g. "advisor" and "student" have a
+   "one-to-many" relationship, what do they mean?
+   #+begin_quote
+   - "one-to-many" refers to the 'cardinality' (set size) of their
+     relationship: an advisor can have many students but any student
+     can only have one advisor, or 1:M
+   - The other multiplicities are "one-to-one" or "many-to-many":
+     * 1:1, for example "one course is taught in one classroom"
+     * M:N, for example "many students are enrolled in many courses"
+   - In Object-Relation Model softwares, you usually only find the
+     cardinality, which can be refined by the multiplicity.
+   #+end_quote
+
+3) Can you experiment with the data in the DataCamp lesson?
+   #+attr_html: :width 400px:
+   #+caption: Get started with SQL in the DataCamp workspace
+   [[../img/datacamp_workspace.png]]
+
+   #+attr_html: :width 400px:
+   #+caption: Create an interactive (Jupyter) notebook
+   [[../img/datacamp_workspace1.png]]
+
+   #+attr_html: :width 400px:
+   #+caption: List tables and `books` table content (PostgreSQL)
+   [[../img/datacamp_workspace2.png]]
 
 ** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) (Apr 16)
 

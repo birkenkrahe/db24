@@ -28,6 +28,10 @@
 - This is especially important for ~JOIN~ operations
 - There are two dominant notations for ERD[fn:1]
 
+#+attr_html: :width 400px:
+#+caption: Chen's 1:N vs. Crow's foot's (1,1):(1:M) cardinality
+[[../img/chen_vs_crowsfoot.png]]
+
 ** Chen notation
 
 - *Notation Example*
