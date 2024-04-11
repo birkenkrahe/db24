@@ -1776,15 +1776,53 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
    - SQLite doesn't have this feature - it is enforced by default.
    #+end_quote
 
-6) 
+6) What does "normalization" mean according to the DataCamp lesson?
+   #+begin_quote
+   - Divide tables into smaller tables and connect them via relationships.
+   - Normalized tables can be joined with fewer =JOINS= (faster).
+   - Easier to redesign by extending table schema (smaller tables).
+   - Safer updating, removing, and inserting (fewer records to alter).
+   - Downside: more complex queries require more CPU time (who cares).
+   #+end_quote
+   #+attr_html: :width 600px:
+   [[../img/normalized.png]]
+   
+7) Why does normalization "save space"?
+   #+begin_quote
+   - Normalization saves space - more space for tables but fewer records
+   #+end_quote
+   #+attr_html: :width 600px:
+   [[../img/normalized1.png]]
 
-7) 
+8) Which of these has typically higher degree of normalization? OLTP or OLAP?
+   #+begin_quote
+   - OLTP more normalized - more and faster changes / write-intensive.
+   - OLAP less normalized - faster queries required / read-intensive.
+   #+end_quote
 
-8) 
+9) What are the "normal forms"?
+   #+begin_quote
+   1. 1NF rules: each record must be unique, and each cell must hold one value.
+   2. 2NF rules: 1NF + each non-key column must be dependent on all
+      keys (comp key). If there is a PK, 2NF is automatically
+      satisfied. Columns that depend only on one key need to be extracted.
+   3. 3NF = 2NF + no transitive dependencies = non-key columns cannot
+      depend on other non-key columns.
+   #+end_quote
 
-9) 
+10) What is risked if we don't "normalized enough"?
+    #+begin_quote
+    Data consistency anomaly errors:
+    1) Update anomaly: multiple redundant records would have to be updated.
+    2) Insertion anomaly: cannot record because attributes are missing.
+    3) Deletion anomaly: unintentional loss of data when deleting records.
+    #+end_quote
 
-10) 
+We'll deal with the 'normal forms' in a practice exercise. Watch the
+video already announced, and I'll give you another video to watch.
+
+We'll also get back to joins and subqueries with SQLite to understand
+these operations better, before picking up on the DataCamp examples.
 
 
 ** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) (Apr 16)
