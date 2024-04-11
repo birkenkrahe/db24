@@ -1588,12 +1588,11 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 
 ** IN PROGRESS Introduction to Entity Relationship Diagrams (ERD)
 
-
-* Week 12 - More ERD - MySQL - Subqueries and Joins
+* Week 12 - Normalization and ERD practice
 #+attr_html: :width 600px:
 [[../img/eclipse.png]]
 
-** TODO Review: SQL DataBase Tutorial for Beginners
+** DONE Review: SQL DataBase Tutorial for Beginners
 
 - [[https://youtu.be/MiAl2mQ718s?si=145lekfuJCxujUOq][Source: YouTube (Adam Finer - Learn BI online), Feb 18, 2022.]]
 
@@ -1711,12 +1710,15 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 ** TODO Review DataCamp: Schemas and Normalization
 
 
-** TODO Subqueries and Joins in SQLite
-
+** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) (Apr 16)
 
 ** TODO Install and learn to use MySQL via XAMPP
 
-* Week 13 -
+
+** TODO Subqueries and Joins in SQLite
+
+
+* Week 13 - Joins and subqueries in SQLite
 
 * Week 14 -
 
