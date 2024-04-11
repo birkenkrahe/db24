@@ -2,52 +2,48 @@
 #+startup: overview hideblocks
 * Create ERD and SQLite file
 
-  1) [ ] In editor.ponyorm.com create two entities: ~Lecturer~ and ~Course~
+  1) In editor.ponyorm.com create two entities: ~Lecturer~ and ~Course~
 
-  2) [ ] Add attributes ~Lecturer.name~ and ~Course.title~
+  2) Add attributes ~Lecturer.name~ and ~Course.title~
 
      #+caption: Entities Lecturer and Course
-     [[./img/erd1.png]]
+     [[../../img/erd1.png]]
 
-  3) [ ] Add a relationship between the entities:
+  3) Add a relationship between the entities:
      - A lecturer may be related to *many* courses
      - Each course may be related to *exactly one* lecturer
 
   4) You see that the ORM creates *foreign keys* in each entity:
      ~Lecturer.courses~ and ~Courses.lecturer~.
-
      #+caption: Foreign key attributes courses and lecturer
-     [[./img/erd2.png]]
+     [[../../img/erd2.png]]
 
-  5) [ ] You can open a third column with the menu button at the top of
+  5) You can open a third column with the menu button at the top of
      each table to see key properties:
 
      #+attr_html: :width 500px
      #+caption: Foreign key attributes courses and lecturer
-     [[./img/erd3.png]]
+     [[../../img/erd3.png]]
 
-  6) [ ] Copy the SQLite code from Ponyorm and save it in a file
+  6) Copy the SQLite code from Ponyorm and save it in a file
      ~students.sql~
 
 * Create database
 
-  1) [ ] Take the SQLite code from Ponyorm and create an SQLite
-     database ~students.db~
+  1) Take the SQLite code from Ponyorm and create an SQLite database
+     ~students.db~
 
      #+begin_src bash :results silent
    #    sqlite3 students.db < students.sql
      #+end_src
 
-  2) [ ] Check for tables.
+  2) Check for tables.
 
      #+begin_src sqlite :db students.db :results output :exports both
        .tables
      #+end_src
 
-     #+RESULTS:
-     : Course    Lecturer
-
-  3) [ ] Check with ~.schema~ what the required data types are, or look
+  3) Check with ~.schema~ what the required data types are, or look
      at [[https://editor.ponyorm.com/user/birkenkrahe/Team/designer][the Ponyorm ERD]].
 
      #+name: schema
@@ -92,7 +88,7 @@
 
 * ~INSERT~ data into the ~Lecturer~ table
 
-  1) [ ] Note that you cannot keep running these ~INSERT~ commands. After
+  1) Note that you cannot keep running these ~INSERT~ commands. After
      the first time a PK is used, it is protected as ~unique~.
 
      #+name: insert
@@ -102,36 +98,21 @@
        INSERT INTO Lecturer VALUES (3, "Jones");
      #+end_src
 
-  2) [ ] Check table content.
+  2) Check table content.
 
      #+name: check
      #+begin_src sqlite :db students.db :header :column :results output :exports both
        SELECT * FROM Lecturer;
      #+end_src
 
-     #+RESULTS: insert
-     : id  name
-     : --  -----------
-     : 1   Sonnier
-     : 2   Birkenkrahe
-     : 3   Jones
-
-  3) [ ] The table ~Course~ requires three columns, one is the
+  3) The table ~Course~ requires three columns, one is the
      responsible lecturer. Show the schema only for ~Course~.
 
      #+begin_src sqlite :db students.db :results output :exports both
        .schema Course
      #+end_src
 
-     #+RESULTS:
-     : CREATE TABLE IF NOT EXISTS "Course" (
-     :   "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-     :   "title" TEXT NOT NULL,
-     :   "lecturer" INTEGER NOT NULL REFERENCES "Lecturer" ("id") ON DELETE CASCADE
-     : );
-     : CREATE INDEX "idx_course__lecturer" ON "Course" ("lecturer");
-
-  4) [ ] Insert course information.
+  4) Insert course information.
 
      #+begin_src sqlite :db students.db :results silent :exports both :header :column
        INSERT INTO Course VALUES (1, "Databases", 2);
@@ -144,7 +125,7 @@
        INSERT INTO Course VALUES (8, "Data_science", 2);
      #+end_src
 
-  5) [ ] Check content.
+  5) Check content.
 
      #+begin_src sqlite :db students.db :results output :exports both :header :column
        SELECT * FROM Course;
@@ -166,7 +147,7 @@
 
 * ~JOIN~ TABLES
 
-  - [ ] Which courses do I teach?
+  - Which courses do I teach?
 
     #+name: select
     #+begin_src sqlite :db students.db :results output :exports both :header :column
@@ -175,10 +156,3 @@
       WHERE name = "Birkenkrahe";
     #+end_src
 
-    #+RESULTS: select
-    : title              name
-    : -----------------  -----------
-    : Databases          Birkenkrahe
-    : Modeling           Birkenkrahe
-    : Operating_Systems  Birkenkrahe
-    : Data_science       Birkenkrahe
