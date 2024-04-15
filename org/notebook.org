@@ -1431,7 +1431,6 @@ transformations, and sorting before the final output is generated.
 - The lecture is available in GitHub as a [[https://github.com/birkenkrahe/db24/blob/main/pdf/4_SELECT.pdf][PDF]] and as an [[https://github.com/birkenkrahe/db24/blob/main/org/4_SELECT.org][Org-mode file]].
 
 ** 2nd Sprint Review postponed until April 7: watch the DataCamp stuff!
-
 ** Popquiz 2 (bonus exercise)
 
 - Complete the printed handout without looking stuff up
@@ -1586,6 +1585,7 @@ intermission with database design and ERDs.
 More information on NoSQL and semi-structured data: Schwarzmüller on
 "[[https://youtu.be/ZS_kXvOeQ5Y?si=p1RRmEPg-pNbspWj][SQL vs NoSQL or MySQL vs MongoDB]]" (Academind, 2019) - home assignment!
 
+
 ** IN PROGRESS Introduction to Entity Relationship Diagrams (ERD)
 
 * Week 12 - Normalization and ERD practice
@@ -1665,7 +1665,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
   by Derek Banas (which I used many years ago to learn SQL myself).
 
 
-** IN PROGRESS Introduction to Entity Relationship Diagrams (ERD)
+** Introduction to Entity Relationship Diagrams (ERD)
 
 - Review:
   1) How would you define the following relationship using crow's foot:
@@ -1707,20 +1707,20 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 - Object-Relational Mapper tool (editor.ponyorm.com)
 
 
-** TODO [Extended] Review DataCamp: Schemas and Normalization
+** [Extended] Review DataCamp: Schemas and Normalization
 
 1) Imagine the following entity relationships:
    - "A user has zero, one or more accounts."
    - "An account is associated with one and only one user."
    - Example
-      #+attr_html: :width 700px:
-      #+caption: min and max multiplicities (set size)
-      [[../img/min_max_cardinality.png]]
+     #+attr_html: :width 700px:
+     #+caption: min and max multiplicities (set size)
+     [[../img/min_max_cardinality.png]]
    #+begin_quote
    - Sentence 1 describes a multiplicity of (0,M) or min=0, max=M
    - Sentence 2 describes a multiplicity of (1,1) or min=max=1
    #+end_quote
-   
+
 2) When someone says two entities, e.g. "advisor" and "student" have a
    "one-to-many" relationship, what do they mean?
    #+begin_quote
@@ -1746,7 +1746,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
    #+attr_html: :width 800px:
    #+caption: List tables and `books` table content (PostgreSQL)
    [[../img/datacamp_workspace2.png]]
-   
+
 4) Explain this command:
    #+begin_example sql
    ALTER TABLE fact_booksales ADD CONSTRAINT sales_book
@@ -1772,7 +1772,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 5) How can you find out what the proper syntax is for such a command?
    #+begin_quote
    - Check the =ALTER TABLE= [[https://www.postgresql.org/docs/current/sql-altertable.html][documentation for PostgreSQL]]:
-     #+attr_html: :width 600px: 
+     #+attr_html: :width 600px:
      [[../img/alter_table_add_constraint.png]]
    - SQLite doesn't have this feature - it is enforced by default.
    #+end_quote
@@ -1787,7 +1787,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
    #+end_quote
    #+attr_html: :width 600px:
    [[../img/normalized.png]]
-   
+
 7) Why does normalization "save space"?
    #+begin_quote
    - Normalization saves space - more space for tables but fewer records
@@ -1825,13 +1825,115 @@ video already announced, and I'll give you another video to watch.
 We'll also get back to joins and subqueries with SQLite to understand
 these operations better, before picking up on the DataCamp examples.
 
-** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) (Apr 16)
+
+* Week 13 - Joins and subqueries in SQLite / Installing MySQL (sprint review)
+
+** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) [[https://youtu.be/ZS_kXvOeQ5Y?si=YEV1RuR8K4UT63RQ][(YouTube)]]
+
+*** Video Summary
+The video titled "SQL vs NoSQL or MySQL vs MongoDB" by Academind
+explores the differences between SQL and NoSQL databases,
+specifically focusing on MySQL and MongoDB. It discusses the
+structured query language (SQL) used in relational databases like
+MySQL, which relies on a strict schema and relational tables to
+manage data. The video also covers NoSQL databases like MongoDB,
+which use a more flexible schema-less structure with collections and
+documents. The primary differences highlighted are the data schema
+rigidity, relationship management, and scaling capabilities of each
+database type. The presenter emphasizes that there is no clear
+winner between SQL and NoSQL; the choice depends on the specific
+requirements of the application, such as the need for flexibility,
+data consistency, or scaling capabilities.
+
+*** Understanding Check Questions
+
+1) Explain the concept of normalization in SQL databases.
+   #+begin_quote
+   Normalization involves organizing data in a way that reduces
+   redundancy and dependency by dividing large tables into smaller,
+   more manageable ones while maintaining relationships between
+   them.
+   #+end_quote
+
+2) What are the main types of relationships in a SQL database?
+   #+begin_quote
+   The main types include one-to-one, one-to-many, and many-to-many
+   relationships.
+   #+end_quote
+
+3) How does MongoDB differ from traditional SQL databases in terms
+   of schema flexibility?
+   #+begin_quote
+   MongoDB does not require a fixed schema, allowing documents
+   within the same collection to have different fields.
+   #+end_quote
+
+4) What is horizontal scaling, and how does it differ between SQL
+   and NoSQL databases?
+   #+begin_quote
+   Horizontal scaling involves adding more servers to handle
+   increased load. It is more feasible in NoSQL databases like
+   MongoDB due to their less structured nature, whereas SQL
+   databases often struggle with horizontal scaling.
+   #+end_quote
+
+5) Can you give an example of when a SQL database might be more
+   advantageous than a NoSQL database?
+   #+begin_quote
+   SQL databases are more suitable when data integrity and
+   consistency are critical, such as in applications where
+   relationships between data must be strictly maintained.
+   #+end_quote
+
+6) Explain how NoSQL databases handle relationships between data
+   collections compared to SQL databases.
+   #+begin_quote
+   Unlike SQL databases, which establish well-defined relationships
+   between tables, NoSQL databases like MongoDB typically manage
+   less structured relationships. They may embed related data
+   directly within documents or use references, allowing for a more
+   flexible, but less formally structured, approach to linking data
+   across collections.
+   #+end_quote
+
+7) What might be a reason to choose a NoSQL database like MongoDB
+   over a SQL database?
+   #+begin_quote
+   NoSQL databases are ideal for applications requiring high
+   flexibility, rapid scaling, and where the data structure can
+   vary.
+   #+end_quote
+
+8) What did the presenter mean by saying there's no clear winner
+   between SQL and NoSQL?
+   #+begin_quote
+   The choice between SQL and NoSQL depends on the specific needs of
+   the application and the type of data being handled, with each
+   having its strengths and weaknesses.
+   #+end_quote
+
+9) What is the impact of schema rigidity in SQL databases on
+   application flexibility.
+   #+begin_quote
+   Schema rigidity in SQL databases enforces a fixed structure for
+   data storage, which can limit flexibility when adapting to
+   changing data requirements or when attempting to incorporate new
+   features that deviate from the established schema.
+   #+end_quote
+
+10) What are the advantages of using SQL databases for data with
+    high transactional integrity?
+    #+begin_quote
+    SQL databases excel in maintaining high transactional integrity
+    by ensuring data consistency and accuracy through their rigid
+    schema and well-defined relationships. This is crucial for
+    applications where transactions require precise and reliable
+    data handling, such as financial systems.
+    #+end_quote
 
 ** TODO Install and learn to use MySQL via XAMPP
 ** TODO Subqueries and Joins in SQLite
 
-
-* Week 13 - Joins and subqueries in SQLite
 
 * Week 14 -
 
