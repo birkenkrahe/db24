@@ -1588,7 +1588,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 
 ** IN PROGRESS Introduction to Entity Relationship Diagrams (ERD)
 
-* Week 12 - Normalization and ERD practice
+* DONE Week 12 - Normalization and ERD practice
 #+attr_html: :width 600px:
 [[../img/eclipse.png]]
 
@@ -1827,10 +1827,11 @@ these operations better, before picking up on the DataCamp examples.
 
 
 * Week 13 - Joins and subqueries in SQLite / Installing MySQL (sprint review)
+#+attr_html: :width 500px:
+[[../img/week_13.png]]
 
 ** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) [[https://youtu.be/ZS_kXvOeQ5Y?si=YEV1RuR8K4UT63RQ][(YouTube)]]
-
-*** Video Summary
+*** Video Summary (ChatGPT)
 The video titled "SQL vs NoSQL or MySQL vs MongoDB" by Academind
 explores the differences between SQL and NoSQL databases,
 specifically focusing on MySQL and MongoDB. It discusses the
