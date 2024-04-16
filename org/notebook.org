@@ -1932,13 +1932,24 @@ data consistency, or scaling capabilities.
     data handling, such as financial systems.
     #+end_quote
 
-** TODO Install and learn to use MySQL via XAMPP
+
+** TODO Video: PostgreSQL vs. MySQL ([[https://youtu.be/btjBNKP49Rk?si=e_TxDMKJpH02VE-Q][YouTube]])
+
+Here is a better (AI-generated) joke:
+
+"Why do PostgreSQL databases make better friends than MySQL databases?
+
+Because PostgreSQL is always there to lend an ear for your complex
+queries, while MySQL just keeps locking up when you need support!
+
+
 ** TODO Subqueries and Joins in SQLite
 
+** TODO Install and learn to use MySQL via XAMPP
 
-* Week 14 -
+* Week 14 - Database views and database management 
 
-* Week 15 -
+* Week 15 - Tue: wrap-up - Thu: Presentations
 
 * Week 16 - Presentations
 
