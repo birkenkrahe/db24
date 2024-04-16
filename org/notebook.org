@@ -1828,6 +1828,7 @@ these operations better, before picking up on the DataCamp examples.
 
 * Week 13 - Joins and subqueries in SQLite / Installing MySQL (sprint review)
 #+attr_html: :width 400px:
+
 [[../img/romeo.png]]
 
 ** Test 5 available now until Sunday 21 April. Test 4 went well!
@@ -1858,7 +1859,13 @@ these operations better, before picking up on the DataCamp examples.
   
 - How would you assess the credibility of a paper? ([[https://www.researchgate.net/publication/257298522_Database_System_Concepts_and_Design][Example]])
   #+begin_quote
- 
+  1) Number of citations (who has read and used it for their work!)
+  2) Place of publication (Publisher e.g. NYT, Elsevier, Springer, NoStarch)
+  3) Credibility of author (Reputation, results, citation, institution)
+  4) Style, grammar and accessibility
+  5) Sources used (their references)
+  6) Illustrations, figures (quality, originality)
+  7) Date of publication
   #+end_quote
 
 - When you attach an image (like an ERD) to your report in an Orgmode
@@ -1880,7 +1887,7 @@ these operations better, before picking up on the DataCamp examples.
 
 See practice file [[https://tinyurl.com/erd-practice][tinyurl.com/erd-practice]], which we started last time:
 
-1) [ ] Draw ERD for simple ~student~ / ~lecturer~ database.
+1) [X] Draw ERD for simple ~Course~ / ~lecturer~ database.
 2) [ ] Download SQL from ERD and get it to run.
 3) [ ] Upload SQL to ERD tool to see the diagram. [video]
 4) [ ] Compare the results. [video]

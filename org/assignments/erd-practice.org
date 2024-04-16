@@ -38,10 +38,16 @@
      ls -l student.db
    #+end_src
 
+   #+RESULTS:
+   : -rw-r--r-- 1 marcus marcus 20480 Apr 16 15:29 student.db
+
    Check success on the SQLite console:
    #+begin_src sqlite :db student.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
      .tables
    #+end_src
+
+   #+RESULTS:
+   : Course    Lecturer
 
    Or read SQL into the ~test.db~ database from the SQLite console:
    #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
@@ -49,6 +55,22 @@
      .tables
      .schema
    #+end_src
+
+   #+RESULTS:
+   #+begin_example
+   Course    Lecturer
+   CREATE TABLE IF NOT EXISTS "Lecturer" (
+     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+     "name" TEXT NOT NULL
+   );
+   CREATE TABLE sqlite_sequence(name,seq);
+   CREATE TABLE IF NOT EXISTS "Course" (
+     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+     "title" TEXT NOT NULL,
+     "lecturer" INTEGER NOT NULL REFERENCES "Lecturer" ("id") ON DELETE CASCADE
+   );
+   CREATE INDEX "idx_course__lecturer" ON "Course" ("lecturer");
+   #+end_example
 
    - When the table is deleted, ~CASCADE~ means that if the record in
      the parent table (~Lecturer~) is deleted, the record in the child
@@ -91,6 +113,13 @@
    #+begin_src sqlite :db student.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
      SELECT * FROM Lecturer;		     
    #+end_src
+
+   #+RESULTS:
+   : id  name       
+   : --  -----------
+   : 1   Sonnier    
+   : 2   Birkenkrahe
+   : 3   Staff      
 
    Table ~Course~: Sample command ~SELECT * FROM Course;~
 
@@ -145,6 +174,21 @@
      .schema
    #+end_src
 
+   #+RESULTS:
+   #+begin_example
+   CREATE TABLE IF NOT EXISTS "Lecturer" (
+     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+     "name" TEXT NOT NULL
+   );
+   CREATE TABLE sqlite_sequence(name,seq);
+   CREATE TABLE IF NOT EXISTS "Course" (
+     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+     "title" TEXT NOT NULL,
+     "lecturer" INTEGER NOT NULL REFERENCES "Lecturer" ("id") ON DELETE CASCADE
+   );
+   CREATE INDEX "idx_course__lecturer" ON "Course" ("lecturer");
+   #+end_example
+
    Query with =SELECT,= and =JOIN= ~Course~ and ~Lecturer~ on corresponding
    keys:
    #+begin_src sqlite :db student.db :results output :header :column
@@ -152,3 +196,11 @@
        FROM Course JOIN Lecturer ON Course.lecturer = Lecturer.id
        WHERE name = "Birkenkrahe"
    #+end_src
+
+   #+RESULTS:
+   : Title              Name       
+   : -----------------  -----------
+   : Databases          Birkenkrahe
+   : Modeling           Birkenkrahe
+   : Operating_Systems  Birkenkrahe
+   : Data_science       Birkenkrahe
