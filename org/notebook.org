@@ -1880,11 +1880,10 @@ these operations better, before picking up on the DataCamp examples.
 
 See practice file [[https://tinyurl.com/erd-practice][tinyurl.com/erd-practice]], which we started last time:
 
-1) Draw ERD for simple ~student~ / ~lecturer~ database.
-2) Download SQL from ERD and get it to run.
-3) Upload SQL to ERD tool to see the diagram.
-4) Compare the results.
-
+1) [ ] Draw ERD for simple ~student~ / ~lecturer~ database.
+2) [ ] Download SQL from ERD and get it to run.
+3) [ ] Upload SQL to ERD tool to see the diagram. [video]
+4) [ ] Compare the results. [video]
 
 ** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) [[https://youtu.be/ZS_kXvOeQ5Y?si=YEV1RuR8K4UT63RQ][(YouTube)]]
 *** Video Summary (ChatGPT)
@@ -2006,7 +2005,7 @@ queries, while MySQL just keeps locking up when you need support!
 ** NEXT Install and learn to use MySQL via XAMPP
 
 
-* Week 14 - Database views and database management 
+* Week 14 - Database views/management & SQL with Python
 
 * Week 15 - Tue: wrap-up - Thu: Presentations
 
