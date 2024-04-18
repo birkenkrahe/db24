@@ -1831,12 +1831,12 @@ these operations better, before picking up on the DataCamp examples.
 
 [[../img/romeo.png]]
 
-** Test 5 available now until Sunday 21 April. Test 4 went well!
+** DONE Test 5 available now until Sunday 21 April. Test 4 went well!
 #+attr_html: :width 600px:
 [[../img/test_4.png]]
 
 
-** TODO Project: 2nd sprint review ... O Romeo Where Art Thou?
+** IN PROGRESS Project: 2nd sprint review ... O Romeo Where Art Thou?
 
 - Mostly no-show (> 50%). Remember: the sprint review is an
   opportunity to ask the client (= me) questions, not to ignore the
@@ -1883,14 +1883,15 @@ these operations better, before picking up on the DataCamp examples.
   questions as soon as you see it, if anything is not 100% clear!
 
 
-** TODO Finish ERD/ORM practice
+** IN PROGRESS Finish ERD/ORM practice
 
 See practice file [[https://tinyurl.com/erd-practice][tinyurl.com/erd-practice]], which we started last time:
 
 1) [X] Draw ERD for simple ~Course~ / ~lecturer~ database.
-2) [ ] Download SQL from ERD and get it to run.
+2) [X] Download SQL from ERD and get it to run.
 3) [ ] Upload SQL to ERD tool to see the diagram. [video]
 4) [ ] Compare the results. [video]
+
 
 ** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) [[https://youtu.be/ZS_kXvOeQ5Y?si=YEV1RuR8K4UT63RQ][(YouTube)]]
 *** Video Summary (ChatGPT)
@@ -2008,9 +2009,19 @@ queries, while MySQL just keeps locking up when you need support!
 
 ** NEXT Subqueries and Joins in SQLite
 
+- See also: [[https://app.datacamp.com/learn/courses/joining-data-in-sql][Joining Data in SQL in DataCamp]] (I'm going to shamelessly
+  use some of their slides since all my stuff is in XMind.app - that
+  teaches me to use a commercial application instead of FOSS... :-)
 
-** NEXT Install and learn to use MySQL via XAMPP
+- You can complete the first two lessons for bonus points (see Canvas).
 
+** TODO Install and learn to use MySQL via XAMPP
+
+- Download installer from apachefriends.org
+- Install locally
+- Follow my lead
+- Next week: big =SELECT= roundup with all commands covered so far
+  (drill!)
 
 * Week 14 - Database views/management & SQL with Python
 

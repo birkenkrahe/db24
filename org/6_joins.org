@@ -1,4 +1,4 @@
-#+TITLE: Database Design
+#+TITLE: JOINing data in SQL
 #+AUTHOR: Marcus Birkenkrahe
 #+SUBTITLE: CSC 330 Database Theory and Applications, Lyon College, Spring 2024
 #+STARTUP: hideblocks overview indent :
@@ -6,5 +6,234 @@
 #+PROPERTY: header-args:sqlite :results output
 * README
 
-- What does a database project entail?
+See also: [[https://app.datacamp.com/learn/courses/joining-data-in-sql][Joining Data in SQL in DataCamp]] (I'm going to shamelessly
+use some of their slides since all my stuff is in XMind.app - that
+teaches me to use a commercial application instead of FOSS... :-)
 
+
+* Joining Tables
+
+- Joins are needed to work with data from multiple tables (aka
+  relations). They are the first operation of the =SELECT= command.
+
+- The result of a =JOIN= is the input for all subsequent filtering
+  operations of the =SELECT= pipeline.
+  #+attr_html: :width 600px:
+  #+caption: Image source: Allen/Owens (2010)
+  [[../img/select_phases.png]]
+
+
+* Example database
+
+- Example: ~foods~. To follow the example
+
+  1) create an Emacs Org-mode file ~joins.org~
+     
+  2) download ~foods.sql~ from https://tinyurl.com/foods-sql and save it
+     on your PC (to the same directory of your ~joins.org~ file)
+
+  3) delete ~./test.db~ if it exists
+
+  4) load the database into SQLite (using ~test.db~ as database) and
+     check for tables
+     
+     #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+       .shell ls -l foods.sql
+       .read foods.sql
+       .tables
+     #+end_src
+
+     #+RESULTS:
+     : -rw-rw-r-- 1 marcus marcus 55944 Apr 18 13:12 foods.sql
+     : episodes        food_types      foods           foods_episodes
+
+- The ~foods~ and the ~food_types~ table share a key field: ~foods.type_id~
+  has the same values as ~food_types.id~.
+  #+attr_html: :width 600px:
+  [[../img/food.png]]
+
+- Using the database schema:
+ #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .schema
+  #+end_src
+
+- ~foods.type_id~ is a =FOREIGN KEY= of ~foods~ that references the =PRIMARY
+  KEY= ~food_types.id~ of ~food_types~.
+
+- Using this relationship, we can now obtain the ~food_types.name~ for
+  each food in the ~foods~ table:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT foods.name AS FOOD, food_types.name AS TYPE
+           FROM foods, food_types -- an inner join
+           WHERE foods.type_id = food_types.id
+           LIMIT 5;
+  #+end_src
+ 
+- It is always a good idea to carry the FULL name of a field instead
+  of just the column name, like ~foods.id~ instead of ~id~ etc.
+
+- Here is an illustration of the process: the columns ~foods.type_id~
+  and ~food_types.id~ are "zipped" together and identical records are
+  retained for the =SELECT= pipeline.
+  #+attr_html: :width 600px:
+  [[../img/joining_process.png]]
+
+- All subsequent commands (=WHERE=, =GROUP BY=, etc.) work with this input
+  now. 
+
+- SQLite supports six different kinds of joins - the last one was an
+  =INNER JOIN=. An alternative version of the same command:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT foods.name AS FOOD, food_types.name AS TYPE
+           FROM foods JOIN food_types
+           ON foods.type_id = food_types.id
+           LIMIT 5;
+  #+end_src  
+
+
+* Inner Joins
+
+- An =INNER JOIN= is where two tables are joined by a relationship
+  between two columns in the tables as in the previous example.
+
+- An inner join uses a set operation in relational algebra called an
+  /intersection/ to find elements that exist in both sets:
+  #+attr_html: :width 600px:
+  #+caption: Image source: Allen/Owens (2010)  
+  [[../img/set_intersection.png]]
+
+- Relational algebra is the simple-sounding mathematical basis of
+  SQL. So far, we haven't had much to do with it but the power of SQL
+  ultimately derives from its solid mathematical foundation!
+
+- Can you articulate the =SELECT= command that leads to the output shown
+  below?
+  #+attr_html: :width 600px:
+  #+caption: Image source: Allen/Owens (2010)  
+  [[../img/inner_join_set.png]]
+
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT foods.id, foods.name, foods.type_id, food_types.id, food_types.name
+           FROM foods, food_types -- or: foods JOIN food_types ON ...
+           WHERE foods.type_id IN (1,8)
+             AND foods.id IN (10,49)
+             AND food_types.name IN ("Bakery","Fruit");
+  #+end_src
+
+  #+RESULTS:
+  : id  name             type_id  id  name  
+  : --  ---------------  -------  --  ------
+  : 10  Chocolate Bobka  1        1   Bakery
+  : 10  Chocolate Bobka  1        8   Fruit 
+
+
+- Inner joins only return rows that satisfy the given column
+  relationship, also called the /join condition/: "What rows of B match
+  rows in A given the following relationships?"
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT foods.id,food_types.id,food_types.name
+            FROM foods
+            INNER JOIN food_types
+            ON foods.id = food_types.id;
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  id  id  name        
+  --  --  ------------
+  1   1   Bakery      
+  2   2   Cereal      
+  3   3   Chicken/Fowl
+  4   4   Condiments  
+  5   5   Dairy       
+  6   6   Dip         
+  7   7   Drinks      
+  8   8   Fruit       
+  9   9   Junkfood    
+  10  10  Meat        
+  11  11  Rice/Pasta  
+  12  12  Sandwiches  
+  13  13  Seafood     
+  14  14  Soup        
+  15  15  Vegetables  
+  #+end_example
+
+
+* Cross Joins
+
+- What if there is no join condition? If the tables are not related in
+  any way, =SELECT= would produce a =CROSS JOIN= or a Cartesian cross
+  product, the combination of all rows from the first tablw with all
+  rows in the second table.
+
+- In SQL, for ~foods~ and ~food_types~:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both 
+    SELECT * FROM foods, food_types;            
+  #+end_src
+
+- Every row in ~foods~ is combined with every row in ~food_types~ but not
+  by relating two fields like ~foods.type_id~ and ~food_types.id~ but
+  simply by jamming them together.
+
+* Outer Joins
+
+- Three of the remaining joins are outer joins: An outer join selects
+  all the rows of an inner join plkus some rows outside of the
+  relationship. The three outer join types are called =LEFT OUTER JOIN=,
+  =RIGHT OUTER JOIN=, and =FULL OUTER JOIN.=
+
+- A left outer join operates with respect to the left table in the SQL
+  command. For example:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both 
+    SELECT *
+           FROM foods LEFT OUTER JOIN foods_episodes
+           ON foods.id=foods_episodes.food_id
+           LIMIT 10;
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  id  type_id  name                     food_id  episode_id
+  --  -------  -----------------------  -------  ----------
+  1   1        Bagels                   1        165       
+  2   1        Bagels, raisin           2        154       
+  2   1        Bagels, raisin           2        165       
+  3   1        Bavarian Cream Pie       3        115       
+  4   1        Bear Claws               4        67        
+  4   1        Bear Claws               4        82        
+  4   1        Bear Claws               4        169       
+  5   1        Black and White cookies  5        76        
+  5   1        Black and White cookies  5        109       
+  6   1        Bread (with nuts)        6        164       
+  #+end_example
+
+- The left outer join favors ~foods~ (the left table): it tries to match
+  every row of ~foods~ with every row in ~foods_episodes~ using the join
+  condition ~foods.id = foods_episodes.food_id~.
+
+- Such a result would include foods in ~foods~ that are already listed
+  but that have not appeared in an episode yet would still be listed.
+
+- A right outer join similarly favors the right table, and a full
+  outer join combines left and right outer joins. It includes all
+  matching records, followed by unmatched records in the right and
+  left tables.
+
+* Natural Joins
+
+* Preferred Syntax
+
+* Names and Aliases
+
+* Subqueries
+
+* Compound queries
+
+* Conditional results with =CASE=
+  
+* Handling NULL in SQLite
+
+* DataCamp
+
+#+attr_html: :width 400px:
+[[../img/inner_join.png]]
