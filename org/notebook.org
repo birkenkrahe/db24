@@ -1922,7 +1922,7 @@ data consistency, or scaling capabilities.
 2) What are the main types of relationships in a SQL database?
    #+begin_quote
    The main types include one-to-one, one-to-many, and many-to-many
-   relationships.
+   relationships (also called "cardinalities" of the relationship)
    #+end_quote
 
 3) How does MongoDB differ from traditional SQL databases in terms
@@ -2007,6 +2007,15 @@ queries, while MySQL just keeps locking up when you need support!
 #+end_quote
 
 
+** TODO Install and learn to use MySQL via XAMPP
+
+- Download installer from apachefriends.org
+- Install locally
+- Follow my lead
+- Next week: big =SELECT= roundup with all commands covered so far
+  (drill!)
+
+
 ** NEXT Subqueries and Joins in SQLite
 
 - See also: [[https://app.datacamp.com/learn/courses/joining-data-in-sql][Joining Data in SQL in DataCamp]] (I'm going to shamelessly
@@ -2015,13 +2024,6 @@ queries, while MySQL just keeps locking up when you need support!
 
 - You can complete the first two lessons for bonus points (see Canvas).
 
-** TODO Install and learn to use MySQL via XAMPP
-
-- Download installer from apachefriends.org
-- Install locally
-- Follow my lead
-- Next week: big =SELECT= roundup with all commands covered so far
-  (drill!)
 
 * Week 14 - Database views/management & SQL with Python
 

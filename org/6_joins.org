@@ -14,14 +14,13 @@ teaches me to use a commercial application instead of FOSS... :-)
 * Joining Tables
 
 - Joins are needed to work with data from multiple tables (aka
-  relations). They are the first operation of the =SELECT= command.
+  relations). They are the first operations of the =SELECT= command.
 
 - The result of a =JOIN= is the input for all subsequent filtering
   operations of the =SELECT= pipeline.
   #+attr_html: :width 600px:
   #+caption: Image source: Allen/Owens (2010)
   [[../img/select_phases.png]]
-
 
 * Example database
 
@@ -38,13 +37,13 @@ teaches me to use a commercial application instead of FOSS... :-)
      check for tables
      
      #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-       .shell ls -l foods.sql
+       .shell ls -l foods.sql -- on Windows, use `.shell DIR foods.sql`
        .read foods.sql
        .tables
      #+end_src
 
      #+RESULTS:
-     : -rw-rw-r-- 1 marcus marcus 55944 Apr 18 13:12 foods.sql
+     : -rw-rw-r-- 1 marcus marcus 55944 Apr 18 15:19 foods.sql
      : episodes        food_types      foods           foods_episodes
 
 - The ~foods~ and the ~food_types~ table share a key field: ~foods.type_id~
@@ -57,6 +56,24 @@ teaches me to use a commercial application instead of FOSS... :-)
     .schema
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  CREATE TABLE episodes (
+    id integer primary key,
+    season int,
+    name text );
+  CREATE TABLE foods(
+    id integer primary key,
+    type_id integer,
+    name text );
+  CREATE TABLE foods_episodes(
+    food_id integer,
+    episode_id integer );
+  CREATE TABLE food_types(
+    id integer primary key,
+    name text );
+  #+end_example
+
 - ~foods.type_id~ is a =FOREIGN KEY= of ~foods~ that references the =PRIMARY
   KEY= ~food_types.id~ of ~food_types~.
 
@@ -68,6 +85,15 @@ teaches me to use a commercial application instead of FOSS... :-)
            WHERE foods.type_id = food_types.id
            LIMIT 5;
   #+end_src
+
+  #+RESULTS:
+  : FOOD                     TYPE  
+  : -----------------------  ------
+  : Bagels                   Bakery
+  : Bagels, raisin           Bakery
+  : Bavarian Cream Pie       Bakery
+  : Bear Claws               Bakery
+  : Black and White cookies  Bakery
  
 - It is always a good idea to carry the FULL name of a field instead
   of just the column name, like ~foods.id~ instead of ~id~ etc.
@@ -157,7 +183,6 @@ teaches me to use a commercial application instead of FOSS... :-)
   14  14  Soup        
   15  15  Vegetables  
   #+end_example
-
 
 * Cross Joins
 
