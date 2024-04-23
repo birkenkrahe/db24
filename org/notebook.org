@@ -1825,18 +1825,17 @@ video already announced, and I'll give you another video to watch.
 We'll also get back to joins and subqueries with SQLite to understand
 these operations better, before picking up on the DataCamp examples.
 
-
-* Week 13 - Joins and subqueries in SQLite / Installing MySQL (sprint review)
+* DONE Week 13 - Joins and subqueries in SQLite / Installing MySQL (sprint review)
 #+attr_html: :width 400px:
 
 [[../img/romeo.png]]
 
-** DONE Test 5 available now until Sunday 21 April. Test 4 went well!
+** Test 5 available now until Sunday 21 April. Test 4 went well!
 #+attr_html: :width 600px:
 [[../img/test_4.png]]
 
 
-** IN PROGRESS Project: 2nd sprint review ... O Romeo Where Art Thou?
+** Project: 2nd sprint review ... O Romeo Where Art Thou?
 
 - Mostly no-show (> 50%). Remember: the sprint review is an
   opportunity to ask the client (= me) questions, not to ignore the
@@ -1883,7 +1882,7 @@ these operations better, before picking up on the DataCamp examples.
   questions as soon as you see it, if anything is not 100% clear!
 
 
-** IN PROGRESS Finish ERD/ORM practice
+** Finish ERD/ORM practice
 
 See practice file [[https://tinyurl.com/erd-practice][tinyurl.com/erd-practice]], which we started last time:
 
@@ -1893,7 +1892,7 @@ See practice file [[https://tinyurl.com/erd-practice][tinyurl.com/erd-practice]]
 4) [ ] Compare the results. [video]
 
 
-** TODO Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) [[https://youtu.be/ZS_kXvOeQ5Y?si=YEV1RuR8K4UT63RQ][(YouTube)]]
+** Watch SQL vs NoSQL or MySQL vs MongoDB (video, 20 min) [[https://youtu.be/ZS_kXvOeQ5Y?si=YEV1RuR8K4UT63RQ][(YouTube)]]
 *** Video Summary (ChatGPT)
 The video titled "SQL vs NoSQL or MySQL vs MongoDB" by Academind
 explores the differences between SQL and NoSQL databases,
@@ -1996,7 +1995,7 @@ data consistency, or scaling capabilities.
     #+end_quote
 
 
-** READ Video: PostgreSQL vs. MySQL ([[https://youtu.be/btjBNKP49Rk?si=e_TxDMKJpH02VE-Q][YouTube]])
+** Video: PostgreSQL vs. MySQL ([[https://youtu.be/btjBNKP49Rk?si=e_TxDMKJpH02VE-Q][YouTube]])
 
 Here is a better (AI-generated) joke than in the video:
 #+begin_quote
@@ -2007,7 +2006,7 @@ queries, while MySQL just keeps locking up when you need support!
 #+end_quote
 
 
-** TODO Install and learn to use MySQL via XAMPP
+** SOMEDAY Install and learn to use MySQL via XAMPP
 
 - Download installer from apachefriends.org
 - Install locally
@@ -2016,7 +2015,7 @@ queries, while MySQL just keeps locking up when you need support!
   (drill!)
 
 
-** NEXT Subqueries and Joins in SQLite
+** Subqueries and Joins in SQLite
 
 - See also: [[https://app.datacamp.com/learn/courses/joining-data-in-sql][Joining Data in SQL in DataCamp]] (I'm going to shamelessly
   use some of their slides since all my stuff is in XMind.app - that
@@ -2026,10 +2025,56 @@ queries, while MySQL just keeps locking up when you need support!
 
 
 * Week 14 - Database views/management & SQL with Python
+#+attr_html: :width 400px:
+[[../img/week_14.png]]
 
-* Week 15 - Tue: wrap-up - Thu: Presentations
+** Final presentations April 30, May 2 and May 7
 
-* Week 16 - Presentations
+- We have 14 projects and 15 slots of 15 minutes over 3 days.
+ 
+- Let's fill the schedule up from the bottom.
+
+- If you're not ready at all, go to the end of the line.
+
+- Remember that you don't have to present a closed project and that
+  you're graded on the strength of your efforts not your results.
+  
+  |--------------+-------------+---------|
+  | DAY          |        TIME | SPEAKER |
+  |--------------+-------------+---------|
+  | Tue Apr 30   |   9:30-9:45 |         |
+  |              |  9:45-10:00 |         |
+  |              | 10:00-10:15 |         |
+  |              | 10:15-10:30 |         |
+  |              | 10:30-10:45 |         |
+  |--------------+-------------+---------|
+  | Thu May 2    |   9:30-9:45 |         |
+  |              |  9:45-10:00 |         |
+  |              | 10:00-10:15 |         |
+  |              | 10:15-10:30 |         |
+  |              | 10:30-10:45 |         |
+  |--------------+-------------+---------|
+  | Thu May 7    |   9:30-9:45 |         |
+  |              |  9:45-10:00 |         |
+  |              | 10:00-10:15 |         |
+  |              | 10:15-10:30 |         |
+  |              | 10:30-10:45 |         |
+  |--------------+-------------+---------|
+
+
+** Joins, Subqueries and NULL (part II)
+
+** SQL with R and Python (video lecture?)
+
+
+* Week 15 - Final presentations
+#+attr_html: :width 400px:
+[[../img/week_15.png]]
+
+
+* Week 16 - Final presentations
+#+attr_html: :width 400px:
+[[../img/week_16.png]]
 
 
 * References
