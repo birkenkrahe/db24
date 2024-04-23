@@ -2079,6 +2079,12 @@ queries, while MySQL just keeps locking up when you need support!
     : episodes    food_types   foods   foods_episodes
   #+end_example
 
+- For a visual overview, see [[https://github.com/birkenkrahe/db24/blob/main/img/xmind_joins.png][this image on GitHub]]:
+  #+attr_html: :width 400px: 
+  [[../img/xmind_joins.png]]
+
+- I will deliver the completed script to you for self-study.  
+
 ** TODO SELECT roundup with JOINs (offline)
 
 ** TODO SQL with R and Python (video lecture)

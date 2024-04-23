@@ -27,7 +27,7 @@ teaches me to use a commercial application instead of FOSS... :-)
 - Example: ~foods~. To follow the example
 
   1) create an Emacs Org-mode file ~joins.org~
-     
+
   2) download ~foods.sql~ from https://tinyurl.com/foods-sql and save it
      on your PC (to the same directory of your ~joins.org~ file)
 
@@ -35,20 +35,20 @@ teaches me to use a commercial application instead of FOSS... :-)
 
   4) load the database into SQLite (using ~test.db~ as database) and
      check for tables
-     
+
      #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
        /* .shell ls -l foods.sql */
        .read foods.sql
        .tables
      #+end_src
-     
+
 - The ~foods~ and the ~food_types~ table share a key field: ~foods.type_id~
   has the same values as ~food_types.id~.
   #+attr_html: :width 600px:
   [[../img/food.png]]
 
 - Using the database schema:
- #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
     .schema
   #+end_src
 
@@ -77,20 +77,20 @@ teaches me to use a commercial application instead of FOSS... :-)
   each food in the ~foods~ table:
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
     SELECT foods.name AS FOOD, food_types.name AS TYPE
-           FROM foods, food_types -- an inner join
-           WHERE foods.type_id = food_types.id
-           LIMIT 5;
+    FROM foods, food_types -- an inner join
+    WHERE foods.type_id = food_types.id
+    LIMIT 5;
   #+end_src
 
   #+RESULTS:
-  : FOOD                     TYPE  
+  : FOOD                     TYPE
   : -----------------------  ------
   : Bagels                   Bakery
   : Bagels, raisin           Bakery
   : Bavarian Cream Pie       Bakery
   : Bear Claws               Bakery
   : Black and White cookies  Bakery
- 
+
 - It is always a good idea to carry the FULL name of a field instead
   of just the column name, like ~foods.id~ instead of ~id~ etc.
 
@@ -101,16 +101,25 @@ teaches me to use a commercial application instead of FOSS... :-)
   [[../img/joining_process.png]]
 
 - All subsequent commands (=WHERE=, =GROUP BY=, etc.) work with this input
-  now. 
+  now.
 
 - SQLite supports six different kinds of joins - the last one was an
   =INNER JOIN=. An alternative version of the same command:
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
     SELECT foods.name AS FOOD, food_types.name AS TYPE
-           FROM foods JOIN food_types
-           ON foods.type_id = food_types.id
-           LIMIT 5;
-  #+end_src  
+    FROM foods JOIN food_types
+    ON foods.type_id = food_types.id
+    LIMIT 5;
+  #+end_src
+
+  #+RESULTS:
+  : FOOD                     TYPE
+  : -----------------------  ------
+  : Bagels                   Bakery
+  : Bagels, raisin           Bakery
+  : Bavarian Cream Pie       Bakery
+  : Bear Claws               Bakery
+  : Black and White cookies  Bakery
 
 * Inner Joins
 
@@ -120,7 +129,7 @@ teaches me to use a commercial application instead of FOSS... :-)
 - An inner join uses a set operation in relational algebra called an
   /intersection/ to find elements that exist in both sets:
   #+attr_html: :width 600px:
-  #+caption: Image source: Allen/Owens (2010)  
+  #+caption: Image source: Allen/Owens (2010)
   [[../img/set_intersection.png]]
 
 - Relational algebra is the simple-sounding mathematical basis of
@@ -130,53 +139,26 @@ teaches me to use a commercial application instead of FOSS... :-)
 - Can you articulate the =SELECT= command that leads to the output shown
   below?
   #+attr_html: :width 600px:
-  #+caption: Image source: Allen/Owens (2010)  
+  #+caption: Image source: Allen/Owens (2010)
   [[../img/inner_join_set.png]]
 
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
     SELECT DISTINCT foods.id, foods.name, foods.type_id, food_types.id, food_types.name
-           FROM foods, food_types -- or: foods JOIN food_types ON ...
-           WHERE foods.type_id IN (1,8)
-             AND foods.id IN (10,49)
-             AND food_types.name IN ("Bakery","Fruit")
+    FROM foods, food_types -- or: foods JOIN food_types ON ...
+    WHERE foods.type_id IN (1,8)
+    AND foods.id IN (10,49)
+    AND food_types.name IN ("Bakery","Fruit")
   #+end_src
-
-  #+RESULTS:
-  : id  name             type_id  id  name  
-  : --  ---------------  -------  --  ------
-  : 10  Chocolate Bobka  1        1   Bakery
-  : 10  Chocolate Bobka  1        8   Fruit 
 
 - Inner joins only return rows that satisfy the given column
   relationship, also called the /join condition/: "What rows of B match
   rows in A given the following relationships?"
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
     SELECT foods.id AS "Foods ID",food_types.id AS "Type ID",food_types.name AS "Type"
-            FROM foods
-            INNER JOIN food_types
-            ON foods.id = food_types.id;
+    FROM foods
+    INNER JOIN food_types
+    ON foods.id = food_types.id;
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  Foods ID  Type ID  Type        
-  --------  -------  ------------
-  1         1        Bakery      
-  2         2        Cereal      
-  3         3        Chicken/Fowl
-  4         4        Condiments  
-  5         5        Dairy       
-  6         6        Dip         
-  7         7        Drinks      
-  8         8        Fruit       
-  9         9        Junkfood    
-  10        10       Meat        
-  11        11       Rice/Pasta  
-  12        12       Sandwiches  
-  13        13       Seafood     
-  14        14       Soup        
-  15        15       Vegetables  
-  #+end_example
 
 * Cross Joins
 
@@ -186,8 +168,8 @@ teaches me to use a commercial application instead of FOSS... :-)
   rows in the second table.
 
 - In SQL, for ~foods~ and ~food_types~:
-  #+begin_src sqlite :db test.db :header :column :results output :exports both 
-    SELECT * FROM foods, food_types;            
+  #+begin_src sqlite :db test.db :header :column :results output :exports both
+    SELECT * FROM foods, food_types;
   #+end_src
 
 - Every row in ~foods~ is combined with every row in ~food_types~ but not
@@ -203,32 +185,32 @@ teaches me to use a commercial application instead of FOSS... :-)
 
 - A left outer join operates with respect to the left table in the SQL
   command. For example:
-  #+begin_src sqlite :db test.db :header :column :results output :exports both 
+  #+begin_src sqlite :db test.db :header :column :results output :exports both
     SELECT *
-           FROM foods LEFT OUTER JOIN foods_episodes
-           ON foods.id=foods_episodes.food_id
-           LIMIT 10;
+    FROM foods LEFT OUTER JOIN foods_episodes
+    ON foods.id=foods_episodes.food_id
+    LIMIT 10;
   #+end_src
 
   #+RESULTS:
   #+begin_example
   id  type_id  name                     food_id  episode_id
   --  -------  -----------------------  -------  ----------
-  1   1        Bagels                   1        165       
-  2   1        Bagels, raisin           2        154       
-  2   1        Bagels, raisin           2        165       
-  3   1        Bavarian Cream Pie       3        115       
-  4   1        Bear Claws               4        67        
-  4   1        Bear Claws               4        82        
-  4   1        Bear Claws               4        169       
-  5   1        Black and White cookies  5        76        
-  5   1        Black and White cookies  5        109       
-  6   1        Bread (with nuts)        6        164       
+  1   1        Bagels                   1        165
+  2   1        Bagels, raisin           2        154
+  2   1        Bagels, raisin           2        165
+  3   1        Bavarian Cream Pie       3        115
+  4   1        Bear Claws               4        67
+  4   1        Bear Claws               4        82
+  4   1        Bear Claws               4        169
+  5   1        Black and White cookies  5        76
+  5   1        Black and White cookies  5        109
+  6   1        Bread (with nuts)        6        164
   #+end_example
 
-- The left outer join favors ~foods~ (the left table): it tries to match
-  every row of ~foods~ with every row in ~foods_episodes~ using the join
-  condition ~foods.id = foods_episodes.food_id~.
+  - The left outer join favors ~foods~ (the left table): it tries to
+    match every row of ~foods~ with every row in ~foods_episodes~ using the
+    join condition ~foods.id = foods_episodes.food_id~.
 
 - Such a result would include foods in ~foods~ that are already listed
   but that have not appeared in an episode yet would still be listed.
@@ -240,17 +222,173 @@ teaches me to use a commercial application instead of FOSS... :-)
 
 * Natural Joins
 
+- Natural joins will join all columns by the same name in both tables.
+
+- Using the natural join, you can get the inner join of two tables
+  without having to add the join condition, because the tables are
+  joined by their common column names.
+
+- It is always better to explicitly define the join condition than
+  rely on the semantics of the table schema.
+
 * Preferred Syntax
+
+- Syntactically, you can specify a join in different ways.
+
+- For example implicitly in the =WHERE= clause - when SQLite sees more
+  than one table listed afer =FROM=, it knows there will be a join (at
+  the very least a cross join):
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT * FROM foods, food_types
+    WHERE foods.type_id = food_types.id LIMIT 10;
+  #+end_src
+
+- The explicit form is using the join keyword:
+  #+begin_example sqlite
+  SELECT heading FROM left_table JOIN_TYPE right_table ON join_condition;
+  #+end_example
+
+- This form can be used for all join types:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT * FROM foods INNER JOIN food_types ON foods.type_id=food_types.id LIMIT 1;
+    SELECT * FROM foods LEFT OUTER JOIN food_types ON foods.type_id=food_types.id LIMIT 1;
+    SELECT * FROM foods CROS JOIN food_types LIMIT 1;
+  #+end_src
 
 * Names and Aliases
 
+- Here is an example where the tables are aliased:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT f.name, t.name FROM foods f, food_types t
+      WHERE f.type_id = t.id LIMIT 10;
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  name                     name  
+  -----------------------  ------
+  Bagels                   Bakery
+  Bagels, raisin           Bakery
+  Bavarian Cream Pie       Bakery
+  Bear Claws               Bakery
+  Black and White cookies  Bakery
+  Bread (with nuts)        Bakery
+  Butterfingers            Bakery
+  Carrot Cake              Bakery
+  Chips Ahoy Cookies       Bakery
+  Chocolate Bobka          Bakery
+  #+end_example
+
+- Aliases make it possible to do self-joins - joining a table with
+  itself: for example if you wanted to know what ~foods~ in season 4 are
+  mentioned in other seasons:
+  1) get a list of episodes and foods in season 4 (join ~episodes~ and ~episodes_foods~)
+  2) get a list of ~foods~ outside of season 4
+  3) combine the lists based on their common ~foods~:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT f.name AS food, e1.name, e1.season, e2.name, e2.season
+           FROM episodes e1, foods_episodes fe1, foods f,
+                episodes e2, foods_episodes fe2
+           WHERE
+             -- Get foods in season 4
+             (e1.id = fe1.episode_id AND e1.season = 4) AND fe1.food_id = f.id
+             -- Link foods with all other episodes
+             AND (fe1.food_id = fe2.food_id)           
+             -- Link with their respective episodes and filter out e1's season
+             AND (fe2.episode_id = e2.id AND e2.season != e1.season)
+           ORDER BY f.name;
+
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  food              name            season  name                   season
+  ----------------  --------------  ------  ---------------------  ------
+  Bouillabaisse     The Shoes       4       The Stake Out          1     
+  Decaf Cappaccino  The Ticket      4       The Good Samaritan     3     
+  Decaf Cappaccino  The Pitch       4       The Good Samaritan     3     
+  Egg Salad         The Trip 1      4       Male Unbonding         1     
+  Egg Salad         The Trip 1      4       The Stock Tip          1     
+  Mints             The Trip 1      4       The Cartoon            9     
+  Snapple           The Virgin      4       The Abstinence         8     
+  Tic Tacs          The Contest     4       The Merv Griffin Show  9     
+  Tic Tacs          The Trip 1      4       The Merv Griffin Show  9     
+  Tuna              The Trip 1      4       The Stall              5     
+  Turkey Club       The Bubble Boy  4       The Soup               6     
+  Turkey Club       The Bubble Boy  4       The Wizard             9     
+  #+end_example
+
+- There are two self-joins here in the =WHERE= clause: the two instances
+  of ~episodes~ and ~foods_episodes~ are treated as if they were
+  independent tables.
+
 * Subqueries
 
-* Compound queries
+- Subqueries are =SELECT= statements within =SELECT= statements.
 
-* Conditional results with =CASE=
+- They are most common in the =WHERE= clause, with the =IN= operator.
+
+- Example:
+  #+begin_src sqlite :db test.db :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT COUNT(*) FROM foods WHERE type_id IN (1,2);
+  #+end_src
+
+  #+RESULTS:
+  : 1           
+  : 0           
+  : 62      
   
-* Handling NULL in SQLite
+- Rewritten with a subquery:
+  #+begin_src sqlite :db test.db :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT COUNT(*) FROM foods
+           WHERE type_id IN
+             (SELECT id FROM food_types
+                 WHERE name='Bakery' OR name='Cereal');
+  #+end_src
+
+  #+RESULTS:
+  : 62      
+
+- You can use subqueries to add additional data from other tables to
+  the result set. For example, to get the number of ~episodes~ each food
+  appears in, the actual count from ~foods_episodes~ can be performed in
+  a subquery in the =SELECT= clause:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT name AS name,
+           (SELECT COUNT(foods_episodes.food_id) FROM foods_episodes WHERE food_id=f.id) AS count
+           FROM foods f ORDER BY count DESC LIMIT 10;
+  #+end_src
+
+- The =ORDER BY= and =LIMIT= clauses create a top ten list. Note that ~f.id~
+  in the subquery exists in the outer query (correlated subquery).
+
+- You can also use them in the =ORDER BY= clause:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT * FROM foods f
+           ORDER BY (SELECT COUNT(type_id) FROM foods WHERE type_id=f.type_id) DESC LIMIT 10;
+  #+end_src
+
+- Lastly, you can also have a subquery in the =FROM= clause (/inline
+  views/ or /derived tables/):
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT f.name, types.name FROM foods f
+           INNER JOIN (SELECT * FROM food_types WHERE id=6) AS types -- requires renaming
+           ON f.type_id=types.id;
+  #+end_src  
+
+  #+RESULTS:
+  : name                 name
+  : -------------------  ----
+  : Generic (as a meal)  Dip 
+  : Good Dip             Dip 
+  : Guacamole Dip        Dip 
+  : Hummus               Dip 
+
+* TODO Compound queries
+
+* TODO Conditional results with =CASE=
+
+* TODO Handling NULL in SQLite
 
 * DataCamp
 
