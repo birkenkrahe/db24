@@ -365,6 +365,22 @@ teaches me to use a commercial application instead of FOSS... :-)
            FROM foods f ORDER BY count DESC LIMIT 10;
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  name              count
+  ----------------  -----
+  Hot Dog           5    
+  Kasha             4    
+  Ketchup           4    
+  Pizza             4    
+  Bear Claws        3    
+  Bosco             3    
+  Decaf Cappaccino  3    
+  Hennigen's        3    
+  Naya Water        3    
+  Banana            3    
+  #+end_example
+
 - The =ORDER BY= and =LIMIT= clauses create a top ten list. Note that ~f.id~
   in the subquery exists in the outer query (correlated subquery).
 
