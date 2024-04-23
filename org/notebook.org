@@ -2023,6 +2023,7 @@ queries, while MySQL just keeps locking up when you need support!
 
 - You can complete the first two lessons for bonus points (see Canvas).
 
+
 * Week 14 - Database views/management & SQL with Python
 #+attr_html: :width 400px:
 [[../img/week_14.png]]
@@ -2039,7 +2040,7 @@ queries, while MySQL just keeps locking up when you need support!
   you're graded on the strength of your efforts not your results.
 
 - Must upload materials at least on the weekend before the week of
-  your presentation.
+  your presentation (complete materials for grading by May 8).
 
   |------------+-----------+----------+-----------------|
   | DAY        |      TIME | SPEAKER  | UPLOAD BY       |
