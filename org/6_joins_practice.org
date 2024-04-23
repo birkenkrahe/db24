@@ -1,0 +1,296 @@
+#+TITLE: JOINing data in SQL
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: CSC 330 Database Theory and Applications, Lyon College, Spring 2024
+#+STARTUP: hideblocks overview indent :
+#+OPTIONS: toc:nil num:nil ^:nil:
+#+PROPERTY: header-args:sqlite :results output
+* README
+
+See also: [[https://app.datacamp.com/learn/courses/joining-data-in-sql][Joining Data in SQL in DataCamp]] (I'm going to shamelessly
+use some of their slides since all my stuff is in XMind.app - that
+teaches me to use a commercial application instead of FOSS... :-)
+
+
+* Joining Tables
+
+- Joins are needed to work with data from multiple tables (aka
+  relations). They are the first operations of the =SELECT= command.
+
+- The result of a =JOIN= is the input for all subsequent filtering
+  operations of the =SELECT= pipeline.
+  #+attr_html: :width 600px:
+  #+caption: Image source: Allen/Owens (2010)
+  [[../img/select_phases.png]]
+
+* Example database
+
+- Example: ~foods~. To follow the example
+
+  1) create an Emacs Org-mode file ~joins.org~
+
+  2) download ~foods.sql~ from https://tinyurl.com/foods-sql and save it
+     on your PC (to the same directory of your ~joins.org~ file)
+
+  3) delete ~./test.db~ if it exists
+
+  4) load the database into SQLite (using ~test.db~ as database) and
+     check for tables
+
+     #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+       /* .shell ls -l foods.sql */
+       .read foods.sql
+       .tables
+     #+end_src
+
+- The ~foods~ and the ~food_types~ table share a key field: ~foods.type_id~
+  has the same values as ~food_types.id~.
+  #+attr_html: :width 600px:
+  [[../img/food.png]]
+
+- Using the database schema:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .schema
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  CREATE TABLE episodes (
+    id integer primary key,
+    season int,
+    name text );
+  CREATE TABLE foods(
+    id integer primary key,
+    type_id integer,
+    name text );
+  CREATE TABLE foods_episodes(
+    food_id integer,
+    episode_id integer );
+  CREATE TABLE food_types(
+    id integer primary key,
+    name text );
+  #+end_example
+
+- ~foods.type_id~ is a =FOREIGN KEY= of ~foods~ that references the =PRIMARY
+  KEY= ~food_types.id~ of ~food_types~.
+
+- Using this relationship, we can now obtain the ~food_types.name~ for
+  each food in the ~foods~ table:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT foods.name AS FOOD, food_types.name AS TYPE
+    FROM foods, food_types -- an inner join
+    WHERE foods.type_id = food_types.id
+    LIMIT 5;
+  #+end_src
+
+  #+RESULTS:
+  : FOOD                     TYPE
+  : -----------------------  ------
+  : Bagels                   Bakery
+  : Bagels, raisin           Bakery
+  : Bavarian Cream Pie       Bakery
+  : Bear Claws               Bakery
+  : Black and White cookies  Bakery
+
+- It is always a good idea to carry the FULL name of a field instead
+  of just the column name, like ~foods.id~ instead of ~id~ etc.
+
+- Here is an illustration of the process: the columns ~foods.type_id~
+  and ~food_types.id~ are "zipped" together and identical records are
+  retained for the =SELECT= pipeline.
+  #+attr_html: :width 600px:
+  [[../img/joining_process.png]]
+
+- All subsequent commands (=WHERE=, =GROUP BY=, etc.) work with this input
+  now.
+
+- SQLite supports six different kinds of joins - the last one was an
+  =INNER JOIN=. An alternative version of the same command:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    SELECT foods.name AS FOOD, food_types.name AS TYPE
+    FROM foods JOIN food_types
+    ON foods.type_id = food_types.id
+    LIMIT 5;
+  #+end_src
+
+  #+RESULTS:
+  : FOOD                     TYPE
+  : -----------------------  ------
+  : Bagels                   Bakery
+  : Bagels, raisin           Bakery
+  : Bavarian Cream Pie       Bakery
+  : Bear Claws               Bakery
+  : Black and White cookies  Bakery
+
+* Inner Joins
+
+- An =INNER JOIN= is where two tables are joined by a relationship
+  between two columns in the tables as in the previous example.
+
+- An inner join uses a set operation in relational algebra called an
+  /intersection/ to find elements that exist in both sets:
+  #+attr_html: :width 600px:
+  #+caption: Image source: Allen/Owens (2010)
+  [[../img/set_intersection.png]]
+
+- Relational algebra is the simple-sounding mathematical basis of
+  SQL. So far, we haven't had much to do with it but the power of SQL
+  ultimately derives from its solid mathematical foundation!
+
+- Can you articulate the =SELECT= command that leads to the output shown
+  below?
+  #+attr_html: :width 600px:
+  #+caption: Image source: Allen/Owens (2010)
+  [[../img/inner_join_set.png]]
+
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes    AND foods.id IN (10,49)
+
+  #+end_src
+
+- Inner joins only return rows that satisfy the given column
+  relationship, also called the /join condition/: "What rows of B match
+  rows in A given the following relationships?"
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src
+
+* Cross Joins
+
+- What if there is no join condition? If the tables are not related in
+  any way, =SELECT= would produce a =CROSS JOIN= or a Cartesian cross
+  product, the combination of all rows from the first tablw with all
+  rows in the second table.
+
+- In SQL, for ~foods~ and ~food_types~:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both
+
+  #+end_src
+
+- Every row in ~foods~ is combined with every row in ~food_types~ but not
+  by relating two fields like ~foods.type_id~ and ~food_types.id~ but
+  simply by jamming them together.
+
+* Outer Joins
+
+- Three of the remaining joins are outer joins: An outer join selects
+  all the rows of an inner join plus some rows outside of the
+  relationship. The three outer join types are called =LEFT OUTER JOIN=,
+  =RIGHT OUTER JOIN=, and =FULL OUTER JOIN.=
+
+- A left outer join operates with respect to the left table in the SQL
+  command. For example:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both
+
+  #+end_src
+
+
+- The left outer join favors ~foods~ (the left table): it tries to
+    match every row of ~foods~ with every row in ~foods_episodes~ using the
+    join condition ~foods.id = foods_episodes.food_id~.
+
+- Such a result would include foods in ~foods~ that are already listed
+  but that have not appeared in an episode yet would still be listed.
+
+- A right outer join similarly favors the right table, and a full
+  outer join combines left and right outer joins. It includes all
+  matching records, followed by unmatched records in the right and
+  left tables.
+
+* Natural Joins
+
+- Natural joins will join all columns by the same name in both tables.
+
+- Using the natural join, you can get the inner join of two tables
+  without having to add the join condition, because the tables are
+  joined by their common column names.
+
+- It is always better to explicitly define the join condition than
+  rely on the semantics of the table schema.
+
+* Preferred Syntax
+
+- Syntactically, you can specify a join in different ways.
+
+- For example implicitly in the =WHERE= clause - when SQLite sees more
+  than one table listed afer =FROM=, it knows there will be a join (at
+  the very least a cross join):
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src
+
+- The explicit form is using the join keyword:
+  #+begin_example sqlite
+
+  #+end_example
+
+- This form can be used for all join types:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src
+
+* Names and Aliases
+
+- Here is an example where the tables are aliased:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src
+
+- Aliases make it possible to do self-joins - joining a table with
+  itself: for example if you wanted to know what ~foods~ in season 4 are
+  mentioned in other seasons:
+  1) get a list of episodes and foods in season 4 (join ~episodes~ and ~episodes_foods~)
+  2) get a list of ~foods~ outside of season 4
+  3) combine the lists based on their common ~foods~:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src
+
+
+- There are two self-joins here in the =WHERE= clause: the two instances
+  of ~episodes~ and ~foods_episodes~ are treated as if they were
+  independent tables.
+
+* Subqueries
+
+- Subqueries are =SELECT= statements within =SELECT= statements.
+
+- They are most common in the =WHERE= clause, with the =IN= operator.
+
+- Example:
+  #+begin_src sqlite :db test.db :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src
+
+- Rewritten with a subquery:
+  #+begin_src sqlite :db test.db :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src
+
+- You can use subqueries to add additional data from other tables to
+  the result set. For example, to get the number of ~episodes~ each food
+  appears in, the actual count from ~foods_episodes~ can be performed in
+  a subquery in the =SELECT= clause:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src
+
+- The =ORDER BY= and =LIMIT= clauses create a top ten list. Note that ~f.id~
+  in the subquery exists in the outer query (correlated subquery).
+
+- You can also use them in the =ORDER BY= clause:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src
+
+- Lastly, you can also have a subquery in the =FROM= clause (/inline
+  views/ or /derived tables/):
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+
+  #+end_src  
+
+
+* TODO Compound queries
+
+* TODO Conditional results with =CASE=
+
+* TODO Handling NULL in SQLite
+
