@@ -37,15 +37,11 @@ teaches me to use a commercial application instead of FOSS... :-)
      check for tables
      
      #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-       .shell ls -l foods.sql -- on Windows, use `.shell DIR foods.sql`
+       /* .shell ls -l foods.sql */
        .read foods.sql
        .tables
      #+end_src
-
-     #+RESULTS:
-     : -rw-rw-r-- 1 marcus marcus 55944 Apr 18 15:19 foods.sql
-     : episodes        food_types      foods           foods_episodes
-
+     
 - The ~foods~ and the ~food_types~ table share a key field: ~foods.type_id~
   has the same values as ~food_types.id~.
   #+attr_html: :width 600px:
@@ -116,7 +112,6 @@ teaches me to use a commercial application instead of FOSS... :-)
            LIMIT 5;
   #+end_src  
 
-
 * Inner Joins
 
 - An =INNER JOIN= is where two tables are joined by a relationship
@@ -139,11 +134,11 @@ teaches me to use a commercial application instead of FOSS... :-)
   [[../img/inner_join_set.png]]
 
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    SELECT foods.id, foods.name, foods.type_id, food_types.id, food_types.name
+    SELECT DISTINCT foods.id, foods.name, foods.type_id, food_types.id, food_types.name
            FROM foods, food_types -- or: foods JOIN food_types ON ...
            WHERE foods.type_id IN (1,8)
              AND foods.id IN (10,49)
-             AND food_types.name IN ("Bakery","Fruit");
+             AND food_types.name IN ("Bakery","Fruit")
   #+end_src
 
   #+RESULTS:
@@ -152,12 +147,11 @@ teaches me to use a commercial application instead of FOSS... :-)
   : 10  Chocolate Bobka  1        1   Bakery
   : 10  Chocolate Bobka  1        8   Fruit 
 
-
 - Inner joins only return rows that satisfy the given column
   relationship, also called the /join condition/: "What rows of B match
   rows in A given the following relationships?"
   #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    SELECT foods.id,food_types.id,food_types.name
+    SELECT foods.id AS "Foods ID",food_types.id AS "Type ID",food_types.name AS "Type"
             FROM foods
             INNER JOIN food_types
             ON foods.id = food_types.id;
@@ -165,23 +159,23 @@ teaches me to use a commercial application instead of FOSS... :-)
 
   #+RESULTS:
   #+begin_example
-  id  id  name        
-  --  --  ------------
-  1   1   Bakery      
-  2   2   Cereal      
-  3   3   Chicken/Fowl
-  4   4   Condiments  
-  5   5   Dairy       
-  6   6   Dip         
-  7   7   Drinks      
-  8   8   Fruit       
-  9   9   Junkfood    
-  10  10  Meat        
-  11  11  Rice/Pasta  
-  12  12  Sandwiches  
-  13  13  Seafood     
-  14  14  Soup        
-  15  15  Vegetables  
+  Foods ID  Type ID  Type        
+  --------  -------  ------------
+  1         1        Bakery      
+  2         2        Cereal      
+  3         3        Chicken/Fowl
+  4         4        Condiments  
+  5         5        Dairy       
+  6         6        Dip         
+  7         7        Drinks      
+  8         8        Fruit       
+  9         9        Junkfood    
+  10        10       Meat        
+  11        11       Rice/Pasta  
+  12        12       Sandwiches  
+  13        13       Seafood     
+  14        14       Soup        
+  15        15       Vegetables  
   #+end_example
 
 * Cross Joins
@@ -203,7 +197,7 @@ teaches me to use a commercial application instead of FOSS... :-)
 * Outer Joins
 
 - Three of the remaining joins are outer joins: An outer join selects
-  all the rows of an inner join plkus some rows outside of the
+  all the rows of an inner join plus some rows outside of the
   relationship. The three outer join types are called =LEFT OUTER JOIN=,
   =RIGHT OUTER JOIN=, and =FULL OUTER JOIN.=
 

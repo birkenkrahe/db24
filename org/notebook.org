@@ -1855,7 +1855,7 @@ these operations better, before picking up on the DataCamp examples.
 
 - You cannot submit the same literature review in two courses: the two
   projects must have a different emphasis or you will lose one project.
-  
+
 - How would you assess the credibility of a paper? ([[https://www.researchgate.net/publication/257298522_Database_System_Concepts_and_Design][Example]])
   #+begin_quote
   1) Number of citations (who has read and used it for their work!)
@@ -2023,7 +2023,6 @@ queries, while MySQL just keeps locking up when you need support!
 
 - You can complete the first two lessons for bonus points (see Canvas).
 
-
 * Week 14 - Database views/management & SQL with Python
 #+attr_html: :width 400px:
 [[../img/week_14.png]]
@@ -2031,40 +2030,58 @@ queries, while MySQL just keeps locking up when you need support!
 ** Final presentations April 30, May 2 and May 7
 
 - We have 14 projects and 15 slots of 15 minutes over 3 days.
- 
+
 - Let's fill the schedule up from the bottom.
 
 - If you're not ready at all, go to the end of the line.
 
 - Remember that you don't have to present a closed project and that
   you're graded on the strength of your efforts not your results.
-  
-  |--------------+-------------+---------|
-  | DAY          |        TIME | SPEAKER |
-  |--------------+-------------+---------|
-  | Tue Apr 30   |   9:30-9:45 |         |
-  |              |  9:45-10:00 |         |
-  |              | 10:00-10:15 |         |
-  |              | 10:15-10:30 |         |
-  |              | 10:30-10:45 |         |
-  |--------------+-------------+---------|
-  | Thu May 2    |   9:30-9:45 |         |
-  |              |  9:45-10:00 |         |
-  |              | 10:00-10:15 |         |
-  |              | 10:15-10:30 |         |
-  |              | 10:30-10:45 |         |
-  |--------------+-------------+---------|
-  | Thu May 7    |   9:30-9:45 |         |
-  |              |  9:45-10:00 |         |
-  |              | 10:00-10:15 |         |
-  |              | 10:15-10:30 |         |
-  |              | 10:30-10:45 |         |
-  |--------------+-------------+---------|
+
+- Must upload materials at least on the weekend before the week of
+  your presentation.
+
+  |------------+-------------+---------+-----------------|
+  | DAY        |        TIME | SPEAKER | UPLOAD BY       |
+  |------------+-------------+---------+-----------------|
+  | Tue Apr 30 |   9:30-9:45 |         | Sunday 28 April |
+  |            |  9:45-10:00 |         |                 |
+  |            | 10:00-10:15 |         |                 |
+  |            | 10:15-10:30 |         |                 |
+  |            | 10:30-10:45 |         |                 |
+  |------------+-------------+---------+-----------------|
+  | Thu May 2  |   9:30-9:45 |         | Sunday 28 April |
+  |            |  9:45-10:00 |         |                 |
+  |            | 10:00-10:15 |         |                 |
+  |            | 10:15-10:30 |         |                 |
+  |            | 10:30-10:45 |         |                 |
+  |------------+-------------+---------+-----------------|
+  | Tue May 7  |   9:30-9:45 |         | Sunday 5 May    |
+  |            |  9:45-10:00 |         |                 |
+  |            | 10:00-10:15 |         |                 |
+  |            | 10:15-10:30 |         |                 |
+  |            | 10:30-10:45 |         |                 |
+  |------------+-------------+---------+-----------------|
 
 
-** Joins, Subqueries and NULL (part II)
+** NEXT Joins, Subqueries and NULL (part II)
 
-** SQL with R and Python (video lecture?)
+- Delete your ~test.db~ database.
+- Execute these commands (~foods.sql~ must be in ~./~)
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    /* .shell ls -l foods.sql */
+    .read foods.sql
+    .tables
+  #+end_src
+- To get this result
+  #+begin_example
+    #+RESULTS:
+    : episodes    food_types   foods   foods_episodes
+  #+end_example
+
+** TODO SELECT roundup with JOINs (offline)
+
+** TODO SQL with R and Python (video lecture)
 
 
 * Week 15 - Final presentations
