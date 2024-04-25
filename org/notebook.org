@@ -3,7 +3,7 @@
 #+SUBTITLE: CSC 330, Lyon College, Spring 2024
 #+STARTUP:overview hideblocks indent inlineimages
 #+OPTIONS: toc:nil num:nil ^:nil
-* DONE Week 1 - Overview & introduction to RDBMS
+* Week 1 - Overview & introduction to RDBMS
 #+attr_html: :width 400px
 [[../img/cover.png]]
 
@@ -13,7 +13,7 @@
 - [X] Your entry into a "Data Engineering" [[https://app.datacamp.com/learn/career-tracks][career track]]!
 - [X] Today: Emacs tutorial (because I'm tired of lecturing)
 
-* DONE Week 2 - Introduction to SQL - SQLite first steps
+* Week 2 - Introduction to SQL - SQLite first steps
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/sqlite_install.png]]
 
@@ -229,7 +229,7 @@ Now, let's do it in Emacs! Download the practice file
 ~tinyurl.com/firstSQLite~ and open it in Emacs. Instructions are in
 there. Upload completed file to Canvas by Friday night.
 
-* DONE Week 3 - Relational databases and SQLite queries
+* Week 3 - Relational databases and SQLite queries
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/sql_queries.png]]
 
@@ -397,7 +397,7 @@ Procedure:
 - Kill download buffer (~C-x k~)
 - Open file (~C-x C-f~)
 
-* DONE Week 4 - Fundamentals of DB, projects, and Selecting Data
+* Week 4 - Fundamentals of DB, projects, and Selecting Data
 #+ATTR_HTML: :WIDTH 400px:
 [[../img/databases.png]]
 
@@ -700,7 +700,7 @@ for SEC.
 
 Dr. Staples will also offer a project management course this summer.
 
-* DONE Week 5 - DBMS types - SQLite introduction
+* Week 5 - DBMS types - SQLite introduction
 #+attr_html: :width 400px:
 [[../img/study_hour.png]]
 
@@ -838,7 +838,7 @@ OPTIONS include:
 
 - Who among you will be the saviour of cats!?
 
-* DONE Week 6 - Sprint Review - SQLite practice
+* Week 6 - Sprint Review - SQLite practice
 #+attr_html: :width 400px:
 n[[../img/week_6.png]]
 
@@ -1063,7 +1063,7 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 - If you're still NOT comfortable of using Emacs Org-mode with SQLite,
   let me know! Perhaps [[http://www.jesshamrick.com/2012/09/10/absolute-beginners-guide-to-emacs/][this article]] will help?
 
-* DONE Week 7 - Complete SQLite demo
+* Week 7 - Complete SQLite demo
 #+attr_html: :width 400px:
 [[../img/lecture_theatre.png]]
 
@@ -1103,7 +1103,7 @@ See here for [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sqlit
 
 Codealong file: [[http://tinyurl.com/3-sqlite-codealong-org][tinyurl.com/3-sqlite-codealong-org]]
 
-* DONE Week 8 - Projects / DB browser / SELECT overview
+* Week 8 - Projects / DB browser / SELECT overview
 #+attr_html: :width 400px:
 [[../img/week_8.webp]]
 
@@ -1328,7 +1328,7 @@ Download: https://dbeaver.io/ (requires admin rights)
 - Lecture and practice files on GitHub
 - 30 questions, deadline Thursday 14 March
 
-* DONE Week 9 - The SELECT pipeline
+* Week 9 - The SELECT pipeline
 #+attr_html: :width 400px:
 [[../img/sqlhero.png]]
 
@@ -1382,7 +1382,7 @@ identifying the target data to applying various filters,
 transformations, and sorting before the final output is generated.
 #+end_quote
 
-* DONE Week 10 - Finish SELECT & Database Design
+* Week 10 - Finish SELECT & Database Design
 #+attr_html: :width 400px:
 [[../img/week_10.png]]
 
@@ -1453,7 +1453,7 @@ intermission with database design and ERDs.
 
 ** Extended DataCamp deadlines to April 2 and April 9 (Easter holidays)
 
-* DONE Week 11 - Entity-Relationship Diagrams (ERD)
+* Week 11 - Entity-Relationship Diagrams (ERD)
 #+attr_html: :width 400px:
 [[../img/week_11.png]]
 
@@ -1588,7 +1588,7 @@ More information on NoSQL and semi-structured data: Schwarzmüller on
 
 ** IN PROGRESS Introduction to Entity Relationship Diagrams (ERD)
 
-* DONE Week 12 - Normalization and ERD practice
+* Week 12 - Normalization and ERD practice
 #+attr_html: :width 600px:
 [[../img/eclipse.png]]
 
@@ -1825,7 +1825,7 @@ video already announced, and I'll give you another video to watch.
 We'll also get back to joins and subqueries with SQLite to understand
 these operations better, before picking up on the DataCamp examples.
 
-* DONE Week 13 - Joins and subqueries in SQLite / Installing MySQL (sprint review)
+* Week 13 - Joins and subqueries in SQLite / Installing MySQL (sprint review)
 #+attr_html: :width 400px:
 
 [[../img/romeo.png]]
@@ -2023,7 +2023,6 @@ queries, while MySQL just keeps locking up when you need support!
 
 - You can complete the first two lessons for bonus points (see Canvas).
 
-
 * Week 14 - Database views/management & SQL with Python
 #+attr_html: :width 400px:
 [[../img/week_14.png]]
@@ -2089,16 +2088,13 @@ queries, while MySQL just keeps locking up when you need support!
 
 ** TODO SQL with R and Python (video lecture)
 
-
 * Week 15 - Final presentations
 #+attr_html: :width 400px:
 [[../img/week_15.png]]
 
-
 * Week 16 - Final presentations
 #+attr_html: :width 400px:
 [[../img/week_16.png]]
-
 
 * References
 
