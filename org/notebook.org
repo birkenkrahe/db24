@@ -2064,7 +2064,7 @@ queries, while MySQL just keeps locking up when you need support!
   |            | 3:30-3:45 |          |                 |
   |------------+-----------+----------+-----------------|
 
-** NEXT Joins, Subqueries and NULL (part II)
+** Joins, Subqueries and NULL (part II)
 
 - Delete your ~test.db~ database.
 - Execute these commands (~foods.sql~ must be in ~./~)
