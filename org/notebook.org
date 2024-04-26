@@ -2047,10 +2047,10 @@ queries, while MySQL just keeps locking up when you need support!
   | Tue Apr 30 | 2:30-2:45 | Timothy  | Sunday 28 April |
   |            | 2:45-3:00 | Pedro    |                 |
   |            | 3:00-3:15 | Fowler   |                 |
-  |            | 3:15-3:30 | Ryan     |                 |
-  |            | 3:30-3:45 | Thomas   |                 |
+  |            | 3:15-3:30 | Thomas   |                 |
+  |            | 3:30-3:45 |          |                 |
   |------------+-----------+----------+-----------------|
-  | Thu May 2  | 2:30-2:45 | Braden   | Sunday 28 April |
+  | Thu May 2  | 2:30-2:45 | Ryan     | Sunday 1 May    |
   |            | 2:45-3:00 | Gavin    |                 |
   |            | 3:00-3:15 | Nate     |                 |
   |            | 3:15-3:30 | Keidrick |                 |
@@ -2060,7 +2060,7 @@ queries, while MySQL just keeps locking up when you need support!
   |            | 2:45-3:00 | Clifford |                 |
   |            | 3:00-3:15 | Boogie   |                 |
   |            | 3:15-3:30 | Levi     |                 |
-  |            | 3:30-3:45 |          |                 |
+  |            | 3:30-3:45 | Braden   |                 |
   |------------+-----------+----------+-----------------|
 
 ** Joins, Subqueries and NULL (part II)
