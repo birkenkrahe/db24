@@ -2092,6 +2092,15 @@ queries, while MySQL just keeps locking up when you need support!
 #+attr_html: :width 400px:
 [[../img/week_15.png]]
 
+** Take 5 minutes to fill in the course evaluation!
+#+attr_html: :width 400px:
+[[../img/evaluation.png]]
+
+- Register your email to get bonus points!
+- It's still anonymous but I will be told that you filled it in!
+- Don't hold back - let me have it - I can (probably) take it!
+
+
 * Week 16 - Final presentations
 #+attr_html: :width 400px:
 [[../img/week_16.png]]
