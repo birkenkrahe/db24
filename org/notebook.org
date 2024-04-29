@@ -2041,27 +2041,27 @@ queries, while MySQL just keeps locking up when you need support!
 - Must upload materials at least on the weekend before the week of
   your presentation (complete materials for grading by May 8).
 
-  |------------+-----------+----------+-----------------|
-  | DAY        |      TIME | SPEAKER  | UPLOAD BY       |
-  |------------+-----------+----------+-----------------|
-  | Tue Apr 30 | 2:30-2:45 | Timothy  | Sunday 28 April |
-  |            | 2:45-3:00 | Pedro    |                 |
-  |            | 3:00-3:15 | Fowler   |                 |
-  |            | 3:15-3:30 | Thomas   |                 |
-  |            | 3:30-3:45 |          |                 |
-  |------------+-----------+----------+-----------------|
-  | Thu May 2  | 2:30-2:45 | Ryan     | Sunday 1 May    |
-  |            | 2:45-3:00 | Gavin    |                 |
-  |            | 3:00-3:15 | Nate     |                 |
-  |            | 3:15-3:30 | Keidrick |                 |
-  |            | 3:30-3:45 | Jakobe   |                 |
-  |------------+-----------+----------+-----------------|
-  | Tue May 7  | 2:30-2:45 | Jackson  | Sunday 5 May    |
-  |            | 2:45-3:00 | Clifford |                 |
-  |            | 3:00-3:15 | Boogie   |                 |
-  |            | 3:15-3:30 | Levi     |                 |
-  |            | 3:30-3:45 | Braden   |                 |
-  |------------+-----------+----------+-----------------|
+  |------------+-----------+----------|
+  | DAY        |      TIME | SPEAKER  |
+  |------------+-----------+----------|
+  | Tue Apr 30 | 2:30-2:45 | Timothy  |
+  |            | 2:45-3:00 | Pedro    |
+  |            | 3:00-3:15 | Fowler   |
+  |            | 3:15-3:30 | Thomas   |
+  |            | 3:30-3:45 |          |
+  |------------+-----------+----------|
+  | Thu May 2  | 2:30-2:45 | Ryan     |
+  |            | 2:45-3:00 | Gavin    |
+  |            | 3:00-3:15 | Nate     |
+  |            | 3:15-3:30 | Keidrick |
+  |            | 3:30-3:45 | Jakobe   |
+  |------------+-----------+----------|
+  | Tue May 7  | 2:30-2:45 | Jackson  |
+  |            | 2:45-3:00 | Clifford |
+  |            | 3:00-3:15 | Boogie   |
+  |            | 3:15-3:30 | Levi     |
+  |            | 3:30-3:45 | Braden   |
+  |------------+-----------+----------|
 
 ** Joins, Subqueries and NULL (part II)
 
@@ -2099,6 +2099,14 @@ queries, while MySQL just keeps locking up when you need support!
 - Register your email to get bonus points!
 - It's still anonymous but I will be told that you filled it in!
 - Don't hold back - let me have it - I can (probably) take it!
+
+** Final exam: Saturday 11 May 3.30pm-5.30pm (online)
+
+- The final exam is optional
+- You can improve your grade with it (but you cannot make it worse)
+- Please let me know in advance if you intend to take it (by May 8)
+- The exam will be online & open book as the tests
+- All tests are repeateable before but will be closed before the exam.
 
 
 * Week 16 - Final presentations
