@@ -2108,7 +2108,6 @@ queries, while MySQL just keeps locking up when you need support!
 - The exam will be online & open book as the tests
 - All tests are repeateable before but will be closed before the exam.
 
-
 * Week 16 - Final presentations
 #+attr_html: :width 400px:
 [[../img/week_16.png]]
