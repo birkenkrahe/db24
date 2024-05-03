@@ -198,6 +198,7 @@ COUNT()
 5      
 #+end_example
 
-- ~Variable.signal_info~ is not aligned with the variable_id.
+- ~Variable.signal_info~ is not aligned with ~Signal_info.signal_type~
+  which is what one would expect here.
 
 
