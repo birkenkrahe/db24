@@ -133,4 +133,9 @@
 - ~Marmoset~ has no foreign key - it will not be possible to query and
   of its columns with any other table. Etc.
   
-    
+- Next step: ~ADD COLUMN~ e.g. to ~Marmoset~. Add a column
+  ~Marmoset.type_id~ which corresponds to ~Context.context_id~.
+
+- In each table, the column names do not need to carry the table name,
+  e.g. ~Context.id~ is better than ~Context.context_id~, while in
+  ~Marmoset~, you have ~Marmoset.type_id~.
