@@ -199,6 +199,33 @@ COUNT()
 #+end_example
 
 - ~Variable.signal_info~ is not aligned with ~Signal_info.signal_type~
-  which is what one would expect here.
+  which is what one would expect here. I'm beginning to understand
+  what this table is supposed to do but I recommend fixing 2 tables at
+  a time first.
+  
+* Possible queries
+
+- Normally, you'd start with this, not end with it, but I had to
+  understand the data first (sort of). Who ever took the data should
+  be able to ask pertinent questions. 
+
+  | Query                                                  |
+  |--------------------------------------------------------|
+  | How many grooming gestures did coral get from inferno? |
+  | How many playful interactions did Baby have?           |
+
+- To begin with, perhaps all data should be put in ONE table and then
+  the tables could be split.
+
+* Organisation of tables
+
+- Check out the DataCamp design lesson 2 for a description of the
+  "Star Schema" in terms of fact tables (holds e.g. measurements) and
+  dimension tables (holds e.g. experimental subject data, and video
+  data).
+
+  
+  
+
 
 
