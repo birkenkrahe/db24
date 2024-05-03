@@ -1,0 +1,136 @@
+#+startup: overview hideblocks indent entitiespretty:
+#+options: toc:nil num:nil ^:nil:
+
+* Read data into SQLite database
+
+- Prepare empty test db
+
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .database
+    .shell ls -l test.db
+  #+end_src
+
+  #+RESULTS:
+  : main: /home/marcus/GitHub/db24/org/test.db r/w
+  : -rw-r--r-- 1 marcus marcus 0 May  2 20:41 test.db
+
+- Read data from SQLite file
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .read ../data/levi.sql
+    .tables
+  #+end_src
+
+  #+RESULTS:
+  : Context      Marmoset     Signal_info  Variable   
+
+- Check db schema
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .schema
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  CREATE TABLE IF NOT EXISTS "Context" (
+    "context_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "context_type" TEXT NOT NULL
+  );
+  CREATE TABLE sqlite_sequence(name,seq);
+  CREATE TABLE IF NOT EXISTS "Marmoset" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "species" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "sex" TEXT NOT NULL
+  );
+  CREATE TABLE IF NOT EXISTS "Signal_info" (
+    "signal_info_id" INTEGER NOT NULL PRIMARY KEY,
+    "signal_type" TEXT NOT NULL,
+    "file_name" DATE NOT NULL,
+    "context" INTEGER NOT NULL REFERENCES "Context" ("context_id") ON DELETE CASCADE,
+    "marmoset" INTEGER NOT NULL REFERENCES "Marmoset" ("id") ON DELETE CASCADE,
+    "video_date" TEXT NOT NULL
+  );
+  CREATE INDEX "idx_signal_info__context" ON "Signal_info" ("context");
+  CREATE INDEX "idx_signal_info__marmoset" ON "Signal_info" ("marmoset");
+  CREATE TABLE IF NOT EXISTS "Variable" (
+    "variable_id" INTEGER NOT NULL PRIMARY KEY,
+    "signal_info" INTEGER REFERENCES "Signal_info" ("signal_info_id") ON DELETE CASCADE,
+    "final_interaction_outcome" TEXT NOT NULL,
+    "recipient_id" TEXT NOT NULL,
+    "response_waiting_while_persisting" TEXT NOT NULL,
+    "response_waiting_at_end" TEXT NOT NULL,
+    "persistence" TEXT NOT NULL,
+    "reciever_attending_before" TEXT NOT NULL,
+    "reciever_attending_after" TEXT NOT NULL,
+    "receiver_immediate_response" TEXT NOT NULL,
+    "video_quality" TEXT NOT NULL,
+    "elaboration" TEXT NOT NULL,
+    "presumed_goal" TEXT NOT NULL,
+    "mechanical_ineffectiveness" TEXT NOT NULL,
+    "signaler_id" TEXT NOT NULL
+  );
+  CREATE INDEX "idx_variable__signal_info" ON "Variable" ("signal_info");
+  #+end_example
+
+- Check out the tables: ~Context~
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .tables
+    SELECT * FROM Context LIMIT 5;
+    SELECT COUNT() FROM Context;           
+    .schema Context
+  #+end_src
+  
+  #+RESULTS:
+  #+begin_example
+  Context      Marmoset     Signal_info  Variable   
+  context_id  context_type
+  ----------  ------------
+  1           play        
+  2           groom       
+  3           locomotion  
+  4           affiliative 
+  5           agonistic   
+  COUNT()
+  -------
+  5      
+  CREATE TABLE IF NOT EXISTS "Context" (
+    "context_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "context_type" TEXT NOT NULL
+  );
+  #+end_example
+
+- ~Context~ has no foreign key - it will not be possible to query
+  ~Context.context_type~ in connection with any other data. If you want
+  to link e.g. ~Marmoset.name~ information to a video exhibiting a
+  certain ~Context.context_type~, you could not do that.
+
+- Check out the tables: ~Marmoset~
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .tables
+    SELECT * FROM Marmoset LIMIT 5;
+    SELECT COUNT() FROM Marmoset;           
+    .schema Marmoset
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  Context      Marmoset     Signal_info  Variable   
+  id  species                 name           sex
+  --  ----------------------  -------------  ---
+  1   White Fronted Marmoset  Coral          F  
+  2   White Fronted Marmoset  Inferno        M  
+  3   White Fronted Marmoset  Baby Marmoset  N/A
+  COUNT()
+  -------
+  3      
+  CREATE TABLE IF NOT EXISTS "Marmoset" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "species" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "sex" TEXT NOT NULL
+  );
+  #+end_example
+
+- ~Marmoset~ has no foreign key - it will not be possible to query and
+  of its columns with any other table. Etc.
+  
+    
