@@ -1,141 +1,203 @@
 #+startup: overview hideblocks indent entitiespretty:
 #+options: toc:nil num:nil ^:nil:
 
-* Read data into SQLite database
+* Prepare empty test db
 
-- Prepare empty test db
+Check database, view and remove db file.
+#+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+  .database
+  .shell ls -l test.db
+  .shell rm test.db
+#+end_src
 
-  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    .database
-    .shell ls -l test.db
-  #+end_src
+#+RESULTS:
+: main: /home/marcus/GitHub/db24/org/test.db r/w
+: -rw-r--r-- 1 marcus marcus 0 May  3 12:47 test.db
 
-  #+RESULTS:
-  : main: /home/marcus/GitHub/db24/org/test.db r/w
-  : -rw-r--r-- 1 marcus marcus 0 May  2 20:41 test.db
+* Read data from SQLite file
+#+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+  .read ../data/levi.sql
+  .tables
+#+end_src
 
-- Read data from SQLite file
-  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    .read ../data/levi.sql
-    .tables
-  #+end_src
+#+RESULTS:
+: Context      Marmoset     Signal_info  Variable
 
-  #+RESULTS:
-  : Context      Marmoset     Signal_info  Variable   
+* Check db schema
+#+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+  .schema
+#+end_src
 
-- Check db schema
-  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    .schema
-  #+end_src
+#+RESULTS:
+#+begin_example
+CREATE TABLE IF NOT EXISTS "Context" (
+  "context_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "context_type" TEXT NOT NULL
+);
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE IF NOT EXISTS "Marmoset" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "species" TEXT NOT NULL,
+  "name" TEXT NOT NULL,
+  "sex" TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS "Signal_info" (
+  "signal_info_id" INTEGER NOT NULL PRIMARY KEY,
+  "signal_type" TEXT NOT NULL,
+  "file_name" DATE NOT NULL,
+  "context" INTEGER NOT NULL REFERENCES "Context" ("context_id") ON DELETE CASCADE,
+  "marmoset" INTEGER NOT NULL REFERENCES "Marmoset" ("id") ON DELETE CASCADE,
+  "video_date" TEXT NOT NULL
+);
+CREATE INDEX "idx_signal_info__context" ON "Signal_info" ("context");
+CREATE INDEX "idx_signal_info__marmoset" ON "Signal_info" ("marmoset");
+CREATE TABLE IF NOT EXISTS "Variable" (
+  "variable_id" INTEGER NOT NULL PRIMARY KEY,
+  "signal_info" INTEGER REFERENCES "Signal_info" ("signal_info_id") ON DELETE CASCADE,
+  "final_interaction_outcome" TEXT NOT NULL,
+  "recipient_id" TEXT NOT NULL,
+  "response_waiting_while_persisting" TEXT NOT NULL,
+  "response_waiting_at_end" TEXT NOT NULL,
+  "persistence" TEXT NOT NULL,
+  "reciever_attending_before" TEXT NOT NULL,
+  "reciever_attending_after" TEXT NOT NULL,
+  "receiver_immediate_response" TEXT NOT NULL,
+  "video_quality" TEXT NOT NULL,
+  "elaboration" TEXT NOT NULL,
+  "presumed_goal" TEXT NOT NULL,
+  "mechanical_ineffectiveness" TEXT NOT NULL,
+  "signaler_id" TEXT NOT NULL
+);
+CREATE INDEX "idx_variable__signal_info" ON "Variable" ("signal_info");
+#+end_example
 
-  #+RESULTS:
-  #+begin_example
-  CREATE TABLE IF NOT EXISTS "Context" (
-    "context_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "context_type" TEXT NOT NULL
-  );
-  CREATE TABLE sqlite_sequence(name,seq);
-  CREATE TABLE IF NOT EXISTS "Marmoset" (
-    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "species" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "sex" TEXT NOT NULL
-  );
-  CREATE TABLE IF NOT EXISTS "Signal_info" (
-    "signal_info_id" INTEGER NOT NULL PRIMARY KEY,
-    "signal_type" TEXT NOT NULL,
-    "file_name" DATE NOT NULL,
-    "context" INTEGER NOT NULL REFERENCES "Context" ("context_id") ON DELETE CASCADE,
-    "marmoset" INTEGER NOT NULL REFERENCES "Marmoset" ("id") ON DELETE CASCADE,
-    "video_date" TEXT NOT NULL
-  );
-  CREATE INDEX "idx_signal_info__context" ON "Signal_info" ("context");
-  CREATE INDEX "idx_signal_info__marmoset" ON "Signal_info" ("marmoset");
-  CREATE TABLE IF NOT EXISTS "Variable" (
-    "variable_id" INTEGER NOT NULL PRIMARY KEY,
-    "signal_info" INTEGER REFERENCES "Signal_info" ("signal_info_id") ON DELETE CASCADE,
-    "final_interaction_outcome" TEXT NOT NULL,
-    "recipient_id" TEXT NOT NULL,
-    "response_waiting_while_persisting" TEXT NOT NULL,
-    "response_waiting_at_end" TEXT NOT NULL,
-    "persistence" TEXT NOT NULL,
-    "reciever_attending_before" TEXT NOT NULL,
-    "reciever_attending_after" TEXT NOT NULL,
-    "receiver_immediate_response" TEXT NOT NULL,
-    "video_quality" TEXT NOT NULL,
-    "elaboration" TEXT NOT NULL,
-    "presumed_goal" TEXT NOT NULL,
-    "mechanical_ineffectiveness" TEXT NOT NULL,
-    "signaler_id" TEXT NOT NULL
-  );
-  CREATE INDEX "idx_variable__signal_info" ON "Variable" ("signal_info");
-  #+end_example
+* Check out the tables: ~Context~
+#+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+  .tables
+  SELECT * FROM Context;
+  .schema Context
+#+end_src
 
-- Check out the tables: ~Context~
-  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    .tables
-    SELECT * FROM Context LIMIT 5;
-    SELECT COUNT() FROM Context;           
-    .schema Context
-  #+end_src
-  
-  #+RESULTS:
-  #+begin_example
-  Context      Marmoset     Signal_info  Variable   
-  context_id  context_type
-  ----------  ------------
-  1           play        
-  2           groom       
-  3           locomotion  
-  4           affiliative 
-  5           agonistic   
-  COUNT()
-  -------
-  5      
-  CREATE TABLE IF NOT EXISTS "Context" (
-    "context_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "context_type" TEXT NOT NULL
-  );
-  #+end_example
+#+RESULTS:
+#+begin_example
+Context      Marmoset     Signal_info  Variable   
+context_id  context_type
+----------  ------------
+1           play        
+2           groom       
+3           locomotion  
+4           affiliative 
+5           agonistic   
+CREATE TABLE IF NOT EXISTS "Context" (
+  "context_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "context_type" TEXT NOT NULL
+);
+#+end_example
 
 - ~Context~ has no foreign key - it will not be possible to query
   ~Context.context_type~ in connection with any other data. If you want
   to link e.g. ~Marmoset.name~ information to a video exhibiting a
   certain ~Context.context_type~, you could not do that.
 
-- Check out the tables: ~Marmoset~
-  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
-    .tables
-    SELECT * FROM Marmoset LIMIT 5;
-    SELECT COUNT() FROM Marmoset;           
-    .schema Marmoset
-  #+end_src
+* Check out the tables: ~Marmoset~
+#+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+  .tables
+  SELECT * FROM Marmoset LIMIT 5;
+  SELECT COUNT() FROM Marmoset;
+  .schema Marmoset
+#+end_src
 
-  #+RESULTS:
-  #+begin_example
-  Context      Marmoset     Signal_info  Variable   
-  id  species                 name           sex
-  --  ----------------------  -------------  ---
-  1   White Fronted Marmoset  Coral          F  
-  2   White Fronted Marmoset  Inferno        M  
-  3   White Fronted Marmoset  Baby Marmoset  N/A
-  COUNT()
-  -------
-  3      
-  CREATE TABLE IF NOT EXISTS "Marmoset" (
-    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "species" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "sex" TEXT NOT NULL
-  );
-  #+end_example
+#+RESULTS:
+#+begin_example
+Context      Marmoset     Signal_info  Variable   
+id  species                 name           sex
+--  ----------------------  -------------  ---
+1   White Fronted Marmoset  Coral          F  
+2   White Fronted Marmoset  Inferno        M  
+3   White Fronted Marmoset  Baby Marmoset  N/A
+COUNT()
+-------
+3      
+CREATE TABLE IF NOT EXISTS "Marmoset" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "species" TEXT NOT NULL,
+  "name" TEXT NOT NULL,
+  "sex" TEXT NOT NULL
+);
+#+end_example
 
 - ~Marmoset~ has no foreign key - it will not be possible to query and
   of its columns with any other table. Etc.
-  
+
 - Next step: ~ADD COLUMN~ e.g. to ~Marmoset~. Add a column
   ~Marmoset.type_id~ which corresponds to ~Context.context_id~.
 
 - In each table, the column names do not need to carry the table name,
   e.g. ~Context.id~ is better than ~Context.context_id~, while in
   ~Marmoset~, you have ~Marmoset.type_id~.
+
+- [[https://sqlite.org/lang_altertable.html][See SQLite's =ALTER TABLE= documentation for the possible commands]].
+
+* Check out the tables: ~Signal_info~
+#+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+  .tables
+  SELECT * FROM Signal_info LIMIT 5;
+  SELECT COUNT() FROM Signal_info;
+  --.schema Signal_info
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Context      Marmoset     Signal_info  Variable   
+signal_info_id  signal_type          file_name                  context      marmoset     video_date
+--------------  -------------------  -------------------------  -----------  -----------  ----------
+1               hand_gesture         5_23_23 VID3_Saki LN.eaf   groom        2            5/23/23   
+2               face_protruded_lips  5_23_23_VID8_Saki LN.eaf   2            affiliative  5/23/23   
+3               body_gesture         5_23_23_VID31_Saki LN.eaf  groom        1            5/23/23   
+4               body_gesture         5_23_23_VID8_Saki LN.eaf   affiliative  2            5/23/23   
+5               body_gesture         8_8_23_VID2_Saki LN.eaf    groom        1            8/8/23    
+COUNT()
+-------
+12     
+#+end_example
+
+- Another issue: ~Signal_info.context~ contains a value ~2~, which does
+  not exist in ~Context.context_type~ and probably belongs to
+  ~Marmoset~. Likewise, ~Signal_info.marmoset~ contains a value
+  ~affiliative~ that is not a ~Marmoset~ value (should be from
+  ~Marmoset.id~) but seems to be from ~Context.context_type~.
+
+- The values in ~Signal_info.file_name~ are not consistently named,
+  e.g. ~5_23_23 VID3_Saki LN.eaf~ but ~5_23_23_VID8_Saki LN.eaf~. This
+  need not be an issue but it could reveal issues with alignment of
+  measurements and video.
+
+- The video information (~Signal_info.file_name~ and ~video_date~ should
+  probably be in a separate table.
+
+* Check out the tables: ~Variable~
+#+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+  .tables
+  SELECT * FROM Variable;
+  SELECT COUNT() FROM Variable;
+  --.schema Variable
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Context      Marmoset     Signal_info  Variable   
+variable_id  signal_info  final_interaction_outcome  recipient_id  response_waiting_while_persisting  response_waiting_at_end  persistence  reciever_attending_before  reciever_attending_after  receiver_immediate_response  video_quality  elaboration  presumed_goal  mechanical_ineffectiveness  signaler_id
+-----------  -----------  -------------------------  ------------  ---------------------------------  -----------------------  -----------  -------------------------  ------------------------  ---------------------------  -------------  -----------  -------------  --------------------------  -----------
+1            1            yes                        coral         no                                 no                       yes          no                         yes                       no                           good           no           yes            no                          inferno    
+2            2            yes                        coral         yes                                yes                      yes          no                         yes                       no                           good           yes          yes            yes                         inferno    
+3            3            yes                        inferno       no                                 yes                      no           yes                        yes                       no                           good           no           yes            yes                         coral      
+4            4            yes                        coral         yes                                unsure                   yes          no                         no                        yes                          excellent      no           yes            yes                         inferno    
+5            5            yes                        inferno       yes                                yes                      yes          no                         no                        no                           good           no           yes            yes                         coral      
+COUNT()
+-------
+5      
+#+end_example
+
+- ~Variable.signal_info~ is not aligned with the variable_id.
+
+
