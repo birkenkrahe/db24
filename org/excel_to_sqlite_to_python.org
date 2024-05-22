@@ -1,6 +1,3 @@
-:PROPERTIES:
-:ID:       dd3cd4f3-8fd1-4f02-a148-39e40964f11a
-:END:
 #+title: excel-to-sqlite-python
 #+startup: overview hideblocks indent entitiespretty: 
 #+property: header-args:python :python python3 :session *Python* :results output :exports both :noweb yes :tangle yes:
@@ -67,18 +64,13 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
     .mode csv
     /* write foods data */
     .output foods.csv
-    SELECT id,name FROM foods;
+    SELECT * FROM foods;
     /* write food types data */	           
     .output food_types.csv
-    SELECT id,name FROM
-    name AS food_types_name
-    FROM food_types;
+    SELECT * FROM food_types;
     /* write episode data */	           
     .output episodes.csv
-    SELECT id AS episodes_id,
-    season AS episodes_season,
-    name AS episodes_name
-    FROM episodes;
+    SELECT * FROM episodes;
     .output stdout
     .shell head -3 foods.csv food_types.csv episodes.csv
   #+end_src
@@ -86,17 +78,17 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   #+RESULTS:
   #+begin_example
   ==> foods.csv <==
-  foods_id,foods_name
-  1,Bagels
-  2,"Bagels, raisin"
+  id,type_id,name
+  1,1,Bagels
+  2,1,"Bagels, raisin"
 
   ==> food_types.csv <==
-  food_types_id,food_types_name
+  id,name
   1,Bakery
   2,Cereal
 
   ==> episodes.csv <==
-  episodes_id,episodes_season,episodes_name
+  id,season,name
   0,,"Good News Bad News"
   1,1,"Male Unbonding"
   #+end_example
