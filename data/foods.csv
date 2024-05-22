@@ -1,0 +1,413 @@
+foods_id,foods_name
+1,Bagels
+2,"Bagels, raisin"
+3,"Bavarian Cream Pie"
+4,"Bear Claws"
+5,"Black and White cookies"
+6,"Bread (with nuts)"
+7,Butterfingers
+8,"Carrot Cake"
+9,"Chips Ahoy Cookies"
+10,"Chocolate Bobka"
+11,"Chocolate Eclairs"
+12,"Chocolate Cream Pie"
+13,"Cinnamon Bobka"
+14,"Cinnamon Swirls"
+15,Cookie
+16,Crackers
+17,Cupcake
+18,Cupcakes
+19,"Devils Food Cake"
+20,"Dinky Donuts"
+21,"Dog biscuits"
+22,Donuts
+23,"Drakes Coffee Cakes"
+24,"Entenmann's Cake"
+25,"Kaiser Rolls"
+26,"Marble Ryes"
+27,"Mini Ritz"
+28,Muffin
+29,"Muffin Tops"
+30,"Muffin Stumps"
+31,"Nut Bread"
+32,"Pastries (of the Gods)"
+33,"Peach Muffin"
+34,"Peppridge Farms Cookies (Milanos)"
+35,"Pizza Bagels"
+36,Pie
+37,"Pie (blueberry)"
+38,"Pie (Blackberry) Pie"
+39,"Pie (Boysenberry)"
+40,"Pie (Huckleberry)"
+41,"Pie (Raspberry)"
+42,"Pie (Strawberry)"
+43,"Pie (Cranberry)"
+44,"Pie (Peach)"
+45,"Poppy Seed Muffins"
+46,Triscuits
+47,"Wedding Cake (Royal)"
+48,Bran
+49,Cheerios
+50,"Corn Flakes"
+51,"Double Crunch"
+52,"Fruit Loops"
+53,"Grape Nuts"
+54,"Honey Combs"
+55,Kasha
+56,Kix
+57,Life
+58,Pancakes
+59,"Reese's Peanut-Butter Puffs"
+60,"Rice Krispies"
+61,"Special K"
+62,"Tightly Wrapped Magic Pan Crepes"
+63,"Broiled Chicken"
+64,Casserole
+65,Chicken
+66,"Chicken (for wedding)"
+67,"Chicken Cashew (not ordered)"
+68,"Chicken Kiev"
+69,"Kung-Pao Chicken"
+70,"Chicken Marsala"
+71,"Chicken Piccata"
+72,"Chicken with Poppy Seeds"
+73,"Chicken, whole stuffed w/Gorganzolla and Ham"
+74,"Chicken Skins"
+75,"Chicken Wing (Shoulder Blades)"
+76,"Chicken (Kenny Rogers) "
+77,"Chicken (Tyler) "
+78,"Colonel Chang Chicken"
+79,"Cornish Game Hen"
+80,Duck
+81,"Duck, juicy breasts of"
+82,Turkey
+83,"Turkey, Kramer"
+84,"Turkey Jerky"
+85,"Turkey Chili"
+86,"A1 Sauce"
+87,"Barbeque Sauce"
+88,"Dijon Mustard"
+89,Dill
+90,Ginger
+91,Gravy
+92,"Honey Mustard"
+93,"Ketchup and Mustard together"
+94,Ketchup
+95,"Ketchup (secret)"
+96,"Maple Syrup"
+97,"Mustard (fancy)"
+98,Parsley
+99,Pepper
+100,Pesto
+101,"Salad Dressing"
+102,Salsa
+103,Tarragon
+104,"Tomatoe Sauce"
+105,"Tomatoe Sauce (Hot and Spicey)"
+106,Oregano
+107,Parmisan
+108,"Banana Yogurt"
+109,Butter
+110,"Danon Blueberry Yogurt"
+111,"Egg Beaters Omelette with cottage cheese"
+112,"Egg White Omelette"
+113,"Eggs for breakfast"
+114,Eggs
+115,"Egg Rolls"
+116,"Egg Salad"
+117,"Fete Cheese Omelette"
+118,"French Toast"
+119,"Large Block of Cheese"
+120,"Scambled Eggs with Lobster"
+121,"Soft Boiled Egg"
+122,"Swiss Cheese"
+123,"Quiche thing"
+124,"Western Omelette"
+125,"Generic (as a meal)"
+126,"Good Dip"
+127,"Guacamole Dip"
+128,Hummus
+129,"Apple Cider"
+130,"Arabian Mocha Java (beans)"
+131,Beaujolais
+132,Beer
+133,Bosco
+134,"Cafe Latte"
+135,"Champagne Coolies"
+136,Chardonnay
+137,Cider
+138,"Club Soda"
+139,"Coca Cola"
+140,Cocoa
+141,Coffe
+142,"Colt 45"
+143,"Cream Soda"
+144,"Cranberry juice with two limes"
+145,"Decaf Coffee"
+146,"Decaf Cappaccino"
+147,"Dr. Pepper (diet)"
+148,"Duty Free Kalua"
+149,"Folger's Crystals"
+150,Gatorade
+151,"Grape Juice"
+152,"Morning Thunder (with caffine)"
+153,"Hennigen's"
+154,"Hershey's"
+155,"Hot Coffee"
+156,"Juice box"
+157,Latte
+158,"Mellow Yellow soda"
+159,Merlot
+160,Milk
+161,Milkshake
+162,"Molotov Cocktail"
+163,"Morning Thunder (with caffein)"
+164,"Naya Water"
+165,"Nestle's Quick"
+166,"Orange Juice"
+167,Ovaltine
+168,"Peach Schnapps"
+169,Pepsi
+170,"Pertussin with Club Soda"
+171,Postum
+172,"Prune Juice"
+173,"Royal Crown Cola"
+174,Sanka
+175,Scotch
+176,Seltzer
+177,Snapple
+178,"Sour milk out of the carton"
+179,Tea
+180,"Tomato Juice"
+181,"Tropicana Orange Juice"
+182,Vodka
+183,"Vodka and Cranberry Juice"
+184,"Water, bottled"
+185,"Wild Turkey"
+186,"Wine, boxed"
+187,Wine
+188,"Yoo Hoo"
+189,Apple
+190,"Apple Pie"
+191,Avacado
+192,Banana
+193,"Canned Fruit"
+194,Cantaloupe
+195,Grape
+196,Grapefruit
+197,"Hamptons Tomatoes"
+198,"Macinaw peaches"
+199,Mangos
+200,Melons
+201,Nectarine
+202,Oranges
+203,Papaya
+204,Peaches
+205,Pineapple
+206,Plantains
+207,Plumbs
+208,"Prunes, Figs, any Dried Fruit"
+209,Raisins
+210,"Shredded Coconut"
+211,"Strawberries with Chocolate Sauce"
+212,"Almond Joy"
+213,"All Day Sucker"
+214,"Big Hunk"
+215,"Black Jacks - black licorice gum"
+216,"Bubble Gum"
+217,"Candy Apple"
+218,"Cashew Nuts"
+219,"Cashews (bag of)"
+220,"Clark Bar"
+221,"Chinese Chewing Gum"
+222,"Chocolates, box of"
+223,"Chocolate Chip Mint"
+224,"Chocolate Covered Cherries"
+225,"Chuckles (5 flavors)"
+226,"Chunky Bar"
+227,"Cracker Jacks"
+228,"Cupcakes (upsidedown)"
+229,Dentyne
+230,"Double Crunch Ice Cream"
+231,"Double Fudge Sundae"
+232,"Doublemint Gum"
+233,"Frozen Yogurt"
+234,"Godiva Chocolates"
+235,Gum
+236,"Jucyfruit Gum"
+237,"Haagen Dazs"
+238,"Hot Fudge Sundae"
+239,"Ice Cream"
+240,"Ice Cream (Breyer's vanilla)"
+241,"Ice Cream Triple Minute Man"
+242,"Ice Cream Rum and Raisin"
+243,"Jello with Bananas"
+244,JujyFruit
+245,"Junior Mints"
+246,"Klondike Bars"
+247,"M and M's"
+248,"Macadamia Nuts"
+249,Mints
+250,"Mr. Goodbar"
+251,Nutrageous
+252,"Nuts, Filbert and Hazel"
+253,"Oh Henry Bar"
+254,"Peanut Butter"
+255,Peanuts
+256,Pecan
+257,Pez
+258,"Pineapple Italian Ice"
+259,Popcorn
+260,"Pretzels (unsalted)"
+261,"Pretzels (salted)"
+262,"Pudding Skins"
+263,"Ring Dings"
+264,"Rold Gold Pretzles"
+265,Snackwells
+266,Snickers
+267,"Three Musketeers"
+268,"Tic Tacs"
+269,"Tootsie Pop"
+270,Twinkies
+271,"Twix Bar"
+272,"Wheat Thins (reduced fat)"
+273,"Arby's Roast Beef"
+274,Bacon
+275,Beef-A-Reeno
+276,Brisket
+277,Chili
+278,Cold-cuts
+279,"Dog Food"
+280,"Five Alarm Chili"
+281,"Franks and Beans"
+282,Gyro
+283,"Hamburger (Meduim)"
+284,"Hamburger (Skyburger)"
+285,Hamburger
+286,Hash
+287,"Sausages (homemade)"
+288,"Hot Dog"
+289,"Hot Dog (Papaya King)"
+290,"Hot Dog (Nathan's)"
+291,"Hot Dog (phone)"
+292,"Lamb Chops"
+293,"Meat Loaf"
+294,"Meatball Sandwich"
+295,Mutton
+296,Pastrami
+297,"Corned Beef"
+298,Salami
+299,Bologna
+300,"Pork Chops"
+301,"Porterhouse Steak"
+302,"Red Meat"
+303,"Salted Cured Meats"
+304,Steak
+305,"Stuffed Cabbage"
+306,"Steak (T-Bone)"
+307,Tamale
+308,"Steak (US Prime)"
+309,"Calzone (Paisano's)"
+310,Canolli
+311,"Chow Fung (noodle)"
+312,Macaroni
+313,Fusilli
+314,Paella
+315,"Pasta Primavera"
+316,"Pasta at Chadways"
+317,Pizza
+318,"Pizza (Paccino's)"
+319,Raviolli
+320,Rigatoni
+321,Rissoto
+322,Spaghetti
+323,Tamales
+324,"Vegetable Lasagna"
+325,"Atomic Sub"
+326,Bologna
+327,"Bacon Club (no turkey)"
+328,BLT
+329,"Brisket Sandwich"
+330,"Chicken Salad on Rye"
+331,"Cold Chicken"
+332,"Egg Salad"
+333,"Grilled Cheese"
+334,"Ham and Cheese"
+335,"Hero Sandwich"
+336,"Little sandwiches"
+337,"Ostrich Burger"
+338,"Pastrami Sandwich"
+339,"Peanut Butter"
+340,Reuben
+341,"Salami Sandwich"
+342,Salmon
+343,Tuna
+344,"Tuna on toast"
+345,"Turkey Club"
+346,"Turkey Roll"
+347,"Turkey Sandwich"
+348,"Clams Casino"
+349,"Crab Legs"
+350,"Flounder Supreme - #47"
+351,Halibut
+352,Lobster
+353,"Lobster on Monk's menu"
+354,"Lobster Shells"
+355,Salmon
+356,Sardines
+357,Shrimp
+358,Sole
+359,Swordfish
+360,"Tuna Fishy"
+361,Whitefish
+362,Bouillabaisse
+363,"Carrot Soup"
+364,"Chicken Gumbo"
+365,"Consommé"
+366,"Crab Bisque"
+367,"Creamed Soups"
+368,"Cuppa Soup"
+369,"Deli Soup"
+370,Jambalaya
+371,"Lobster Bisque"
+372,"Lima Bean Soup"
+373,"Motzah Ball"
+374,"Medium Turkey Chili"
+375,"Mulligatawny soup"
+376,"Mushroom Barley"
+377,"Pea Soup"
+378,"Tomatoe Soup"
+379,"Wild Mushroom"
+380,"Yankee Bean"
+381,Artichokes
+382,"Baked Beans"
+383,"Baked Potato w/Sour Cream"
+384,"Big Salad"
+385,Brocolli
+386,"Chef Salad"
+387,Carrots
+388,"Cole Slaw"
+389,Cucumber
+390,"Egg Plant"
+391,"Foliage (edible)"
+392,"French Fries"
+393,"French Fried Onion Rings"
+394,"Hampton Tomatoes"
+395,"Insalata Grande"
+396,Kugel
+397,Kreplach
+398,Latkas
+399,"Lettuce (as a brain)"
+400,Olives
+401,Onion
+402,Peas
+403,"Pea Pods"
+404,Pickle
+405,"Potato Salad"
+406,Potatoes
+407,"Radish Roses"
+408,"Roasted Potatoes"
+409,Salad
+410,Tzimmis
+411,"Veggie burger"
+412,"Wax Beans (Generic brand)"

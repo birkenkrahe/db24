@@ -1,0 +1,286 @@
+:PROPERTIES:
+:ID:       dd3cd4f3-8fd1-4f02-a148-39e40964f11a
+:END:
+#+title: excel-to-sqlite-python
+#+startup: overview hideblocks indent entitiespretty: 
+#+property: header-args:python :python python3 :session *Python* :results output :exports both :noweb yes :tangle yes:
+#+options: toc:nil num:nil ^:nil: 
+* README
+
+This is a short example to show how to
+1) Write SQLite data to CSV files
+2) Import CSV files into Excel workbook ([[https://tinyurl.com/foods-csv][tinyurl.com/foods-csv]])
+3) Read Excel data into a Python dataframe
+4) Create an SQLite database for the data
+5) Insert the data into the SQLite database
+
+This was written for neo-Pythonistas who already know and understand
+SQLite database design and manipulation.
+
+Source: "Turn Your Excel Workbook Into a SQLite Database" by
+S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel-workbook-into-a-sqlite-database-bc6d4fd206aa][towardsdatascience.com]].
+
+* Write SQLite data to a CSV file
+
+- Instead of the article data, I'm using the foods database, which
+  we've used in class many times, and whose design we
+  understand. Normally, the data are in CSV format but in this case we
+  don't have them yet.
+
+- Import ~foods.sql~ into a database ~foods.db~:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .read ../data/foods.sql
+    .tables
+  #+end_src
+
+  #+RESULTS:
+  : episodes        food_types      foods           foods_episodes
+
+- Now, we'll write these tables to a separate CSV file whose name is
+  taken from the table name. When doing so, we will not use =FOREIGN
+  KEY= columns, since these are the (redundant) result of relational
+  algebra. "In the wild", a CSV file would not have these.
+  
+- Change the display mode to ~csv~ and check the output with =SELECT:=
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .mode csv
+    SELECT * FROM foods LIMIT 2;
+    SELECT * FROM food_types LIMIT 2;
+    SELECT * FROM episodes LIMIT 2;           
+  #+end_src
+
+  #+RESULTS:
+  : id,type_id,name
+  : 1,1,Bagels
+  : 2,1,"Bagels, raisin"
+  : id,name
+  : 1,Bakery
+  : 2,Cereal
+  : id,season,name
+  : 0,,"Good News Bad News"
+  : 1,1,"Male Unbonding"
+
+- Now you can export the contents of the SQLite database to a CSV file
+  using =SELECT= while the console write to the file ~foods.csv~:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .header ON
+    .mode csv
+    /* write foods data */
+    .output foods.csv
+    SELECT id AS foods_id,
+           name AS foods_name
+           FROM foods;
+    /* write food types data */	           
+    .output food_types.csv
+    SELECT id AS food_types_id,
+           name AS food_types_name
+           FROM food_types;
+    /* write episode data */	           
+    .output episodes.csv
+    SELECT id AS episodes_id,
+           season AS episodes_season,
+           name AS episodes_name
+           FROM episodes;
+    .output stdout
+    .shell head -3 foods.csv food_types.csv episodes.csv
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  ==> foods.csv <==
+  foods_id,foods_name
+  1,Bagels
+  2,"Bagels, raisin"
+
+  ==> food_types.csv <==
+  food_types_id,food_types_name
+  1,Bakery
+  2,Cereal
+
+  ==> episodes.csv <==
+  episodes_id,episodes_season,episodes_name
+  0,,"Good News Bad News"
+  1,1,"Male Unbonding"
+  #+end_example
+
+- The ~^M~ control characters indicate newline and will not affect the
+  import into Excel.
+
+* Turn the CSV file into an Excel file
+
+- You either need Microsoft Excel for this, or a free clone like
+  LibreOffice spreadsheet, or Google Docs.
+
+- I'm using Google Docs to =import= the CSV files:
+  #+attr_html: :width 300px:
+  [[../img/csv_to_excel.png]]
+
+- The result:  
+  #+attr_html: :width 300px:
+  [[../img/csv_to_excel2.png]]
+
+
+- We've got to do this for all three CSV files, which can then be
+  merged into an Excel workbook with three sheets, one sheet each for
+  foods, food types and episodes. I did this manually.
+
+- This is the file that we'll read into a Python =Data.Frame=. You can
+  find the online file here for download: [[https://tinyurl.com/foods-csv][tinyurl.com/foods-csv]]
+
+* Read Excel data into a Python dataframe using =pd.read_excel=
+
+- Python is an all-purpose high-level programming language used much
+  in data science in machine learning but also useful for general
+  scripting and automating of tasks.
+
+- For data science, the =pandas= package is especially useful: as you
+  can read in the online [[https://pandas.pydata.org/pandas-docs/stable/index.html][documentation]], =pandas= provides data analysis
+  tools to Python.
+
+- If you do this in an interactive DataCamp DataLab or Google Colab
+  notebook, =pandas= will already be installed and you only have to load
+  it[fn:1].
+
+- To use =pandas,= you have to =import= the library:
+  #+begin_src python :python python3 :session *Python* :results silent :exports both :comments both :tangle yes :noweb yes
+    import pandas as pd
+  #+end_src
+
+- Now, you have access to =pandas= functions, e.g. =pd.read_excel=:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    help(pd.read_excel)
+  #+end_src
+
+- You can find out much more about =read_excel= in the online
+  [[https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_excel.html][documentation]]. As you can see in the =help=, the function only has one
+  mandatory argument =io=, which can be a URL string or an Excel file
+  name (in quotes).
+
+- The =header= parameter is 0 by default (if there's a header) so we're
+  OK.
+
+- We create one data frame per sheet/table using the =sheet_name=
+  parameter.
+
+- URL import, especially from Google Docs, does not always work: to be
+  on the safe side, I've downloaded the Excel file as ~foods.xlsx~:
+  #+attr_html: :width 300px:
+  [[../img/xlsx.png]]
+
+- We import the sheet ~foods~ in ~foods.xlsx~ a =Data.Frame= named ~foods~:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    foods = pd.read_excel('foods.xlsx',
+                          sheet_name='foods',
+                          header=0)
+    print(foods.head())
+  #+end_src
+
+  #+RESULTS:
+  :    id  type_id                     name
+  : 0   1        1                   Bagels
+  : 1   2        1           Bagels, raisin
+  : 2   3        1       Bavarian Cream Pie
+  : 3   4        1               Bear Claws
+  : 4   5        1  Black and White cookies
+
+- You see that there's an extra column for the row index starting
+  at 0. The =pandas= function =info= provides overall information:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    print(foods.info())
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  <class 'pandas.core.frame.DataFrame'>
+  RangeIndex: 412 entries, 0 to 411
+  Data columns (total 3 columns):
+   #   Column   Non-Null Count  Dtype 
+  ---  ------   --------------  ----- 
+   0   id       412 non-null    int64 
+   1   type_id  412 non-null    int64 
+   2   name     412 non-null    object
+  dtypes: int64(2), object(1)
+  memory usage: 9.8+ KB
+  None
+  #+end_example
+
+- We import the sheet ~food_types~ in ~foods.xlsx~ a =Data.Frame= named ~food_types~:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    food_types = pd.read_excel('foods.xlsx',
+                          sheet_name='food_types',
+                          header=0)
+    print(food_types.head())
+  #+end_src
+
+  #+RESULTS:
+  :    food_types_id food_types_name
+  : 0              1          Bakery
+  : 1              2          Cereal
+  : 2              3    Chicken/Fowl
+  : 3              4      Condiments
+  : 4              5           Dairy
+
+- We import the sheet ~episodes~ in ~foods.xlsx~ a =Data.Frame= named ~episodes~:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    episodes = pd.read_excel('foods.xlsx',
+                          sheet_name='episodes',
+                          header=0)
+    print(episodes.head())
+  #+end_src
+
+  #+RESULTS:
+  :    episodes_id  episodes_season       episodes_name
+  : 0            0              NaN  Good News Bad News
+  : 1            1              1.0      Male Unbonding
+  : 2            2              1.0       The Stake Out
+  : 3            3              1.0         The Robbery
+  : 4            4              1.0       The Stock Tip
+  
+- The missing value for the season of the pilot episode is listed as a
+  =NaN=.
+
+* Create SQLite database and put the data into it
+
+- We're now going to (re)create our ~foods.sql~ SQLite database using
+  Python's =sqlite3= package, which needs to be imported (or installed):
+  #+begin_src python :python python3 :session *Python* :results silent :exports both :comments both :tangle yes :noweb yes
+    import sqlite3
+  #+end_src
+
+- As you can read in the [[https://docs.python.org/3/library/sqlite3.html][documentation]], =sqlite3= is a database
+  interface for SQLite databases: it allows you to submit SQLite
+  commands from within a Python script. There is also a [[https://docs.python.org/3/library/sqlite3.html#sqlite3-tutorial][tutorial]].
+
+- The steps to hitching SQLite to Python are as follows:
+  1) With =sqlite3.connect=, initiate a new SQLite database connection
+     object, which creates an (empty) database ~foods.db~.
+  2) Assign this object to a Python variable ~db_conn~, which points at
+     the (empty) database.
+  3) Run a =cursor= object on the connection. This object lets us
+     =execute= SQLite data definition commands like =CREATE TABLE=.
+  4) Run the =pandas= function =to_sql= on a =Data.Frame= to =INSERT= data
+     into an SQLite table.
+  5) To execute SQLite queries on a given database, run =SELECT=
+     commands on the tables using the =pandas= function =read_sql=.
+
+** Initiate a database connection creating an empty database (=sqlite3.connect=)
+
+
+
+** Assign database connection to a connector variable (~db_conn~)
+
+** Run data definition commands on the database to create tables (~db_conn.cursor~)
+
+** Insert data from the Data.Frame into database tables (=pd.to_sql=)
+
+** Run queries on the database tables (=pd.read_sql=)
+
+* Footnotes
+
+[fn:1]You do not need a fancy setup with the =conda= platform if you use
+  an interactive ('Jupyter') notebook installation in the cloud. If
+  you're using Emacs (which is what I do), you're also set
+  (locally). What I've done is write all of this as a literate program
+  in Emacs, which I will then render as an IPython notebook
+  (~foods.ipynb~), upload to DataLab and share with you.
+
