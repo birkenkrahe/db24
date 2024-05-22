@@ -1,7 +1,7 @@
 #+title: excel-to-sqlite-python
-#+startup: overview hideblocks indent entitiespretty: 
+#+startup: overview hideblocks indent entitiespretty:
 #+property: header-args:python :python python3 :session *Python* :results output :exports both :noweb yes :tangle yes:
-#+options: toc:nil num:nil ^:nil: 
+#+options: toc:nil num:nil ^:nil:
 * README
 
 This is a short example to show how to
@@ -21,7 +21,7 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
 
 - Instead of the article data, I am using a very simple test file:
   #+begin_example
-  id,value            
+  id,value
   1,"Ms. Jane Robinson"
   2,"Mr. Carl Robinson"
   3,"Mr. Edward Jones"
@@ -36,7 +36,7 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   #+attr_html: :width 300px:
   [[../img/csv_to_excel.png]]
 
-- The result:  
+- The result:
   #+attr_html: :width 300px:
   [[../img/csv_to_excel3.png]]
 
@@ -64,236 +64,21 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   #+end_src
 
 - Now, you have access to =pandas= functions, e.g. =pd.read_excel=:
-  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+  #+begin_example python
     help(pd.read_excel)
-  #+end_src
+  #+end_example
 
-  #+RESULTS:
+- Here's the top of the =help= output:
   #+begin_example
-  Help on function read_excel in module pandas.io.excel._base:
+  read_excel(io, sheet_name: 'str | ... header: 'int | Sequence[int] | None' = 0, ...]'
 
-  read_excel(io, sheet_name: 'str | int | list[IntStrT] | None' = 0, *, header: 'int | Sequence[int] | None' = 0, names: 'SequenceNotStr[Hashable] | range | None' = None, index_col: 'int | str | Sequence[int] | None' = None, usecols: 'int | str | Sequence[int] | Sequence[str] | Callable[[str], bool] | None' = None, dtype: 'DtypeArg | None' = None, engine: "Literal['xlrd', 'openpyxl', 'odf', 'pyxlsb', 'calamine'] | None" = None, converters: 'dict[str, Callable] | dict[int, Callable] | None' = None, true_values: 'Iterable[Hashable] | None' = None, false_values: 'Iterable[Hashable] | None' = None, skiprows: 'Sequence[int] | int | Callable[[int], object] | None' = None, nrows: 'int | None' = None, na_values=None, keep_default_na: 'bool' = True, na_filter: 'bool' = True, verbose: 'bool' = False, parse_dates: 'list | dict | bool' = False, date_parser: 'Callable | lib.NoDefault' = <no_default>, date_format: 'dict[Hashable, str] | str | None' = None, thousands: 'str | None' = None, decimal: 'str' = '.', comment: 'str | None' = None, skipfooter: 'int' = 0, storage_options: 'StorageOptions | None' = None, dtype_backend: 'DtypeBackend | lib.NoDefault' = <no_default>, engine_kwargs: 'dict | None' = None) -> 'DataFrame | dict[IntStrT, DataFrame]'
       Read an Excel file into a ``pandas`` ``DataFrame``.
 
       Supports `xls`, `xlsx`, `xlsm`, `xlsb`, `odf`, `ods` and `odt` file extensions
       read from a local filesystem or URL. Supports an option to read
       a single sheet or a list of sheets.
 
-      Parameters
-      ----------
-      io : str, bytes, ExcelFile, xlrd.Book, path object, or file-like object
-          Any valid string path is acceptable. The string could be a URL. Valid
-          URL schemes include http, ftp, s3, and file. For file URLs, a host is
-          expected. A local file could be: ``file://localhost/path/to/table.xlsx``.
-
-          If you want to pass in a path object, pandas accepts any ``os.PathLike``.
-
-          By file-like object, we refer to objects with a ``read()`` method,
-          such as a file handle (e.g. via builtin ``open`` function)
-          or ``StringIO``.
-
-          .. deprecated:: 2.1.0
-              Passing byte strings is deprecated. To read from a
-              byte string, wrap it in a ``BytesIO`` object.
-      sheet_name : str, int, list, or None, default 0
-          Strings are used for sheet names. Integers are used in zero-indexed
-          sheet positions (chart sheets do not count as a sheet position).
-          Lists of strings/integers are used to request multiple sheets.
-          Specify ``None`` to get all worksheets.
-
-          Available cases:
-
-          ,* Defaults to ``0``: 1st sheet as a `DataFrame`
-          ,* ``1``: 2nd sheet as a `DataFrame`
-          ,* ``"Sheet1"``: Load sheet with name "Sheet1"
-          ,* ``[0, 1, "Sheet5"]``: Load first, second and sheet named "Sheet5"
-            as a dict of `DataFrame`
-          ,* ``None``: All worksheets.
-
-      header : int, list of int, default 0
-          Row (0-indexed) to use for the column labels of the parsed
-          DataFrame. If a list of integers is passed those row positions will
-          be combined into a ``MultiIndex``. Use None if there is no header.
-      names : array-like, default None
-          List of column names to use. If file contains no header row,
-          then you should explicitly pass header=None.
-      index_col : int, str, list of int, default None
-          Column (0-indexed) to use as the row labels of the DataFrame.
-          Pass None if there is no such column.  If a list is passed,
-          those columns will be combined into a ``MultiIndex``.  If a
-          subset of data is selected with ``usecols``, index_col
-          is based on the subset.
-
-          Missing values will be forward filled to allow roundtripping with
-          ``to_excel`` for ``merged_cells=True``. To avoid forward filling the
-          missing values use ``set_index`` after reading the data instead of
-          ``index_col``.
-      usecols : str, list-like, or callable, default None
-          ,* If None, then parse all columns.
-          ,* If str, then indicates comma separated list of Excel column letters
-            and column ranges (e.g. "A:E" or "A,C,E:F"). Ranges are inclusive of
-            both sides.
-          ,* If list of int, then indicates list of column numbers to be parsed
-            (0-indexed).
-          ,* If list of string, then indicates list of column names to be parsed.
-          ,* If callable, then evaluate each column name against it and parse the
-            column if the callable returns ``True``.
-
-          Returns a subset of the columns according to behavior above.
-      dtype : Type name or dict of column -> type, default None
-          Data type for data or columns. E.g. {'a': np.float64, 'b': np.int32}
-          Use ``object`` to preserve data as stored in Excel and not interpret dtype,
-          which will necessarily result in ``object`` dtype.
-          If converters are specified, they will be applied INSTEAD
-          of dtype conversion.
-          If you use ``None``, it will infer the dtype of each column based on the data.
-      engine : {'openpyxl', 'calamine', 'odf', 'pyxlsb', 'xlrd'}, default None
-          If io is not a buffer or path, this must be set to identify io.
-          Engine compatibility :
-
-          - ``openpyxl`` supports newer Excel file formats.
-          - ``calamine`` supports Excel (.xls, .xlsx, .xlsm, .xlsb)
-            and OpenDocument (.ods) file formats.
-          - ``odf`` supports OpenDocument file formats (.odf, .ods, .odt).
-          - ``pyxlsb`` supports Binary Excel files.
-          - ``xlrd`` supports old-style Excel files (.xls).
-
-          When ``engine=None``, the following logic will be used to determine the engine:
-
-          - If ``path_or_buffer`` is an OpenDocument format (.odf, .ods, .odt),
-            then `odf <https://pypi.org/project/odfpy/>`_ will be used.
-          - Otherwise if ``path_or_buffer`` is an xls format, ``xlrd`` will be used.
-          - Otherwise if ``path_or_buffer`` is in xlsb format, ``pyxlsb`` will be used.
-          - Otherwise ``openpyxl`` will be used.
-      converters : dict, default None
-          Dict of functions for converting values in certain columns. Keys can
-          either be integers or column labels, values are functions that take one
-          input argument, the Excel cell content, and return the transformed
-          content.
-      true_values : list, default None
-          Values to consider as True.
-      false_values : list, default None
-          Values to consider as False.
-      skiprows : list-like, int, or callable, optional
-          Line numbers to skip (0-indexed) or number of lines to skip (int) at the
-          start of the file. If callable, the callable function will be evaluated
-          against the row indices, returning True if the row should be skipped and
-          False otherwise. An example of a valid callable argument would be ``lambda
-          x: x in [0, 2]``.
-      nrows : int, default None
-          Number of rows to parse.
-      na_values : scalar, str, list-like, or dict, default None
-          Additional strings to recognize as NA/NaN. If dict passed, specific
-          per-column NA values. By default the following values are interpreted
-          as NaN: '', '#N/A', '#N/A N/A', '#NA', '-1.#IND', '-1.#QNAN', '-NaN', '-nan',
-          '1.#IND', '1.#QNAN', '<NA>', 'N/A', 'NA', 'NULL', 'NaN', 'None',
-          'n/a', 'nan', 'null'.
-      keep_default_na : bool, default True
-          Whether or not to include the default NaN values when parsing the data.
-          Depending on whether ``na_values`` is passed in, the behavior is as follows:
-
-          ,* If ``keep_default_na`` is True, and ``na_values`` are specified,
-            ``na_values`` is appended to the default NaN values used for parsing.
-          ,* If ``keep_default_na`` is True, and ``na_values`` are not specified, only
-            the default NaN values are used for parsing.
-          ,* If ``keep_default_na`` is False, and ``na_values`` are specified, only
-            the NaN values specified ``na_values`` are used for parsing.
-          ,* If ``keep_default_na`` is False, and ``na_values`` are not specified, no
-            strings will be parsed as NaN.
-
-          Note that if `na_filter` is passed in as False, the ``keep_default_na`` and
-          ``na_values`` parameters will be ignored.
-      na_filter : bool, default True
-          Detect missing value markers (empty strings and the value of na_values). In
-          data without any NAs, passing ``na_filter=False`` can improve the
-          performance of reading a large file.
-      verbose : bool, default False
-          Indicate number of NA values placed in non-numeric columns.
-      parse_dates : bool, list-like, or dict, default False
-          The behavior is as follows:
-
-          ,* ``bool``. If True -> try parsing the index.
-          ,* ``list`` of int or names. e.g. If [1, 2, 3] -> try parsing columns 1, 2, 3
-            each as a separate date column.
-          ,* ``list`` of lists. e.g.  If [[1, 3]] -> combine columns 1 and 3 and parse as
-            a single date column.
-          ,* ``dict``, e.g. {'foo' : [1, 3]} -> parse columns 1, 3 as date and call
-            result 'foo'
-
-          If a column or index contains an unparsable date, the entire column or
-          index will be returned unaltered as an object data type. If you don`t want to
-          parse some cells as date just change their type in Excel to "Text".
-          For non-standard datetime parsing, use ``pd.to_datetime`` after ``pd.read_excel``.
-
-          Note: A fast-path exists for iso8601-formatted dates.
-      date_parser : function, optional
-          Function to use for converting a sequence of string columns to an array of
-          datetime instances. The default uses ``dateutil.parser.parser`` to do the
-          conversion. Pandas will try to call `date_parser` in three different ways,
-          advancing to the next if an exception occurs: 1) Pass one or more arrays
-          (as defined by `parse_dates`) as arguments; 2) concatenate (row-wise) the
-          string values from the columns defined by `parse_dates` into a single array
-          and pass that; and 3) call `date_parser` once for each row using one or
-          more strings (corresponding to the columns defined by `parse_dates`) as
-          arguments.
-
-          .. deprecated:: 2.0.0
-             Use ``date_format`` instead, or read in as ``object`` and then apply
-             :func:`to_datetime` as-needed.
-      date_format : str or dict of column -> format, default ``None``
-         If used in conjunction with ``parse_dates``, will parse dates according to this
-         format. For anything more complex,
-         please read in as ``object`` and then apply :func:`to_datetime` as-needed.
-
-         .. versionadded:: 2.0.0
-      thousands : str, default None
-          Thousands separator for parsing string columns to numeric.  Note that
-          this parameter is only necessary for columns stored as TEXT in Excel,
-          any numeric columns will automatically be parsed, regardless of display
-          format.
-      decimal : str, default '.'
-          Character to recognize as decimal point for parsing string columns to numeric.
-          Note that this parameter is only necessary for columns stored as TEXT in Excel,
-          any numeric columns will automatically be parsed, regardless of display
-          format.(e.g. use ',' for European data).
-
-          .. versionadded:: 1.4.0
-
-      comment : str, default None
-          Comments out remainder of line. Pass a character or characters to this
-          argument to indicate comments in the input file. Any data between the
-          comment string and the end of the current line is ignored.
-      skipfooter : int, default 0
-          Rows at the end to skip (0-indexed).
-      storage_options : dict, optional
-          Extra options that make sense for a particular storage connection, e.g.
-          host, port, username, password, etc. For HTTP(S) URLs the key-value pairs
-          are forwarded to ``urllib.request.Request`` as header options. For other
-          URLs (e.g. starting with "s3://", and "gcs://") the key-value pairs are
-          forwarded to ``fsspec.open``. Please see ``fsspec`` and ``urllib`` for more
-          details, and for more examples on storage options refer `here
-          <https://pandas.pydata.org/docs/user_guide/io.html?
-          highlight=storage_options#reading-writing-remote-files>`_.
-
-      dtype_backend : {'numpy_nullable', 'pyarrow'}, default 'numpy_nullable'
-          Back-end data type applied to the resultant :class:`DataFrame`
-          (still experimental). Behaviour is as follows:
-
-          ,* ``"numpy_nullable"``: returns nullable-dtype-backed :class:`DataFrame`
-            (default).
-          ,* ``"pyarrow"``: returns pyarrow-backed nullable :class:`ArrowDtype`
-            DataFrame.
-
-          .. versionadded:: 2.0
-
-      engine_kwargs : dict, optional
-          Arbitrary keyword arguments passed to excel engine.
-
-      Returns
-      -------
-      DataFrame or dict of DataFrames
-          DataFrame from the passed in Excel file. See notes in sheet_name
-          argument for more information on when a dict of DataFrames is returned.
+      [...]
 
       See Also
       --------
@@ -301,66 +86,6 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
       DataFrame.to_csv : Write DataFrame to a comma-separated values (csv) file.
       read_csv : Read a comma-separated values (csv) file into DataFrame.
       read_fwf : Read a table of fixed-width formatted lines into DataFrame.
-
-      Notes
-      -----
-      For specific information on the methods used for each Excel engine, refer to the pandas
-      :ref:`user guide <io.excel_reader>`
-
-      Examples
-      --------
-      The file can be read using the file name as string or an open file object:
-
-      >>> pd.read_excel('tmp.xlsx', index_col=0)  # doctest: +SKIP
-             Name  Value
-      0   string1      1
-      1   string2      2
-      2  #Comment      3
-
-      >>> pd.read_excel(open('tmp.xlsx', 'rb'),
-      ...               sheet_name='Sheet3')  # doctest: +SKIP
-         Unnamed: 0      Name  Value
-      0           0   string1      1
-      1           1   string2      2
-      2           2  #Comment      3
-
-      Index and header can be specified via the `index_col` and `header` arguments
-
-      >>> pd.read_excel('tmp.xlsx', index_col=None, header=None)  # doctest: +SKIP
-           0         1      2
-      0  NaN      Name  Value
-      1  0.0   string1      1
-      2  1.0   string2      2
-      3  2.0  #Comment      3
-
-      Column types are inferred but can be explicitly specified
-
-      >>> pd.read_excel('tmp.xlsx', index_col=0,
-      ...               dtype={'Name': str, 'Value': float})  # doctest: +SKIP
-             Name  Value
-      0   string1    1.0
-      1   string2    2.0
-      2  #Comment    3.0
-
-      True, False, and NA values, and thousands separators have defaults,
-      but can be explicitly specified, too. Supply the values you would like
-      as strings or lists of strings!
-
-      >>> pd.read_excel('tmp.xlsx', index_col=0,
-      ...               na_values=['string1', 'string2'])  # doctest: +SKIP
-             Name  Value
-      0       NaN      1
-      1       NaN      2
-      2  #Comment      3
-
-      Comment lines in the excel input file can be skipped using the
-      ``comment`` kwarg.
-
-      >>> pd.read_excel('tmp.xlsx', index_col=0, comment='#')  # doctest: +SKIP
-            Name  Value
-      0  string1    1.0
-      1  string2    2.0
-      2     None    NaN
   #+end_example
 
 - You can find out much more about =read_excel= in the online
@@ -368,9 +93,8 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   mandatory argument =io=, which can be a URL string or an Excel file
   name (in quotes).
 
-- The =header= parameter is 0 by default (if there's a header) so we're
-  OK.
-  
+- The =header= parameter is 0 by default - we're OK because we got one.
+
 - URL import, especially from Google Docs, does not always work: to be
   on the safe side, I've downloaded the Excel file as ~test.xlsx~:
   #+attr_html: :width 300px:
@@ -399,9 +123,9 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   <class 'pandas.core.frame.DataFrame'>
   RangeIndex: 3 entries, 0 to 2
   Data columns (total 2 columns):
-   #   Column  Non-Null Count  Dtype 
-  ---  ------  --------------  ----- 
-   0   id      3 non-null      int64 
+   #   Column  Non-Null Count  Dtype
+  ---  ------  --------------  -----
+   0   id      3 non-null      int64
    1   value   3 non-null      object
   dtypes: int64(1), object(1)
   memory usage: 176.0+ bytes
@@ -423,6 +147,14 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   interface for SQLite databases: it allows you to submit SQLite
   commands from within a Python script. There is also a [[https://docs.python.org/3/library/sqlite3.html#sqlite3-tutorial][tutorial]].
 
+- The image illustrates how the Python modulde =sqlite3= works:
+  1. You run SQLite operations (like =SELECT=) in Python and results are
+     returned to the Python console.
+  2. The =sqlite3= module executes queries on the SQLite database, and
+     fetches results from the SQLite database.
+  3. To establish data transfer between database and Python script,
+     there is an Application Programming Interface (API), [[https://peps.python.org/pep-0249/][PEP 249]].
+
 - The steps to hitching SQLite to Python are as follows:
   1) With =sqlite3.connect=, initiate a new SQLite database connection
      object ~db_conn~, which creates an (empty) database ~test.db~.
@@ -433,7 +165,13 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   4) To execute SQLite queries on a given database, run =SELECT=
      commands on the tables using the =pandas= function =read_sql=.
 
-** Initiate a database connection creating an empty database (=sqlite3.connect=)
+* Initiate a database connection creating an empty database (=sqlite3.connect=)
+
+- Remove the ~test.db~ database if it already exists:
+  #+begin_src python :python python3 :session *Python* :results silent :exports both :comments both :tangle yes :noweb yes
+    import os
+    os.system("rm ../data/test.db")
+  #+end_src
 
 - Creating a connection object also creates an (empty) database:
   #+begin_src python :python python3 :session *Python* :results silent :exports both :comments both :tangle yes :noweb yes
@@ -450,15 +188,15 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
 
 - Check the empty database (=os.system= executes OS shell commands):
   #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
-    import os
     os.system("ls -l ../data/test.db")
   #+end_src
 
   #+RESULTS:
-  : -rw-r--r-- 1 marcus marcus 0 May 21 23:14 ../data/test.db
+  : -rw-r--r-- 1 marcus marcus 0 May 22 11:21 ../data/test.db
 
-** Run data definition commands on the database to create tables (~db_conn.cursor~)
-*** Database design =.schema=
+* Run data definition commands on the database to create tables (~db_conn.cursor~)
+
+- Data definition means that we need to devise a schema.
 
 - We want a very simple database schema:
   #+begin_example
@@ -476,10 +214,10 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   #+RESULTS:
   : Index(['id', 'value'], dtype='object')
 
-*** SQLite database reference =cursor=
+** SQLite database reference =cursor=
 
 - This is the database design that we're now going to build using the
-  =Cursor= object ~db_conn.cursor~ - a reference pointint at the database:
+  =Cursor= object ~db_conn.cursor~ - a reference pointing at the database:
   #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
     c = db_conn.cursor()
     print(type(c))
@@ -489,7 +227,7 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   : <class 'sqlite3.Cursor'>
 
 - You can get =help= on this object directly, or check the
-  [[https://docs.python.org/3/library/sqlite3.html#sqlite3.Cursor][documentation]]:
+  [[https://docs.python.org/3/library/sqlite3.html#sqlite3.Cursor][documentation]][fn:2]
   #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
     help(db_conn.cursor())
   #+end_src
@@ -500,61 +238,61 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
 
   class Cursor(builtins.object)
    |  SQLite database cursor class.
-   |  
+   |
    |  Methods defined here:
-   |  
+   |
    |  __init__(self, /, *args, **kwargs)
    |      Initialize self.  See help(type(self)) for accurate signature.
-   |  
+   |
    |  __iter__(self, /)
    |      Implement iter(self).
-   |  
+   |
    |  __next__(self, /)
    |      Implement next(self).
-   |  
+   |
    |  close(self, /)
    |      Closes the cursor.
-   |  
+   |
    |  execute(self, sql, parameters=(), /)
    |      Executes an SQL statement.
-   |  
+   |
    |  executemany(self, sql, seq_of_parameters, /)
    |      Repeatedly executes an SQL statement.
-   |  
+   |
    |  executescript(self, sql_script, /)
    |      Executes multiple SQL statements at once.
-   |  
+   |
    |  fetchall(self, /)
    |      Fetches all rows from the resultset.
-   |  
+   |
    |  fetchmany(self, /, size=1)
    |      Fetches several rows from the resultset.
-   |      
+   |
    |      size
    |        The default value is set by the Cursor.arraysize attribute.
-   |  
+   |
    |  fetchone(self, /)
    |      Fetches one row from the resultset.
-   |  
+   |
    |  setinputsizes(self, sizes, /)
    |      Required by DB-API. Does nothing in sqlite3.
-   |  
+   |
    |  setoutputsize(self, size, column=None, /)
    |      Required by DB-API. Does nothing in sqlite3.
-   |  
+   |
    |  ----------------------------------------------------------------------
    |  Data descriptors defined here:
-   |  
+   |
    |  arraysize
-   |  
+   |
    |  connection
-   |  
+   |
    |  description
-   |  
+   |
    |  lastrowid
-   |  
+   |
    |  row_factory
-   |  
+   |
    |  rowcount
   #+end_example
 
@@ -576,23 +314,77 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
     tab = c.execute("SELECT name FROM sqlite_master")
     print(tab.fetchone())
+    os.system("ls -l ../data/test.db")
   #+end_src
 
   #+RESULTS:
   : ('test',)
+  : -rw-r--r-- 1 marcus marcus 8192 May 22 11:22 ../data/test.db
 
-- The query returns a tuple containing the table's name ~test~.
+- The query returns a tuple containing the table's name ~test~ - still
+  empty except for the table definition.
 
-** Insert data from the Data.Frame into database tables (=pd.to_sql=)
+* Insert data from the =DataFrame= into database tables (=pd.to_sql=)
 
-** Run queries on the database tables (=pd.read_sql=)
+- This command transfers the content of ~df~ to the ~test~ table in our
+  database.
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    df.to_sql('test',  # target table
+              db_conn, # database connection
+              if_exists='append', # append data if table exists
+              index=False)  # do not add DataFrame index as a table column
+  #+end_src
+
+* Run queries on the database tables (=pd.read_sql=)
+
+- To run queries on the data, we use =pandas= function =read_sql=. The
+  first argument is the command, the second the database connection:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    query = pd.read_sql("SELECT * FROM test", db_conn)
+    print(query)
+  #+end_src
+
+  #+RESULTS:
+  :    id              value
+  : 0   1  Ms. Jane Robinson
+  : 1   2  Mr. Carl Robinson
+  : 2   3   Mr. Edward Jones
+
+- The first column is not a table column but the index column of the
+  output =DataFrame=:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    print(query.info())
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  <class 'pandas.core.frame.DataFrame'>
+  RangeIndex: 3 entries, 0 to 2
+  Data columns (total 2 columns):
+   #   Column  Non-Null Count  Dtype 
+  ---  ------  --------------  ----- 
+   0   id      3 non-null      int64 
+   1   value   3 non-null      object
+  dtypes: int64(1), object(1)
+  memory usage: 176.0+ bytes
+  None
+  #+end_example
+
+- The =read_sql= function is a wrapper around two other functions from
+  the =SQLAlchemy= toolkit - if you want to get more deeply into writing
+  Python scripts for database access, check out the [[https://www.sqlalchemy.org/][documentation]].
 
 * Footnotes
+[fn:2]The cursor may appear like a pointless abstraction to you - why
+not just use the connection object? The reason is encapsulation of
+SQLite commands - the connection manages the connection to the
+database, while the cursor contains methods to execute SQLite
+commands. The cursor also maintains the state of the current query,
+which is critical for fetching data in chunks and adds efficiency.
 
 [fn:1]You do not need a fancy setup with the =conda= platform if you use
-  an interactive ('Jupyter') notebook installation in the cloud. If
-  you're using Emacs (which is what I do), you're also set
-  (locally). What I've done is write all of this as a literate program
-  in Emacs, which I will then render as an IPython notebook
-  (~excel_to_sqlite.ipynb~), upload to DataLab and share with you.
-
+an interactive ('Jupyter') notebook installation in the cloud. If
+you're using Emacs (which is what I do), you're also set
+(locally). What I've done is write all of this as a literate program
+in Emacs, which I will then render as an IPython notebook
+(~excel_to_sqlite.ipynb~), upload to DataLab and share with you.
