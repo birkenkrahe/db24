@@ -67,20 +67,18 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
     .mode csv
     /* write foods data */
     .output foods.csv
-    SELECT id AS foods_id,
-           name AS foods_name
-           FROM foods;
+    SELECT id,name FROM foods;
     /* write food types data */	           
     .output food_types.csv
-    SELECT id AS food_types_id,
-           name AS food_types_name
-           FROM food_types;
+    SELECT id,name FROM
+    name AS food_types_name
+    FROM food_types;
     /* write episode data */	           
     .output episodes.csv
     SELECT id AS episodes_id,
-           season AS episodes_season,
-           name AS episodes_name
-           FROM episodes;
+    season AS episodes_season,
+    name AS episodes_name
+    FROM episodes;
     .output stdout
     .shell head -3 foods.csv food_types.csv episodes.csv
   #+end_src
@@ -176,12 +174,12 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   #+end_src
 
   #+RESULTS:
-  :    id  type_id                     name
-  : 0   1        1                   Bagels
-  : 1   2        1           Bagels, raisin
-  : 2   3        1       Bavarian Cream Pie
-  : 3   4        1               Bear Claws
-  : 4   5        1  Black and White cookies
+  :    foods_id               foods_name
+  : 0         1                   Bagels
+  : 1         2           Bagels, raisin
+  : 2         3       Bavarian Cream Pie
+  : 3         4               Bear Claws
+  : 4         5  Black and White cookies
 
 - You see that there's an extra column for the row index starting
   at 0. The =pandas= function =info= provides overall information:
@@ -193,22 +191,21 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   #+begin_example
   <class 'pandas.core.frame.DataFrame'>
   RangeIndex: 412 entries, 0 to 411
-  Data columns (total 3 columns):
-   #   Column   Non-Null Count  Dtype 
-  ---  ------   --------------  ----- 
-   0   id       412 non-null    int64 
-   1   type_id  412 non-null    int64 
-   2   name     412 non-null    object
-  dtypes: int64(2), object(1)
-  memory usage: 9.8+ KB
+  Data columns (total 2 columns):
+   #   Column      Non-Null Count  Dtype 
+  ---  ------      --------------  ----- 
+   0   foods_id    412 non-null    int64 
+   1   foods_name  412 non-null    object
+  dtypes: int64(1), object(1)
+  memory usage: 6.6+ KB
   None
   #+end_example
 
-- We import the sheet ~food_types~ in ~foods.xlsx~ a =Data.Frame= named ~food_types~:
+- We import the sheet ~food_types~ in ~foods.xlsx~ a =DataFrame= named ~food_types~:
   #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
     food_types = pd.read_excel('foods.xlsx',
-                          sheet_name='food_types',
-                          header=0)
+                               sheet_name='food_types',
+                               header=0)
     print(food_types.head())
   #+end_src
 
@@ -220,11 +217,11 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
   : 3              4      Condiments
   : 4              5           Dairy
 
-- We import the sheet ~episodes~ in ~foods.xlsx~ a =Data.Frame= named ~episodes~:
+- We import the sheet ~episodes~ in ~foods.xlsx~ a =DataFrame= named ~episodes~:
   #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
     episodes = pd.read_excel('foods.xlsx',
-                          sheet_name='episodes',
-                          header=0)
+                             sheet_name='episodes',
+                             header=0)
     print(episodes.head())
   #+end_src
 
@@ -253,23 +250,181 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
 
 - The steps to hitching SQLite to Python are as follows:
   1) With =sqlite3.connect=, initiate a new SQLite database connection
-     object, which creates an (empty) database ~foods.db~.
-  2) Assign this object to a Python variable ~db_conn~, which points at
-     the (empty) database.
-  3) Run a =cursor= object on the connection. This object lets us
+     object ~db_conn~, which creates an (empty) database ~foods.db~.
+  2) Run a =cursor= object on the connection. This object lets us
      =execute= SQLite data definition commands like =CREATE TABLE=.
-  4) Run the =pandas= function =to_sql= on a =Data.Frame= to =INSERT= data
+  3) Run the =pandas= function =to_sql= on a =DataFrame= to =INSERT= data
      into an SQLite table.
-  5) To execute SQLite queries on a given database, run =SELECT=
+  4) To execute SQLite queries on a given database, run =SELECT=
      commands on the tables using the =pandas= function =read_sql=.
 
 ** Initiate a database connection creating an empty database (=sqlite3.connect=)
 
+- Creating a connection object also creates an (empty) database:
+  #+begin_src python :python python3 :session *Python* :results silent :exports both :comments both :tangle yes :noweb yes
+    db_conn = sqlite3.connect("../data/foods.db")
+  #+end_src
 
+- Type of object:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    print(type(db_conn))
+  #+end_src
 
-** Assign database connection to a connector variable (~db_conn~)
+  #+RESULTS:
+  : <class 'sqlite3.Connection'>
+
+- Check the empty database (=os.system= executes OS shell commands):
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    import os
+    os.system("ls -l ../data/foods.db")
+  #+end_src
+
+  #+RESULTS:
+  : -rw-r--r-- 1 marcus marcus 0 May 21 21:58 ../data/foods.db
 
 ** Run data definition commands on the database to create tables (~db_conn.cursor~)
+
+*** Database design =.schema=
+
+- We already know which database design we want (from ~foods.sql~)
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .schema foods
+    .schema food_types
+    .schema episodes
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  CREATE TABLE foods(
+    id integer primary key,
+    type_id integer,
+    name text );
+  CREATE TABLE food_types(
+    id integer primary key,
+    name text );
+  CREATE TABLE episodes (
+    id integer primary key,
+    season int,
+    name text );
+  #+end_example
+
+- We know that the bridge table ~foods_episodes~ will fix the M:N
+  redundancy issue between ~foods~ and ~episodes~:
+  #+begin_src sqlite :db test.db :header :column :results output :exports both :comments both :tangle yes :noweb yes
+    .schema foods_episodes
+  #+end_src
+
+  #+RESULTS:
+  : CREATE TABLE foods_episodes(
+  :   food_id integer,
+  :   episode_id integer );
+
+- The =DataFrame= objects where we stored the data, are already aligned
+  with this database design (apart from the bridge table
+  ~foods_episodes~):
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    print(foods.columns)
+    print(food_types.columns)
+    print(episodes.columns)        
+  #+end_src
+
+  #+RESULTS:
+  : Index(['foods_id', 'foods_name'], dtype='object')
+  : Index(['food_types_id', 'food_types_name'], dtype='object')
+  : Index(['episodes_id', 'episodes_season', 'episodes_name'], dtype='object')
+
+*** SQLite database reference =cursor=
+
+- This is the database design that we're now going to build using the
+  =Cursor= object ~db_conn.cursor~ - a reference pointint at the database:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    c = db_conn.cursor()
+    print(type(c))
+  #+end_src
+
+  #+RESULTS:
+  : <class 'sqlite3.Cursor'>
+
+- You can get =help= on this object directly, or check the
+  [[https://docs.python.org/3/library/sqlite3.html#sqlite3.Cursor][documentation]]:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    help(db_conn.cursor())
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  Help on Cursor in module sqlite3 object:
+
+  class Cursor(builtins.object)
+   |  SQLite database cursor class.
+   |  
+   |  Methods defined here:
+   |  
+   |  __init__(self, /, *args, **kwargs)
+   |      Initialize self.  See help(type(self)) for accurate signature.
+   |  
+   |  __iter__(self, /)
+   |      Implement iter(self).
+   |  
+   |  __next__(self, /)
+   |      Implement next(self).
+   |  
+   |  close(self, /)
+   |      Closes the cursor.
+   |  
+   |  execute(self, sql, parameters=(), /)
+   |      Executes an SQL statement.
+   |  
+   |  executemany(self, sql, seq_of_parameters, /)
+   |      Repeatedly executes an SQL statement.
+   |  
+   |  executescript(self, sql_script, /)
+   |      Executes multiple SQL statements at once.
+   |  
+   |  fetchall(self, /)
+   |      Fetches all rows from the resultset.
+   |  
+   |  fetchmany(self, /, size=1)
+   |      Fetches several rows from the resultset.
+   |      
+   |      size
+   |        The default value is set by the Cursor.arraysize attribute.
+   |  
+   |  fetchone(self, /)
+   |      Fetches one row from the resultset.
+   |  
+   |  setinputsizes(self, sizes, /)
+   |      Required by DB-API. Does nothing in sqlite3.
+   |  
+   |  setoutputsize(self, size, column=None, /)
+   |      Required by DB-API. Does nothing in sqlite3.
+   |  
+   |  ----------------------------------------------------------------------
+   |  Data descriptors defined here:
+   |  
+   |  arraysize
+   |  
+   |  connection
+   |  
+   |  description
+   |  
+   |  lastrowid
+   |  
+   |  row_factory
+   |  
+   |  rowcount
+  #+end_example
+
+- Now create the three tables in ~foods.db~ that we initialized earlier:
+  #+begin_src python :python python3 :session *Python* :results output :exports both :comments both :tangle yes :noweb yes
+    # foods table
+    c.execute(
+        """
+        CREATE TABLE foods(
+    id integer primary key,
+    type_id integer,
+    name text );
+  #+end_src
 
 ** Insert data from the Data.Frame into database tables (=pd.to_sql=)
 
