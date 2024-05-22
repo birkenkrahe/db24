@@ -1,11 +1,11 @@
-#+title: Converting Excel spreadsheets to SQLite using Python
+#+title: Converting Excel spreadsheets to SQLite with Python
 #+startup: overview hideblocks indent entitiespretty:
 #+property: header-args:python :python python3 :session *Python* :results output :exports both :noweb yes :tangle yes:
 * README
 
 This is a short example to show how to
 1) Write SQLite data to CSV files
-2) Import CSV files into Excel workbook ([[https://tinyurl.com/foods-csv][tinyurl.com/foods-csv]])
+2) Import CSV files into Excel workbook
 3) Read Excel data into a Python dataframe
 4) Create an SQLite database for the data
 5) Insert the data into the SQLite database
@@ -18,7 +18,8 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
 
 * Write SQLite data to a CSV file
 
-- Instead of the article data, I am using a very simple test file:
+- Instead of the article data, I am using a very simple test file
+  (downloadable [[https://raw.githubusercontent.com/birkenkrahe/db24/main/data/test.csv][tinyurl.com/test-data-csv]]):
   #+begin_example
   id,value
   1,"Ms. Jane Robinson"
@@ -67,22 +68,24 @@ S.A. Adams (May 18, 2020). URL: [[https://towardsdatascience.com/turn-your-excel
     help(pd.read_excel)
   #+end_example
 
-- Here's the top of the =help= output:
+- Here's the top of the =help= output (indentation changed):
   #+begin_example
-  read_excel(io, sheet_name: 'str | ... header: 'int | Sequence[int] | None' = 0, ...]'
+  read_excel(io,
+             sheet_name: 'str | [...]
+             header: 'int | Sequence[int] | None' = 0, ...]'
 
       Read an Excel file into a ``pandas`` ``DataFrame``.
 
-      Supports `xls`, `xlsx`, `xlsm`, `xlsb`, `odf`, `ods` and `odt` file extensions
-      read from a local filesystem or URL. Supports an option to read
-      a single sheet or a list of sheets.
+      Supports `xls`, `xlsx`, `xlsm`, `xlsb`, `odf`, `ods` and `odt`
+      file extensions. Read from a local filesystem or URL. Supports
+      an option to read a single sheet or a list of sheets.
 
       [...]
 
       See Also
       --------
       DataFrame.to_excel : Write DataFrame to an Excel file.
-      DataFrame.to_csv : Write DataFrame to a comma-separated values (csv) file.
+      DataFrame.to_csv : Write DataFrame to comma-separated values file
       read_csv : Read a comma-separated values (csv) file into DataFrame.
       read_fwf : Read a table of fixed-width formatted lines into DataFrame.
   #+end_example
