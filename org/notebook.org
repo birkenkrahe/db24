@@ -2112,6 +2112,36 @@ queries, while MySQL just keeps locking up when you need support!
 #+attr_html: :width 400px:
 [[../img/week_16.png]]
 
+* Post-mortem (May 23)
+
+Thank you for the course evaluations - they were a little
+'minimalistic', which is why my summer image for you is in that
+style - Paul Klee's "Flora on the Sand" (1927). As you can see, most
+of the interesting details are missing, too :-) I think you were
+probably survey-tired (and it was the late afternoon, and at the end
+of term, etc.). Makes me wonder if abstract art came about because
+artists could no longer be bothered with the details ... as a result,
+art turns into playful decoration.
+
+Coming back to the course: I hope you enjoyed it as much as I did - I
+think it was better, more focused, more succinct, than 2 years ago,
+and the projects were worthwhile. I didn't get direct comments on
+these projects but nobody said to drop them either. If you have
+specific comments on improving any part of this important course
+(especially for data science), let me have them via email any time!
+Until then - don't let your SQL skills go to waste. I've mentioned
+this book before: Beaulieu, Learning SQL (3rd ed) is the best book to
+keep SQL going. I originally learnt it with the first edition of this
+book (uses MySQL, which is probably the best choice for industrial
+strength databases - get it with XAMPP). And for all of databases,
+theory, manipulation, design and management, refer to
+https://www.pdbmbook.com/ with its many resources. We've got a copy in
+the library.
+
+#+attr_html: :width 400px:
+[[../img/flora_in_the_sand_klee_1927.png]]
+
+
 * References
 
 Lemahieu, Vanden Broucke, Baesens: Principles of Database Management:
